@@ -1,0 +1,82 @@
+.footer-container{
+    background-color: #84644D;
+    display: flex;
+    flex-direction: column;
+    height: 270px;
+    min-width: 100vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.topo-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2vh;
+}
+
+.icon_footer:hover,
+.links-footer p:hover{
+    cursor: pointer;
+}
+
+.links-footer{
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    color: #FBFBFB;
+    font-family: Fredoka;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.links-footer p{
+    color: #FBFBFB;
+    font-family: Fredoka;
+    font-weight: 500;
+    font-size: 22px;
+    margin-left: 10px;
+}
+.sobre-nos{
+    text-decoration: none;
+}
+
+
+.barra_footer{
+    width: 80vw; 
+    height: 2px; 
+    background-color: #FBFBFB; 
+    border: none; 
+    border-radius: 20px; 
+}
+
+.icons-footer{
+    margin-left: 10em;
+    display: flex;
+}
+.icon_footer{
+    color: #FBFBFB;
+    font-size: 36px;
+    margin-left: 25px;
+}
+
+.icon_wpp, .icon_insta{
+    color: #FBFBFB;
+    margin-left: 10px;
+    font-size: 40px;
+}
+
+.direitos p{
+    display: flex;
+    font-size: 22px;
+    font-family: Fredoka;
+    color: #FBFBFB;
+    align-items: center;
+    font-weight: 500;
+    margin-top: 5vh;
+}
+.logo-footer{
+    width: 120px;
+    height: auto;
+    margin-right: 5em;
+}

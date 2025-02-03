@@ -1,0 +1,104 @@
+.home-container{
+    min-height: calc(100vh - 390px);
+    display: flex;
+    flex-direction: column;
+}
+
+.meio-home{
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    overflow-x: hidden;
+}
+
+.banner-home{
+    min-width: 100vw;
+}
+
+.texto-home{
+    align-items: center;
+    margin: auto;
+    justify-content: flex-start;
+}
+
+.texto-home h2{
+    font-size: 65px;
+    color: #654833;
+    font-weight: 800;
+    font-family: "Open Sans", sans-serif;
+}
+
+.texto-home p{
+    width: 51vw;
+    font-size: 32px;
+    font-family: Fredoka;
+    margin-top: 8vh;
+    margin-bottom: 8vh;
+}
+
+.dog-home{
+    height: 85vh;
+}
+
+.botoes-home button{
+    height: 85px;
+    width: 400px;
+    margin-left: 1vw;
+    box-shadow: #000 0px 0px 1px;
+}
+
+.botoes-home button:hover{
+    cursor: pointer;
+}
+
+.botao-adotar{
+    border-radius: 14px;
+    border: 2px solid var(--cor-1);
+    background-color: #ffffff00;
+    font-size: 32px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    letter-spacing: .05em;
+    color: #84644D;
+}
+
+.botao-cadastrar{
+    border-radius: 14px;
+    border: none;
+    background-color: #84644D;
+    font-size: 32px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    letter-spacing: .05em;
+    color: #EBE5E0;
+}
+
+.titulo-home{
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+    .texto-home h2 {
+        font-size: 48px;
+    }
+
+    .texto-home p {
+        width: 80vw;
+        font-size: 24px;
+    }
+
+    .botoes-home button {
+        width: 250px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .dog-home {
+        height: 50vh;
+    }
+
+    .meio-home {
+        flex-direction: column;
+    }
+}

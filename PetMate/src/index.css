@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html, #root {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden; 
+}
+
+:root{
+    --cor-1: #84644D;
+    --cor-2: #ffffff;
+    --cor-3: #FBFBFB;
+    --cor-4: #EBE5E0;
+}
+
+body{
+    background-color: #EBE5E0;
+    font-family: Roboto;
+}
+
+
+

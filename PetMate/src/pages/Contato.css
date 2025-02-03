@@ -1,0 +1,111 @@
+.contato-container{
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 100px);
+    min-width: 100vw;
+    background-image: url(/images/fundo_patas.svg);
+
+}
+
+.banner-contato img{
+    min-width: 100vw;
+    height: auto;
+}
+
+.meio-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.infos-contato{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    text-align: left;
+    width: 35vw;
+    margin-bottom: 5em;
+}
+
+.info-visao{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.infos-contato h2{
+    color: #84644D;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+
+.fale-conosco{
+    display: flex;
+    flex-direction: column;
+    background-color: #84644D;
+    padding: 30px;
+    border-radius: 12px;
+    min-height: 35em;
+    min-width: 35em;
+
+    
+}
+
+.fale-conosco-title{
+    display: flex;
+    color: whitesmoke;
+    align-items: center;
+    margin: auto;
+    transform: scale(1.15);
+}
+
+.dog-oculos{
+    margin-top: 5em;
+    margin-left: 2em;
+}
+
+.barra-info{
+    height: 5px;
+    width: 25em;
+    background-color: #84644D;
+    border-radius: 8px;
+}
+
+.social{
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+
+    
+}
+
+.social p{
+    font-size: 24px;
+    color: whitesmoke;
+    margin-left: 10px;
+}
+
+.f-c-social{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.f-c-tel{
+    margin-left: 10px;
+}
+
+.infos-contato p {
+    font-family: Fredoka;
+    font-size: 24px;
+}
+
+.infos-contato h2 {
+    font-family: Open sans, sans-serif;
+    font-weight: 800;
+}

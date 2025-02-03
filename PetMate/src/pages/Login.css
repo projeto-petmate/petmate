@@ -1,0 +1,323 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.container-login{
+    font-family: inter;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('/images/fundo_patas.svg');
+
+}
+.titulo-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    /* border: solid; */
+}
+
+/* <<CONTAINER ESQUERDA>> */
+
+.img_cachorro{
+    margin-top: 5vh;
+    height: 900px;
+}
+/* <<CONTAINER ESQUERDA//>> */
+
+
+/* <<CONTAINER DIREITA>> */
+.info-login{
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px 0px 10px;
+    height: 100vh;
+    width: 50%;
+}
+/* <<CONTAINER DIREITA//>> */
+
+
+
+/* <<H2 + BOTÃO LOGIN>> */
+.texto-login{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    height: auto;
+    margin-left: 3em;
+    /* border: solid; */
+
+}   
+
+.texto-login h2{
+    /* margin-top: 1px; */
+    font-family: Koh Santepheap;
+    font-size: 44px;
+}
+.texto-login p{
+    font-size: 20px;
+    font-family: inter;
+}
+
+.barra_marrom{
+    height: 12px;
+    width: 30%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    
+}
+
+.texto-login button{
+    width: 8em;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: var(--cor-1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* <<H2 + BOTÃO LOGIN//>> */
+
+
+
+/* <<INPUTS>> */
+.inputs-login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 25em;
+    /* border: solid; */
+    
+}
+
+.inputs-login p{
+    font-family: inter;
+    font-size: 22px;
+}
+
+.inpt-p{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-bottom: 30px;
+}
+.inpts-login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* padding: 0px 60px 0px 85px; */
+    /* margin-top: 8em; */
+    /* border: solid #26c7bf; */
+    /* justify-content: flex-start; */
+    margin-left: 50px;
+
+}
+
+.inpts-login input{
+    width: 550px;
+    height: 65px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.inpts-login input:focus {
+    outline: 1px;
+    border: 1px solid #84644D;
+    background-color: #f3f3fc;
+    transition: 0.23s;
+}
+
+.mostrar-senha {
+    display: flex;
+}
+
+.icon-mostrar-senha {
+    height: 65px;
+    width: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    border-radius: 0px 5px 5px 0px;
+    border-left: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding-right: 15px;
+}
+
+.icon-mostrar-senha button {
+    background-color: #FFFFFF;
+    border: none;
+    outline: none;
+    font-size: 24px;
+}
+
+.icon-mostrar-senha button:focus {
+    background-color: #FFFFFF;
+    outline: none;
+    border: none;
+}
+
+.inpts-login input:focus + .icon-mostrar-senha {
+    background-color: #f3f3fc;
+    border: 1px solid #84644D;
+    border-left: none;
+    transition: 0.23s;
+
+}
+
+.icon-mostrar-senha button:focus-within {
+    background-color: #FFFFFF;
+}
+
+
+#inputSenha{
+    width: calc(550px - 40px);
+    height: 65px;
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.mostrar-senha{
+    display: flex;
+}
+
+.icon-mostrar-senha{
+    height: 65px;
+    width: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+    border-radius: 0px 5px 5px 0px;
+    border-left: none;
+    font-size: 28px;
+    cursor: pointer;
+    padding-right: 15px;
+    outline: none;
+}
+/* <<INPUTS//>> */
+
+
+
+/* <<CADASTRO + BOTÃO>> */
+.base-login{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    margin-top: 3em;
+    margin-bottom: 0;
+    /* border: solid; */
+
+}
+
+.sem-cadastro{
+    font-size: 20px;
+    font-family: roboto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    /* border: solid; */
+
+}
+
+.sem-cadastro a{
+    font-size: 20px;
+    text-decoration: none;
+    margin: 5px;
+    color: #84644D;
+    /* padding: 10px; */
+}
+
+.base-login button {
+    height: 65px;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 24px;
+    background-color: var(--cor-1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.base-login button:hover {
+    transform: scale(1.02);
+    transition: 0.3s ease;
+    background-color: #5f4a3b;
+}
+/* <<CADASTRO + BOTÃO//>> */
+
+/* CUSTOMIZAÇÃO */
+.info-login, .base-login button {
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.icon-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.icon-input p{
+    margin-left: 10px;
+}
+.icon-login{
+    font-size: 24px;
+}
+
+
+.erro-mensagem-login{
+    color: rgb(219, 16, 16);;
+    text-align: center;
+    font-size: 20px;
+    /* border: solid; */
+    margin-left: 70px;
+    margin-top: -80px;
+    margin-bottom: 90px;
+    /* margin-right: 40px; */
+}
+
+
+@media screen and (max-width: 768px) {
+    .container-login {
+        flex-direction: column;
+    }
+
+    .img_cachorro {
+        height: 300px;
+    }
+
+    .info-login {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .inpts-login input {
+        width: 90%;
+    }
+
+    .texto-login h2 {
+        font-size: 32px;
+    }
+
+    .texto-login p, .base-login button, .sem-cadastro a {
+        font-size: 18px;
+    }
+}

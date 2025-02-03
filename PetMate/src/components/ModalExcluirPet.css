@@ -1,0 +1,61 @@
+.botao_modal_excluir, .botao_modal_cancelar{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #84644D;
+    color: #FFFFFF;
+    padding: 5px;
+    margin-left: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    
+}
+
+.conteiner_modal_Exclui{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    min-height: 40vh;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    width: 35vw;
+    box-shadow: 2px 2px 4px #545454;
+    margin-top: 240px;
+    border: #644732 solid;
+}
+
+.modal_conteiner_Exclui{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+}
+
+.meio-modal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.Botao_Exclui{
+    margin-top: 20px;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+.Botao_Exclui button{
+    padding: 10px;
+}
+.texto_Exclui{
+    margin-top: 40px;
+    font-size: 14px;
+    text-align: center;
+}

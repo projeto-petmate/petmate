@@ -1,0 +1,72 @@
+.adotar-container{
+  background-image: url(/images/fundo_patas.svg);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px);
+  padding-bottom: 20px;
+}
+
+.titulo-adotar{
+  margin-left: 50px;
+}
+
+.titulo-adotar h2{
+  font-size: 40px;
+  color: #654833;
+  margin-bottom: 10px;
+  font-weight: 800;
+  
+}
+
+.titulo-adotar p{
+  font-size: 24px;
+  font-family: fredoka;
+}
+
+.titulo-botao-adotar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  gap: 800px;
+}
+
+.botao-modal{
+  padding: 3px;
+  width: 250px;
+  height: 60px;
+  font-weight: 600;
+  font-size: 24px;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #84644D;
+  color: #F5F5F5;
+  border: 2px #484848;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-right: 100px;
+}
+
+.pets-container{
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 768px) {
+  .titulo-adotar h2 {
+    font-size: 30px;
+  }
+
+  .titulo-adotar p {
+    font-size: 16px;
+  }
+
+  .titulo-botao-adotar {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .botao-modal {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+  }
+}

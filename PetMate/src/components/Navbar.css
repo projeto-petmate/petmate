@@ -1,0 +1,118 @@
+/* .navbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    
+} */
+
+
+.navbar-container{
+
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    align-items: center;
+    /* justify-content: space-evenly; */
+    justify-content: center;
+    padding: 10px;
+    height: 120px;
+    background-color: #84644D;
+    
+
+}
+
+.botoes-nav{
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    align-items: center;
+}
+
+a{
+    font-size: 26px;
+}
+
+
+.nav-img{
+    width: 120px;
+    margin-right: 20vw;
+    align-items: center;
+    /* border: solid; */
+}
+
+.nav-img:hover{
+    cursor: pointer;
+}
+
+.botoes-nav a {
+    color: #fbfbfb; 
+    text-decoration: none; 
+    /* margin: 0 15px; */
+    font-family: 'Roboto', sans-serif; 
+    font-weight: 300; 
+    transition: color 0.5s; 
+}
+
+.botoes-nav a:hover {
+    /* color: #312319; */
+    transform: scale(1.05);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.icon-perfil{
+    font-size: 50px;
+    color: #fbfbfb;
+}
+
+.profile{
+    height: 60px;
+    width: 120px;
+}
+
+.loginNav, .cadastroNav{
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 20px;
+    width: 170px;
+    height: 45px;
+    border-radius: 12px;
+    letter-spacing: 0.04em;
+}
+
+.loginNav{
+    /* border: solid #312319 2px; */
+    border: none;
+    background-color: #fbfbfb;
+    color: #312319;
+    margin-right: 20px;
+}
+
+.cadastroNav{
+    border: none;
+    color: #F5F5F5;
+    background-color: #654833;
+}
+
+.loginNav:hover, .cadastroNav:hover{
+    cursor: pointer;
+}
+.nav-logado{
+    display: flex;
+    align-items: center;
+}
+
+.botao-modal-navbar{
+    padding: 3px;
+    width: 200px;
+    height: 50px;
+    font-weight: 600;
+    font-size: 24px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #fbfbfb;
+    color: #654833;
+    border: 2px #484848;
+    border-radius: 8px;
+    cursor: pointer;
+}
