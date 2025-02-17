@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .contato-container{
     display: flex;
     flex-direction: column;
@@ -39,6 +42,7 @@
 
 .infos-contato h2{
     color: #84644D;
+    font-family: Raleway;
     font-size: 38px;
     margin-bottom: 10px;
 }
@@ -101,11 +105,12 @@
 }
 
 .infos-contato p {
-    font-family: Fredoka;
+    font-family: Nunito;
+    font-weight: 600;
     font-size: 24px;
 }
 
 .infos-contato h2 {
-    font-family: Open sans, sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-weight: 800;
 }

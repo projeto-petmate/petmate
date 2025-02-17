@@ -109,13 +109,13 @@
     letter-spacing: 0.025em;
     font-family: Roboto;
     margin-bottom: 30px;
-    margin-left: 690px;
 }
 
 .sair-conta{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .icon-logout{
@@ -191,6 +191,7 @@
 .conteiner-configuracoes{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .dadoPerma{

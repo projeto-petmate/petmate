@@ -48,8 +48,7 @@ a{
 .botoes-nav a {
     color: #fbfbfb; 
     text-decoration: none; 
-    /* margin: 0 15px; */
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'nunito', sans-serif; 
     font-weight: 300; 
     transition: color 0.5s; 
 }
@@ -109,7 +108,8 @@ a{
     height: 50px;
     font-weight: 600;
     font-size: 24px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'nunito', sans-serif;
+    font-weight: bold;
     background-color: #fbfbfb;
     color: #654833;
     border: 2px #484848;

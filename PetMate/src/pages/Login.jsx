@@ -26,8 +26,9 @@ function Login() {
             });
             const data = await response.json();
             if (response.ok) {
+                
                 console.log('Login bem-sucedido:', data);
-                setErro('');
+                setErro('Login efetuado com sucesso!');
                 
                 localStorage.setItem("logado", JSON.stringify(true));
                 localStorage.setItem("userLogado", JSON.stringify(data.user));
@@ -96,7 +97,7 @@ function Login() {
                                             onChange={(e) => setSenha(e.target.value)}
                                         />
                                         <button onClick={MostrarSenha} className='icon-mostrar-senha'>
-                                            {mudarTipo ? <FaRegEye /> : <FaRegEyeSlash />}
+                                            {mudarTipo  ? <FaRegEyeSlash /> : <FaRegEye />}
                                         </button>
                                     </div>
                                 </div>

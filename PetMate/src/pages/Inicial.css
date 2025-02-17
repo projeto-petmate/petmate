@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 .home-container{
     min-height: calc(100vh - 390px);
     display: flex;
@@ -25,13 +27,14 @@
     font-size: 65px;
     color: #654833;
     font-weight: 800;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 .texto-home p{
     width: 51vw;
     font-size: 32px;
-    font-family: Fredoka;
+    font-family: Nunito;
+    font-weight: 600;
     margin-top: 8vh;
     margin-bottom: 8vh;
 }
@@ -56,7 +59,7 @@
     border: 2px solid var(--cor-1);
     background-color: #ffffff00;
     font-size: 32px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "nunito", sans-serif;
     font-weight: bold;
     letter-spacing: .05em;
     color: #84644D;
@@ -67,7 +70,7 @@
     border: none;
     background-color: #84644D;
     font-size: 32px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "nunito", sans-serif;
     font-weight: bold;
     letter-spacing: .05em;
     color: #EBE5E0;

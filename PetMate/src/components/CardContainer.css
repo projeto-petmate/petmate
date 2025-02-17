@@ -52,12 +52,13 @@
     height: 45px;
     width: 180px;
     text-align: center;
-    background-color: #AD947E;
+    background-color: #84644d;
     border: none;
     border-radius: 8px;
     color: #F5F5F5;
     font-size: 16px;
     font-weight: bold;
+    font-family: nunito;
     letter-spacing: 0.01em;
     margin-top: -10px;
   }
