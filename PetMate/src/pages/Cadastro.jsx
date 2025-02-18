@@ -155,7 +155,7 @@ function Cadastro() {
                                     </div>
                                 </label>
                                 <InputMask
-                                    mask="(99) 99999-9999"
+                                    mask="99999999999"
                                     value={inptTelefoneCadastro}
                                     onChange={(e) => setInptTelefoneCadastro(e.target.value)}
                                 >

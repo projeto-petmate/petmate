@@ -59,7 +59,7 @@ export const GlobalContextProvider = ({children}) => {
         return (
             <div>
                 <InputMask
-                    mask="(99) 99999-9999"
+                    mask="(99) 999999999"
                     placeholder="(XX) XXXXX-XXXX"
                 >
                     {(inputProps) => <input {...inputProps} type="tel" />}

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './JanelaPet.css';
 import { PetContext } from "../contexts/PetContext";
 import axios from 'axios';
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext);
@@ -24,6 +25,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   if (!isOpen || !pet) {
     return null;
   }
+
+  const linkBase = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
 
   return (
     <div className='pet_modal_conteiner'>
@@ -62,8 +65,11 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               {doador && (
                 <div className="info-doador">
                   <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
-                  <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p>
+                  {/* <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p> */}
                   <p>Email: <div className="dados-doador">{doador.email}</div></p>
+                  <a href={linkBase}>
+                    <FaWhatsapp className='icon_wpp'/>
+                  </a>
                 </div>
               )}
             </div>

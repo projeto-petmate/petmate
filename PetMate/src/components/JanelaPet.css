@@ -168,7 +168,10 @@
     font-size: 20px;
     font-weight: normal;
 }
-
+.icon_wpp{
+    color: #654833;
+    font-size: 50px;
+}
 
 @media (max-width: 768px) {
     .conteiner_modal {

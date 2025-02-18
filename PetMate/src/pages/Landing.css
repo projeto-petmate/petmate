@@ -59,11 +59,13 @@
 .texto p{
     font-size: 24px;
     width: 770px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
 }
 
 
 .texto h2 {
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: 40px;
     margin-bottom: 40px;
     color: #775237;

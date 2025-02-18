@@ -59,8 +59,8 @@
     border: 2px solid var(--cor-1);
     background-color: #ffffff00;
     font-size: 32px;
-    font-family: "nunito", sans-serif;
-    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
     letter-spacing: .05em;
     color: #84644D;
 }
@@ -70,8 +70,8 @@
     border: none;
     background-color: #84644D;
     font-size: 32px;
-    font-family: "nunito", sans-serif;
-    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
     letter-spacing: .05em;
     color: #EBE5E0;
 }
