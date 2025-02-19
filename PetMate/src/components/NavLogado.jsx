@@ -13,6 +13,7 @@ function NavLogado() {
   return (
     <div className='nav-logado'>
         <button className='botao-modal-navbar' onClick={ () => setOpenCadModal(true)}>Anunciar Pet</button>
+
         <Link to="/perfil"><FaUserCircle className="profile"/></Link>
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
         

@@ -18,6 +18,8 @@
     overflow: hidden;
     transition: transform 0.2s;
     background-color: #fff;
+    border: 1px solid #ddd;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
   
   .pet-card:hover {

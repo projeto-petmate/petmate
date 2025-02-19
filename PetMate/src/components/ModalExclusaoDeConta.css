@@ -1,64 +1,67 @@
-.botao_modal_excluir, .botao_modal_cancelar{
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    margin-bottom: 10px;
-    font-size: 30px;
-    font-weight: bold;
+.botao_modal_excluir, .botao_modal_cancelar {
     background-color: #84644D;
     color: #FFFFFF;
-    padding: 5px;
-    margin-left: 30px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin-left: 10px;
     border: none;
     cursor: pointer;
-    border-radius: 10px;
-    
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.conteiner_modal_Exclui{
+.botao_modal_excluir:hover {
+    background-color: #6b4f3a;
+}
+
+.botao_modal_cancelar:hover {
+    background-color: #a67c5b;
+}
+
+.conteiner_modal_Exclui {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
     min-height: 40vh;
     background-color: #FFFFFF;
-    border-radius: 20px;
-    width: 35vw;
-    box-shadow: 2px 2px 4px #545454;
-    margin-top: 240px;
-    border: #644732 solid;
+    border-radius: 10px;
+    width: 30vw;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 3px solid #6b4f3a;
 }
 
-.modal_conteiner_Exclui{
+.modal_conteiner_Exclui {
     position: fixed;
-    /* min-height: 100vh; */
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1000;
-    
 }
 
-.meio-modal{
+.meio-modal {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
-    /* margin-top: 20px; */
-}
-
-.Botao_Exclui{
-    margin-top: 20px;
-    margin-right: 20px;
-    padding: 10px;
-}
-
-.Botao_Exclui button{
-    padding: 10px;
-}
-.texto_Exclui{
-    margin-top: 40px;
-    font-size: 14px;
     text-align: center;
+}
+
+.texto_Exclui h1 {
+    font-size: 27px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.Botao_Exclui {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }

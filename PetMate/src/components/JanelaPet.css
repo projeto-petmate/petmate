@@ -8,28 +8,85 @@
     z-index: 1000;
 }
 
-.conteiner_modal {
+.conteiner_modal_pet {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    max-width: 900px;
-    width: 100%;
+    width: 90vw;
     overflow-y: auto;
     max-height: 90vh;
-    border: none;
+    border: solid;
     border-left: #654833 25px solid;
-    /* border-right: #654833 15px solid; */
+    align-items: center;
+    padding: 20px;
+}
 
+.titulo-pet-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.titulo-pet-modal h2 {
+    font-size: 32px;
+    color: #654833;
+}
+
+.botao-fechar-pet {
+    background-color: #654833;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closeIcon {
+    color: white;
+    font-size: 30px;
 }
 
 .card-pet-container {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    /* border: solid; */
+}
+
+.modal-pet-1 {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 100%;
+    gap: 50px;
+    height: 70vh;
+    margin: auto;
+    justify-content: space-between;
+    /* border: solid; */
+    padding: 10px;
 }
+
+.modal-pet-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+    justify-content: space-between;
+    /* border: solid; */
+    padding: 10px;
+}
+
+.detalhes-desc {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
 
 .barra-pet-modal {
     width: 100%;
@@ -51,29 +108,27 @@
     gap: 20px;
 }
 
-.info-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-    width: 50em;
-}
 
 .detalhes-pet {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     text-align: start;
-    justify-content: space-evenly;
     text-transform: capitalize;
+    gap: 50px;
 }
 
-.detalhes-pet p, strong {
+.detalhePet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-bottom: 10px; */
+}
+
+.detalhes-pet p,
+strong {
     color: #654833;
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: -25px;
 }
 
 .detalhes-pet h4 {
@@ -82,40 +137,59 @@
     font-weight: normal;
 }
 
-.titulo-pet-modal {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
 
-.titulo-pet-modal h2 {
-    font-size: 32px;
-    color: #654833;
-}
 
-.descricao-pet{
-    display: flex;
-    flex-direction: column;
-    font-size: 18px;
-    word-break: break-word;
-    text-transform: none;
-    text-align: start;
-    border-radius: 8px;
+.descricao-pet {
     background-color: #EBE5E0;
     border: #654833 solid 2px;
-    margin-top: 10px;    
+    border-radius: 8px;
     padding: 20px;
-    width: 100%;
+    margin-top: 20px;
+    text-align: start;
+    height: 300px;
+    width: 37vw;
+    text-transform: initial;
+    font-size: 18px;
 }
 
-.desc-title{
+
+.desc-title {
+    color: #654833;
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.desc-title-2 {
+    color: #654833;
+    font-size: 24px;
+    font-weight: bold;
+    margin: auto;
+    margin-bottom: 5px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.info-title {
     color: #654833;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
+    width: 100%;
+}
+
+.info-container {
+    background-color: #EBE5E0;
+    border: #654833 solid 2px;
+    border-radius: 8px;
+    height: 30vh;
+    text-transform: initial;
+    text-align: start;
+    padding: 15px;
+    width: 40vw;
+
+
 }
 
 .info-doador-modal {
@@ -123,10 +197,10 @@
     border: #654833 solid 2px;
     border-radius: 8px;
     padding: 20px 0px 0px 20px;
-    width: 100%;
     margin-top: 20px;
     text-align: start;
     height: 300px;
+    width: 40vw;
     text-transform: initial;
 }
 
@@ -168,25 +242,24 @@
     font-size: 20px;
     font-weight: normal;
 }
-.icon_wpp{
+
+.icon_wpp,
+.iconEmail {
     color: #654833;
     font-size: 50px;
+    transition: 0.3s;
 }
 
-@media (max-width: 768px) {
-    .conteiner_modal {
-        padding: 10px;
-    }
+.icon_wpp:hover {
+    color: #25D366;
+}
 
-    .titulo-pet-modal h2 {
-        font-size: 24px;
-    }
+.iconEmail:hover {
+    color: #D44638;
+}
 
-    .detalhes-pet p, .info-doador p {
-        font-size: 16px;
-    }
-
-    .descricao-pet-modal, .info-doador-modal {
-        padding: 15px;
-    }
+.links-contato {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

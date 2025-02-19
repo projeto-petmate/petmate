@@ -44,8 +44,8 @@ function Inicial() {
                   </Link>
 
                   {logado ? (
-                    <button className='botao-cadastrar' onClick={ () => setOpenModal(true)}>Cadastrar Pet</button>
-                  ) : <button className='botao-cadastrar' onClick={ () => navigate('/login')}>Cadastrar Pet</button>}
+                    <button className='botao-cadastrar' onClick={ () => setOpenModal(true)}>Anunciar Pet</button>
+                  ) : <button className='botao-cadastrar' onClick={ () => navigate('/login')}>Anunciar Pet</button>}
                 </div>
 
               </div>

@@ -23,7 +23,9 @@ function Footer() {
           <div className="icons-footer">
               <FaFacebook className='icon_footer'/>
               <FaWhatsapp className='icon_footer'/>
-              <FaInstagram className='icon_footer'/>
+              <a href="">
+                <FaInstagram className='icon_footer'/>
+              </a>
 
           </div>
         </div>

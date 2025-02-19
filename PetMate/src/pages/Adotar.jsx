@@ -40,8 +40,8 @@ function Adotar() {
           </div>
           <div>
           {logado ? (
-                      <button className='botao-modal' onClick={ () => setOpenCadModal(true)}>Cadastrar Pet</button>
-                  ) : <button className='botao-modal' onClick={ () => navigate('/login')}>Cadastrar Pet</button>}
+                      <button className='botao-modal' onClick={ () => setOpenCadModal(true)}>Anunciar Pet</button>
+                  ) : <button className='botao-modal' onClick={ () => navigate('/login')}>Anunciar Pet</button>}
           </div>
         </div>
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />

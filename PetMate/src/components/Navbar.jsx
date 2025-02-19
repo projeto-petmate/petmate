@@ -1,20 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { GlobalContext } from "../contexts/GlobalContext";
-import './Navbar.css';
-import NavDeslogado from "./NavDeslogado";
-import NavLogado from "./NavLogado";
+import { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { GlobalContext } from "../contexts/GlobalContext"
+import './Navbar.css'
+import NavDeslogado from "./NavDeslogado"
+import NavLogado from "./NavLogado"
 
 function Navbar() {
-  const { logado } = useContext(GlobalContext);
-  const [isLogado, setIsLogado] = useState(logado);
+  const { logado, userLogado } = useContext(GlobalContext)
+  const [isLogado, setIsLogado] = useState(logado)
+
+  let userData = userLogado
+  let userName = userData.nome
+  
+  const getFirstName = (fullName) => {
+    return fullName.split(' ')[0]
+  }
+
+  userName = getFirstName(userName)
 
   useEffect(() => {
-    const storedLogado = JSON.parse(localStorage.getItem("logado"));
+    const storedLogado = JSON.parse(localStorage.getItem("logado"))
     if (storedLogado !== null) {
-      setIsLogado(storedLogado);
+      setIsLogado(storedLogado)
     }
-  }, [logado]);
+  }, [logado])
 
   return (
     <nav className="navbar-container">
@@ -29,10 +38,14 @@ function Navbar() {
         <Link to="/adotar">Adotar</Link>
         <Link to="/contato">Sobre Nós</Link>
         
+ 
         {isLogado ? <NavLogado /> : <NavDeslogado />}
+        <p className="boas-vindas">
+          {isLogado ? `Olá, ${userName}!` : 'Olá, visitante!'}
+        </p>
       </div>
     </nav>
   )
 }
 
-export default Navbar;
+export default Navbar

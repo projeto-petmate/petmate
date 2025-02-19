@@ -3,6 +3,8 @@ import './JanelaPet.css';
 import { PetContext } from "../contexts/PetContext";
 import axios from 'axios';
 import { FaWhatsapp } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext);
@@ -26,39 +28,61 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
     return null;
   }
 
-  const linkBase = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
+  const linkWpp = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
+  const linkEmail = doador ? `mailto:${doador.email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
+  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}`: "#";
+
 
   return (
     <div className='pet_modal_conteiner'>
-      <div className='conteiner_modal'>
-        <div className="cad-pet-container">
-          <div className="titulo-pet-modal">
-            <h2>{pet.nome}</h2>
-            <button onClick={() => setPetModalOpen(false)} className='botao_modal'>{'<'}</button>
-          </div>
-          <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
+      <div className='conteiner_modal_pet'>
+        <div className="titulo-pet-modal">
+          <h2>{pet.nome}</h2>
+          <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
+        </div>
+        <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
+        <div className="card-pet-container">
+          <div className="modal-pet-1">
 
-          <div className="card-modal-container">
-            <div className="info-container">
-              <div className="img-modal">
-                <img 
-                  src={pet.imagem ? pet.imagem : "/images/default_pet_image.jpg"} 
-                  alt={`Imagem de ${pet.nome}`} 
-                  className="pet-image" 
-                />
-              </div>
-              <div className="detalhes-pet">
-                <p>Raça</p> <h4>{pet.raca}</h4>
-                <p>Idade</p> <h4>{pet.idade}</h4>
-                <p>Gênero</p> <h4>{pet.genero}</h4>
-              </div>
-              <div className="descricao-pet">
-                <p className='desc-title'>Descrição</p>
-                <p> {pet.descricao}</p>
-              </div>
+            <div className="img-modal">
+              <img
+                src={pet.imagem ? pet.imagem : "/images/default_pet_image.jpg"}
+                alt={`Imagem de ${pet.nome}`}
+                className="pet-image"
+              />
             </div>
 
+            <div className="descricao-pet">
+              <div className="desc-title">
+                <p>Informações</p>
+              </div>
+              <div className="detalhes-pet">
+                <div className='detalhePet'>
+                  <p>Raça</p> <h4>{pet.raca}</h4>
+                </div>
+                <div className='detalhePet'>
+                  <p>Idade</p> <h4>{pet.idade}</h4>
+                </div>
+                <div className='detalhePet'>
+                  <p>Porte</p> <h4>{pet.porte}</h4>
+                </div>
+                <div className='detalhePet'>
+                  <p>Gênero</p> <h4>{pet.genero}</h4>
+                </div>
+              </div>
+              <p className='desc-title-2'>Descrição</p>
+              <p> {pet.descricao}</p>
+            </div>
           </div>
+
+
+          <div className="modal-pet-2">
+            <div className="info-container">
+              <p className='info-title'>
+                Detalhes sobre {pet.nome}
+              </p>
+            </div>
+
             <div className="info-doador-modal">
               <h2>Quer Adotar?</h2>
               <p>Para adotar este pet, entre em contato com o protetor:</p>
@@ -66,13 +90,24 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 <div className="info-doador">
                   <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
                   {/* <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p> */}
-                  <p>Email: <div className="dados-doador">{doador.email}</div></p>
-                  <a href={linkBase}>
-                    <FaWhatsapp className='icon_wpp'/>
-                  </a>
+                  {/* <p>Email: <div className="dados-doador">{doador.email}</div></p> */}
+                  <div className="links-contato">
+                    <a href={linkWpp}>
+                      <FaWhatsapp className='icon_wpp' />
+                    </a>
+
+                    <a href={linkEmail}>
+                      <MdOutlineEmail className='iconEmail' />
+                    </a>
+
+                    <a href={linkMaps}>
+                      <button>a</button>
+                    </a>
+                  </div>
                 </div>
               )}
             </div>
+          </div>
         </div>
       </div>
     </div>

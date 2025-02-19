@@ -91,6 +91,7 @@ export const GlobalContextProvider = ({children}) => {
             throw error;
         }
     };
+    
 
     const deleteUsuario = async (id) => {
         try {

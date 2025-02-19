@@ -28,6 +28,8 @@ function CardContainer() {
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
 
       <div className="card-container">
+      {/* {pets.filter(p => p.genero === 'Macho').map((p) => (  */}
+
         {pets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
