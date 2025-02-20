@@ -5,6 +5,13 @@
   min-height: calc(100vh - 120px);
   padding-bottom: 20px;
 }
+.banner-contato{
+  height: 100%;
+  display: flex;
+}
+.banner-contato img{
+  min-width: 100vw;
+}
 
 .titulo-adotar{
   margin-left: 50px;
@@ -52,23 +59,3 @@
   text-transform: capitalize;
 }
 
-@media screen and (max-width: 768px) {
-  .titulo-adotar h2 {
-    font-size: 30px;
-  }
-
-  .titulo-adotar p {
-    font-size: 16px;
-  }
-
-  .titulo-botao-adotar {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .botao-modal {
-    width: 200px;
-    height: 50px;
-    font-size: 20px;
-  }
-}

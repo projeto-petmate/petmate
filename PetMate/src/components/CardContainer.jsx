@@ -13,7 +13,7 @@ function CardContainer() {
     const fetchPets = async () => {
       try {
         const data = await getPets();
-        setPets(data.reverse());
+        setPets(data);
       } catch (error) {
         console.error("Erro ao buscar pets:", error);
       }
@@ -32,12 +32,16 @@ function CardContainer() {
       })
     : pets;
 
+  const ordemPets = filter.ordem === 'recentes'
+    ? [...filteredPets]
+    : filteredPets.reverse()
+
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
 
       <div className="card-container">
-        {filteredPets.map((p) => (
+        {ordemPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
               src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}

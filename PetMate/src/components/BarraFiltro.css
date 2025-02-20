@@ -3,13 +3,13 @@
     flex-direction: row;
     min-width: 100vw;
     background-color: #84644D;
-    height: 13vh;
+    height: 15vh;
     align-items: center;
     justify-content: center;
     gap: 40px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 
 .select-filter {
