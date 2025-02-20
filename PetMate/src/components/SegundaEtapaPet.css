@@ -1,0 +1,24 @@
+.radio-pet-2 p{
+    margin-right: 10px;
+}
+.radio-pet-2 [type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #D9D9D9;
+    border-radius: 50%;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.radio-pet-2 [type="radio"]:checked {
+    background-color: #84644D;
+    border-color: #3d2b1e;
+}
+
+
+.radio-pet-2 {
+    height: 20px;
+    color: #D9D9D9;
+}

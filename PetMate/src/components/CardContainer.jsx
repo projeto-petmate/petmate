@@ -7,7 +7,7 @@ import JanelaPet from './JanelaPet';
 function CardContainer() {
   const [pets, setPets] = useState([]);
   const [openPetModal, setOpenPetModal] = useState(false);
-  const { filter, setFilter, filterOn, setFilterOn, pet, setPet } = useContext(PetContext);
+  const { filter, filterOn, setPet } = useContext(PetContext);
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -25,9 +25,9 @@ function CardContainer() {
   const filteredPets = filterOn
     ? pets.filter(pet => {
         return (
-          (filter.Especie ? pet.especie === filter.Especie : true) &&
-          (filter.Porte ? pet.porte === filter.Porte : true) &&
-          (filter.Gênero ? pet.genero === filter.Gênero : true)
+          (filter.especie ? pet.especie === filter.especie : true) &&
+          (filter.porte ? pet.porte === filter.porte : true) &&
+          (filter.genero ? pet.genero === filter.genero : true)
         );
       })
     : pets;

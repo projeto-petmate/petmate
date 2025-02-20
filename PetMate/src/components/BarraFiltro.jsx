@@ -29,7 +29,7 @@ function BarraFiltro() {
     <div className="filtro-container">
       <div className="select-filter">
         <label htmlFor="selectEspecie">Espécie</label>
-        <select name="Espécie" id="selectEspecie" onChange={handleFilterChange} ref={especieRef}>
+        <select name="especie" id="selectEspecie" onChange={handleFilterChange} ref={especieRef}>
           <option value=""></option>
           <option value="Cachorro">Cachorro</option>
           <option value="Gato">Gato</option>
@@ -38,7 +38,7 @@ function BarraFiltro() {
       </div>
       <div className="select-filter">
         <label htmlFor="selectPorte">Porte</label>
-        <select name="Porte" id="selectPorte" onChange={handleFilterChange} ref={porteRef}>
+        <select name="porte" id="selectPorte" onChange={handleFilterChange} ref={porteRef}>
           <option value=""></option>
           <option value="Pequeno">Pequeno</option>
           <option value="Médio">Médio</option>
@@ -47,7 +47,7 @@ function BarraFiltro() {
       </div>
       <div className="select-filter">
         <label htmlFor="selectGenero">Gênero</label>
-        <select name="Gênero" id="selectGenero" onChange={handleFilterChange} ref={generoRef}>
+        <select name="genero" id="selectGenero" onChange={handleFilterChange} ref={generoRef}>
           <option value=""></option>
           <option value="Fêmea">Fêmea</option>
           <option value="Macho">Macho</option>
