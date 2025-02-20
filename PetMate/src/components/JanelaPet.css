@@ -15,7 +15,7 @@
     width: 90vw;
     overflow-y: auto;
     max-height: 90vh;
-    border: solid;
+    /* border: solid; */
     border-left: #654833 25px solid;
     align-items: center;
     padding: 20px;
@@ -112,7 +112,8 @@
 .detalhes-pet {
     display: flex;
     flex-direction: row;
-    text-align: start;
+    /* text-align: start; */
+    justify-content: center;
     text-transform: capitalize;
     gap: 50px;
 }
@@ -135,6 +136,7 @@ strong {
     color: black;
     font-size: 20px;
     font-weight: normal;
+    
 }
 
 
@@ -145,20 +147,23 @@ strong {
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
-    text-align: start;
     height: 300px;
     width: 37vw;
     text-transform: initial;
-    font-size: 18px;
+    font-size: 24px;
+}
+
+.descPet{
+    font-size: 20px;
 }
 
 
 .desc-title {
     color: #654833;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 100%;
 }
 .desc-title-2 {
@@ -166,6 +171,7 @@ strong {
     font-size: 24px;
     font-weight: bold;
     margin: auto;
+    text-align: start;
     margin-bottom: 5px;
     width: 100%;
     margin-top: 15px;
@@ -198,9 +204,9 @@ strong {
     border-radius: 8px;
     padding: 20px 0px 0px 20px;
     margin-top: 20px;
-    text-align: start;
+    /* text-align: start; */
     height: 300px;
-    width: 40vw;
+    width: 30vw;
     text-transform: initial;
 }
 
@@ -225,7 +231,7 @@ strong {
 .info-doador {
     display: flex;
     flex-direction: column;
-    text-align: start;
+    /* text-align: start; */
     justify-content: space-evenly;
 }
 
@@ -250,16 +256,28 @@ strong {
     transition: 0.3s;
 }
 
+.iconMap {
+    color: #654833;
+    font-size: 40px;
+    transition: 0.3s;
+}
 .icon_wpp:hover {
-    color: #25D366;
+    color: #1d8a45;
 }
 
 .iconEmail:hover {
-    color: #D44638;
+    color: #a6352a;
+}
+
+.iconMap:hover {
+    color: #2e2925;
+
 }
 
 .links-contato {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
 }

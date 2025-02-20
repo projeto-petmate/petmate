@@ -9,14 +9,7 @@ function Navbar() {
   const { logado, userLogado } = useContext(GlobalContext)
   const [isLogado, setIsLogado] = useState(logado)
 
-  let userData = userLogado
-  let userName = userData.nome
-  
-  const getFirstName = (fullName) => {
-    return fullName.split(' ')[0]
-  }
 
-  userName = getFirstName(userName)
 
   useEffect(() => {
     const storedLogado = JSON.parse(localStorage.getItem("logado"))
@@ -40,9 +33,7 @@ function Navbar() {
         
  
         {isLogado ? <NavLogado /> : <NavDeslogado />}
-        <p className="boas-vindas">
-          {isLogado ? `Olá, ${userName}!` : 'Olá, visitante!'}
-        </p>
+       
       </div>
     </nav>
   )

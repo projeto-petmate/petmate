@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import './Adotar.css';
 import LastPage from "../components/LastPage";
 import ScrollToTop from "../components/ScrollToTop";
+import BarraFiltro from "../components/BarraFiltro";
 
 function Adotar() {
   const [openModal, setOpenCadModal] = useState(false);
@@ -18,20 +19,21 @@ function Adotar() {
   useEffect(() => {
     const hasReloaded = localStorage.getItem('hasReloaded');
     if (!hasReloaded) {
-        localStorage.setItem('hasReloaded', 'true');
-        window.location.reload();
+      localStorage.setItem('hasReloaded', 'true');
+      window.location.reload();
     } else {
-        localStorage.removeItem('hasReloaded');
+      localStorage.removeItem('hasReloaded');
     }
-}, []);
+  }, []);
 
   return (
     <div>
       <Navbar />
       <ScrollToTop />
       <div className="banner-contato">
-              <img src="/images/banner_info.svg" alt="" />
-           </div>
+        <img src="/images/banner_info.svg" alt="" />
+      </div>
+      <BarraFiltro />
       <div className="adotar-container">
         <div className="titulo-botao-adotar">
           <div className="titulo-adotar">
@@ -39,9 +41,9 @@ function Adotar() {
             <p>Transforme a vida de um pet e ganhe um amigo para sempre!</p>
           </div>
           <div>
-          {logado ? (
-                      <button className='botao-modal' onClick={ () => setOpenCadModal(true)}>Anunciar Pet</button>
-                  ) : <button className='botao-modal' onClick={ () => navigate('/login')}>Anunciar Pet</button>}
+            {logado ? (
+              <button className='botao-modal' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
+            ) : <button className='botao-modal' onClick={() => navigate('/login')}>Anunciar Pet</button>}
           </div>
         </div>
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />

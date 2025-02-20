@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import './JanelaPet.css';
 import { PetContext } from "../contexts/PetContext";
 import axios from 'axios';
-import { FaWhatsapp } from "react-icons/fa";
+import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 
@@ -71,7 +71,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 </div>
               </div>
               <p className='desc-title-2'>Descrição</p>
-              <p> {pet.descricao}</p>
+              <p className='descPet'> {pet.descricao}</p>
             </div>
           </div>
 
@@ -88,7 +88,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <p>Para adotar este pet, entre em contato com o protetor:</p>
               {doador && (
                 <div className="info-doador">
-                  <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
+                  <p>Nome do anunciante: <div className="dados-doador"> { doador.nome }</div></p>
+                  <p>Endereço: <div className="dados-doador"> { doador.endereco }</div></p>
                   {/* <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p> */}
                   {/* <p>Email: <div className="dados-doador">{doador.email}</div></p> */}
                   <div className="links-contato">
@@ -101,7 +102,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     </a>
 
                     <a href={linkMaps}>
-                      <button>a</button>
+                    <FaMapMarkerAlt className='iconMap'/>
                     </a>
                   </div>
                 </div>

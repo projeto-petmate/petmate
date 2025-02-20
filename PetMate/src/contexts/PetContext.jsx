@@ -35,6 +35,9 @@ export const PetContextProvider = ({ children }) => {
         }
     };
 
+    const [filterOn, setFilterOn] = useState(false);
+    const [filter, setFilter] = useState({});
+
     return (
         <PetContext.Provider value={{
             pets,
@@ -42,7 +45,11 @@ export const PetContextProvider = ({ children }) => {
             fetchPets,
             pet,
             setPet,
-            setPets
+            setPets,
+            filterOn,
+            setFilterOn,
+            filter,
+            setFilter
         }}>
             {children}
         </PetContext.Provider>

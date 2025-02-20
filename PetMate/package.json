@@ -17,6 +17,7 @@
     "react-input-mask": "^2.0.4",
     "react-input-mask-next": "^3.0.0-alpha.12",
     "react-router-dom": "^6.26.2",
+    "react-select": "^5.10.0",
     "router-context": "file:"
   },
   "devDependencies": {

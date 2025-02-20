@@ -25,7 +25,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   }
 
   const validarFormulario = () => {
-    if (!inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagemURL || !aceitarTermos) {
+    if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagemURL || !aceitarTermos) {
       return { geral: 'Todos os campos são obrigatórios e você deve aceitar os termos e condições.' };
     }
     return {};
@@ -81,11 +81,16 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               <div className="linha-inpt">
                 <div className="label-inpt">
                   <label>Espécie:</label>
-                  <input 
-                    type="text"
+                  <select 
+                    name="selectEspecie" 
                     value={inptPetEspecie}
                     onChange={(e) => setInptPetEspecie(e.target.value)}
-                  />
+                  >
+                    <option value=""></option>
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Outro">Outro</option>
+                  </select>
                 </div>
                 <div className="label-inpt">
                   <label>Nome do Pet:</label>
@@ -165,7 +170,6 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               onChange={(e) => setInptPetImagemURL(e.target.value)}
             />
           </div>
-
 
           <div className="descricao-pet-cad">
             <label>Descrição:</label>

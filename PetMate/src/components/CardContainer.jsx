@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { PetContext } from '../contexts/PetContext';
 import { getPets } from '../apiService';
 import './CardContainer.css';
@@ -8,7 +7,7 @@ import JanelaPet from './JanelaPet';
 function CardContainer() {
   const [pets, setPets] = useState([]);
   const [openPetModal, setOpenPetModal] = useState(false);
-  const { setPet } = useContext(PetContext);
+  const { filter, setFilter, filterOn, setFilterOn, pet, setPet } = useContext(PetContext);
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -23,14 +22,22 @@ function CardContainer() {
     fetchPets();
   }, []);
 
+  const filteredPets = filterOn
+    ? pets.filter(pet => {
+        return (
+          (filter.Especie ? pet.especie === filter.Especie : true) &&
+          (filter.Porte ? pet.porte === filter.Porte : true) &&
+          (filter.Gênero ? pet.genero === filter.Gênero : true)
+        );
+      })
+    : pets;
+
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
 
       <div className="card-container">
-      {/* {pets.filter(p => p.genero === 'Macho').map((p) => (  */}
-
-        {pets.map((p) => (
+        {filteredPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
               src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
