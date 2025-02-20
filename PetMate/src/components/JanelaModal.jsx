@@ -5,7 +5,7 @@ import { PetContext } from "../contexts/PetContext";
 import { useNavigate } from 'react-router-dom';
 import SegundaEtapaPet from './SegundaEtapaPet';
 import { IoMdClose } from "react-icons/io";
-
+import { CgCloseO } from "react-icons/cg";
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
   const { addPet } = useContext(PetContext);
@@ -46,7 +46,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     enviarPet();
   };
 
-  const enviarPet = async () => {
+  const enviarPet = async (tags) => {
     const novoPet = {
       especie: inptPetEspecie,
       nome: inptPetNome,
@@ -55,14 +55,28 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       porte: inptPetPorte,
       genero: inptPetGenero,
       descricao: inptPetDescricao,
-      imagem: inptPetImagemURL
+      imagem: inptPetImagemURL,
+      tags: tags.join(', '), 
+      id_usuario: 1 
     };
 
     try {
-      await addPet(novoPet);
-      console.log('Pet cadastrado:', novoPet);
-      setModalOpen(false);
-      window.location.reload();
+      const response = await fetch('http://localhost:3000/pets', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(novoPet)
+      });
+
+      if (response.ok) {
+        console.log('Pet cadastrado:', novoPet);
+        setModalOpen(false);
+        window.location.reload();
+      } else {
+        const errorData = await response.json();
+        setErros({ geral: errorData.error || 'Erro ao cadastrar pet. Tente novamente.' });
+      }
     } catch (error) {
       setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' });
     }
@@ -78,7 +92,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                 <h2>Criar anúncio para Pet</h2>
                 <img src="/images/barra_marrom.png" className='barra-pet' />
               </div>
-              <button onClick={() => setModalOpen(false)} className='botao_modal'>{<IoMdClose className='closeIcon' />}</button>
+              <CgCloseO onClick={() => setModalOpen(false)} className='botao_modal_2' />
             </div>
             <div className="inputs-pet">
               <div className="inpts-pet-1">

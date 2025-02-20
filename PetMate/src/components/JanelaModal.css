@@ -1,39 +1,60 @@
+.conteiner_modal {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    min-height: 55vh;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 55vw;
+    /* max-width: 600px; */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border: 1px solid #3d2b1e;
+    justify-content: center;
+    margin-top: 20px;
+    padding-bottom: 30px;
+}
+.conteiner_modal input,
+.conteiner_modal textarea,
+.conteiner_modal select {
+    /* width: 100%; */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.conteiner_modal input:focus,
+.conteiner_modal textarea:focus,
+.conteiner_modal select:focus {
+    border-color: #84644D;
+    outline: none;
+}
+
 .botao_modal {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
+    background-color: #84644D;
+    color: #FFFFFF;
     margin-bottom: 10px;
     font-size: 30px;
     font-weight: bold;
-    background-color: #84644D;
-    color: #FFFFFF;
     border: none;
     width: 50px;
     height: 50px;
     border-radius: 200px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.conteiner_modal {
+
+
+.botoes-cad-pet{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-    min-height: 94vh;
-    background-color: #FFFFFF;
-    border-radius: 6px;
-    width: 45vw;
-    box-shadow: 2px 2px 4px #545454;
-    margin-top: 40px;
-    border: #3d2b1e solid;
-    /* border: solid; */
-    /* justify-content: center; */
-    /* padding: 50px 220px 50px 220px; */
-    /* position: fixed; */
-    /* top: 50%; */
-    /* left: 10%; */
-    /* transform: translate(-50%,-50%); */
+    flex-direction: row;
+    gap: 20px;
 }
-
 .modal_conteiner {
     position: fixed;
     min-height: 100vh;
@@ -141,10 +162,19 @@
 .radio-pet {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto; 
+    gap: 10px;   
+}
+.radio-pet input{
+    margin: auto;
 }
 
 .radio-pet p {
-    margin-right: 10px;
+   text-align: center;
+   align-items: center;
 }
 
 .radio-pet input[type="radio"] {
@@ -152,7 +182,7 @@
     width: 20px;
     height: 20px;
     border: 2px solid #D9D9D9;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     background-color: #D9D9D9;
     cursor: pointer;
     margin-right: 5px;
@@ -206,11 +236,17 @@
     border-radius: 12px;
     color: #FFFFFF;
     font-size: 26px;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
     margin-top: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.botao-cad-pet:hover{
+    background-color: #6b4f3a;
+    transform: scale(1.03);
+}
 .inpts-pet {
     display: flex;
     flex-direction: column;
@@ -265,3 +301,4 @@
     transform: scale(1.3);
     margin-right: 15px;
 }
+

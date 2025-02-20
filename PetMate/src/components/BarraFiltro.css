@@ -36,11 +36,20 @@
     color: white;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    outline: none;
 }
 
 .filtro-container select:hover {
     background-color: #9C7A5E;
     border-color: #6B4A2E;
+    outline: none;
+
+}
+
+.filtro-container select:focus {
+    background-color: #9C7A5E;
+    border-color: #6B4A2E;
+    outline: none;
 }
 
 .botao-limpar{
