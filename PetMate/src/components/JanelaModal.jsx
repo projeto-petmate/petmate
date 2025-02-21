@@ -57,30 +57,17 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       descricao: inptPetDescricao,
       imagem: inptPetImagemURL,
       tags: tags.join(', '), 
-      id_usuario: 1 
     };
 
     try {
-      const response = await fetch('http://localhost:3000/pets', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(novoPet)
-      });
-
-      if (response.ok) {
-        console.log('Pet cadastrado:', novoPet);
-        setModalOpen(false);
-        window.location.reload();
-      } else {
-        const errorData = await response.json();
-        setErros({ geral: errorData.error || 'Erro ao cadastrar pet. Tente novamente.' });
-      }
-    } catch (error) {
+      await addPet(novoPet);
+      console.log('Pet cadastrado:', novoPet);
+      setModalOpen(false);
+      window.location.reload();
+  } catch (error) {
       setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' });
-    }
-  };
+  }
+};
 
   return (
     <div className='modal_conteiner'>

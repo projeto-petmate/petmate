@@ -1,37 +1,38 @@
-import React, { useContext, useState, useEffect } from 'react';
-import './JanelaPet.css';
-import { PetContext } from "../contexts/PetContext";
-import axios from 'axios';
-import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
-import { MdOutlineEmail } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
+import React, { useContext, useState, useEffect } from 'react'
+import './JanelaPet.css'
+import { PetContext } from "../contexts/PetContext"
+import axios from 'axios'
+import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"
+import { MdOutlineEmail } from "react-icons/md"
+import { IoMdClose } from "react-icons/io"
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
-  const { pet } = useContext(PetContext);
-  const [doador, setDoador] = useState(null);
+  const { pet } = useContext(PetContext)
+  const [doador, setDoador] = useState(null)
 
   useEffect(() => {
     if (pet && pet.id_usuario) {
       const fetchDoador = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/usuarios/${pet.id_usuario}`);
-          setDoador(response.data);
+          const response = await axios.get(`http://localhost:3000/usuarios/${pet.id_usuario}`)
+          setDoador(response.data)
         } catch (error) {
-          console.error('Erro ao buscar informações do doador:', error);
+          console.error('Erro ao buscar informações do doador:', error)
         }
-      };
-      fetchDoador();
+      }
+      fetchDoador()
     }
-  }, [pet]);
+  }, [pet])
 
   if (!isOpen || !pet) {
-    return null;
+    return null
   }
 
-  const linkWpp = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
-  const linkEmail = doador ? `mailto:${doador.email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
-  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}`: "#";
+  const linkWpp = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#"
+  const linkEmail = doador ? `mailto:${doador.email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#"
+  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}`: "#"
 
+  const tagsArray = pet.tags ? pet.tags.split(', ') : []
 
   return (
     <div className='pet_modal_conteiner'>
@@ -75,12 +76,16 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             </div>
           </div>
 
-
           <div className="modal-pet-2">
             <div className="info-container">
               <p className='info-title'>
                 Detalhes sobre {pet.nome}
               </p>
+              <div className="pet-tag-container">
+              {tagsArray.map((tag, index) => (
+                  <span key={index} className="pet-tag">{tag}</span>
+                ))}
+              </div>
             </div>
 
             <div className="info-doador-modal">
@@ -112,5 +117,5 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

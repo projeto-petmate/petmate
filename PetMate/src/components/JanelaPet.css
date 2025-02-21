@@ -193,13 +193,28 @@ strong {
     border-radius: 8px;
     height: 30vh;
     text-transform: initial;
-    text-align: start;
+    text-align: center;
     padding: 15px;
     width: 40vw;
-
-
+    
+}
+.pet-tag-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 80px;
+    gap: 15px;
 }
 
+.pet-tag{
+    font-size: 20px;
+    background-color: whitesmoke;
+    border: solid 1px #654833;
+    font-family: 'Nunito';
+    padding: 5px;
+    border-radius: 4px;
+
+}
 .info-doador-modal {
     background-color: #EBE5E0;
     border: #654833 solid 2px;
