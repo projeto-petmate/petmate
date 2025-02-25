@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
 import CardPetPerfil from '../components/CardPetPerfil';
 
-
 function Perfil() {
     const [openModalExclui, setOpenModalExclui] = useState(false);
     const { userLogado, PhoneInput, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
@@ -79,9 +78,7 @@ function Perfil() {
             <Navbar />
             <div className="container-perfil">
                 <div className="container-pets">
-                <div className="container-pets">
                     <CardPetPerfil />
-                </div>
                 </div>
                 <div className="info-perfil">
                     <div className="conteiner-configuracoes">

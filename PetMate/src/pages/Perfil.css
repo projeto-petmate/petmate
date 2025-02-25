@@ -119,6 +119,9 @@
     align-items: center;
     
 }
+.container-pets{
+    min-height: 30vh;
+}
 
 .icon-logout{
     margin-left: 10px;

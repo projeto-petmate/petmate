@@ -3,6 +3,8 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    max-height: 83vh;
+    overflow-y: auto;
 }
 
 .pet-card-perfil {
@@ -44,11 +46,20 @@
     color: #555;
 }
 
-.botao-excluir {
+.botoes-pet-perfil{
+    display: flex;
+    align-items: center;
+}
+
+.botao-editar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     height: 45px;
     width: 180px;
     text-align: center;
-    background-color: #AD947E;
+    background-color: #84644D;
     border: none;
     border-radius: 8px;
     color: #F5F5F5;
@@ -56,5 +67,12 @@
     font-weight: bold;
     letter-spacing: 0.01em;
     cursor: pointer;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    text-align: center;
+}
+
+.botao-excluir{
+    font-size: 28px;
+    color: #84644D;
+    cursor: pointer;
 }
