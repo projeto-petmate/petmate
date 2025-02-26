@@ -136,7 +136,7 @@
     margin-bottom: 30px;
     border: #84644D 1px solid;
     border-radius: 10px;
-    background-color: #eceaea;
+    background-color: #EBE5E0;
     outline: none;
     padding: 5px;
     font-size: 18px;
@@ -150,7 +150,7 @@
 .inptImgPet {
     border: #84644D 1px solid;
     border-radius: 10px;
-    background-color: #eceaea;
+    background-color: #EBE5E0;
     outline: none;
     padding: 5px;
     font-size: 16px;
@@ -216,13 +216,14 @@
     flex-direction: column;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .descricao-pet-cad input {
     text-align: center;
     font-size: 18px;
     height: 150px;
-    background-color: #eceaea;
+    background-color: #EBE5E0;
     width: 700px;
     border: #84644D 2px solid;
     border-radius: 10px;
@@ -239,6 +240,7 @@
     font-family: "Raleway", sans-serif;
     font-weight: bold;
     margin-top: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }

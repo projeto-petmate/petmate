@@ -11,11 +11,11 @@ export default function ModalExcluirPet({ isExcluirPet, setPetDeleteOpen, onDele
             <div className='container-excluir-pet'>
                 <div className="texto-excluir-pet">
                     <h1>Deseja excluir este anúncio?</h1>
-                    <h1>Esta ação não pode ser desfeita.</h1>
+                    <p>Esta ação não pode ser desfeita.</p>
                 </div>
                 <div className='Botao_Exclui'>
-                    <button className='botao_modal_excluir' onClick={onDeletePet}>Confirmar</button>
-                    <button onClick={() => setPetDeleteOpen(false)} className='botao_modal_cancelar'>Cancelar</button>
+                    <button className='botao-modal-excluir-pet' onClick={onDeletePet}>Confirmar</button>
+                    <button onClick={() => setPetDeleteOpen(false)} className='botao-modal-cancelar-pet'>Cancelar</button>
                 </div>
             </div>
         </div>

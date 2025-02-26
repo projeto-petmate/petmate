@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getPets, deletePet, updatePet } from '../apiService'; // Certifique-se de importar updatePet
+import { getPets, deletePet, updatePet } from '../apiService';
 import ModalExcluirPet from './ModalExcluirPet';
 import './CardPetPerfil.css';
 import ModalEditarPet from './ModalEditarPet';
@@ -62,8 +62,6 @@ function CardPetPerfil() {
                         <p><strong>Idade:</strong> {pet.idade}</p>
                         <p>{pet.porte} | {pet.genero}</p>
                         <div className="botoes-pet-perfil">
-                            {/* <button className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true); }}>Excluir</button> */}
-                            {/* <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true); }}> */}
                             <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit/>}</button>
                             <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                         </div>

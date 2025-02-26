@@ -72,8 +72,8 @@ function SegundaEtapaPet({
                             ))}
                         </div>
                     </div>
-                     {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
-                    
+                    {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
+
                     <button onClick={handleSubmit} className="botao-enviar-pet">Enviar</button>
                 </div>
             </div>

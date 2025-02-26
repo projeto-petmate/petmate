@@ -141,24 +141,15 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                   <div className="genero-pet">
                     <label>Gênero:</label>
                     <div className="radio-pet">
-                      <input
-                        type="radio"
-                        name='radio-genero'
-                        className='radio-genero'
-                        value="Fêmea"
-                        checked={inptPetGenero === 'Fêmea'}
-                        onChange={() => setInptPetGenero('Fêmea')}
-                      />
-                      <p>Fêmea</p>
-                      <input
-                        type="radio"
-                        name='radio-genero'
-                        className='radio-genero'
-                        value="Macho"
-                        checked={inptPetGenero === 'Macho'}
-                        onChange={() => setInptPetGenero('Macho')}
-                      />
-                      <p>Macho</p>
+                      <select
+                            type="select"
+                            name="especie-pet"
+                            value={inptPetGenero}
+                            onChange={(e) => setInptPetGenero(e.target.value)}>
+                            <option value=""></option>
+                            <option value="Fêmea">Fêmea</option>
+                            <option value="Macho">Macho</option>
+                        </select>
                     </div>
                   </div>
                 </div>
@@ -187,7 +178,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             </div>
 
             {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
-            <div className="termos-cadastro-pet">
+            {/* <div className="termos-cadastro-pet">
               <div className="termos-pet">
                 <input
                   type="checkbox"
@@ -199,7 +190,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                 </p>
                 <a href="#" className='link-termos'>Termos de Uso.</a>
               </div>
-            </div>
+            </div> */}
             <button type="submit" className='botao-cad-pet'>Próxima Etapa</button>
           </form>
         ) : (

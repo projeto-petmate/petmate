@@ -3,8 +3,9 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    max-height: 83vh;
+    max-height: 85vh;
     overflow-y: auto;
+    margin-top: 10px;
 }
 
 .pet-card-perfil {
@@ -67,7 +68,6 @@
     font-weight: bold;
     letter-spacing: 0.01em;
     cursor: pointer;
-    /* margin-top: 10px; */
     text-align: center;
 }
 
@@ -75,4 +75,5 @@
     font-size: 28px;
     color: #84644D;
     cursor: pointer;
+    margin-left: 10px;
 }

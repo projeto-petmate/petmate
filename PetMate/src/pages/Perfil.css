@@ -11,16 +11,24 @@
     padding: 20px;
     min-height: calc(100vh - 120px);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+
 }
 
 .info-perfil button:hover{
     cursor: pointer;
 }
 
+.titulo-barra{
+    margin-bottom: 50px;
+}
+
 .titulo-barra h2{
     color: #484848;
     font-size: 32px;
+
 }
 
 .titulo-barra h4{
@@ -28,8 +36,8 @@
     font-size: 20px;
     font-weight: 400;
     margin-bottom: 20px;
-
 }
+
 
 
 .info-perfil p{
@@ -48,6 +56,7 @@
 
 .container-pets{
     width: 40vw;
+    min-height: 30vh;
 }
 
 .inputs-perfil{
@@ -58,15 +67,16 @@
 }
 
 .inputs-perfil input{
-    height: 50px;
+    height: 60px;
     width: 400px;
     border-radius: 12px;
     border: solid #AD947E 2px;
     box-shadow: 0px 0px 1px;
-    background-color: #eceaea;
+    background-color: #EBE5E0;
     margin-bottom: 3vh;
     outline: none;
     padding: 10px;
+    font: 18px Roboto;
 }
 
 .inputs-perfil-1, .inputs-perfil-2{
@@ -119,9 +129,7 @@
     align-items: center;
     
 }
-.container-pets{
-    min-height: 30vh;
-}
+
 
 .icon-logout{
     margin-left: 10px;
@@ -187,9 +195,9 @@
     border-radius: 0px 12px 12px 0px;
     border-color: #AD947E #AD947E #AD947E #ffffff00;
     border-left: none;
-    background-color: #eceaea;
+    background-color: #EBE5E0;
     cursor: pointer;
-    font-size: 40px;
+    font-size: 33px;
     color: #747373;
 }
 
@@ -204,18 +212,6 @@
 }
 
 
-.titulo-barra h4{
-    font-weight: 500;
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 20px;
-
-}
-
-
-.container-pets{
-    padding-top: 30px;
-}
 
 .inputs-perfil input {
     max-width: none; 
@@ -248,74 +244,3 @@
 }
 
 
-.container-perfil {
-    display: flex;
-    flex-direction: row;
-    min-height: calc(100vh - 120px);
-    background-image: url(/images/fundo_patas.svg);
-}
-
-.info-perfil {
-    background-color: #FFFFFF;
-    width: 60vw;
-    padding: 20px;
-    min-height: calc(100vh - 120px);
-    border-radius: 20px;
-    justify-content: center;
-    max-width: 100%; /* Adicione esta linha */
-}
-
-.info-perfil button:hover {
-    cursor: pointer;
-}
-
-.inputs-perfil {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    max-width: 100%; /* Adicione esta linha */
-}
-
-.inputs-perfil input {
-    height: 50px;
-     
-    max-width: 400px; /* Adicione esta linha */
-    border-radius: 12px;
-    border: solid #AD947E 2px;
-    box-shadow: 0px 0px 1px;
-    background-color: #eceaea;
-    margin-bottom: 3vh;
-    outline: none;
-    padding: 10px;
-}
-
-.input-edit input {
-    height: 50px;
-    width: 100%; 
-   
-    border-radius: 12px 0px 0px 12px;
-    border-color: #AD947E #ffffff00 #AD947E #AD947E;
-    border-right: none;
-    outline: none;
-}
-
-@media screen and (max-width: 768px) {
-    .container-perfil {
-        flex-direction: column;
-    }
-
-    .info-perfil {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .inputs-perfil {
-        flex-direction: column;
-    }
-
-
-    .botao-sair-logout {
-        margin-left: 0;
-    }
-}
