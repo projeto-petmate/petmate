@@ -1,15 +1,25 @@
 # PetMate
 PetMate é uma plataforma que facilita a adoção e doação de pets.
 
-## Integrantes
+## Integrantes👨‍💻👩‍💻
 - [johan-akn](https://github.com/johan-akn) - Frontend e Backend
 - [isadauzaker](https://github.com/isadauzaker) - Frontend e Backend
 - [Emi-Souza](https://github.com/Emi-Souza) - Frontend e Backend
 - [Gucrima](https://github.com/Gucrima) - Frontend e Backend
 - [josehvinii](https://github.com/josehvinii) - Frontend e Backend
 
+## Integrantes designados para cada função 📝
 
-### [Documentação](https://drive.google.com/file/d/1bIt4iDdLPtXs3Sr3s9fdWjbI82UX6tgq/view?usp=sharing)
+- RF01: Emilly Lima de Souza
+- RF02: Johan Akin Araujo da Silva Rodrigues
+- RF03: Johan Akin Araujo da Silva Rodrigues
+- RF04: Isadora Victor Dauzaker
+- RF05: José Vinicius Victor Dauzaker
+- RF06: José e Isadora
+- RF07: Gustavo Soares Franco
+- RF08: Gustavo e Emilly
+
+### [Documentação](https://docs.google.com/document/d/1TBU8-_BPHwepaxgek6Jtyi0G4E04BuEELcBfpENMvl4/edit?tab=t.0)
 
 
 ### Redes Sociais 🖥️
