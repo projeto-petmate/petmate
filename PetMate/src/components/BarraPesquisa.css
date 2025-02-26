@@ -1,0 +1,30 @@
+.pesquisa-container{
+    position: relative;
+    display: inline-block;
+}
+.barraDePesquisa{
+    height: 40px;
+    width: 400px;
+    border: none;
+    border-radius: 20px;
+    background-color: #CFC0B3;
+    color: black;
+    padding-left: 40px;
+}
+.barraDePesquisa::placeholder {
+    padding: 10px;
+    color: #654833;
+}
+.barraDePesquisa:focus {
+    outline: none;
+}
+.iconeLupa{
+    position: absolute;
+    height: 20px;
+    left: 10px;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+}
