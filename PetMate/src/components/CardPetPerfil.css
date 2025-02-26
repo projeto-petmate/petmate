@@ -69,6 +69,8 @@
     letter-spacing: 0.01em;
     cursor: pointer;
     text-align: center;
+    font-family: 'Nunito', sans-serif;
+    transition: 0.2s;
 }
 
 .botao-excluir{

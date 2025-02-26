@@ -15,6 +15,7 @@
     margin-top: 20px;
     padding-bottom: 30px;
 }
+
 .conteiner_modal input,
 .conteiner_modal textarea,
 .conteiner_modal select {
@@ -26,6 +27,7 @@
     box-sizing: border-box;
     font-size: 16px;
 }
+
 
 .conteiner_modal input:focus,
 .conteiner_modal textarea:focus,
@@ -48,13 +50,12 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-
-
-.botoes-cad-pet{
+.botoes-cad-pet {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
+
 .modal_conteiner {
     position: fixed;
     min-height: 100vh;
@@ -64,10 +65,7 @@
     right: 0;
     backdrop-filter: blur(2px);
     z-index: 1000;
-
 }
-
-
 
 .cad-pet-container {
     display: flex;
@@ -91,9 +89,6 @@
 .barra-pet {
     height: 10px;
 }
-
-
-
 
 .add-img {
     display: flex;
@@ -122,11 +117,10 @@
     cursor: pointer;
 }
 
-
 .inputs-pet {
     display: flex;
     flex-direction: row;
-    /* gap: 200px; */
+    gap: 150px;
 }
 
 .inputs-pet input,
@@ -141,11 +135,6 @@
     padding: 5px;
     font-size: 18px;
 }
-
-/* .inputs-pet input{
-    text-transform: capitalize;
-} */
-
 
 .inptImgPet {
     border: #84644D 1px solid;
@@ -168,7 +157,8 @@
     margin: auto; 
     gap: 10px;   
 }
-.radio-pet input{
+
+.radio-pet input {
     margin: auto;
 }
 
@@ -193,24 +183,25 @@
     border-color: #3d2b1e;
 }
 
-
 .radio-pet input {
     height: 20px;
     color: #D9D9D9;
 }
-
+#selectGenero{
+    width: 300px;
+    height: 45px;
+}
 .genero-pet {
     display: flex;
     flex-direction: column;
-    width: 10vw;
+    width: auto;
     height: 5vh;
     /* border: solid; */
 }
 
-.genero-pet label {
-    margin-bottom: 10px;
+.genero-pet select{
+    height: 45px;
 }
-
 .descricao-pet-cad {
     display: flex;
     flex-direction: column;
@@ -245,10 +236,11 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.botao-cad-pet:hover{
+.botao-cad-pet:hover {
     background-color: #6b4f3a;
     transform: scale(1.03);
 }
+
 .inpts-pet {
     display: flex;
     flex-direction: column;
@@ -265,8 +257,6 @@
     gap: 150px;
 }
 
-
-
 .termos-cadastro-pet {
     display: flex;
     flex-direction: row;
@@ -281,13 +271,11 @@
     /* border: solid; */
 }
 
-
 .termos-pet {
     font-family: roboto;
     display: flex;
     flex-direction: row;
     align-items: center;
-
 }
 
 .link-termos {
@@ -298,9 +286,7 @@
     margin-left: 5px;
 }
 
-
 .termos-pet input {
     transform: scale(1.3);
     margin-right: 15px;
 }
-

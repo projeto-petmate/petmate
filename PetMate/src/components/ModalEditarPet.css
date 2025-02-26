@@ -16,7 +16,7 @@
     flex-direction: column;
     margin: auto;
     align-items: center;
-    min-height: 55vh;
+    height: 95vh;
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 65vw;
@@ -28,6 +28,8 @@
     margin-top: 20px;
     padding-bottom: 30px;
     border-left: 25px solid #654833 ;
+    overflow-y: auto;
+
 }
 
 .editar-pet-container h2{
@@ -109,6 +111,7 @@
     margin-bottom: 10px;
     background-color: #EBE5E0;
     outline: none;
+    border: 1px solid #3d2b1e;
 }
 
 .coluna-edit{
@@ -135,6 +138,8 @@
     text-wrap: wrap;
     background-color: #EBE5E0;
     outline: none;
+    border: 1px solid #3d2b1e;
+
 }
 
 .edit-imagem{
@@ -155,6 +160,8 @@
     margin-bottom: 10px;
     background-color: #EBE5E0;
     outline: none;
+    border: 1px solid #3d2b1e;
+
 }
 .tags-container{
     text-align: center;
@@ -190,6 +197,10 @@
     margin-left: 10px;
     background-color: #EBE5E0;
     color: #6b4f3a;
+    transition: 0.3s;
+}
+.add-tag-edit:hover{
+    transform: scale(1.05);
 }
 
 .tags-container {
@@ -215,7 +226,7 @@
     width: 450px;
     display: flex;
     justify-content: center;
-    /* border: solid; */
+    border: 1px solid #3d2b1e;
 }
 
 .tags-list-edit {
@@ -255,8 +266,8 @@
     border-radius: 4px;
     padding: 5px 10px 5px 10px;
     white-space: nowrap;
-    height: 50px;
-    font-size: 18px;
+    height: 30px;
+    font-size: 14px;
     width: fit-content;
     /* margin-bottom: 5px; */
 }
@@ -271,7 +282,7 @@
     justify-content: center;
     cursor: pointer;
     height: 30px;
-    margin-left: 2px;
+    margin-left: 5px;
     width: 30px;
     font-size: 20px;
     text-align: center;

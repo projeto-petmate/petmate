@@ -1,37 +1,37 @@
-.container-perfil{
+.container-perfil {
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 120px);
     background-image: url(/images/fundo_patas.svg);
 }
 
-.info-perfil{
+.info-perfil {
     background-color: #FFFFFF;
     width: 60vw;
     padding: 20px;
     min-height: calc(100vh - 120px);
-    border-radius: 20px;
+    /* border-radius: 20px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
 
 }
 
-.info-perfil button:hover{
+.info-perfil button:hover {
     cursor: pointer;
 }
 
-.titulo-barra{
+.titulo-barra {
     margin-bottom: 50px;
 }
 
-.titulo-barra h2{
+.titulo-barra h2 {
     color: #484848;
     font-size: 32px;
 
 }
 
-.titulo-barra h4{
+.titulo-barra h4 {
     font-weight: 500;
     font-size: 20px;
     font-weight: 400;
@@ -40,33 +40,33 @@
 
 
 
-.info-perfil p{
+.info-perfil p {
     font-size: 20px;
     margin-bottom: 8px;
-    
+
 }
 
-.barra-perfil{
+.barra-perfil {
     height: 8px;
     width: 230px;
     margin-top: 2px;
     margin-bottom: 10px;
-    
+
 }
 
-.container-pets{
+.container-pets {
     width: 40vw;
     min-height: 30vh;
 }
 
-.inputs-perfil{
+.inputs-perfil {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.inputs-perfil input{
+.inputs-perfil input {
     height: 60px;
     width: 400px;
     border-radius: 12px;
@@ -79,22 +79,36 @@
     font: 18px Roboto;
 }
 
-.inputs-perfil-1, .inputs-perfil-2{
+.input-edit input {
+    height: 60px;
+
+}
+
+.inputs-perfil-1,
+.inputs-perfil-2 {
+
     display: flex;
     flex-direction: column;
 }
 
-.inputs-perfil-1{
+/* .inputs-perfil-1 input, .inputs-perfil-2 input{
+    height: 60px;
+    
+} */
+
+.inputs-perfil-1 {
     margin-right: 100px;
 }
 
-.inputs-perfil-2{
+.inputs-perfil-2 {
     margin-left: 100px;
 }
-.dadoPerma{
+
+.dadoPerma {
     color: #84644D;
 }
-.botao-sair{
+
+.botao-sair {
     width: 100%;
     height: 60px;
     font-size: 24px;
@@ -108,7 +122,7 @@
     margin-top: 30px;
 }
 
-.botao-sair-logout{
+.botao-sair-logout {
     width: 100%;
     height: 50px;
     padding: 9px;
@@ -123,63 +137,69 @@
     margin-bottom: 30px;
 }
 
-.sair-conta{
+.sair-conta {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 
-.icon-logout{
-    margin-left: 10px;
+.icon-logout {
+    margin-left: 5px;
 }
 
-.excluir-conta{
-    border: solid #84644D 2px;
-    border-radius: 10px;
-    background-color: #EBE5E0;
-    padding: 15px;
+.excluir-conta {
+    background-color: #FFF;
     padding-top: 20px;
     padding-bottom: 30px;
-    margin-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 50%;
+    border: 2px solid #84644D;
+    border-radius: 10px;
+    margin: auto;
+    /* border-top: 2px solid #84644D; */
+    /* border: solid #84644D 2px; */
+    /* padding: 15px; */
+    /* border-bottom: 2px solid #84644D; */
+    /* margin-top: 50px; */
 }
 
-.excluir-conta h4{
+
+.excluir-conta h4 {
     font-size: 28px;
     color: #484848;
     text-align: center;
 }
 
-.excluir-conta p{
+.excluir-conta p {
     margin: 20px 0px 20px 0px;
 }
 
-.botao-excluir-perfil{
+.botao-excluir-perfil {
     height: 60px;
     width: 300px;
-    background-color: #84644D;
+    background-color: #EBE5E0;
+    border: 2px solid #84644D;
     border-radius: 10px;
-    border: none;
-    color: #FFFFFF;
+    color: #84644D;
     font-size: 24px;
-    font-family: Roboto;
-    font-weight: 600;
+    font-family: 'Nunito';
+    font-weight: 700;
     letter-spacing: 0.03em;
     margin-top: 30px;
 }
 
-.input-edit{
+.input-edit {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.input-edit input{
+.input-edit input {
     height: 50px;
     width: 360px;
     border-radius: 12px 0px 0px 12px;
@@ -188,9 +208,9 @@
     outline: none;
 }
 
-.icon-lapis{
+.icon-lapis {
     display: flex;
-    height: 50px;
+    height: 60px;
     border: solid #AD947E 2px;
     border-radius: 0px 12px 12px 0px;
     border-color: #AD947E #AD947E #AD947E #ffffff00;
@@ -201,46 +221,20 @@
     color: #747373;
 }
 
-.conteiner-configuracoes{
+.conteiner-configuracoes {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.dadoPerma{
+.dadoPerma {
     color: #84644D;
 }
 
 
 
 .inputs-perfil input {
-    max-width: none; 
-    
+    max-width: none;
+    height: 60px;
+
 }
-
-
-
-@media screen and (max-width: 768px) {
-    .container-perfil {
-        flex-direction: column;
-    }
-
-    .info-perfil {
-        width: 90%;
-        padding: 20px;
-    }
-
-    .inputs-perfil {
-        flex-direction: column;
-    }
-
-    .inputs-perfil input {
-        width: 90%;
-    }
-
-    .botao-sair-logout {
-        margin-left: 0;
-    }
-}
-
-

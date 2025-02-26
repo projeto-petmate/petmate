@@ -57,7 +57,7 @@ function CardContainer() {
             <button className="botao-info-pet" onClick={() => {
               setPet(p);
               setOpenPetModal(true);
-            }}>Adotar</button>
+            }}>Mais informações</button>
           </div>
         ))}
       </div>

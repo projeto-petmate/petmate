@@ -13,14 +13,21 @@ body, html, #root {
 
 :root{
     --cor-1: #84644D;
-    --cor-2: #ffffff;
-    --cor-3: #FBFBFB;
-    --cor-4: #EBE5E0;
+    --cor-2: #6b4f3a;
+    --cor-3: #EBE5E0;
+    --cor-4: #FBFBFB;
+    --cor-5: #FFFFFF;
+    --cor-6: #F5F5F5;
+    --cor-7: #484848;
+    --cor-8: #312319;
+    --cor-9: #D9D9D9;
+    --cor-10: #654833;
+    --cor-11: #543A28;
 }
 
 body{
     background-color: #EBE5E0;
-    font-family: Roboto;
+    font-family: Nunito;
 }
 
 

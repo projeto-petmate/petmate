@@ -46,6 +46,12 @@ a{
     border: 2px #484848;
     border-radius: 12px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+.botao-modal-navbar:hover{
+    background-color: #543A28;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 

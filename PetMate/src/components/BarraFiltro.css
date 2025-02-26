@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     min-width: 100vw;
-    background-color: #84644D;
+    background-color: #AD947E;
     height: 15vh;
     align-items: center;
     justify-content: center;
@@ -23,12 +23,13 @@
     color: white;
     font-size: 20px;
     font-family: Raleway;
-    font-weight: 6cd 00;
+    font-weight: 500;
 }
 
 .filtro-container select {
     background-color: #AD947E;
-    border: 2px solid #84644D;
+    /* border: 2px solid #84644D; */
+    border: none;
     height: 40px;
     padding: 5px 10px;
     border-radius: 8px;

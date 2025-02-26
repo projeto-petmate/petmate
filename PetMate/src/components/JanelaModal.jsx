@@ -56,7 +56,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       genero: inptPetGenero,
       descricao: inptPetDescricao,
       imagem: inptPetImagemURL,
-      tags: tags.join(', '), 
+      tags: tags.join(', '),
     };
 
     try {
@@ -64,10 +64,10 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       console.log('Pet cadastrado:', novoPet);
       setModalOpen(false);
       window.location.reload();
-  } catch (error) {
+    } catch (error) {
       setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' });
-  }
-};
+    }
+  };
 
   return (
     <div className='modal_conteiner'>
@@ -85,8 +85,19 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               <div className="inpts-pet-1">
                 <div className="linha-inpt">
                   <div className="label-inpt">
-                    <label>Espécie:</label>
+                    <label htmlFor="nomePet">Nome do Pet:</label>
+                    <input
+                      id="nomePet"
+                      type="text"
+                      placeholder='Nome do seu Pet'
+                      value={inptPetNome}
+                      onChange={(e) => setInptPetNome(e.target.value)}
+                    />
+                  </div>
+                  <div className="label-inpt">
+                    <label htmlFor="selectEspecie">Espécie:</label>
                     <select
+                      id="selectEspecie"
                       name="selectEspecie"
                       value={inptPetEspecie}
                       onChange={(e) => setInptPetEspecie(e.target.value)}
@@ -97,37 +108,22 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       <option value="Outro">Outro</option>
                     </select>
                   </div>
-                  <div className="label-inpt">
-                    <label>Nome do Pet:</label>
-                    <input
-                      type="text"
-                      value={inptPetNome}
-                      onChange={(e) => setInptPetNome(e.target.value)}
-                    />
-                  </div>
                 </div>
                 <div className="linha-inpt">
                   <div className="label-inpt">
-                    <label>Raça:</label>
+                    <label htmlFor="idadePet">Idade:</label>
                     <input
+                      id="idadePet"
                       type="text"
-                      value={inptPetRaca}
-                      onChange={(e) => setInptPetRaca(e.target.value)}
-                    />
-                  </div>
-                  <div className="label-inpt">
-                    <label>Idade:</label>
-                    <input
-                      type="text"
+                      placeholder='Idade do seu Pet'
                       value={inptPetIdade}
                       onChange={(e) => setInptPetIdade(e.target.value)}
                     />
                   </div>
-                </div>
-                <div className="linha-inpt">
                   <div className="label-inpt">
-                    <label>Porte:</label>
+                    <label htmlFor="selectPorte">Porte:</label>
                     <select
+                      id="selectPorte"
                       name="selectPorte"
                       value={inptPetPorte}
                       onChange={(e) => setInptPetPorte(e.target.value)}
@@ -138,27 +134,39 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       <option value="Grande">Grande</option>
                     </select>
                   </div>
-                  <div className="genero-pet">
-                    <label>Gênero:</label>
-                    <div className="radio-pet">
-                      <select
-                            type="select"
-                            name="especie-pet"
-                            value={inptPetGenero}
-                            onChange={(e) => setInptPetGenero(e.target.value)}>
-                            <option value=""></option>
-                            <option value="Fêmea">Fêmea</option>
-                            <option value="Macho">Macho</option>
-                        </select>
-                    </div>
+                </div>
+                <div className="linha-inpt">
+                  <div className="label-inpt">
+                    <label htmlFor="racaPet">Raça:</label>
+                    <input
+                      id="racaPet"
+                      type="text"
+                      placeholder='Raça do seu Pet'
+                      value={inptPetRaca}
+                      onChange={(e) => setInptPetRaca(e.target.value)}
+                    />
                   </div>
+                    <div className="label-inpt">
+                      <label htmlFor="selectGenero">Gênero:</label>
+                      <select
+                        id="selectGenero"
+                        name="selectGenero"
+                        value={inptPetGenero}
+                        onChange={(e) => setInptPetGenero(e.target.value)}
+                      >
+                        <option value=""></option>
+                        <option value="Fêmea">Fêmea</option>
+                        <option value="Macho">Macho</option>
+                      </select>
+                    </div>
                 </div>
               </div>
             </div>
 
             <div className="label-inpt">
-              <label>Imagem URL:</label>
+              <label htmlFor="imagemURL">Imagem URL:</label>
               <input
+                id="imagemURL"
                 className='inptImgPet'
                 type="text"
                 placeholder='Adicione a URL da imagem do seu Pet!'
@@ -168,8 +176,9 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             </div>
 
             <div className="descricao-pet-cad">
-              <label>Descrição:</label>
+              <label htmlFor="descricaoPet">Descrição:</label>
               <input
+                id="descricaoPet"
                 type="text"
                 placeholder='Adicione uma descrição para seu anúncio!'
                 value={inptPetDescricao}
