@@ -204,21 +204,12 @@
     height: 20px;
     color: #D9D9D9;
 }
+
 #selectGenero{
     width: 400px;
-    height: 45px;
-}
-.genero-pet {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    height: 5vh;
-    /* border: solid; */
+    height: 50px;
 }
 
-.genero-pet select{
-    height: 45px;
-}
 .descricao-pet-cad {
     display: flex;
     flex-direction: column;

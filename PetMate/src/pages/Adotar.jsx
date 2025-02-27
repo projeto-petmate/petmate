@@ -31,7 +31,7 @@ function Adotar() {
       <Navbar />
       <ScrollToTop />
       <div className="banner-contato">
-        <img src="/images/banner_info.svg" alt="" />
+        <img src="/images/banner-adotar-2025.svg" alt="" />
       </div>
       <BarraFiltro />
       <div className="adotar-container">

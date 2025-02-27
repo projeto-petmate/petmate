@@ -27,7 +27,7 @@ function Inicial() {
     <div>
         <Navbar />
         <div className="home-container">
-            <img src="/images/banner_home3.svg" className='banner-home' />
+            <img src="/images/banner-home-2025.svg" className='banner-home' />
             <div className="meio-home">
               <div className="texto-home">
                 <div className="titulo-home">
