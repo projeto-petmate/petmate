@@ -164,7 +164,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             </div>
 
             <div className="label-inpt">
-              <label htmlFor="imagemURL">Imagem URL:</label>
+              <label htmlFor="imagemURL" className='labelImg'>Imagem URL:</label>
               <input
                 id="imagemURL"
                 className='inptImgPet'
@@ -186,20 +186,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               />
             </div>
 
-            {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
-            {/* <div className="termos-cadastro-pet">
-              <div className="termos-pet">
-                <input
-                  type="checkbox"
-                  checked={aceitarTermos}
-                  onChange={(e) => setAceitarTermos(e.target.checked)}
-                />
-                <p className='termos-1'>
-                  Ao preencher o formulário acima você concorda com os nossos
-                </p>
-                <a href="#" className='link-termos'>Termos de Uso.</a>
-              </div>
-            </div> */}
+
             <button type="submit" className='botao-cad-pet'>Próxima Etapa</button>
           </form>
         ) : (
@@ -213,6 +200,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             inptPetDescricao={inptPetDescricao}
             inptPetImagemURL={inptPetImagemURL}
             aceitarTermos={aceitarTermos}
+            setAceitarTermos={setAceitarTermos}
             setEtapa={setEtapa}
             enviarPet={enviarPet}
             erros={erros}

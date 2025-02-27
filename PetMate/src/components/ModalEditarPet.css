@@ -163,11 +163,12 @@
     border: 1px solid #3d2b1e;
 
 }
-.tags-container{
+.tags-container-edit{
     text-align: center;
 }
-.tags-container input{
+.tags-container-edit input{
     height: 50px;
+    width: 450px;
     border-radius: 8px;
     padding: 5px;
     font-size: 18px;

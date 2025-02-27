@@ -6,20 +6,18 @@
     min-height: 60vh;
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: 60vw;
+    width: 65vw;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     min-height: 80vh;
     padding: 20px;
-    border: 1px solid #3d2b1e;
+    border-left: 25px solid #654833;
     justify-content: space-evenly;
     margin-top: 20px;
-
 }
 
 .conteiner-modal-2 input,
 .conteiner-modal-2 textarea,
 .conteiner-modal-2 select {
-    /* width: 100%; */
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -73,39 +71,9 @@
     transform: scale(1.05);
 }
 
-
-
-.radio-pet-2 p {
-    margin-right: 10px;
-}
-
-.radio-pet-2 [type="radio"] {
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #D9D9D9;
-    border-radius: 50%;
-    background-color: #D9D9D9;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.radio-pet-2 [type="radio"]:checked {
-    background-color: #84644D;
-    border-color: #3d2b1e;
-}
-
-
-.radio-pet-2 {
-    height: 20px;
-    color: #D9D9D9;
-}
-
-
 .botao-enviar-pet {
     background-color: #84644D;
     color: #FFFFFF;
-    margin-bottom: 10px;
     font-size: 26px;
     font-weight: bold;
     font-family: 'Raleway';
@@ -132,6 +100,23 @@
     margin-top: 10px;
 }
 
+#input-tag {
+    width: 600px;
+    height: 60px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.tag-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
 .tags-list {
     display: flex;
     flex-wrap: wrap;
@@ -140,14 +125,13 @@
     align-items: center;
     margin: auto;
     gap: 20px;
-    /* width: 100%; */
-    /* border: solid; */
 }
 
-.tag-item{
+.tag-item {
     display: flex;
     align-items: center;
 }
+
 .texto-tag {
     display: flex;
     flex-direction: row;
@@ -160,7 +144,6 @@
     padding: 5px 10px 5px 10px;
     white-space: nowrap;
     width: fit-content;
-    /* margin-bottom: 5px; */
 }
 
 .add-tag {
@@ -173,11 +156,19 @@
     padding: 5px 10px;
     white-space: nowrap;
     cursor: pointer;
-    height: 60px;
-    width: 140px;
+    height: 40px;
+    width: 55px;
     font-family: 'Nunito';
-    font-size: 18px;
+    font-size: 30px;
     font-weight: bold;
+    margin-left: 10px;
+    background-color: #EBE5E0;
+    color: #6b4f3a;
+    transition: 0.3s;
+}
+
+.add-tag:hover {
+    transform: scale(1.05);
 }
 
 .remove-tag {
@@ -185,7 +176,6 @@
     align-items: center;
     border: none;
     border-radius: 4px;
-    /* padding: 5px 10px; */
     justify-content: center;
     cursor: pointer;
     height: 30px;
@@ -195,5 +185,67 @@
     text-align: center;
     background-color: #EBE5E0;
     color: #6b4f3a;
+}
 
+.termos-cadastro-pet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    /* margin-top: 20px; */
+    /* margin-bottom: 20px; */
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: -40px;
+}
+.tag-button{
+    display: flex;
+    flex-direction: row;
+}
+
+.termos-pet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.termos-pet input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+    height: 20px;
+    width: 100px;
+}
+
+.termos-1 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.termos-pet a {
+    font-size: 20px;
+    text-decoration: none;
+    color: #84644D;
+    margin-left: 5px;
+}
+.termos-pet a:hover {
+    transform: scale(1);
+}
+
+.link-termos:hover {
+    color: #6b4f3a;
+}
+.erro-mensagem-pet{
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    color: rgb(219, 16, 16);
+}
+.erro-cad-pet{
+    min-height: 10px;
 }

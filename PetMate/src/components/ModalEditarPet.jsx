@@ -153,7 +153,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                     </div>
                 </div>
 
-                <div className="tags-container">
+                <div className="tags-container-edit">
                             <label htmlFor="input-tag">Detalhes</label>
                     <div className="tag-edit-line">
                             <input
