@@ -4,6 +4,7 @@ import { GlobalContext } from "../contexts/GlobalContext"
 import './Navbar.css'
 import NavDeslogado from "./NavDeslogado"
 import NavLogado from "./NavLogado"
+import  BarraPesquisa from "./BarraPesquisa"
 
 function Navbar() {
   const { logado, userLogado } = useContext(GlobalContext)
@@ -31,7 +32,8 @@ function Navbar() {
         <Link to="/adotar">Adotar</Link>
         <Link to="/contato">Sobre Nós</Link>
         
- 
+        <BarraPesquisa />
+        
         {isLogado ? <NavLogado /> : <NavDeslogado />}
        
       </div>
