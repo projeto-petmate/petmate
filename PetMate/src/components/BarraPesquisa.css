@@ -1,27 +1,70 @@
-.pesquisa-container{
-    position: absolute;
-    display: inline-block;
-    right: 60%;
+.pesquisa-container {
+    /* position: absolute; */
+    /* display: inline-block; */
+    /* right: 60%; */
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    height: 50px;
+    background-color: var(--cor-3);
+    border-radius: 25px;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 }
 
-.barraDePesquisa{
-    height: 40px;
-    width: 400px;
-    border: none;
-    border-radius: 20px;
-    background-color: #CFC0B3;
-    color: black;
-    padding-left: 40px;
+
+.pesquisa-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
+.pesquisa-container:focus-within {
+    background-color: #e0e0e0;
+}
+.barraDePesquisa {
+    flex: 1;
+    height: 100%;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--cor-3);
+    color: black;
+    padding-left: 20px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
+    
+    /* padding-left: 40px; */
+}
+
 .barraDePesquisa::placeholder {
-    padding: 10px;
+    font-size: 16px;
     color: #654833;
 }
+
 .barraDePesquisa:focus {
     outline: none;
+    background-color: #e0e0e0;
 }
 
-.iconeLupa{
+
+.lupaIcon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.5s ease;
+}
+
+.lupaIcon:hover{
+    color: #484848
+}
+
+/* .botaoLupa{
+    background-color: #CFC0B3;
+    border: none;
+} */
+/* .iconeLupa{
     position: absolute;
     height: 20px;
     left: 10px;
@@ -30,4 +73,4 @@
     transform: translateY(-50%);
     font-size: 20px;
     pointer-events: none;
-}
+} */

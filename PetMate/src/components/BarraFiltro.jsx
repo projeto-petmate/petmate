@@ -49,7 +49,7 @@ function BarraFiltro() {
       </div>
       <div className="select-filter">
         <label htmlFor="selectGenero">Gênero</label>
-        <select name="genero" id="selectGenero" onChange={handleFilterChange} ref={generoRef}>
+        <select name="genero" id="selectGeneroFiltro" onChange={handleFilterChange} ref={generoRef}>
           <option value=""></option>
           <option value="Fêmea">Fêmea</option>
           <option value="Macho">Macho</option>

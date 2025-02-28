@@ -21,18 +21,18 @@ function Navbar() {
 
   return (
     <nav className="navbar-container">
-      <div className="img_nav">
+      <div className="img-nav">
         <Link to='/home'>
           <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate"/>
         </Link>
       </div>
+        <BarraPesquisa />
 
       <div className="botoes-nav">
         <Link to="/home">Home</Link>
         <Link to="/adotar">Adotar</Link>
         <Link to="/contato">Sobre Nós</Link>
         
-        <BarraPesquisa />
         
         {isLogado ? <NavLogado /> : <NavDeslogado />}
        

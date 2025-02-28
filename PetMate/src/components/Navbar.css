@@ -1,41 +1,28 @@
-/* .navbar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    
-} */
 
 
-.navbar-container{
-
+.navbar-container {
     display: flex;
     flex-direction: row;
     min-width: 100vw;
     align-items: center;
     justify-content: center;
-    
     padding: 10px;
     height: 120px;
     background-color: #84644D;
-    /* box-shadow: 0px 0px 10px 10px #312319 */
-    
-
 }
 
-.botoes-nav{
+.botoes-nav {
     display: flex;
     justify-content: space-evenly;
     width: 50%;
     align-items: center;
 }
 
-a{
+a {
     font-size: 26px;
 }
 
-.botao-modal-navbar{
-    /* padding: 3px; */
+.botao-modal-navbar {
     width: 120px;
     height: 50px;
     font-weight: 600;
@@ -48,50 +35,52 @@ a{
     cursor: pointer;
     transition: all 0.3s ease;
 }
-.botao-modal-navbar:hover{
+
+.botao-modal-navbar:hover {
     background-color: #543A28;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-
-.nav-img{
-    width: 120px;
-    margin-right: 20vw;
-    align-items: center;
-    /* border: solid; */
+.img-nav {
+    margin-right: 5vw;
 }
 
-.nav-img:hover{
+.nav-img {
+    width: 120px;
+    align-items: center;
+}
+
+.nav-img:hover {
     cursor: pointer;
 }
 
 .botoes-nav a {
-    color: #fbfbfb; 
-    text-decoration: none; 
-    font-family: 'nunito', sans-serif; 
-    font-weight: 300; 
-    transition: color 0.5s; 
+    color: #fbfbfb;
+    text-decoration: none;
+    font-family: 'nunito', sans-serif;
+    font-weight: 300;
+    transition: color 0.5s;
 }
 
 .botoes-nav a:hover {
-    /* color: #312319; */
     transform: scale(1.05);
     transition: 0.2s;
     cursor: pointer;
 }
 
-.icon-perfil{
+.icon-perfil {
     font-size: 50px;
     color: #fbfbfb;
 }
 
-.profile{
+.profile {
     height: 60px;
     width: 120px;
 }
 
-.loginNav, .cadastroNav {
+.loginNav,
+.cadastroNav {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 20px;
@@ -100,7 +89,6 @@ a{
     border-radius: 6px;
     letter-spacing: 0.04em;
     transition: all 0.3s ease;
-    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .loginNav {
@@ -118,7 +106,8 @@ a{
     font-family: 'nunito', sans-serif;
 }
 
-.loginNav:hover, .cadastroNav:hover {
+.loginNav:hover,
+.cadastroNav:hover {
     cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
@@ -134,14 +123,14 @@ a{
     color: #F5F5F5;
 }
 
-.nav-logado{
+.nav-logado {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 20px;
 }
 
-.boas-vindas{
+.boas-vindas {
     font-family: 'nunito', sans-serif;
     font-size: 20px;
     color: #F5F5F5;
