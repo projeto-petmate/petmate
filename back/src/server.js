@@ -182,6 +182,209 @@ app.delete('/pets/:id', async (req, res) => {
 });
 
 
+// CRUD para ONGs
+
+// Listar todas as ONGs
+app.get('/ongs', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM ongs');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar ONGs' });
+    }
+});
+
+// Buscar uma ONG por ID
+app.get('/ongs/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM ongs WHERE id_ong = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'ONG não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar ONG' });
+    }
+});
+
+// Criar uma nova ONG
+app.post('/ongs', async (req, res) => {
+    const {
+        nome_ong,
+        email,
+        telefone,
+        telefone_denuncia,
+        cnpj,
+        nome_responsavel,
+        cpf_responsavel,
+        data_nascimento_responsavel,
+        email_responsavel,
+        telefone_responsavel,
+        estado_ong,
+        cidade_ong,
+        endereco_ong
+    } = req.body;
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO ongs (
+                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel, 
+                cpf_responsavel, data_nascimento_responsavel, email_responsavel, 
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+            [
+                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel,
+                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong
+            ]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao adicionar ONG' });
+    }
+});
+
+// Atualizar uma ONG por ID
+app.put('/ongs/:id', async (req, res) => {
+    const { id } = req.params;
+    const {
+        nome_ong,
+        email,
+        telefone,
+        telefone_denuncia,
+        cnpj,
+        nome_responsavel,
+        cpf_responsavel,
+        data_nascimento_responsavel,
+        email_responsavel,
+        telefone_responsavel,
+        estado_ong,
+        cidade_ong,
+        endereco_ong
+    } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE ongs SET 
+                nome_ong = $1, email = $2, telefone = $3, telefone_denuncia = $4, 
+                cnpj = $5, nome_responsavel = $6, cpf_responsavel = $7, 
+                data_nascimento_responsavel = $8, email_responsavel = $9, 
+                telefone_responsavel = $10, estado_ong = $11, cidade_ong = $12, 
+                endereco_ong = $13 
+            WHERE id_ong = $14 RETURNING *`,
+            [
+                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel,
+                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, id
+            ]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'ONG não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar ONG:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar ONG' });
+    }
+});
+
+// Deletar uma ONG por ID
+app.delete('/ongs/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM ongs WHERE id_ong = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'ONG não encontrada' });
+        }
+        res.json({ message: 'ONG deletada com sucesso' });
+    } catch (err) {
+        console.error('Erro ao deletar ONG:', err.message);
+        res.status(500).json({ error: 'Erro ao deletar ONG' });
+    }
+});
+
+
+// CRUD para Comentários
+
+// Listar todos os comentários
+app.get('/comentarios', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM comentarios');
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar comentários' });
+    }
+});
+
+// Buscar um comentário por ID
+app.get('/comentarios/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM comentarios WHERE id_comentario = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Comentário não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar comentário' });
+    }
+});
+
+// Criar um novo comentário
+app.post('/comentarios', async (req, res) => {
+    const { texto, id_usuario } = req.body;
+    try {
+        const result = await pool.query(
+            'INSERT INTO comentarios (texto, id_usuario) VALUES ($1, $2) RETURNING *',
+            [texto, id_usuario]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao adicionar comentário' });
+    }
+});
+
+// Atualizar um comentário por ID
+app.put('/comentarios/:id', async (req, res) => {
+    const { id } = req.params;
+    const { texto } = req.body;
+    try {
+        const result = await pool.query(
+            'UPDATE comentarios SET texto = $1 WHERE id_comentario = $2 RETURNING *',
+            [texto, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Comentário não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar comentário:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar comentário' });
+    }
+});
+
+// Deletar um comentário por ID
+app.delete('/comentarios/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM comentarios WHERE id_comentario = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Comentário não encontrado' });
+        }
+        res.json({ message: 'Comentário deletado com sucesso' });
+    } catch (err) {
+        console.error('Erro ao deletar comentário:', err.message);
+        res.status(500).json({ error: 'Erro ao deletar comentário' });
+    }
+});
+
 
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000');

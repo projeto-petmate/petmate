@@ -55,3 +55,55 @@ export const deletePet = async (id) => {
     const response = await api.delete(`/pets/${id}`);
     return response.data;
 };
+
+// ONGs
+export const getOngs = async () => {
+    const response = await api.get('/ongs');
+    return response.data;
+};
+
+export const getOngById = async (id) => {
+    const response = await api.get(`/ongs/${id}`);
+    return response.data;
+};
+
+export const addOng = async (ong) => {
+    const response = await api.post('/ongs', ong);
+    return response.data;
+};
+
+export const updateOng = async (id, ong) => {
+    const response = await api.put(`/ongs/${id}`, ong);
+    return response.data;
+};
+
+export const deleteOng = async (id) => {
+    const response = await api.delete(`/ongs/${id}`);
+    return response.data;
+};
+
+// Comentários
+export const getComentarios = async () => {
+    const response = await api.get('/comentarios');
+    return response.data;
+};
+
+export const getComentarioById = async (id) => {
+    const response = await api.get(`/comentarios/${id}`);
+    return response.data;
+};
+
+export const addComentario = async (comentario) => {
+    const response = await api.post('/comentarios', comentario);
+    return response.data;
+};
+
+export const updateComentario = async (id, comentario) => {
+    const response = await api.put(`/comentarios/${id}`, comentario);
+    return response.data;
+};
+
+export const deleteComentario = async (id) => {
+    const response = await api.delete(`/comentarios/${id}`);
+    return response.data;
+};
