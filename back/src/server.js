@@ -215,6 +215,7 @@ app.post('/ongs', async (req, res) => {
     const {
         nome_ong,
         email,
+        senha, // Campo de senha adicionado
         telefone,
         telefone_denuncia,
         cnpj,
@@ -231,12 +232,12 @@ app.post('/ongs', async (req, res) => {
     try {
         const result = await pool.query(
             `INSERT INTO ongs (
-                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel, 
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, 
                 cpf_responsavel, data_nascimento_responsavel, email_responsavel, 
                 telefone_responsavel, estado_ong, cidade_ong, endereco_ong
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
             [
-                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel,
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
                 cpf_responsavel, data_nascimento_responsavel, email_responsavel,
                 telefone_responsavel, estado_ong, cidade_ong, endereco_ong
             ]
@@ -254,6 +255,7 @@ app.put('/ongs/:id', async (req, res) => {
     const {
         nome_ong,
         email,
+        senha, // Campo de senha adicionado
         telefone,
         telefone_denuncia,
         cnpj,
@@ -270,14 +272,14 @@ app.put('/ongs/:id', async (req, res) => {
     try {
         const result = await pool.query(
             `UPDATE ongs SET 
-                nome_ong = $1, email = $2, telefone = $3, telefone_denuncia = $4, 
-                cnpj = $5, nome_responsavel = $6, cpf_responsavel = $7, 
-                data_nascimento_responsavel = $8, email_responsavel = $9, 
-                telefone_responsavel = $10, estado_ong = $11, cidade_ong = $12, 
-                endereco_ong = $13 
-            WHERE id_ong = $14 RETURNING *`,
+                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5, 
+                cnpj = $6, nome_responsavel = $7, cpf_responsavel = $8, 
+                data_nascimento_responsavel = $9, email_responsavel = $10, 
+                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13, 
+                endereco_ong = $14 
+            WHERE id_ong = $15 RETURNING *`,
             [
-                nome_ong, email, telefone, telefone_denuncia, cnpj, nome_responsavel,
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
                 cpf_responsavel, data_nascimento_responsavel, email_responsavel,
                 telefone_responsavel, estado_ong, cidade_ong, endereco_ong, id
             ]
