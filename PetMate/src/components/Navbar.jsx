@@ -32,6 +32,7 @@ function Navbar() {
         <Link to="/home">Home</Link>
         <Link to="/adotar">Adotar</Link>
         <Link to="/contato">Sobre Nós</Link>
+        <Link to="/feedback">Feedback</Link>
         
         
         {isLogado ? <NavLogado /> : <NavDeslogado />}

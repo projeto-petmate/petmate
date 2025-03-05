@@ -1,0 +1,4 @@
+.feedback-container{
+    background-image: url(/images/fundo_patas.svg);
+    min-height: calc(100vh - 120px);
+}

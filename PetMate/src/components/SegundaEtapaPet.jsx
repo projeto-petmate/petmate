@@ -11,7 +11,7 @@ function SegundaEtapaPet({
     inptPetPorte,
     inptPetGenero,
     inptPetDescricao,
-    inptPetImagemURL,
+    inptPetImagem,
     aceitarTermos,
     setAceitarTermos,
     setEtapa,
@@ -36,6 +36,9 @@ function SegundaEtapaPet({
 
     const validarFormulario = () => {
         const novosErros = {};
+        // if (inptPetImagemURL && !inptPetImagemURL.includes('https')) {
+        //     novosErros.imagem = 'A URL da imagem deve conter https.';
+        // }
         if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagemURL) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
@@ -60,7 +63,7 @@ function SegundaEtapaPet({
                 <div className="conteiner-modal-2">
                     <div className="titulo-cad-pet">
                         <div className="titulo-barra-pet">
-                            <h2>Adicionar detalhes sobre o pet</h2>
+                            <h2>Adicionar características do pet</h2>
                             <img src="/images/barra_marrom.png" className='barra-pet' />
                         </div>
                         <div className="botoes-cad-pet">
@@ -72,7 +75,7 @@ function SegundaEtapaPet({
                     <div className="tags-container">
                         <div className="tag-button">
                             <div className="label-input-tag">
-                                <label htmlFor="input-tag">{'Detalhes (opcional)'}</label>
+                                <label htmlFor="input-tag">{'Características (opcional)'}</label>
                                 <div className="tag-button">
                                     <input
                                         type="text"
@@ -99,7 +102,8 @@ function SegundaEtapaPet({
                     </div>
                    
 
-                    <div className="erro-cad-pet">
+                        <div className="erro-cad-pet">
+                        {localErros.imagem && <p className="erro-mensagem-pet">{localErros.imagem}</p>}
                         {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>}
                         {localErros.termos && <p className="erro-mensagem-pet">{localErros.termos}</p>}
                     </div>

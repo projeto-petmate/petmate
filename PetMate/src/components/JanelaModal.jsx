@@ -18,7 +18,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   const [inptPetPorte, setInptPetPorte] = useState('');
   const [inptPetGenero, setInptPetGenero] = useState('');
   const [inptPetDescricao, setInptPetDescricao] = useState('');
-  const [inptPetImagemURL, setInptPetImagemURL] = useState('');
+  const [inptPetImagem, setInptPetImagem] = useState('');
   const [aceitarTermos, setAceitarTermos] = useState(false);
   const [erros, setErros] = useState({});
   const [etapa, setEtapa] = useState(1);
@@ -28,7 +28,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   }
 
   const validarFormulario = () => {
-    if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagemURL || !aceitarTermos) {
+    if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem || !aceitarTermos) {
       return { geral: 'Todos os campos são obrigatórios e você deve aceitar os termos e condições.' };
     }
     return {};
@@ -46,7 +46,16 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     enviarPet();
   };
 
-  const enviarPet = async (tags) => {
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setInptPetImagem(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const enviarPet = async (tags = []) => {
     const novoPet = {
       especie: inptPetEspecie,
       nome: inptPetNome,
@@ -55,7 +64,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       porte: inptPetPorte,
       genero: inptPetGenero,
       descricao: inptPetDescricao,
-      imagem: inptPetImagemURL,
+      imagem: inptPetImagem,
       tags: tags.join(', '),
     };
 
@@ -146,32 +155,30 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       onChange={(e) => setInptPetRaca(e.target.value)}
                     />
                   </div>
-                    <div className="label-inpt">
-                      <label htmlFor="selectGenero">Gênero:</label>
-                      <select
-                        id="selectGenero"
-                        name="selectGenero"
-                        value={inptPetGenero}
-                        onChange={(e) => setInptPetGenero(e.target.value)}
-                      >
-                        <option value=""></option>
-                        <option value="Fêmea">Fêmea</option>
-                        <option value="Macho">Macho</option>
-                      </select>
-                    </div>
+                  <div className="label-inpt">
+                    <label htmlFor="selectGenero">Gênero:</label>
+                    <select
+                      id="selectGenero"
+                      name="selectGenero"
+                      value={inptPetGenero}
+                      onChange={(e) => setInptPetGenero(e.target.value)}
+                    >
+                      <option value=""></option>
+                      <option value="Fêmea">Fêmea</option>
+                      <option value="Macho">Macho</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="label-inpt">
-              <label htmlFor="imagemURL" className='labelImg'>Imagem URL:</label>
+              <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
               <input
                 id="imagemURL"
                 className='inptImgPet'
-                type="text"
-                placeholder='Adicione a URL da imagem do seu Pet!'
-                value={inptPetImagemURL}
-                onChange={(e) => setInptPetImagemURL(e.target.value)}
+                type="file"
+                onChange={handleImageChange}
               />
             </div>
 
@@ -186,7 +193,6 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               />
             </div>
 
-
             <button type="submit" className='botao-cad-pet'>Próxima Etapa</button>
           </form>
         ) : (
@@ -198,7 +204,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             inptPetPorte={inptPetPorte}
             inptPetGenero={inptPetGenero}
             inptPetDescricao={inptPetDescricao}
-            inptPetImagemURL={inptPetImagemURL}
+            inptPetImagem={inptPetImagem}
             aceitarTermos={aceitarTermos}
             setAceitarTermos={setAceitarTermos}
             setEtapa={setEtapa}

@@ -79,7 +79,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
           <div className="modal-pet-2">
             <div className="info-container">
               <p className='info-title'>
-                Detalhes sobre {pet.nome}
+                Características de {pet.nome}
               </p>
               <div className="pet-tag-container">
               {tagsArray.map((tag, index) => (
