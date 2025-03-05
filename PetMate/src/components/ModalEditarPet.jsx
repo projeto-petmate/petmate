@@ -35,6 +35,14 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     if (!isEditarPet) {
         return null;
     }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagem(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
 
     const handleAddTag = () => {
         if (tagInputEdit.trim() !== '') {
@@ -133,13 +141,21 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
 
                 <div className="coluna-edit">
                     <div className="edit-imagem">
-                        <label htmlFor="imagem-pet">Imagem URL</label>
-                        <input
-                            type="text"
-                            name="imagem-pet"
-                            value={imagem}
-                            onChange={(e) => setImagem(e.target.value)}
-                        />
+                    <div className="control edit-imagem">
+                            <input
+                                id="file-upload"
+                                type="file"
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => document.getElementById('file-upload').click()}
+                                className="add-img-pet"
+                            >
+                                Escolher Imagem
+                            </button>
+                        </div>
                     </div>
 
                     <div className="edit-desc">
@@ -154,15 +170,15 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                 </div>
 
                 <div className="tags-container-edit">
-                            <label htmlFor="input-tag">Detalhes</label>
+                    <label htmlFor="input-tag">Detalhes</label>
                     <div className="tag-edit-line">
-                            <input
-                                type="text"
-                                value={tagInputEdit}
-                                onChange={(e) => setTagInputEdit(e.target.value)}
-                                name='input-tag-edit'
-                                placeholder="Ex: Vacinado, Castrado, Brincalhão"
-                            />
+                        <input
+                            type="text"
+                            value={tagInputEdit}
+                            onChange={(e) => setTagInputEdit(e.target.value)}
+                            name='input-tag-edit'
+                            placeholder="Ex: Vacinado, Castrado, Brincalhão"
+                        />
                         <button type="button" onClick={handleAddTag} className='add-tag-edit'>+</button>
                     </div>
                     <div className="tags-list-edit">

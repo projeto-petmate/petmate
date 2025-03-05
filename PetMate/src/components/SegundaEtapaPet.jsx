@@ -39,7 +39,7 @@ function SegundaEtapaPet({
         // if (inptPetImagemURL && !inptPetImagemURL.includes('https')) {
         //     novosErros.imagem = 'A URL da imagem deve conter https.';
         // }
-        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagemURL) {
+        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
         if (!aceitarTermos) {

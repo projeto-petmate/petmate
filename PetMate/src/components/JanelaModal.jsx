@@ -175,11 +175,18 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
             <div className="label-inpt">
               <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
               <input
-                id="imagemURL"
-                className='inptImgPet'
+                id="file-upload"
                 type="file"
                 onChange={handleImageChange}
+                style={{ display: 'none' }}
               />
+              <button
+                type="button"
+                onClick={() => document.getElementById('file-upload').click()}
+                className="add-img-pet"
+              >
+                Escolher Imagem
+              </button>
             </div>
 
             <div className="descricao-pet-cad">
