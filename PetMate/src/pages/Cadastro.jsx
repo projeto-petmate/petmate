@@ -90,9 +90,15 @@ function Cadastro() {
                             <h2>Cadastre-se</h2>
                             <img src="/images/barra_marrom.png" className="barra_cadastro" />
                         </div>
+
+                        <div className="botoes-cad-login">
+                        <Link to="/CadastroONG">
+                        <button>Sou uma ONG</button>
+                        </Link>
                         <Link to="/login">
                             <button>Login</button>
                         </Link>
+                        </div>
                     </div>
 
                     <div className="inputs-cadastro">

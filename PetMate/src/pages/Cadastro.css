@@ -46,14 +46,25 @@
 .texto-cadastro{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    gap: 400px;
+    justify-content: space-around;
+    gap: 300px;
     align-items: center;
     width: 100%;
     height: auto;
-    margin-bottom: 6em;
+    margin-bottom: 8em;
     /* border: solid; */
 }   
+
+/*botão cad + login*/
+.botoes-cad-login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 1em;
+}
+
 
 .texto-cadastro h2{
     margin-top: 1px;

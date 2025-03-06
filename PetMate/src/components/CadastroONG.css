@@ -1,0 +1,87 @@
+.conteiner-cad-ong{
+    display: flex;
+    flex-direction: row;
+    min-height: calc(113vh - 120px);
+    background-image: url(/images/fundo_patas.svg);
+}
+
+.conteiner-info-ong{
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px rgba(10, 10, 10, 0.2);
+    width: 60%;
+
+}
+
+.texto-cadastro-ong{
+    display: flex;
+    flex-direction: row;
+    /* border: solid; */
+    align-items: center;
+    margin-top: 4%;
+    margin-left: 2%;
+}
+
+.texto-cadastro-ong-img{
+    display: flex;
+    flex-direction: column;
+    /* border: solid; */
+    align-items: center;
+    margin-left: 3%;
+}
+
+.texto-cadastro-ong-img h2{
+    margin-top: 1px;
+    font-family: Koh Santepheap;
+    font-size: 34px;
+    margin-right: 60px;
+    margin-bottom: 2%;
+}
+
+.texto-cadastro-ong-img img{
+    height: 13px;
+    width: 98%;
+}
+.botao-voltar-cad{
+    background-color: #84644D;
+    color: #FFFFFF;
+    /* margin-bottom: 10px; */
+    font-size: 30px;
+    font-weight: bold;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 200px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.inputs-cad-ong{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    border: solid;
+}
+
+.inputs-cad-ong input{
+    height: 20px;
+}
+
+.coluna-1-inputs{
+display: flex;
+flex-direction: column;
+/* border: solid; */
+}
+
+.coluna-2-inputs{
+display: flex;
+flex-direction: column;
+/* border: solid; */
+}
+
+.coluna-3-inputs{
+display: flex;
+flex-direction: column;
+/* border: solid; */
+}
