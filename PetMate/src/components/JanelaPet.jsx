@@ -30,7 +30,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
 
   const linkWpp = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#"
   const linkEmail = doador ? `mailto:${doador.email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#"
-  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}`: "#"
+  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}` : "#"
 
   const tagsArray = pet.tags ? pet.tags.split(', ') : []
 
@@ -82,7 +82,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 Características de {pet.nome}
               </p>
               <div className="pet-tag-container">
-              {tagsArray.map((tag, index) => (
+                {tagsArray.map((tag, index) => (
                   <span key={index} className="pet-tag">{tag}</span>
                 ))}
               </div>
@@ -93,8 +93,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <p>Para adotar este pet, entre em contato com o protetor:</p>
               {doador && (
                 <div className="info-doador">
-                  <p>Nome do anunciante: <div className="dados-doador"> { doador.nome }</div></p>
-                  <p>Endereço: <div className="dados-doador"> { doador.endereco }</div></p>
+                  <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
+                  <p>Endereço: <div className="dados-doador"> {doador.endereco}</div></p>
                   {/* <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p> */}
                   {/* <p>Email: <div className="dados-doador">{doador.email}</div></p> */}
                   <div className="links-contato">
@@ -107,7 +107,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     </a>
 
                     <a href={linkMaps}>
-                    <FaMapMarkerAlt className='iconMap'/>
+                      <FaMapMarkerAlt className='iconMap' />
                     </a>
                   </div>
                 </div>
