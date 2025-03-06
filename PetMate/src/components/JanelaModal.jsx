@@ -1,59 +1,61 @@
-import React, { useState, useContext } from 'react';
-import './Navbar.css';
-import './JanelaModal.css';
-import { PetContext } from "../contexts/PetContext";
-import { useNavigate } from 'react-router-dom';
-import SegundaEtapaPet from './SegundaEtapaPet';
-import { IoMdClose } from "react-icons/io";
-import { CgCloseO } from "react-icons/cg";
+import React, { useState, useContext } from 'react'
+import './Navbar.css'
+import './JanelaModal.css'
+import { PetContext } from "../contexts/PetContext"
+import { useNavigate } from 'react-router-dom'
+import SegundaEtapaPet from './SegundaEtapaPet'
+import { IoMdClose } from "react-icons/io"
+import { CgCloseO } from "react-icons/cg"
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
-  const { addPet } = useContext(PetContext);
-  const navigate = useNavigate();
+  const { addPet } = useContext(PetContext)
+  const navigate = useNavigate()
 
-  const [inptPetEspecie, setInptPetEspecie] = useState('');
-  const [inptPetNome, setInptPetNome] = useState('');
-  const [inptPetRaca, setInptPetRaca] = useState('');
-  const [inptPetIdade, setInptPetIdade] = useState('');
-  const [inptPetPorte, setInptPetPorte] = useState('');
-  const [inptPetGenero, setInptPetGenero] = useState('');
-  const [inptPetDescricao, setInptPetDescricao] = useState('');
-  const [inptPetImagem, setInptPetImagem] = useState('');
-  const [aceitarTermos, setAceitarTermos] = useState(false);
-  const [erros, setErros] = useState({});
-  const [etapa, setEtapa] = useState(1);
+  const [inptPetEspecie, setInptPetEspecie] = useState('')
+  const [inptPetNome, setInptPetNome] = useState('')
+  const [inptPetRaca, setInptPetRaca] = useState('')
+  const [inptPetIdade, setInptPetIdade] = useState('')
+  const [inptPetPorte, setInptPetPorte] = useState('')
+  const [inptPetGenero, setInptPetGenero] = useState('')
+  const [inptPetDescricao, setInptPetDescricao] = useState('')
+  const [inptPetImagem, setInptPetImagem] = useState('')
+  const [imagemPreview, setImagemPreview] = useState(null)
+  const [aceitarTermos, setAceitarTermos] = useState(false)
+  const [erros, setErros] = useState({})
+  const [etapa, setEtapa] = useState(1)
 
   if (!isOpen) {
-    return null;
+    return null
   }
 
   const validarFormulario = () => {
     if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem || !aceitarTermos) {
-      return { geral: 'Todos os campos são obrigatórios e você deve aceitar os termos e condições.' };
+      return { geral: 'Todos os campos são obrigatórios e você deve aceitar os termos e condições.' }
     }
-    return {};
-  };
+    return {}
+  }
 
   const CadastrarPet = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const novosErros = validarFormulario();
+    const novosErros = validarFormulario()
     if (Object.keys(novosErros).length > 0) {
-      setErros(novosErros);
-      return;
+      setErros(novosErros)
+      return
     }
 
-    enviarPet();
-  };
+    enviarPet()
+  }
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+    const file = e.target.files[0]
+    const reader = new FileReader()
     reader.onloadend = () => {
-      setInptPetImagem(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
+      setInptPetImagem(reader.result)
+      setImagemPreview(reader.result)
+    }
+    reader.readAsDataURL(file)
+  }
 
   const enviarPet = async (tags = []) => {
     const novoPet = {
@@ -66,23 +68,23 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       descricao: inptPetDescricao,
       imagem: inptPetImagem,
       tags: tags.join(', '),
-    };
+    }
 
     try {
-      await addPet(novoPet);
-      console.log('Pet cadastrado:', novoPet);
-      setModalOpen(false);
-      window.location.reload();
+      await addPet(novoPet)
+      console.log('Pet cadastrado:', novoPet)
+      setModalOpen(false)
+      window.location.reload()
     } catch (error) {
-      setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' });
+      setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' })
     }
-  };
+  }
 
   return (
     <div className='modal_conteiner'>
       <div className='conteiner_modal'>
         {etapa === 1 ? (
-          <form className="cad-pet-container" onSubmit={(e) => { e.preventDefault(); setEtapa(2); }}>
+          <form className="cad-pet-container" onSubmit={(e) => { e.preventDefault(); setEtapa(2) }}>
             <div className="titulo-cad-pet">
               <div className="titulo-barra-pet">
                 <h2>Criar anúncio para Pet</h2>
@@ -172,21 +174,31 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
               </div>
             </div>
 
-            <div className="label-inpt">
-              <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
-              <input
-                id="file-upload"
-                type="file"
-                onChange={handleImageChange}
-                style={{ display: 'none' }}
-              />
-              <button
-                type="button"
-                onClick={() => document.getElementById('file-upload').click()}
-                className="add-img-pet"
-              >
-                Escolher Imagem
-              </button>
+            <div className="label-inpt-img">
+              <div className="add-img">
+                <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }}
+                />
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('file-upload').click()}
+                  className="botao-add-img"
+                >
+                  Escolher Imagem
+                </button>
+              </div>
+              {imagemPreview === null ? '' :
+                <div className="img-preview" >
+                  {imagemPreview && (
+                    <img src={imagemPreview} alt="Pré-visualização" className="imagem-preview" />
+                  )}
+                </div>
+              }
+
             </div>
 
             <div className="descricao-pet-cad">
@@ -222,5 +234,5 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
         )}
       </div>
     </div>
-  );
+  )
 }

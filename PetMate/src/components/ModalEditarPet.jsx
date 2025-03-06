@@ -11,6 +11,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const [porte, setPorte] = useState('');
     const [genero, setGenero] = useState('');
     const [imagem, setImagem] = useState('');
+    const [imagemPreview, setImagemPreview] = useState(null);
     const [especie, setEspecie] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInputEdit, setTagInputEdit] = useState('');
@@ -40,6 +41,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         const reader = new FileReader();
         reader.onloadend = () => {
             setImagem(reader.result);
+            setImagemPreview(reader.result);
         };
         reader.readAsDataURL(file);
     };
@@ -140,8 +142,9 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                 </div>
 
                 <div className="coluna-edit">
-                    <div className="edit-imagem">
-                    <div className="control edit-imagem">
+                    <div className="edit-imagem-pet">
+                        <div className="add-img">
+                            <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
                             <input
                                 id="file-upload"
                                 type="file"
@@ -151,11 +154,19 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                             <button
                                 type="button"
                                 onClick={() => document.getElementById('file-upload').click()}
-                                className="add-img-pet"
+                                className="botao-add-img"
                             >
                                 Escolher Imagem
                             </button>
                         </div>
+                        {imagemPreview === null ? '' :
+                            <div className="img-preview" >
+                                {imagemPreview && (
+                                    <img src={imagemPreview} alt="Pré-visualização" className="imagem-preview" />
+                                )}
+                            </div>
+                        }
+
                     </div>
 
                     <div className="edit-desc">
