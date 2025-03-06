@@ -11,6 +11,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const [porte, setPorte] = useState('');
     const [genero, setGenero] = useState('');
     const [imagem, setImagem] = useState('');
+    const [imagemPreview, setImagemPreview] = useState(null);
     const [especie, setEspecie] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInputEdit, setTagInputEdit] = useState('');
@@ -35,6 +36,15 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     if (!isEditarPet) {
         return null;
     }
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagem(reader.result);
+            setImagemPreview(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
 
     const handleAddTag = () => {
         if (tagInputEdit.trim() !== '') {
@@ -132,14 +142,31 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                 </div>
 
                 <div className="coluna-edit">
-                    <div className="edit-imagem">
-                        <label htmlFor="imagem-pet">Imagem URL</label>
-                        <input
-                            type="text"
-                            name="imagem-pet"
-                            value={imagem}
-                            onChange={(e) => setImagem(e.target.value)}
-                        />
+                    <div className="edit-imagem-pet">
+                        <div className="add-img">
+                            <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
+                            <input
+                                id="file-upload"
+                                type="file"
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => document.getElementById('file-upload').click()}
+                                className="botao-add-img"
+                            >
+                                Escolher Imagem
+                            </button>
+                        </div>
+                        {imagemPreview === null ? '' :
+                            <div className="img-preview" >
+                                {imagemPreview && (
+                                    <img src={imagemPreview} alt="Pré-visualização" className="imagem-preview" />
+                                )}
+                            </div>
+                        }
+
                     </div>
 
                     <div className="edit-desc">
@@ -154,15 +181,15 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                 </div>
 
                 <div className="tags-container-edit">
-                            <label htmlFor="input-tag">Detalhes</label>
+                    <label htmlFor="input-tag">Detalhes</label>
                     <div className="tag-edit-line">
-                            <input
-                                type="text"
-                                value={tagInputEdit}
-                                onChange={(e) => setTagInputEdit(e.target.value)}
-                                name='input-tag-edit'
-                                placeholder="Ex: Vacinado, Castrado, Brincalhão"
-                            />
+                        <input
+                            type="text"
+                            value={tagInputEdit}
+                            onChange={(e) => setTagInputEdit(e.target.value)}
+                            name='input-tag-edit'
+                            placeholder="Ex: Vacinado, Castrado, Brincalhão"
+                        />
                         <button type="button" onClick={handleAddTag} className='add-tag-edit'>+</button>
                     </div>
                     <div className="tags-list-edit">

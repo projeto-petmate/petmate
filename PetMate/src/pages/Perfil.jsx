@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import './Perfil.css';
 import { FiLogOut } from "react-icons/fi";
+import { FaCheck } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
@@ -96,90 +97,97 @@ function Perfil() {
 
                     <div className="inputs-perfil">
                         <div className="inputs-perfil-1">
-                            <div className="input-nome">
+                            <div className="input-perma">
                                 <p className='dadoPerma'>Email*</p>
                                 <div>
-                                    <input 
-                                        type="text" 
-                                        name="email" 
-                                        value={userData.email || ''} 
-                                        disabled 
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        value={userData.email || ''}
+                                        disabled
                                     />
                                 </div>
                             </div>
                             <div className="input-nome">
                                 <p>Nome</p>
                                 <div className="input-edit">
-                                    <input 
-                                        type="text" 
-                                        name="nome" 
-                                        value={userData.nome || ''} 
-                                        onChange={handleChange} 
-                                        disabled={!editMode} 
+                                    <input
+                                        type="text"
+                                        name="nome"
+                                        value={userData.nome || ''}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' onClick={() => setEditMode(true)} />
+                                    <FaEdit className='icon-lapis' />
                                 </div>
                             </div>
                             <div className="input-nome">
                                 <p>Senha</p>
                                 <div className="input-edit">
-                                    <input 
-                                        type="password" 
-                                        name="senha" 
-                                        value={userData.senha || ''} 
-                                        onChange={handleChange} 
-                                        disabled={!editMode} 
+                                    <input
+                                        type="password"
+                                        name="senha"
+                                        value={userData.senha || ''}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' onClick={() => setEditMode(true)} />
+                                    <FaEdit className='icon-lapis' />
                                 </div>
                             </div>
                         </div>
                         <div className="inputs-perfil-2">
-                            <div className="input-nome">
+                            <div className="input-perma">
                                 <p className='dadoPerma'>CPF*</p>
-                                <input 
-                                    type="text" 
-                                    name="cpf" 
-                                    value={userData.cpf || ''}  
-                                    disabled 
+                                <input
+                                    type="text"
+                                    name="cpf"
+                                    value={userData.cpf || ''}
+                                    disabled
                                 />
                             </div>
                             <div className="input-nome">
                                 <p>Endereço</p>
                                 <div className="input-edit">
-                                    <input 
-                                        type="text" 
-                                        name="endereco" 
-                                        value={userData.endereco || ''} 
-                                        onChange={handleChange} 
-                                        disabled={!editMode} 
+                                    <input
+                                        type="text"
+                                        name="endereco"
+                                        value={userData.endereco || ''}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' onClick={() => setEditMode(true)} />
+                                    <FaEdit className='icon-lapis' />
                                 </div>
                             </div>
                             <div className="input-nome">
                                 <p>Telefone</p>
                                 <div className="input-edit">
-                                    <input 
-                                        type="text" 
-                                        name="telefone" 
-                                        value={userData.telefone || ''} 
-                                        onChange={handleChange} 
-                                        disabled={!editMode} 
+                                    <input
+                                        type="text"
+                                        name="telefone"
+                                        value={userData.telefone || ''}
+                                        onChange={handleChange}
+                                        disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' onClick={() => setEditMode(true)} />
+                                    <FaEdit className='icon-lapis' />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {editMode && (
-                        <button className="botao-sair" onClick={handleSave}>
-                            <div className="sair-conta">
-                                Salvar Dados
-                                <FaEdit className='icon-logout'/>
+                    {!editMode ?
+                        <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
+                            <div className="editar-dados">
+                                Editar Dados
+                                <FaEdit className='icon-edit' />
                             </div>
                         </button>
-                    )}
+                        : (
+                            <button className="botao-salvar-perfil" onClick={handleSave}>
+                                <div className="salvar-dados">
+                                    Salvar Dados
+                                    <FaCheck className='icon-edit' />
+                                </div>
+                            </button>
+                        )}
                     <div className="excluir-conta">
                         <h4>Excluir conta permanentemente</h4>
                         <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir</button>

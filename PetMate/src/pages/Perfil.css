@@ -22,7 +22,7 @@
 }
 
 .titulo-barra {
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
 }
 
 .titulo-barra h2 {
@@ -64,6 +64,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 100px;
 }
 
 .inputs-perfil input {
@@ -86,30 +87,26 @@
 
 .inputs-perfil-1,
 .inputs-perfil-2 {
-
     display: flex;
     flex-direction: column;
 }
 
-/* .inputs-perfil-1 input, .inputs-perfil-2 input{
-    height: 60px;
-    
-} */
 
-.inputs-perfil-1 {
-    margin-right: 100px;
-}
-
-.inputs-perfil-2 {
-    margin-left: 100px;
-}
 
 .dadoPerma {
     color: #84644D;
 }
 
-.botao-sair {
-    width: 100%;
+.salvar-dados, .editar-dados{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.botao-salvar-perfil {
+    width: 50%;
     height: 60px;
     font-size: 24px;
     background-color: #84644D;
@@ -120,6 +117,23 @@
     letter-spacing: 0.025em;
     font-family: Roboto;
     margin-top: 30px;
+    margin: auto;
+}
+
+.botao-editar-perfil{
+    width: 50%;
+    height: 60px;
+    font-size: 24px;
+    background-color: #84644D;
+    border-radius: 12px;
+    border: none;
+    color: #FFFFFF;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    font-family: Roboto;
+    margin-top: 30px;
+    margin: auto;
+
 }
 
 .botao-sair-logout {
@@ -216,9 +230,9 @@
     border-color: #AD947E #AD947E #AD947E #ffffff00;
     border-left: none;
     background-color: #EBE5E0;
-    cursor: pointer;
     font-size: 33px;
     color: #747373;
+    padding-right: 4px;
 }
 
 .conteiner-configuracoes {
@@ -233,8 +247,19 @@
 
 
 
-.inputs-perfil input {
-    max-width: none;
+.inputs-perfil input{
+    /* width: 400px; */
     height: 60px;
+}
+.input-nome input{
+    width: 400px;
+    height: 60px;
+}
 
+.input-perma input{
+    width: 433px;
+}
+
+.inputs-perfil p{
+    font-size: 22px;
 }

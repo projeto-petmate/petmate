@@ -2,3 +2,60 @@
     background-image: url(/images/fundo_patas.svg);
     min-height: calc(100vh - 120px);
 }
+
+.titulo-feedback h2{
+    font-size: 40px;
+    color: #654833;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+    /* margin-top: 30px; */
+
+}
+
+.titulo-feedback p{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.lista-comentarios{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.comentario-container{
+    min-width: 900px;
+
+}
+.comentario-nome{
+    /* border: solid; */
+    display: flex;
+    align-items: center;
+    background-color: #AD947E;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+    height: 70px;
+    color: #F5F5F5;
+    gap: 10px;
+    font-size: 24px;
+
+}
+
+.icon-comentario{
+    color: #F5F5F5;
+    font-size: 36px;
+}
+.comentario-texto{
+    /* border: solid; */
+    background-color: #F5F5F5;
+    padding: 30px;
+    border-radius: 0px 0px 10px 10px;
+    height: 90px;
+    font-size: 20px;
+
+}

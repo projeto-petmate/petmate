@@ -144,28 +144,38 @@
 
 }
 
-.edit-imagem{
+.edit-imagem-pet {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 200px;
+    margin: auto;
     gap: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
-.edit-imagem input{
-    width: 940px;
-    height: 50px;
-    border-radius: 8px;
-    padding: 5px;
-    font-size: 18px;
-    text-align: center;
-    font-family: 'Nunito', sans-serif;
-    font-weight: bold;
-    margin-bottom: 10px;
-    background-color: #EBE5E0;
-    outline: none;
+.add-img-pet{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
     border: 1px solid #3d2b1e;
-
+    border-radius: 4px;
+    padding: 5px 10px;
+    white-space: nowrap;
+    cursor: pointer;
+    height: 40px;
+    width: 150px;
+    font-family: 'Nunito';
+    font-size: 16px;
+    font-weight: bold;
+    /* margin-bottom: 10px; */
+    background-color: #EBE5E0;
+    color: #3d2b1e;
+    transition: 0.3s;
 }
+
 .tags-container-edit{
     text-align: center;
 }
