@@ -68,6 +68,12 @@
     height: 20px;
 }
 
+.forms-cad-ong{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
 .coluna-1-inputs{
 display: flex;
 flex-direction: column;
@@ -84,4 +90,17 @@ flex-direction: column;
 display: flex;
 flex-direction: column;
 /* border: solid; */
+}
+
+.input-cad-ong{
+    flex-direction: column;
+    margin-top: 5%;
+    /* margin-left: 4%; */
+    width: 310px;
+    /* height: 60px; */
+    padding: 23px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

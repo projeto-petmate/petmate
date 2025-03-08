@@ -19,59 +19,59 @@ function CadastroONG() {
       </div>
 
       <div className="inputs-cad-ong">
-        <form className="" action="">
+        <form className="forms-cad-ong" action="">
 
           <div className="coluna-1-inputs">
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
           </div>
 
           <div className="coluna-2-inputs">
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
           </div>
 
           <div className="coluna-3-inputs">
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
             <label htmlFor="">
-              <input type="text" />
+              <input className="input-cad-ong" type="text" />
             </label>
           </div>
         </form>
