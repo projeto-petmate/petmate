@@ -10,6 +10,8 @@ import { FaUserCircle } from "react-icons/fa";
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
     const [nomesComentarios, setNomesComentarios] = useState([]);
+    const [inptComentario, setInptComentario] = useState('');
+    const { addComentario } = useContext(UserContext);
 
     useEffect(() => {
         const fetchComentarios = async () => {
@@ -42,7 +44,20 @@ function Feedback() {
         }
     }, [comentarios]);
 
+    const enviarComentario = async (e) => {
+        const novoComentario = {
+            texto: inptComentario,
+        }
 
+        try {
+            await addComentario(novoComentario)
+            console.log('Comentario cadastrado:', novoComentario)
+            setInptComentario('')
+            // window.location.reload()
+        } catch (error) {
+            setErros({ geral: 'Erro ao enviar comentario. Tente novamente.' })
+        }
+    }
 
     return (
         <div>
@@ -51,6 +66,15 @@ function Feedback() {
                 <div className="titulo-feedback">
                     <h2>Feedbacks</h2>
                     <p>Faça comentários de feedback sobre o sistema!</p>
+                </div>
+                <div className="add-feedback-container">
+                    <div className='add-feedback-titulo'>
+                        <p>Deixe seu comentário:</p>
+                    </div>
+                    <div className="add-feedback">
+                        <input onChange={ (e) => setInptComentario(e.target.value) } className='inpt-feedback' placeholder="Deixe seu comentário aqui..." />
+                        <button onClick={enviarComentario} className='botao-add-feedback'>Enviar</button>
+                    </div>
                 </div>
                 <div className="lista-comentarios">
                     {nomesComentarios.map((c) => (

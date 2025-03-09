@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import axios from 'axios';
 
 export const UserContext = createContext()
 
@@ -15,17 +16,11 @@ export const UserContextProvider = ({ children }) => {
     const [users, setUsers] = useState([])
     const [comentarios, setComentarios] = useState([])
 
-    // const [ pet, setPet ] = useState() 
-
-
-
     const addUser = (novoUser) => {
         setUsers([...users, novoUser])
     }
 
-    // const addComentario = (novoComentario) => {
-    //     setComentarios([...comentarios, novoComentario])
-    // }
+
 
     const addComentario = async (novoComentario) => {
         try {

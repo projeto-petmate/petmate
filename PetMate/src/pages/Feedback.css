@@ -3,6 +3,10 @@
     min-height: calc(100vh - 120px);
 }
 
+.titulo-feedback{
+    padding: 20px;
+}
+
 .titulo-feedback h2{
     font-size: 40px;
     color: #654833;
@@ -20,18 +24,20 @@
 
 .lista-comentarios{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100vw;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 50px;
     margin-top: 50px;
     margin-bottom: 50px;
 }
 
 .comentario-container{
-    min-width: 900px;
-
+    min-width: 800px;
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
 }
+
 .comentario-nome{
     /* border: solid; */
     display: flex;
@@ -58,4 +64,63 @@
     height: 90px;
     font-size: 20px;
 
+}
+
+.add-feedback-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: fit-content;
+}
+
+.add-feedback-titulo{
+    width: 100%;
+    display: flex;
+}
+.add-feedback-titulo p{
+    text-align: start;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.add-feedback{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.inpt-feedback{
+    width: 780px;
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid #654833;
+    padding: 10px;
+    outline: none;
+    font-size: 18px;
+    transition: 0.3s ease;
+}
+
+.inpt-feedback:focus{
+    background-color: #eceaea;
+}
+
+.botao-add-feedback{
+    width: 100px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #654833;
+    font-size: 18px;
+    font-weight: bold;
+    color: #F5F5F5;
+    border: none;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.botao-add-feedback:hover{
+    background-color: #4d3524;
+    /* transform: translateY(-2px); */
+    /* transform: scale(1.01); */
 }
