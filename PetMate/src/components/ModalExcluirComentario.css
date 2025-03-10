@@ -1,4 +1,4 @@
-.modal-excluir-pet{
+.modal-excluir-comentario{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -10,7 +10,7 @@
     align-items: center;
     z-index: 1000;
 }
-.container-excluir-pet{
+.container-excluir-comentario{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,7 +27,7 @@
 }
 
 
-.botao-modal-excluir-pet, .botao-modal-cancelar-pet {
+.botao-modal-excluir-comentario, .botao-modal-cancelar-comentario {
     font-size: 18px;
     font-weight: 600;
     padding: 10px 20px;
@@ -41,23 +41,19 @@
     transition: background-color 0.3s ease;
 }
 
-.botao-modal-cancelar-pet{
+.botao-modal-cancelar-comentario{
     background-color: #84644D;
     color: #EBE5E0;
 }
-.botao-modal-excluir-pet{
+.botao-modal-excluir-comentario{
     background-color: #EBE5E0;
     border: 1px solid #6b4f3a;
     color: #333;
 }
-.botao-modal-excluir-pet:hover {
-    /* background-color: #6b4f3a; */
-}
 
-.botao-modal-cancelar-pet:hover {
+.botao-modal-cancelar-comentario:hover {
     background-color: #a67c5b;
 }
-
 
 
 .Botao_Exclui{
@@ -70,18 +66,18 @@
     padding: 10px;
 }
 
-.texto-excluir-pet{
+.texto-excluir-comentario{
     margin-top: 80px;
 }
-.texto-excluir-pet h1 {
+.texto-excluir-comentario h1 {
     font-size: 30px;
     color: #333;
     margin-bottom: 20px;
 }
 
-.texto-excluir-pet p{
+.texto-excluir-comentario p{
     /* margin-top: 80px;  */
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
     color: #333;
 }

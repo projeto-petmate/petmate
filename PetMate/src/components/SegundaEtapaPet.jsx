@@ -55,6 +55,7 @@ function SegundaEtapaPet({
             return;
         }
         enviarPet(tags);
+        window.location.reload(); //verificar se é a melhor solução
     };
 
     return (

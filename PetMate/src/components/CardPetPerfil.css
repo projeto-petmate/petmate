@@ -3,9 +3,8 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    max-height: 85vh;
+    max-height: calc(100vh - 120px);
     overflow-y: auto;
-    margin-top: 10px;
 }
 
 .pet-card-perfil {
@@ -19,6 +18,9 @@
     overflow: hidden;
     transition: transform 0.2s;
     background-color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
 }
 
 .pet-card-perfil button:hover {
