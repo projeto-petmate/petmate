@@ -72,6 +72,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         };
         onEditPet(updatedPet);
         setPetEditOpen(false);
+        window.location.reload(); //verificar se é a melhor solução
     };
 
     const handleClose = () => {

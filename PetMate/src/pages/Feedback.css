@@ -38,20 +38,26 @@
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
 }
 
-.comentario-nome{
+.comentario-info{
     /* border: solid; */
     display: flex;
+    flex-direction: row;
     align-items: center;
     background-color: #AD947E;
     padding: 10px;
     border-radius: 10px 10px 0px 0px;
     height: 70px;
     color: #F5F5F5;
-    gap: 10px;
     font-size: 24px;
-
+    justify-content: space-between;
 }
 
+.comentario-nome{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
 .icon-comentario{
     color: #F5F5F5;
     font-size: 36px;
@@ -123,4 +129,20 @@
     background-color: #4d3524;
     /* transform: translateY(-2px); */
     /* transform: scale(1.01); */
+}
+
+.erro-comentario{
+    color: red;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.botao-excluir-comentario{
+    color: #F5F5F5;
+    border: none;
+    /* padding: 5px 10px; */
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.5s ease;
 }

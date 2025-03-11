@@ -16,15 +16,15 @@ function Adotar() {
   const navigate = useNavigate()
 
 
-  useEffect(() => {
-    const hasReloaded = localStorage.getItem('hasReloaded');
-    if (!hasReloaded) {
-      localStorage.setItem('hasReloaded', 'true');
-      window.location.reload();
-    } else {
-      localStorage.removeItem('hasReloaded');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const hasReloaded = localStorage.getItem('hasReloaded');
+  //   if (!hasReloaded) {
+  //     localStorage.setItem('hasReloaded', 'true');
+  //     window.location.reload();
+  //   } else {
+  //     localStorage.removeItem('hasReloaded');
+  //   }
+  // }, []);
 
   return (
     <div>
