@@ -9,7 +9,7 @@ const pool = new Pool({
     host: 'localhost',
     database: 'petmate',
     password: 'senai',
-    port: 5433,
+    port: 5432,
 });
 
 app.use(bodyParser.json({ limit: '50mb' }));

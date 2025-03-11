@@ -190,6 +190,8 @@
     /* margin-bottom: 10px; */
     background-color: #EBE5E0;
     outline: none;
+    border: 1px solid #3d2b1e;
+
 }
 
 .add-tag-edit{
