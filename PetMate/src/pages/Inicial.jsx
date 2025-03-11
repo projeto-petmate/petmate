@@ -10,10 +10,10 @@ import { BeatLoader } from "react-spinners";
 
 
  function Inicial() {
-   const [loading, setLoading] = useState(false);
    const [openModal, setOpenModal] = useState(false);
    const { logado } = useContext(GlobalContext);
    const navigate = useNavigate()
+   const [loading, setLoading] = useState(false);
   
    useEffect(() => {
      const hasReloaded = localStorage.getItem('hasReloaded');
@@ -28,7 +28,7 @@ import { BeatLoader } from "react-spinners";
  
          setTimeout(() => {
            setLoading(false);
-       }, 1000); 
+       }, 500); 
      }
  }, []);
  

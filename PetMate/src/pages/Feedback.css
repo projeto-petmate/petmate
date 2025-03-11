@@ -3,6 +3,18 @@
     min-height: calc(100vh - 120px);
 }
 
+.banner-container{
+    display: flex;
+    height: auto;
+    width: 100vw;
+}
+
+.banner-feedback{
+    width: 100%;
+    height: 100%;
+    /* object-fit: fill; */
+}
+
 .titulo-feedback{
     padding: 20px;
 }
@@ -43,7 +55,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: #AD947E;
+    background-color: #84644D;
     padding: 10px;
     border-radius: 10px 10px 0px 0px;
     height: 70px;

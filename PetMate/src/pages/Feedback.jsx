@@ -7,6 +7,7 @@ import axios from 'axios';
 import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
+import Loading from '../components/Loading';
 
 
 function Feedback() {
@@ -19,6 +20,7 @@ function Feedback() {
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
     const userLogado = JSON.parse(localStorage.getItem("userLogado"));
 
+    <Loading />
     useEffect(() => {
         const fetchComentarios = async () => {
             try {
@@ -69,8 +71,8 @@ function Feedback() {
             if (inptComentario.length > 8) {
                 await addComentario(novoComentario)
                 console.log('Comentario cadastrado:', novoComentario)
-                setInptComentario('')
                 setErros('')
+                setInptComentario('')
             } else {
                 setErros('Comentário deve ter no mínimo 8 caracteres.')
             }
@@ -83,6 +85,9 @@ function Feedback() {
         <div>
             <Navbar />
             <div className="feedback-container">
+                <div className="banner-container">
+                    <img src="./images/banner-feedback.svg" alt="banner-feedback" className='banner-feedback' />
+                </div>
                 <div className="titulo-feedback">
                     <h2>Feedbacks</h2>
                     <p>Faça comentários de feedback sobre o sistema!</p>
@@ -92,7 +97,7 @@ function Feedback() {
                         <p>Deixe seu comentário:</p>
                     </div>
                     <div className="add-feedback">
-                        <input onChange={(e) => setInptComentario(e.target.value)} className='inpt-feedback' placeholder="Deixe seu comentário aqui..." />
+                        <input value={inptComentario} onChange={(e) => setInptComentario(e.target.value)} className='inpt-feedback' placeholder="Deixe seu comentário aqui..." />
                         <button onClick={enviarComentario} className='botao-add-feedback'>Enviar</button>
                     </div>
                     <div className="erros-feedback">

@@ -22,6 +22,9 @@ function SegundaEtapaPet({
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
     const [localErros, setLocalErros] = useState({});
+    const [radioCondicoesNao, setRadioCondicoesNao] = useState('');
+    const [radioCondicoesSim, setRadioCondicoesSim] = useState('');
+    const [radioCondicoes, setRadioCondicoes] = useState('');
 
     const handleAddTag = () => {
         if (tagInput.trim() !== '') {
@@ -58,6 +61,8 @@ function SegundaEtapaPet({
         window.location.reload(); //verificar se é a melhor solução
     };
 
+
+
     return (
         <div>
             <div className="modal_conteiner">
@@ -70,6 +75,35 @@ function SegundaEtapaPet({
                         <div className="botoes-cad-pet">
                             <IoArrowBackCircle onClick={() => { setEtapa(1) }} className='botao_modal_voltar' />
                             <CgCloseO onClick={() => setModalOpen(false)} className='botao_modal_2' />
+                        </div>
+                    </div>
+
+                    <div className="condicoes-container">
+                        <div className="condicoes-pet">
+                            <div className='condicoes-texto'>
+                                <p>
+                                    O pet possui alguma condição especial?
+                                </p>
+                            </div>
+                            <div className="radio-condicoes">
+                                <label htmlFor="radioPetNao">Não</label>
+                                <input type="radio" id='radioPetNao' name='radio-pet'
+                                    value={radioCondicoes}
+                                    onChange={() => setRadioCondicoes('não')} />
+                            </div>
+                            <div className="radio-condicoes">
+                                <label htmlFor="radioPetSim">Sim</label>
+                                <input type="radio" id='radioPetSim' name='radio-pet'
+                                    value={radioCondicoes}
+                                    onChange={() => setRadioCondicoes('sim')} />
+                            </div>
+                        </div>
+                        <div className="input-condicao">
+                            {radioCondicoes === 'sim' && 
+                                <label htmlFor="input-condicao">Descreva a condição especial do pet:
+                                    <input type="text" name="" id="input-condicao" />
+                                </label>
+                            }
                         </div>
                     </div>
 
@@ -101,9 +135,9 @@ function SegundaEtapaPet({
                             ))}
                         </div>
                     </div>
-                   
 
-                        <div className="erro-cad-pet">
+
+                    <div className="erro-cad-pet">
                         {localErros.imagem && <p className="erro-mensagem-pet">{localErros.imagem}</p>}
                         {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>}
                         {localErros.termos && <p className="erro-mensagem-pet">{localErros.termos}</p>}

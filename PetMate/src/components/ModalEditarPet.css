@@ -170,7 +170,6 @@
     font-family: 'Nunito';
     font-size: 16px;
     font-weight: bold;
-    /* margin-bottom: 10px; */
     background-color: #EBE5E0;
     color: #3d2b1e;
     transition: 0.3s;
@@ -187,7 +186,6 @@
     font-size: 18px;
     text-align: center;
     font-family: 'Nunito', sans-serif;
-    /* margin-bottom: 10px; */
     background-color: #EBE5E0;
     outline: none;
     border: 1px solid #3d2b1e;

@@ -249,3 +249,50 @@
 .erro-cad-pet{
     min-height: 10px;
 }
+
+
+.condicoes-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.condicoes-pet{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.condicoes-texto{
+    font-size: 20px;
+}
+.radio-condicoes input[type="radio"]{
+    /* margin-right: 10px; */
+    height: 30px;
+    width: 20px;
+}
+.radio-condicoes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin-left: 10px;
+    gap: 5px;
+    /* margin-left: 10px; */
+    /* margin-top: 10px; */
+}
+
+.input-condicao label{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 665px;
+}
+
+#input-condicao{
+    width: 600px;
+    margin: 0;
+}
