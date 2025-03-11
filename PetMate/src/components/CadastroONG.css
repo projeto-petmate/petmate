@@ -10,7 +10,7 @@
     flex-direction: column;
     background-color: whitesmoke;
     box-shadow: 0 0 10px rgba(10, 10, 10, 0.2);
-    width: 60%;
+    width: 62%;
 
 }
 
@@ -61,12 +61,13 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    border: solid;
+    /* border: solid; */
 }
 
 .inputs-cad-ong input{
     height: 20px;
 }
+
 
 .forms-cad-ong{
     display: flex;
@@ -92,6 +93,20 @@ flex-direction: column;
 /* border: solid; */
 }
 
+.termos-ong{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteiner-botao-cad-ong{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .input-cad-ong{
     flex-direction: column;
     margin-top: 5%;
@@ -103,4 +118,19 @@ flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.descricao-ong{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: solid; */
+}
+
+.descricao-ong label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
