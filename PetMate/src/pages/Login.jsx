@@ -4,6 +4,7 @@ import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import './Login.css';
 import { useEffect } from 'react';
+import bcrypt from 'bcryptjs';
 
 function Login() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
@@ -12,36 +13,40 @@ function Login() {
     const [erro, setErro] = useState('')
     const navigate = useNavigate()
     const [userData, setUserData] = useState(userLogado || {})
-    const {  } = useContext(GlobalContext);
+    const { } = useContext(GlobalContext);
 
 
     const handleLogin = async () => {
         try {
+           
+            const salt = bcrypt.getSalt(10);
+            const senhacripto = bcrypt.getSalt(senha, salt);
+            console.log("Senha hasheada:", senhacripto);
             const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, senha }),
+                body: JSON.stringify({ email, senhacripto }),
             });
             const data = await response.json();
             if (response.ok) {
-                
+
                 console.log('Login bem-sucedido:', data);
                 setErro('Login efetuado com sucesso!');
-                
+
                 localStorage.setItem("logado", JSON.stringify(true));
                 localStorage.setItem("userLogado", JSON.stringify(data.user));
 
                 const lastPage = localStorage.getItem('lastPage') || '/home';
-                navigate(lastPage); 
+                navigate(lastPage);
             } else {
                 console.error('Erro no login:', data.error);
-                setErro(data.error); 
+                setErro(data.error);
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
-            setErro('Erro na requisição'); 
+            setErro('Erro na requisição');
         }
     };
 
@@ -97,13 +102,13 @@ function Login() {
                                             onChange={(e) => setSenha(e.target.value)}
                                         />
                                         <button onClick={MostrarSenha} className='icon-mostrar-senha'>
-                                            {mudarTipo  ? <FaRegEyeSlash /> : <FaRegEye />}
+                                            {mudarTipo ? <FaRegEyeSlash /> : <FaRegEye />}
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {erro && <p className="erro-mensagem-login">{erro}</p>}
+                        {erro && <p className="erro-mensagem-login">{erro}</p>}
                     </div>
                     <div className="base-login">
                         <button type='submit' onClick={handleLogin}>Login</button>

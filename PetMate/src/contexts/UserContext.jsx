@@ -16,6 +16,7 @@ export const UserContextProvider = ({ children }) => {
     const [users, setUsers] = useState([])
     const [comentarios, setComentarios] = useState([])
     
+    
 
     const addUser = (novoUser) => {
         setUsers([...users, novoUser])
