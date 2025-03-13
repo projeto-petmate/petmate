@@ -57,7 +57,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     reader.readAsDataURL(file)
   }
 
-  const enviarPet = async (tags = []) => {
+  const enviarPet = async (tags = [], condicoes = '') => {
     const novoPet = {
       especie: inptPetEspecie,
       nome: inptPetNome,
@@ -68,6 +68,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       descricao: inptPetDescricao,
       imagem: inptPetImagem,
       tags: tags.join(', '),
+      condicoes: condicoes,
     }
 
     try {

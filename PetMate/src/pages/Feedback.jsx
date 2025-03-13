@@ -19,6 +19,7 @@ function Feedback() {
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
     const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+    const logado = JSON.parse(localStorage.getItem("logado"));
 
     <Loading />
     useEffect(() => {
@@ -81,6 +82,8 @@ function Feedback() {
         }
     }
 
+    // let id_user_logado = userLogado.id_usuario;;
+
     return (
         <div>
             <Navbar />
@@ -92,18 +95,21 @@ function Feedback() {
                     <h2>Feedbacks</h2>
                     <p>Faça comentários de feedback sobre o sistema!</p>
                 </div>
-                <div className="add-feedback-container">
-                    <div className='add-feedback-titulo'>
-                        <p>Deixe seu comentário:</p>
+                {logado === true ?
+                    <div className="add-feedback-container">
+                        <div className='add-feedback-titulo'>
+                            <p>Deixe seu comentário:</p>
+                        </div>
+                        <div className="add-feedback">
+                            <input value={inptComentario} onChange={(e) => setInptComentario(e.target.value)} className='inpt-feedback' placeholder="Deixe seu comentário aqui..." />
+                            <button onClick={enviarComentario} className='botao-add-feedback'>Enviar</button>
+                        </div>
+                        <div className="erros-feedback">
+                            {erros && <p className="erro-comentario">{erros}</p>}
+                        </div>
                     </div>
-                    <div className="add-feedback">
-                        <input value={inptComentario} onChange={(e) => setInptComentario(e.target.value)} className='inpt-feedback' placeholder="Deixe seu comentário aqui..." />
-                        <button onClick={enviarComentario} className='botao-add-feedback'>Enviar</button>
-                    </div>
-                    <div className="erros-feedback">
-                        {erros && <p className="erro-comentario">{erros}</p>}
-                    </div>
-                </div>
+                    : ''}
+
                 <div className="lista-comentarios">
                     {nomesComentarios.map((c) => (
                         <div key={c.id_comentario} className="comentario">
@@ -114,9 +120,10 @@ function Feedback() {
                                         <h3>{c.nomeUsuario}</h3>
                                     </div>
                                     <div className="apagar-comentario">
-                                        {userLogado.id_usuario === c.id_usuario
-                                            &&
-                                            <IoTrashOutline onClick={() => { setCommentToDelete(c); setOpenModalExcluirComentario(true) }} className='botao-excluir-comentario' />}
+                                        {userLogado && userLogado.id_usuario === c.id_usuario
+                                            ?
+                                            <IoTrashOutline onClick={() => { setCommentToDelete(c); setOpenModalExcluirComentario(true) }} className='botao-excluir-comentario' />
+                                            : ''}
                                     </div>
                                 </div>
                                 <div className="comentario-texto">

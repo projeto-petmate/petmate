@@ -118,6 +118,7 @@
 .img-preview img{
     height: 120px;
     width: fit-content;
+    max-width: 400px;
 }
 .label-inpt-img{
     display: flex;

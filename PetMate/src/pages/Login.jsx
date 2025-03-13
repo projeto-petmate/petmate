@@ -12,9 +12,14 @@ function Login() {
     const [erro, setErro] = useState('')
     const navigate = useNavigate()
     const [userData, setUserData] = useState(userLogado || {})
-    const {  } = useContext(GlobalContext);
+    const { } = useContext(GlobalContext);
 
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    };
     const handleLogin = async () => {
         try {
             const response = await fetch('http://localhost:3000/login', {
@@ -26,22 +31,22 @@ function Login() {
             });
             const data = await response.json();
             if (response.ok) {
-                
+
                 console.log('Login bem-sucedido:', data);
                 setErro('Login efetuado com sucesso!');
-                
+
                 localStorage.setItem("logado", JSON.stringify(true));
                 localStorage.setItem("userLogado", JSON.stringify(data.user));
 
                 const lastPage = localStorage.getItem('lastPage') || '/home';
-                navigate(lastPage); 
+                navigate(lastPage);
             } else {
                 console.error('Erro no login:', data.error);
-                setErro(data.error); 
+                setErro(data.error);
             }
         } catch (error) {
             console.error('Erro na requisição:', error);
-            setErro('Erro na requisição'); 
+            setErro('Erro na requisição');
         }
     };
 
@@ -81,6 +86,7 @@ function Login() {
                                         placeholder='Digite seu email'
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                        onKeyDown={handleKeyDown}
                                     />
                                 </div>
                                 <div className="inpt-p">
@@ -95,15 +101,16 @@ function Login() {
                                             id='inputSenha'
                                             value={senha}
                                             onChange={(e) => setSenha(e.target.value)}
+                                            onKeyDown={handleKeyDown}
                                         />
                                         <button onClick={MostrarSenha} className='icon-mostrar-senha'>
-                                            {mudarTipo  ? <FaRegEyeSlash /> : <FaRegEye />}
+                                            {mudarTipo ? <FaRegEyeSlash /> : <FaRegEye />}
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {erro && <p className="erro-mensagem-login">{erro}</p>}
+                        {erro && <p className="erro-mensagem-login">{erro}</p>}
                     </div>
                     <div className="base-login">
                         <button type='submit' onClick={handleLogin}>Login</button>

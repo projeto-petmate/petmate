@@ -22,9 +22,9 @@ function SegundaEtapaPet({
     const [tags, setTags] = useState([]);
     const [tagInput, setTagInput] = useState('');
     const [localErros, setLocalErros] = useState({});
-    const [radioCondicoesNao, setRadioCondicoesNao] = useState('');
-    const [radioCondicoesSim, setRadioCondicoesSim] = useState('');
     const [radioCondicoes, setRadioCondicoes] = useState('');
+    const [inptCondicoes, setInptCondicoes] = useState('')
+    const [condicoes, setCondicoes] = useState('')
 
     const handleAddTag = () => {
         if (tagInput.trim() !== '') {
@@ -39,9 +39,7 @@ function SegundaEtapaPet({
 
     const validarFormulario = () => {
         const novosErros = {};
-        // if (inptPetImagemURL && !inptPetImagemURL.includes('https')) {
-        //     novosErros.imagem = 'A URL da imagem deve conter https.';
-        // }
+        
         if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
@@ -57,8 +55,8 @@ function SegundaEtapaPet({
             setLocalErros(novosErros);
             return;
         }
-        enviarPet(tags);
-        window.location.reload(); //verificar se é a melhor solução
+        const condicoesAtualizadas = radioCondicoes === 'sim' ? inptCondicoes : 'Nenhuma';
+        enviarPet(tags, condicoesAtualizadas);
     };
 
 
@@ -101,7 +99,9 @@ function SegundaEtapaPet({
                         <div className="input-condicao">
                             {radioCondicoes === 'sim' && 
                                 <label htmlFor="input-condicao">Descreva a condição especial do pet:
-                                    <input type="text" name="" id="input-condicao" />
+                                    <input type="text" name="" id="input-condicao"
+                                        value={inptCondicoes}
+                                        onChange={ (e) => setInptCondicoes(e.target.value) } />
                                 </label>
                             }
                         </div>

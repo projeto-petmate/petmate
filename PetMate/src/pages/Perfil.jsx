@@ -9,6 +9,7 @@ import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
 import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
 import CardPetPerfil from '../components/CardPetPerfil';
+import ModalLogout from '../components/ModalLogout';
 
 function Perfil() {
     const [openModalExclui, setOpenModalExclui] = useState(false);
@@ -17,18 +18,9 @@ function Perfil() {
     const [userData, setUserData] = useState(userLogado || {});
     const [userPets, setUserPets] = useState([]);
     const [openModal, setOpenCadModal] = useState(false);
+    const [openModalLogout, setOpenModalLogout] = useState(false);
 
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const hasReloaded = localStorage.getItem('hasReloaded');
-    //     if (!hasReloaded) {
-    //         localStorage.setItem('hasReloaded', 'true');
-    //         window.location.reload();
-    //     } else {
-    //         localStorage.removeItem('hasReloaded');
-    //     }
-    // }, []);
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -89,7 +81,7 @@ function Perfil() {
                             <h4>Dados do Perfil</h4>
                         </div>
                         <div className="sair-conta">
-                            <button className="botao-sair-logout" onClick={handleLogout}>
+                            <button className="botao-sair-logout" onClick={() => setOpenModalLogout(true)}>
                                 <FiLogOut className='icon-logout' />
                             </button>
                         </div>
@@ -195,6 +187,7 @@ function Perfil() {
                 </div>
             </div>
             <ModalExclusaoDeConta isExclui={openModalExclui} setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)} onDelete={handleDelete} />
+            <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
         </div>
     );
 }

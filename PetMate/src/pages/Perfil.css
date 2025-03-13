@@ -71,9 +71,9 @@
     height: 60px;
     width: 400px;
     border-radius: 12px;
-    border: solid #AD947E 2px;
+    border: solid #AD947E 1px;
     box-shadow: 0px 0px 1px;
-    background-color: #EBE5E0;
+    background-color: #FBFBFB;
     margin-bottom: 3vh;
     outline: none;
     padding: 10px;
@@ -165,21 +165,16 @@
 
 .excluir-conta {
     background-color: #FFF;
-    padding-top: 20px;
-    padding-bottom: 30px;
+    /* padding-top: 20px; */
+    /* padding-bottom: 30px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 50%;
-    border: 2px solid #84644D;
+    /* border: 2px solid #84644D; */
     border-radius: 10px;
     margin: auto;
-    /* border-top: 2px solid #84644D; */
-    /* border: solid #84644D 2px; */
-    /* padding: 15px; */
-    /* border-bottom: 2px solid #84644D; */
-    /* margin-top: 50px; */
 }
 
 
@@ -189,9 +184,9 @@
     text-align: center;
 }
 
-.excluir-conta p {
+/* .excluir-conta p {
     margin: 20px 0px 20px 0px;
-}
+} */
 
 .botao-excluir-perfil {
     height: 60px;
@@ -225,11 +220,11 @@
 .icon-lapis {
     display: flex;
     height: 60px;
-    border: solid #AD947E 2px;
+    border: solid #AD947E 1px;
     border-radius: 0px 12px 12px 0px;
     border-color: #AD947E #AD947E #AD947E #ffffff00;
     border-left: none;
-    background-color: #EBE5E0;
+    background-color: #FBFBFB;
     font-size: 33px;
     color: #747373;
     padding-right: 4px;

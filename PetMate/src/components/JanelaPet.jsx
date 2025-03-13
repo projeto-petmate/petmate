@@ -86,6 +86,14 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                   <span key={index} className="pet-tag">{tag}</span>
                 ))}
               </div>
+              <div className="info-condicoes-pet">
+                <p className='info-title'>
+                  Condições especiais
+                </p>
+                <div className="info-condicoes">
+                  {pet.condicoes != 'não' ? `${pet.condicoes}` : 'Nenhuma'}
+                </div>
+              </div>
             </div>
 
             <div className="info-doador-modal">
@@ -95,8 +103,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 <div className="info-doador">
                   <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
                   <p>Endereço: <div className="dados-doador"> {doador.endereco}</div></p>
-                  {/* <p>Telefone: <div className="dados-doador"> {doador.telefone}</div></p> */}
-                  {/* <p>Email: <div className="dados-doador">{doador.email}</div></p> */}
                   <div className="links-contato">
                     <a href={linkWpp}>
                       <FaWhatsapp className='icon_wpp' />

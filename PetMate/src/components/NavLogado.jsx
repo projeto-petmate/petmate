@@ -12,7 +12,7 @@ function NavLogado() {
 
   const [openModal, setOpenCadModal] = useState(false);
     let userData = userLogado
-    let userName = userData.nome
+    let userName = userLogado.nome
     
     const getFirstName = (fullName) => {
       return fullName.split(' ')[0]

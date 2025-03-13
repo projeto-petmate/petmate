@@ -202,7 +202,7 @@ strong {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 20px;
     gap: 15px;
 }
 
@@ -220,11 +220,21 @@ strong {
     border: #654833 solid 2px;
     border-radius: 8px;
     padding: 20px 0px 0px 20px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     /* text-align: start; */
     height: 300px;
     width: 40vw;
     text-transform: initial;
+}
+
+.info-condicoes-pet{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.info-condicoes{
+    font-size: 20px;
 }
 
 
