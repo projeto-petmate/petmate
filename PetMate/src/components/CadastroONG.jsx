@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
 
 function CadastroONG() {
+  const navigate = useNavigate(); // Use the hook to get the navigate function
 
   const [ongNome, setOngNome] = useState('')
   const [ongEmail, setOngEmail] = useState('')
@@ -45,7 +46,7 @@ function CadastroONG() {
     return erros
   }
 
-  const cadastrarOng = (e) => {
+  const cadastrarOng = async (e) => {
     e.preventDefault()
 
     const errosValidacao = validarFormulario()
@@ -73,12 +74,18 @@ function CadastroONG() {
        descricao_ong: ongDescricao
     };
 
- 
+    console.log('Dados enviados para o servidor:', novaOng);
+
+    try { 
+      await addOng(novaOng);
+      console.log('Ong cadastrada com sucesso!', novaOng);
+      navigate('/Login'); // Use the navigate function to redirect
+    }
+    catch (error) {
+      console.error('Erro ao cadastrar ONG:', error);
+      setErros({ email: 'Email já cadastrado' });
+    }
   }
-
-
- 
-
 
   return (
     <div className="conteiner-cad-ong">
@@ -154,7 +161,7 @@ function CadastroONG() {
               />
               <label htmlFor="">Data de nascimento do responsavel
               </label>
-              <input className="input-cad-ong" type="date"
+              <input className="input-cad-ong" type="text"
                 value={ongDataNascimentoResponsavel}
                 onChange={(e) => setOngDataNascimentoResponsavel(e.target.value)}
               />
@@ -210,12 +217,9 @@ function CadastroONG() {
             </form>
       </div>
 
-
       <div className="img-lateral">
         <img src="" alt="" />
       </div>
-
-
     </div>
   )
 }

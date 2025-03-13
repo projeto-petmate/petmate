@@ -68,8 +68,13 @@ export const getOngById = async (id) => {
 };
 
 export const addOng = async (ong) => {
-    const response = await api.post('/ongs', ong);
-    return response.data;
+    try {
+        const response = await api.post('/ongs', ong);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao adicionar ONG:', error.response ? error.response.data : error.message);
+        throw error;
+    }
 };
 
 export const updateOng = async (id, ong) => {
