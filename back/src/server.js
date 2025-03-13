@@ -44,31 +44,26 @@ app.get('/usuarios/:id', async (req, res) => {
 });
 
 app.post('/usuarios', async (req, res) => {
-    const { nome, endereco, email, telefone, senha, cpf } = req.body;
+    const { nome, email, senha, endereco, telefone, cpf, imagem } = req.body;
     try {
-        const existingUser = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
-        if (existingUser.rows.length > 0) {
-            return res.status(400).json({ error: 'Este email já está em uso' });
-        }
-
         const result = await pool.query(
-            'INSERT INTO usuarios (nome, endereco, email, telefone, senha, cpf) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-            [nome, endereco, email, telefone, senha, cpf]
+            'INSERT INTO usuarios (nome, email, senha, endereco, telefone, cpf, imagem) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+            [nome, email, senha, endereco, telefone, cpf, imagem]
         );
-        res.status(201).json(result.rows[0]);
+        res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Erro ao adicionar usuário' });
+        console.error('Erro ao criar usuário:', err.message);
+        res.status(500).json({ error: 'Erro ao criar usuário' });
     }
 });
 
 app.put('/usuarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, email, senha, endereco, telefone, cpf } = req.body;
+    const { nome, email, senha, endereco, telefone, cpf, imagem } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE usuarios SET nome = $1, email = $2, senha = $3, endereco = $4, telefone = $5, cpf = $6 WHERE id_usuario = $7 RETURNING *',
-            [nome, email, senha, endereco, telefone, cpf, id]
+            'UPDATE usuarios SET nome = $1, email = $2, senha = $3, endereco = $4, telefone = $5, cpf = $6, imagem = $7 WHERE id_usuario = $8 RETURNING *',
+            [nome, email, senha, endereco, telefone, cpf, imagem, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Usuário não encontrado' });
@@ -136,27 +131,26 @@ app.get('/pets/:id', async (req, res) => {
 });
 
 app.post('/pets', async (req, res) => {
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, id_usuario } = req.body;
-
+    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, id_usuario]
+            'INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario]
         );
-        res.status(201).json(result.rows[0]);
+        res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Erro ao adicionar pet' });
+        console.error('Erro ao criar pet:', err.message);
+        res.status(500).json({ error: 'Erro ao criar pet' });
     }
 });
 
 app.put('/pets/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, id_usuario } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE pets SET nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagem = $7, especie = $8, tags = $9, id_usuario = $10 WHERE id_pet = $11 RETURNING *',
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, id_usuario, id]
+            'UPDATE pets SET nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagem = $7, especie = $8, tags = $9, condicoes = $10, id_usuario = $11 WHERE id_pet = $12 RETURNING *',
+            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Pet não encontrado' });
