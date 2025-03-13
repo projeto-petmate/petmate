@@ -19,8 +19,8 @@
     flex-direction: row;
     /* border: solid; */
     align-items: center;
-    margin-top: 4%;
-    margin-left: 2%;
+    margin-top: 2%;
+    margin-left: 4%;
 }
 
 .texto-cadastro-ong-img{
@@ -28,19 +28,19 @@
     flex-direction: column;
     /* border: solid; */
     align-items: center;
-    margin-left: 3%;
+    margin-left: 1%;
 }
 
 .texto-cadastro-ong-img h2{
     margin-top: 1px;
     font-family: Koh Santepheap;
-    font-size: 34px;
+    font-size: 30px;
     margin-right: 60px;
     margin-bottom: 2%;
 }
 
 .texto-cadastro-ong-img img{
-    height: 13px;
+    height: 8px;
     width: 98%;
 }
 .botao-voltar-cad{
@@ -62,18 +62,16 @@
     justify-content: space-around;
     flex-direction: row;
     /* border: solid; */
+    /* margin-top: 1%; */
 }
 
-.inputs-cad-ong input{
-    height: 20px;
+.inputs-cad-ong label{
+    margin-top: 3%;
+    font-family: inter;
+    font-size: 18px;
+    
 }
 
-
-.forms-cad-ong{
-    display: flex;
-    flex-direction: row;
-    gap: 100px;
-}
 
 .coluna-1-inputs{
 display: flex;
@@ -93,11 +91,18 @@ flex-direction: column;
 /* border: solid; */
 }
 
+
+
 .termos-ong{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font: inter;
+}
+
+.termos-ong p{
+    font-family: inter;
 }
 
 .conteiner-botao-cad-ong{
@@ -109,22 +114,55 @@ flex-direction: column;
 
 .input-cad-ong{
     flex-direction: column;
-    margin-top: 5%;
+    justify-content: center;
+    width: 340px;
+    padding: 4%;
+    margin-top: 3%;
     /* margin-left: 4%; */
-    width: 310px;
     /* height: 60px; */
-    padding: 23px;
+    font-size: 19px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-cad-ong:focus
+{
+    border: 1px solid #84644D;
+    background-color: #f3f3fc;
+    transition: 0.3s;
+    outline: 1px;
+}
+
+.input-descricao-cad-ong{
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /* margin-left: 4%; */
+    width: 90%;
+    height: 120px;
+    /* padding: 9%; */
     font-size: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.input-descricao-cad-ong:focus
+{
+    border: 1px solid #84644D;
+    background-color: #f3f3fc;
+    transition: 0.3s;
+    outline: 1px;
+}
+
+
 .descricao-ong{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: inter;
     /* border: solid; */
 }
 
@@ -133,4 +171,41 @@ flex-direction: column;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.ong-foto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: solid; */
+    text-align: center;
+
+}
+
+.ong-foto label{
+    display: flex;
+    flex-direction: column;
+    /* border: solid; */
+}
+
+.ong-foto input{
+    justify-content: center;
+    align-items: center;
+}
+
+.botao-cad-ong{
+    width: 25%;
+    height: 65px;
+    font-weight: 600;
+    font-size: 24px;
+    background-color: #84644D;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.botao-cad-ong:hover {
+    transform: scale(1.02);
+    transition: 0.3s ease;
+    background-color: #735b4b;
 }
