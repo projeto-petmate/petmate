@@ -179,6 +179,7 @@ app.delete('/pets/:id', async (req, res) => {
 
 // CRUD para ONGs
 
+
 // Listar todas as ONGs
 app.get('/ongs', async (req, res) => {
     try {
@@ -189,6 +190,7 @@ app.get('/ongs', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar ONGs' });
     }
 });
+
 
 // Buscar uma ONG por ID
 app.get('/ongs/:id', async (req, res) => {
@@ -204,6 +206,7 @@ app.get('/ongs/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar ONG' });
     }
 });
+
 
 // Criar uma nova ONG
 app.post('/ongs', async (req, res) => {
@@ -221,20 +224,23 @@ app.post('/ongs', async (req, res) => {
         telefone_responsavel,
         estado_ong,
         cidade_ong,
-        endereco_ong
+        endereco_ong,
+        foto_ong,
+        descricao_ong,
     } = req.body;
+
 
     try {
         const result = await pool.query(
             `INSERT INTO ongs (
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, 
-                cpf_responsavel, data_nascimento_responsavel, email_responsavel, 
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING *`,
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
+                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
             [
                 nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
                 cpf_responsavel, data_nascimento_responsavel, email_responsavel,
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong
             ]
         );
         res.status(201).json(result.rows[0]);
@@ -243,6 +249,7 @@ app.post('/ongs', async (req, res) => {
         res.status(500).json({ error: 'Erro ao adicionar ONG' });
     }
 });
+
 
 // Atualizar uma ONG por ID
 app.put('/ongs/:id', async (req, res) => {
@@ -261,22 +268,25 @@ app.put('/ongs/:id', async (req, res) => {
         telefone_responsavel,
         estado_ong,
         cidade_ong,
-        endereco_ong
+        endereco_ong,
+        foto_ong,
+        descricao_ong,
     } = req.body;
+
 
     try {
         const result = await pool.query(
-            `UPDATE ongs SET 
-                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5, 
-                cnpj = $6, nome_responsavel = $7, cpf_responsavel = $8, 
-                data_nascimento_responsavel = $9, email_responsavel = $10, 
-                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13, 
-                endereco_ong = $14 
-            WHERE id_ong = $15 RETURNING *`,
+            `UPDATE ongs SET
+                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5,
+                cnpj = $6, nome_responsavel = $7, cpf_responsavel = $8,
+                data_nascimento_responsavel = $9, email_responsavel = $10,
+                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13,
+                endereco_ong = $14, foto_ong = $15, descricao_ong = $16
+            WHERE id_ong = $17 RETURNING *`,
             [
                 nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
                 cpf_responsavel, data_nascimento_responsavel, email_responsavel,
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, id
+                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong, id
             ]
         );
         if (result.rows.length === 0) {
@@ -288,6 +298,7 @@ app.put('/ongs/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao atualizar ONG' });
     }
 });
+
 
 // Deletar uma ONG por ID
 app.delete('/ongs/:id', async (req, res) => {
