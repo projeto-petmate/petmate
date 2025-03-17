@@ -51,10 +51,12 @@ function Perfil() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prevData) => ({ ...prevData, [name]: value }));
+        // setUserData((prevData) => ({...prevData, [imagem]: imagem}))
     };
 
     const handleSave = async () => {
         try {
+            
             await updateUsuario(userData.id_usuario, userData);
             setEditMode(false);
         } catch (error) {
@@ -75,7 +77,7 @@ function Perfil() {
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
-            setImagem(reader.result);
+            setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
             setImagemPreviewPerfil(reader.result);
         };
         reader.readAsDataURL(file);
@@ -112,7 +114,7 @@ function Perfil() {
                             />
 
                         </div>
-
+                        
                         {imagemPreviewPerfil === null ?
                             <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
                             <div className="img-preview-perfil" >

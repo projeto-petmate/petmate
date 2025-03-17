@@ -70,12 +70,21 @@ a {
 }
 
 .icon-perfil {
-    font-size: 50px;
+    font-size: 80px;
     color: #fbfbfb;
+}
+.nav-profile{
+    background-color: #EBE5E0;
+    border-radius: 100%;
+    /* padding: 5px; */
+    min-height: 70px;
+    max-height: 70px;
+    min-width: 70px;
+    max-width: 70px;
 }
 
 .profile {
-    height: 60px;
+    height: 70px;
     width: 120px;
 }
 
@@ -135,3 +144,4 @@ a {
     font-size: 20px;
     color: #F5F5F5;
 }
+

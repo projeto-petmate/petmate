@@ -10,7 +10,6 @@
     width: 60vw;
     padding: 20px;
     min-height: calc(100vh - 120px);
-    /* border-radius: 20px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,7 +19,6 @@
 .info-perfil button:hover {
     cursor: pointer;
 }
-
 
 .titulo-barra h2 {
     color: #484848;
@@ -32,9 +30,9 @@
     font-weight: 500;
     font-size: 20px;
     font-weight: 400;
-    margin-bottom: 20px;
 }
-.user-icon-container{
+
+.user-icon-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,24 +40,24 @@
     width: fit-content;
 }
 
-.user-icon{
-    font-size: 80px;
+.user-icon {
+    font-size: 100px;
     color: #84644D;
 }
 
-.img-preview-perfil{
-    /* border-radius: 50px; */
-}
-.img-preview-perfil{
-    border: solid 3px #84644D;
-    border-radius: 4px;
+.img-preview-perfil {
     display: flex;
 }
-.img-preview-perfil img{
-    height: 120px;
-    width: fit-content;
-    max-width: 400px;
+
+.img-preview-perfil img {
+    border: solid 3px #84644D;
+    border-radius: 100%;
+    min-height: 100px;
+    max-height: 100px;
+    min-width: 100px;
+    max-width: 100px;
 }
+
 .info-perfil p {
     font-size: 20px;
     margin-bottom: 8px;
@@ -117,7 +115,8 @@
     color: #84644D;
 }
 
-.salvar-dados, .editar-dados{
+.salvar-dados,
+.editar-dados {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -140,7 +139,7 @@
     margin: auto;
 }
 
-.botao-editar-perfil{
+.botao-editar-perfil {
     width: 50%;
     height: 60px;
     font-size: 24px;
@@ -255,18 +254,19 @@
     color: #84644D;
 }
 
-.inputs-perfil input{
+.inputs-perfil input {
     height: 60px;
 }
-.input-nome input{
+
+.input-nome input {
     width: 400px;
     height: 60px;
 }
 
-.input-perma input{
+.input-perma input {
     width: 433px;
 }
 
-.inputs-perfil p{
+.inputs-perfil p {
     font-size: 22px;
 }

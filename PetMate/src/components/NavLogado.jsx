@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useState } from "react";
 import { Link } from "react-router-dom"
 import './Navbar.css'
@@ -7,29 +7,35 @@ import JanelaModal from "../components/JanelaModal";
 import { GlobalContext } from '../contexts/GlobalContext';
 
 
-function NavLogado() {
-  const { userLogado } = useContext(GlobalContext)
 
+function NavLogado() {
+  const { userLogado } = useContext(GlobalContext);
   const [openModal, setOpenCadModal] = useState(false);
-    let userData = userLogado
-    let userName = userLogado.nome
-    
-    const getFirstName = (fullName) => {
-      return fullName.split(' ')[0]
-    }
-  
-    userName = getFirstName(userName)
+  let userName = userLogado.nome;
+  let userIcon = userLogado.imagem;
+
+  const getFirstName = (fullName) => {
+    return fullName.split(' ')[0];
+  };
+
+  userName = getFirstName(userName);
+
   return (
     <div className='nav-logado'>
-        <button className='botao-modal-navbar' onClick={ () => setOpenCadModal(true)}>Anunciar Pet</button>
-        <p className="boas-vindas">
-          {`Olá, ${userName}!`}
-        </p>
-        <Link to="/perfil"><FaUserCircle className="profile"/></Link>
-        <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
-        
+      <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
+      <p className="boas-vindas">
+        {`Olá, ${userName}!`}
+      </p>
+      <Link to="/perfil">
+        {userIcon != null ? (
+          <img src={userIcon} alt="User Icon" className="nav-profile" />
+        ) : (
+          <FaUserCircle className="profile" />
+        )}
+      </Link>
+      <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
     </div>
-  )
+  );
 }
 
-export default NavLogado
+export default NavLogado;
