@@ -21,9 +21,6 @@
     cursor: pointer;
 }
 
-.titulo-barra {
-    /* margin-bottom: 50px; */
-}
 
 .titulo-barra h2 {
     color: #484848;
@@ -37,9 +34,32 @@
     font-weight: 400;
     margin-bottom: 20px;
 }
+.user-icon-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: fit-content;
+}
 
+.user-icon{
+    font-size: 80px;
+    color: #84644D;
+}
 
-
+.img-preview-perfil{
+    /* border-radius: 50px; */
+}
+.img-preview-perfil{
+    border: solid 3px #84644D;
+    border-radius: 4px;
+    display: flex;
+}
+.img-preview-perfil img{
+    height: 120px;
+    width: fit-content;
+    max-width: 400px;
+}
 .info-perfil p {
     font-size: 20px;
     margin-bottom: 8px;
@@ -165,14 +185,11 @@
 
 .excluir-conta {
     background-color: #FFF;
-    /* padding-top: 20px; */
-    /* padding-bottom: 30px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 50%;
-    /* border: 2px solid #84644D; */
     border-radius: 10px;
     margin: auto;
 }
@@ -184,9 +201,7 @@
     text-align: center;
 }
 
-/* .excluir-conta p {
-    margin: 20px 0px 20px 0px;
-} */
+
 
 .botao-excluir-perfil {
     height: 60px;
@@ -199,7 +214,7 @@
     font-family: 'Nunito';
     font-weight: 700;
     letter-spacing: 0.03em;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .input-edit {
@@ -230,7 +245,7 @@
     padding-right: 4px;
 }
 
-.conteiner-configuracoes {
+.container-configuracoes {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -240,10 +255,7 @@
     color: #84644D;
 }
 
-
-
 .inputs-perfil input{
-    /* width: 400px; */
     height: 60px;
 }
 .input-nome input{

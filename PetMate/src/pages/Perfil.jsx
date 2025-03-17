@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
 import CardPetPerfil from '../components/CardPetPerfil';
 import ModalLogout from '../components/ModalLogout';
+import { FaUserCircle } from "react-icons/fa";
+
 
 function Perfil() {
     const [openModalExclui, setOpenModalExclui] = useState(false);
@@ -19,6 +21,9 @@ function Perfil() {
     const [userPets, setUserPets] = useState([]);
     const [openModal, setOpenCadModal] = useState(false);
     const [openModalLogout, setOpenModalLogout] = useState(false);
+    const [imagem, setImagem] = useState('');
+    const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
+
 
     const navigate = useNavigate();
 
@@ -66,6 +71,16 @@ function Perfil() {
         }
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagem(reader.result);
+            setImagemPreviewPerfil(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
     return (
         <div>
             <Navbar />
@@ -74,7 +89,7 @@ function Perfil() {
                     <CardPetPerfil />
                 </div>
                 <div className="info-perfil">
-                    <div className="conteiner-configuracoes">
+                    <div className="container-configuracoes">
                         <div className="titulo-barra">
                             <h2>Configurações de Conta</h2>
                             <img src="/images/barra_marrom.png" className='barra-perfil' />
@@ -85,6 +100,27 @@ function Perfil() {
                                 <FiLogOut className='icon-logout' />
                             </button>
                         </div>
+                    </div>
+                    <div className="user-icon-container">
+                        <div className="add-img">
+                            <input
+                                id="file-upload"
+                                type="file"
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                                disabled={!editMode}
+                            />
+
+                        </div>
+
+                        {imagemPreviewPerfil === null ?
+                            <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
+                            <div className="img-preview-perfil" >
+                                {imagemPreviewPerfil && (
+                                    <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
+                                )}
+                            </div>
+                        }
                     </div>
 
                     <div className="inputs-perfil">
