@@ -2,14 +2,12 @@
     display: flex;
     flex-direction: row;
     min-width: 100vw;
-    /* background-color: #E8E3DE; */
     background-color: #EBE5E0;
     height: 15vh;
     align-items: center;
     justify-content: center;
     gap: 40px;
     padding: 10px;
-    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .select-filter {
@@ -29,7 +27,6 @@
 .filtro-container select {
     background-color: #ad947e00;
     border: 1px solid #84644D;
-    /* border: none; */
     height: 40px;
     padding: 5px 10px;
     border-radius: 8px;
@@ -42,8 +39,6 @@
 }
 
 .filtro-container select:hover {
-    /* background-color: #9C7A5E; */
-    /* border-color: #6B4A2E; */
     outline: none;
 
 }
@@ -69,4 +64,55 @@
 .botao-limpar:hover{
     background-color: #7c634e;
 }
+.botao-fav-off, .botao-fav-on{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+.botao-fav-off{
+    background-color: #EBE5E0;
+    color: #d6b82f;
+    font-size: 20px;
+    padding: 0 20px;
+    height: 40px;
+    cursor: pointer;
+    font-family: nunito;
+    border: #d6b82f 2px solid;
+    border-radius: 8px;
+    transition: 0.5s ease;
 
+}
+
+.botao-fav-on{
+    background-color: #e6ce64;
+    color: white;
+    font-size: 20px;
+    padding: 0 20px;
+    height: 40px;
+    cursor: pointer;
+    font-family: nunito;
+    border: none;
+    border-radius: 8px;
+    transition: 0.5s ease;
+
+}
+.botao-fav-on:hover{
+    background-color: #d3bc58;
+}
+
+.estrela-bnt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-estrela {
+    font-size: 20px;
+}
+.estrela{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

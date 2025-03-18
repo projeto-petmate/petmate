@@ -1,13 +1,15 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { PetContext } from '../contexts/PetContext';
 import './BarraFiltro.css';
+import { FaStar } from "react-icons/fa6";
 
 function BarraFiltro() {
-  const { filter, setFilter, filterOn, setFilterOn } = useContext(PetContext);
+  const { filter, setFilter, filterOn, setFilterOn, favoritos } = useContext(PetContext);
   const especieRef = useRef(null);
   const porteRef = useRef(null);
   const generoRef = useRef(null);
   const ordemRef = useRef(null);
+  const [botaoFav, setBotaoFav] = useState(false)
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -18,8 +20,17 @@ function BarraFiltro() {
     setFilterOn(value !== '');
   };
 
+  // função para alternar favoritos
+  const toggleFavoritos = () => {
+    setFilter((prevFilter) => ({
+      ...prevFilter,
+      favoritos: !prevFilter.favoritos
+    }));
+  };
+
   const clearFilters = () => {
-    setFilter({ ordem: 'recentes'});
+    // reset de favoritos
+    setFilter({ ordem: 'recentes', favoritos: false });
     setFilterOn(false);
     especieRef.current.value = '';
     porteRef.current.value = '';
@@ -29,6 +40,14 @@ function BarraFiltro() {
 
   return (
     <div className="filtro-container">
+      <div className="botao-fav" onClick={() => setBotaoFav(!botaoFav)}>
+        {botaoFav === false ? <button onClick={toggleFavoritos} className={`botao-fav-off ${filter.favoritos ? 'ativo' : ''}`}><FaStar className="icon-estrela" /> Favoritos</button> : <button onClick={toggleFavoritos} className={`botao-fav-on ${filter.favoritos ? 'ativo' : ''}`}><FaStar className="icon-estrela" />Favoritos</button>}
+          <div className="estrela">
+            {/* <FaStar className="icon-estrela" /> */}
+            {/* Favoritos */}
+          </div>
+     
+      </div>
       <div className="select-filter">
         <label htmlFor="selectEspecie">Espécie</label>
         <select name="especie" id="selectEspecie" onChange={handleFilterChange} ref={especieRef}>
@@ -58,7 +77,6 @@ function BarraFiltro() {
       <div className="select-filter">
         <label htmlFor="selectOrdem">Ordem</label>
         <select name="ordem" id="selectOrdem" onChange={handleFilterChange} ref={ordemRef}>
-          {/* <option value=""></option> */}
           <option value="recentes">Mais recentes</option>
           <option value="antigos">Mais antigos</option>
         </select>

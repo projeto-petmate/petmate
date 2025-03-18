@@ -321,10 +321,19 @@ app.delete('/ongs/:id', async (req, res) => {
 // Listar todos os comentários
 app.get('/comentarios', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM comentarios');
+        const result = await pool.query(`
+            SELECT 
+                comentarios.id_comentario,
+                comentarios.texto,
+                comentarios.id_usuario,
+                usuarios.nome AS nome_user,
+                usuarios.imagem AS foto_user
+            FROM comentarios
+            JOIN usuarios ON comentarios.id_usuario = usuarios.id_usuario
+        `);
         res.json(result.rows);
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao buscar comentários:', err.message);
         res.status(500).json({ error: 'Erro ao buscar comentários' });
     }
 });
@@ -347,14 +356,23 @@ app.get('/comentarios/:id', async (req, res) => {
 // Criar um novo comentário
 app.post('/comentarios', async (req, res) => {
     const { texto, id_usuario } = req.body;
+
     try {
+        const userResult = await pool.query('SELECT nome, imagem FROM usuarios WHERE id_usuario = $1', [id_usuario]);
+        if (userResult.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+
+        const { nome, imagem } = userResult.rows[0];
+
         const result = await pool.query(
-            'INSERT INTO comentarios (texto, id_usuario) VALUES ($1, $2) RETURNING *',
-            [texto, id_usuario]
+            'INSERT INTO comentarios (texto, id_usuario, nome_user, foto_user) VALUES ($1, $2, $3, $4) RETURNING *',
+            [texto, id_usuario, nome, imagem]
         );
+
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao adicionar comentário:', err.message);
         res.status(500).json({ error: 'Erro ao adicionar comentário' });
     }
 });
@@ -362,18 +380,18 @@ app.post('/comentarios', async (req, res) => {
 // Atualizar um comentário por ID
 app.put('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { texto } = req.body;
+    const { texto, foto_user, nome_user } = req.body;
     try {
         const result = await pool.query(
-            'UPDATE comentarios SET texto = $1 WHERE id_comentario = $2 RETURNING *',
-            [texto, id]
+            'UPDATE comentarios SET texto = $1, foto_user = $2, nome_user = $3 WHERE id_comentario = $4 RETURNING *',
+            [texto, foto_user, nome_user, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Comentário não encontrado' });
         }
         res.json(result.rows[0]);
     } catch (err) {
-        console.error('Erro ao atualizar comentário:', err.message);
+        console.error(err.message);
         res.status(500).json({ error: 'Erro ao atualizar comentário' });
     }
 });

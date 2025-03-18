@@ -51,14 +51,13 @@
 }
 
 .comentario-info{
-    /* border: solid; */
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #84644D;
     padding: 10px;
     border-radius: 10px 10px 0px 0px;
-    height: 70px;
+    height: 80px;
     color: #F5F5F5;
     font-size: 24px;
     justify-content: space-between;
@@ -72,10 +71,25 @@
 }
 .icon-comentario{
     color: #F5F5F5;
-    font-size: 36px;
+    font-size: 50px;
+}
+.icon-comentario {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+
+.foto-comentario {
+    background-color: #EBE5E0;
+    border-radius: 100%;
+    min-height:60px;
+    max-height:60px;
+    min-width:60px;
+    max-width:60px;
+    object-fit: cover;
 }
 .comentario-texto{
-    /* border: solid; */
     background-color: #F5F5F5;
     padding: 30px;
     border-radius: 0px 0px 10px 10px;

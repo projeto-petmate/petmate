@@ -4,7 +4,7 @@ import { GlobalContext } from "../contexts/GlobalContext"
 import './Navbar.css'
 import NavDeslogado from "./NavDeslogado"
 import NavLogado from "./NavLogado"
-import  BarraPesquisa from "./BarraPesquisa"
+import BarraPesquisa from "./BarraPesquisa"
 
 function Navbar() {
   const { logado, userLogado } = useContext(GlobalContext)
@@ -23,21 +23,22 @@ function Navbar() {
     <nav className="navbar-container">
       <div className="img-nav">
         <Link to='/home'>
-          <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate"/>
+          <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
         </Link>
       </div>
-        <BarraPesquisa />
+      {/* <BarraPesquisa /> */}
 
       <div className="botoes-nav">
         <Link to="/home">Home</Link>
         <Link to="/adotar">Adotar</Link>
         {/* <Link to="/contato">Sobre Nós</Link> */}
         <Link to="/feedback">Feedback</Link>
-        
-        
-        {isLogado ? <NavLogado /> : <NavDeslogado />}
-       
       </div>
+
+        <div className="perfil-nav">
+          {isLogado ? <NavLogado /> : <NavDeslogado />}
+        </div>
+
     </nav>
   )
 }

@@ -6,6 +6,7 @@ export const PetContext = createContext();
 export const PetContextProvider = ({ children }) => {
     const [pets, setPets] = useState([]);
     const [pet, setPet] = useState();
+    const [favoritos, setFavoritos] = useState([]); //estado para os favoritos
 
     const addPet = async (novoPet) => {
         try {
@@ -36,7 +37,23 @@ export const PetContextProvider = ({ children }) => {
     };
 
     const [filterOn, setFilterOn] = useState(false);
-    const [filter, setFilter] = useState({});
+    const [filter, setFilter] = useState({
+        especie: '',
+        porte: '',
+        genero: '',
+        favoritos: false, //campo para filtrar favoritos
+        ordem: 'recentes',
+    });
+
+    const toggleFavorito = (id_pet) => {
+        setFavoritos((prevFavoritos) => {
+            if (prevFavoritos.includes(id_pet)) {
+                return prevFavoritos.filter((id) => id !== id_pet); // Remover do array
+            } else {
+                return [...prevFavoritos, id_pet]; // Adicionar ao array
+            }
+        });
+    };
 
     return (
         <PetContext.Provider value={{
@@ -46,6 +63,9 @@ export const PetContextProvider = ({ children }) => {
             pet,
             setPet,
             setPets,
+            favoritos,
+            setFavoritos, 
+            toggleFavorito,
             filterOn,
             setFilterOn,
             filter,

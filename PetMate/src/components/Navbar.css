@@ -1,11 +1,9 @@
-
-
 .navbar-container {
     display: flex;
     flex-direction: row;
     min-width: 100vw;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 10px;
     height: 120px;
     background-color: #84644D;
@@ -16,6 +14,14 @@
     justify-content: space-evenly;
     width: 50%;
     align-items: center;
+}
+
+.perfil-nav{
+    margin-right: 70px;
+}
+
+.img-nav{
+    margin-left: 70px;
 }
 
 a {
@@ -55,6 +61,7 @@ a {
     cursor: pointer;
 }
 
+
 .botoes-nav a {
     color: #fbfbfb;
     text-decoration: none;
@@ -76,11 +83,20 @@ a {
 .nav-profile{
     background-color: #EBE5E0;
     border-radius: 100%;
-    /* padding: 5px; */
     min-height: 70px;
     max-height: 70px;
     min-width: 70px;
     max-width: 70px;
+    object-fit: cover;
+}
+.nav-profile:hover, .nav-profile-icon:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
+
+.nav-profile-icon{
+    color: #FBFBFB;
+    font-size: 70px;
 }
 
 .profile {
@@ -144,4 +160,3 @@ a {
     font-size: 20px;
     color: #F5F5F5;
 }
-
