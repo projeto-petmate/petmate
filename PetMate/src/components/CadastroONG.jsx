@@ -3,6 +3,7 @@ import { useState } from 'react'
 import "./cadastroONG.css"
 import { Link, useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
+import { FaUserCircle } from "react-icons/fa";
 
 function CadastroONG() {
   const navigate = useNavigate(); // Use the hook to get the navigate function
@@ -25,6 +26,7 @@ function CadastroONG() {
   const [ongFoto, setOngFoto] = useState('')
   const [ongImagemPreview, setOngImagemPreview] = useState(null)
   const [erros, setErros] = useState({})
+  const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
 
   const validarFormulario = () => {
     const erros = {}
@@ -87,6 +89,17 @@ function CadastroONG() {
     }
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+        setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
+        setImagemPreviewPerfil(reader.result);
+    };
+    reader.readAsDataURL(file);
+};
+
+
   return (
     <div className="conteiner-cad-ong">
       <div className="conteiner-info-ong">
@@ -100,39 +113,53 @@ function CadastroONG() {
           </div>
         </div>
 
-        <div className="ong-foto">
-          <label htmlFor="">Coloque a logo ou foto de sua ong
-            <input type="file" 
-            value={ongFoto}
-            onChange={(e) => setOngFoto(e.target.value)}/>
-          </label>
-        </div>
+        <div className="user-icon-container">
+          <div className="add-img">
+            <input
+                id="file-upload"
+                type="file"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+            />
+
+          </div>
+                        
+        {imagemPreviewPerfil === null ?
+              <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
+            <div className="img-preview-perfil" >
+                {imagemPreviewPerfil && (
+                    <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
+                )}
+            </div>
+          }
+    </div>
+
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
             <div className="coluna-1-inputs"></div>
             <div className="coluna-1-inputs">
-              <label htmlFor="">Nome</label>
+              <label htmlFor="">Nome:</label>
               <input className="input-cad-ong" type="text"
                 value={ongNome}
                 onChange={(e) => setOngNome(e.target.value)} />
-              <label htmlFor="">Email</label>
+              <label htmlFor="">Email:</label>
               <input className="input-cad-ong" type="text"
                 value={ongEmail}
                 onChange={(e) => setOngEmail(e.target.value)}
               />
-              <label htmlFor="">Senha
+              <label htmlFor="">Senha:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongSenha}
                 onChange={(e) => setOngSenha(e.target.value)}
               />
-              <label htmlFor="">Telefone
+              <label htmlFor="">Telefone:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongTelefone}
                 onChange={(e) => setOngTelefone(e.target.value)}
               />
-              <label htmlFor="">Telefone Denúncia
+              <label htmlFor="">Telefone Denúncia:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongTelefoneDenuncia}
@@ -141,31 +168,31 @@ function CadastroONG() {
             </div>
 
             <div className="coluna-2-inputs">
-              <label htmlFor="">Cnpj Ong
+              <label htmlFor="">Cnpj Ong:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongCnpj}
                 onChange={(e) => setOngCnpj(e.target.value)}
               />
-              <label htmlFor="">Nome do responsavel
+              <label htmlFor="">Nome do responsavel:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongNomeResponsavel}
                 onChange={(e) => setOngNomeResponsavel(e.target.value)}
               />
-              <label htmlFor="">Cpf do responsavel
+              <label htmlFor="">Cpf do responsavel:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongCpfResponsavel}
                 onChange={(e) => setOngCpfResponsavel(e.target.value)}
               />
-              <label htmlFor="">Data de nascimento do responsavel
+              <label htmlFor="">Data de nascimento do responsavel:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongDataNascimentoResponsavel}
                 onChange={(e) => setOngDataNascimentoResponsavel(e.target.value)}
               />
-              <label htmlFor="">Email do responsavel
+              <label htmlFor="">Email do responsavel:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongEmailResponsavel}
@@ -174,25 +201,25 @@ function CadastroONG() {
             </div>
 
             <div className="coluna-3-inputs">
-              <label htmlFor="">Telefone do responsavel
+              <label htmlFor="">Telefone do responsavel:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongTelefoneResponsavel}
                 onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
               />
-              <label htmlFor="">Estado onde se encontra a ONG
+              <label htmlFor="">Estado onde se encontra a ONG:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongEstado}
                 onChange={(e) => setOngEstado(e.target.value)}
               />
-              <label htmlFor="">Cidade onde se encontra a ONG
+              <label htmlFor="">Cidade onde se encontra a ONG:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongCidade}
                 onChange={(e) => setOngCidade(e.target.value)}
               />
-              <label htmlFor="">Endereço da ONG
+              <label htmlFor="">Endereço da ONG:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongEndereco}
