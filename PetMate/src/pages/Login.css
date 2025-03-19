@@ -98,7 +98,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 25em;
+    height: 20em;
     /* border: solid; */
     
 }
@@ -294,6 +294,81 @@
     /* margin-right: 40px; */
 }
 
+/* radio */
+
+.ong-usuario-escolha{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* border: solid; */
+    width: 17%;
+    height: 16%;
+    margin-left: 4%;
+}
+
+.ong-usuario-escolha input{
+    width: 13%;
+    height: 26px;
+
+}
+
+/* :focus {
+    outline: 0;
+    border-color: #2260ff;
+    box-shadow: 0 0 0 4px #b5c9fc;
+  } */
+  
+  .mydict div {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    justify-content: center;
+    /* border: solid; */
+    width: 165%;
+  }
+  
+  .mydict input[type="radio"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+  
+  .mydict input[type="radio"]:checked + span {
+    box-shadow: 0 0 0 0.0625em #6b4f3a;
+    background-color: #f3f3fc;
+    z-index: 1;
+    color: #6b4f3a;
+  }
+  
+  label span {
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 0.375em .75em;
+    position: relative;
+    margin-left: .0625em;
+    box-shadow: 0 0 0 0.0725em #EBE5E0;
+    letter-spacing: .05em;
+    color: #6b4f3a;
+    text-align: center;
+    transition: background-color .5s ease;
+  }
+  
+  label:first-child span {
+    border-radius: .475em 0 0 .375em;
+  }
+  
+  label:last-child span {
+    border-radius: 0 .475em .375em 0;
+  }
+  
+
+
 
 @media screen and (max-width: 768px) {
     .container-login {
@@ -320,4 +395,6 @@
     .texto-login p, .base-login button, .sem-cadastro a {
         font-size: 18px;
     }
+
+
 }

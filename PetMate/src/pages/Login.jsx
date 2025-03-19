@@ -74,6 +74,21 @@ function Login() {
                             <img src="/images/barra_marrom.png" className='barra_marrom' />
                             <p>Digite seus dados de acesso no campo abaixo.</p>
                         </div>
+
+                        <div class="mydict">
+	                        <div>
+		                        <label>
+			                        <input type="radio" name="radio" value='1'></input>
+			                        <span>Usuário</span>
+		                        </label>
+		                        <label>
+			                        <input type="radio" name="radio" value='2'></input>
+			                        <span>Ong</span>
+		                        </label>
+		
+	                        </div>
+                        </div>
+                        
                         <div className="inputs-login">
                             <div className="inpts-login">
                                 <div className="inpt-p">
