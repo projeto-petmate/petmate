@@ -21,7 +21,6 @@
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
-    /* border: solid; */
 }
 
 /* <<CONTAINER ESQUERDA>> */
@@ -55,12 +54,10 @@
     text-align: start;
     height: auto;
     margin-left: 3em;
-    /* border: solid; */
 
 }   
 
 .texto-login h2{
-    /* margin-top: 1px; */
     font-family: Koh Santepheap;
     font-size: 44px;
 }
@@ -119,10 +116,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* padding: 0px 60px 0px 85px; */
-    /* margin-top: 8em; */
-    /* border: solid #26c7bf; */
-    /* justify-content: flex-start; */
     margin-left: 50px;
 
 }
@@ -134,7 +127,6 @@
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .inpts-login input:focus {
@@ -356,7 +348,7 @@
     letter-spacing: .05em;
     color: #6b4f3a;
     text-align: center;
-    transition: background-color .5s ease;
+    transition: background-color .3s ease;
   }
   
   label:first-child span {

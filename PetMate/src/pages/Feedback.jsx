@@ -7,7 +7,6 @@ import axios from 'axios';
 import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
-import Loading from '../components/Loading';
 
 
 function Feedback() {
@@ -20,6 +19,8 @@ function Feedback() {
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
     const userLogado = JSON.parse(localStorage.getItem("userLogado"));
     const logado = JSON.parse(localStorage.getItem("logado"));
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
 
     useEffect(() => {
         const fetchComentarios = async () => {
@@ -65,15 +66,19 @@ function Feedback() {
     const enviarComentario = async (e) => {
         const novoComentario = {
             texto: inptComentario,
-            id_usuario: userLogado.id_usuario 
+            id_usuario: userLogado.id_usuario
         };
-    
+
         try {
             if (inptComentario.length > 8) {
                 await addComentario(novoComentario);
                 console.log('Comentário cadastrado:', novoComentario);
                 setErros('');
                 setInptComentario('');
+                setShowSuccessPopup(true);
+                setTimeout(() => {
+                    setShowSuccessPopup(false);
+                }, 2000);
             } else {
                 setErros('Comentário deve ter no mínimo 8 caracteres.');
             }
@@ -108,40 +113,45 @@ function Feedback() {
                     </div>
                     : ''}
 
-<div className="lista-comentarios">
-    {nomesComentarios.map((c) => (
-        <div key={c.id_comentario} className="comentario">
-            <div className="comentario-container">
-                <div className="comentario-info">
-                    <div className="comentario-nome">
-                        {c.foto_user ? (
-                            <img src={c.foto_user} alt="Foto do Usuário" className="icon-comentario" />
-                        ) : (
-                            <FaUserCircle className="icon-comentario" />
-                        )}
-                        <h3>{c.nomeUsuario}</h3>
-                    </div>
-                    <div className="apagar-comentario">
-                        {userLogado && userLogado.id_usuario === c.id_usuario ? (
-                            <IoTrashOutline
-                                onClick={() => {
-                                    setCommentToDelete(c);
-                                    setOpenModalExcluirComentario(true);
-                                }}
-                                className="botao-excluir-comentario"
-                            />
-                        ) : (
-                            ''
-                        )}
-                    </div>
+                <div className="lista-comentarios">
+                    {nomesComentarios.map((c) => (
+                        <div key={c.id_comentario} className="comentario">
+                            <div className="comentario-container">
+                                <div className="comentario-info">
+                                    <div className="comentario-nome">
+                                        {c.foto_user ? (
+                                            <img src={c.foto_user} alt="Foto do Usuário" className="icon-comentario" />
+                                        ) : (
+                                            <FaUserCircle className="icon-comentario" />
+                                        )}
+                                        <h3>{c.nomeUsuario}</h3>
+                                    </div>
+                                    <div className="apagar-comentario">
+                                        {userLogado && userLogado.id_usuario === c.id_usuario ? (
+                                            <IoTrashOutline
+                                                onClick={() => {
+                                                    setCommentToDelete(c);
+                                                    setOpenModalExcluirComentario(true);
+                                                }}
+                                                className="botao-excluir-comentario"
+                                            />
+                                        ) : (
+                                            ''
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="comentario-texto">
+                                    <p>{c.texto}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-                <div className="comentario-texto">
-                    <p>{c.texto}</p>
-                </div>
-            </div>
-        </div>
-    ))}
-</div>
+                {showSuccessPopup && (
+                    <div className="success-popup-perfil">
+                        <p>Comentário enviado com sucesso!</p>
+                    </div>
+                )}
             </div>
             <ModalExcluirComentario
                 isExcluirComentario={openModalExcluirComentario}

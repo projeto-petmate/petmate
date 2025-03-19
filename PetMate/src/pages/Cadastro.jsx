@@ -81,7 +81,7 @@ function Cadastro() {
         <div>
             <form className="container-cadastro" onSubmit={CadastrarUsuario}>
                 <div className="container-img">
-                    <img src="/images/dog_marrom2.svg" alt="" className="img-cadastro" />
+                    <img src="/images/cachorro-cadastro (1).png" alt="" className="img-cadastro" />
                 </div>
 
                 <main className="info-cadastro">

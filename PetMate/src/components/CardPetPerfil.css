@@ -80,3 +80,36 @@
     cursor: pointer;
     margin-left: 10px;
 }
+
+.success-popup-edit-pet {
+    position: fixed;
+    top: 148px;
+    right: 80px;
+    background-color: #967863;
+    color: white;
+    padding: 10px 20px;
+    font-size: 22px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    10% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    90% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }

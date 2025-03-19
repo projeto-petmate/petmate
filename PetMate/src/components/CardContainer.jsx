@@ -9,6 +9,7 @@ function CardContainer() {
   const [pets, setPets] = useState([]);
   const [openPetModal, setOpenPetModal] = useState(false);
   const { filter, filterOn, setPet, favoritos, toggleFavorito } = useContext(PetContext);
+  const logado = JSON.parse(localStorage.getItem("logado"));
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -36,14 +37,18 @@ function CardContainer() {
 
   const displayedPets = filter.favoritos
     ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
-    : filteredPets.reverse();
+    : filteredPets;
+    
+    const ordemPets = filter.ordem === 'recentes'
+  ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
+  : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
 
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
       {filter.favoritos && displayedPets.length === 0 && <p className='p-favoritos'>Você ainda não favoritou nenhum pet.</p>}
       <div className="card-container">
-        {displayedPets.map((p) => (
+        {ordemPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
               src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
@@ -62,13 +67,15 @@ function CardContainer() {
                 setPet(p);
                 setOpenPetModal(true);
               }}>Mais informações</button>
+              {logado &&
               <button
-                alt="Favoritar"
-                className="favorito-icon"
-                onClick={() => toggleFavorito(p.id_pet)}>
+              alt="Favoritar"
+              className="favorito-icon"
+              onClick={() => toggleFavorito(p.id_pet)}>
                 {safeFavoritos.includes(p.id_pet) ?
                  <FaStar className='estrela-preenchida' /> : <FaRegStar className='estrela-vazia' />}
               </button>
+                }
             </div>
 
           </div>

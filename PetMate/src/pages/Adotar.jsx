@@ -16,16 +16,6 @@ function Adotar() {
   const navigate = useNavigate()
 
 
-  // useEffect(() => {
-  //   const hasReloaded = localStorage.getItem('hasReloaded');
-  //   if (!hasReloaded) {
-  //     localStorage.setItem('hasReloaded', 'true');
-  //     window.location.reload();
-  //   } else {
-  //     localStorage.removeItem('hasReloaded');
-  //   }
-  // }, []);
-
   return (
     <div>
       <Navbar />
@@ -47,7 +37,6 @@ function Adotar() {
           </div>
         </div>
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
-
         <div className="pets-container">
           <CardContainer />
         </div>

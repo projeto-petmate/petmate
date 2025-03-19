@@ -14,6 +14,7 @@ function CardPetPerfil() {
     const [openModalEditarPet, setOpenModalEditarPet] = useState(false);
     const [petToDelete, setPetToDelete] = useState(null);
     const [petToEdit, setPetToEdit] = useState(null);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -46,14 +47,19 @@ function CardPetPerfil() {
             await updatePet(updatedPet.id_pet, updatedPet);
             setUserPets(userPets.map(pet => (pet.id_pet === updatedPet.id_pet ? updatedPet : pet)));
             setOpenModalEditarPet(false);
+            setShowSuccessPopup(true);
+            setTimeout(() => {
+                setShowSuccessPopup(false);
+            }, 2000);
         } catch (error) {
             console.error('Erro ao editar pet', error);
         }
     };
+    const ordemPerfil = [...userPets].sort((a, b) => a.id_pet - b.id_pet);
 
     return (
         <div className="card-pet-perfil-container">
-            {userPets.map(pet => (
+            {ordemPerfil.map(pet => (
                 <div key={pet.id_pet} className="pet-card-perfil">
                     <img src={pet.imagem || "/images/default_pet_image.jpg"} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                     <div className="pet-info">
@@ -62,12 +68,17 @@ function CardPetPerfil() {
                         <p><strong>Idade:</strong> {pet.idade}</p>
                         <p>{pet.porte} | {pet.genero}</p>
                         <div className="botoes-pet-perfil">
-                            <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit/>}</button>
+                            <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
                             <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                         </div>
                     </div>
                 </div>
             ))}
+            {showSuccessPopup && (
+                <div className="success-popup-edit-pet">
+                    <p>Dados salvos com sucesso!</p>
+                </div>
+            )}
             <ModalEditarPet
                 isEditarPet={openModalEditarPet}
                 setPetEditOpen={setOpenModalEditarPet}

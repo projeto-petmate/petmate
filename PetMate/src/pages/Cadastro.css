@@ -1,15 +1,16 @@
-
 /* <<GERAL>> */
 .container-cadastro{
+    background-color: #D4C6B5;
     font-family: inter;
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
-    justify-content: space-between;
+    justify-content:space-around;
     min-height: 100vh;
     width: 100vw;
-    background-image: url('/images/fundo_patas.svg');
+    gap: 90px;
+    /* background-image: url('/images/fundo_patas.svg'); */
 
 }
 
@@ -21,8 +22,8 @@
 }
 
 .img-cadastro{
-    height: 900px;
-    margin-top: 3em;
+    height: 800px;
+    margin-top: 9em;
     /* border: solid; */
 }
 /* <<CONTAINER ESQUERDA//>> */
@@ -30,13 +31,19 @@
 
 /* <<CONTAINER DIREITA>> */
 .info-cadastro{
-    display: flex;
-    flex-direction: column;
-    background-color: whitesmoke;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: auto;
+
+  background-color: #fdfaf4; /* Cor de fundo clara */
+  border-radius: 16px; /* Bordas arredondadas */
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  margin-right: 80px;
+  z-index: 10;
+  box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.2);
+
 }
 /* <<CONTAINER DIREITA//>> */
 
@@ -47,11 +54,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    gap: 300px;
+    gap: 95px;
     align-items: center;
     width: 100%;
     height: auto;
-    margin-bottom: 8em;
+    margin-bottom: 2em;
     /* border: solid; */
 }   
 
@@ -63,13 +70,13 @@
     justify-content: center;
     gap: 20px;
     margin-top: 1em;
+    transition: all 0.5s ease;
 }
 
 
 .texto-cadastro h2{
     margin-top: 1px;
-    font-family: Koh Santepheap;
-    font-size: 38px;
+    font-size: 30px;
     margin-right: 60px;
 }
 
@@ -78,25 +85,26 @@
     flex-direction: column;
 }
 .barra-img img{
-    height: 13px;
-    width: 100%;
+    height: 5px;
+    width: 100px;
 }
 
 .barra_cadastro{
-    margin-top: 7px;
+    margin-top: 5px;
 }
 
 .texto-cadastro button{
-    width: 8em;
-    height: 50px;
-    font-size: 20px;
+    width: 10em;
+    height: 47px;
+    font-size: 18px;
     font-weight: 600;
     background-color: #84644D;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
 }
+
 /* <<H2 + BOTÃO LOGIN//>> */
 
 
@@ -109,14 +117,14 @@
     justify-content: center;
     height: 25em;
     /* border: solid; */
-    margin-right: 65px;
+    /* margin-right: 65px; */
     
     
 }
 
 .inputs-cadastro p{
     font-family: inter;
-    font-size: 22px;
+    font-size: 18px;
 }
 .inpt-p{
     display: flex;
@@ -131,18 +139,21 @@
     /* padding: 0px 60px 0px 85px; */
     padding-right: 0px;
     /* border: solid */
+    width: 100%; 
+    height: 100%;
 
 }
 
 .inputs-column input
 {
-    width: 400px;
-    height: 60px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    width: 350px;
+    height: 45px;
+    padding: 15px;
+    font-size: 15px;
+    border: 1.5px solid #84644D;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
 }
 
 .inputs-column input:focus
@@ -155,7 +166,7 @@
 
 .inputs-column {
     flex: 1;
-    padding: 0 10px;
+    padding: 0 40px;
 }
 
 
@@ -173,6 +184,10 @@
     height: auto;
     width: 90%;
     margin-top: 4em;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10px;
+    
     /* border: solid; */
 
 }
@@ -200,22 +215,23 @@
 }
 
 .botao-termos-cadastro button {
-    width: 100%;
-    height: 65px;
+    width: 500px;
+    height: 50px;
     font-weight: 600;
     font-size: 24px;
     background-color: #84644D;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
 }
 
 .botao-termos-cadastro button:hover,
 .texto-cadastro button:hover {
-    transform: scale(1.02);
-    transition: 0.3s ease;
-    background-color: #58483c;
+    background-color: #725540;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
 }
 
 /* <<TERMOS + BOTÃO//>> */
@@ -223,20 +239,21 @@
     /* CUSTOMIZAÇÃO */
 .info-cadastro {
     width: 100%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); */
 }
 
 .icon-input{
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    color: #4e3727;
 }
 .icon-input p{
     margin-left: 10px;
 }
 .icon-cadastro{
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .icon-telefone{
@@ -244,7 +261,7 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 2px;
-    font-size: 24px;
+    font-size: 20px;
     transform: scaleX(-1);
 }
 @media (max-width: 1024px) {
@@ -257,7 +274,7 @@
     }
 
     .img-cadastro {
-        width: 90%;
+        width: 100%;
         max-height: 400px;
     }
 

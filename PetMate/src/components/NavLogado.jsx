@@ -9,7 +9,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 
 
 function NavLogado() {
-  const { userLogado } = useContext(GlobalContext);
+  const userLogado = JSON.parse(localStorage.getItem("userLogado"));
   const [openModal, setOpenCadModal] = useState(false);
   let userName = userLogado.nome;
   let userIcon = userLogado.imagem;
@@ -24,7 +24,7 @@ function NavLogado() {
     <div className='nav-logado'>
       <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
       <p className="boas-vindas">
-        {`Olá, ${userName}!`}
+        {userLogado && `Olá, ${userName}!`}
       </p>
       <Link to="/perfil">
         {userIcon != null ? (

@@ -82,8 +82,8 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   }
 
   return (
-    <div className='modal_conteiner'>
-      <div className='conteiner_modal'>
+    <div className='modal_conteiner' onClick={() => setModalOpen(false)}>
+      <div className='conteiner_modal' onClick={(e) => e.stopPropagation()}>
         {etapa === 1 ? (
           <form className="cad-pet-container" onSubmit={(e) => { e.preventDefault(); setEtapa(2) }}>
             <div className="titulo-cad-pet">

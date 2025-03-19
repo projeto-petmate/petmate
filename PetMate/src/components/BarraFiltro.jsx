@@ -38,6 +38,8 @@ function BarraFiltro() {
     ordemRef.current.value = 'recentes';
   };
 
+  
+
   return (
     <div className="filtro-container">
       <div className="botao-fav" onClick={() => setBotaoFav(!botaoFav)}>

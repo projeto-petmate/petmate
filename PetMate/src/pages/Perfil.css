@@ -158,17 +158,14 @@
 
 .botao-sair-logout {
     width: 100%;
-    height: 50px;
-    padding: 9px;
-    font-size: 24px;
+    font-family: Roboto;
     background-color: #84644D;
-    border-radius: 12px;
     border: none;
     color: #FFFFFF;
-    font-weight: 600;
-    letter-spacing: 0.025em;
-    font-family: Roboto;
     margin-bottom: 30px;
+    border-radius: 12px;
+    padding: 5px;
+    width: 60px;
 }
 
 .sair-conta {
@@ -181,6 +178,8 @@
 
 .icon-logout {
     margin-left: 5px;
+    height: 50px;
+    font-size: 40px;
 }
 
 .excluir-conta {
@@ -271,3 +270,36 @@
 .inputs-perfil p {
     font-size: 22px;
 }
+
+.success-popup-perfil {
+    position: fixed;
+    top: 148px;
+    right: 80px;
+    background-color: #967863;
+    color: white;
+    padding: 10px 20px;
+    font-size: 22px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    10% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    90% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+  }

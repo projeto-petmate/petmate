@@ -17,6 +17,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const [tagInputEdit, setTagInputEdit] = useState('');
     const [initialTags, setInitialTags] = useState([]);
 
+
     useEffect(() => {
         if (petToEdit) {
             setNome(petToEdit.nome);
@@ -72,7 +73,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         };
         onEditPet(updatedPet);
         setPetEditOpen(false);
-        window.location.reload(); //verificar se é a melhor solução
+        // window.location.reload();
     };
 
     const handleClose = () => {
@@ -81,8 +82,8 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     };
 
     return (
-        <div className="editar-pet-background">
-            <div className="editar-pet-container">
+        <div className="editar-pet-background" onClick={() => handleClose()}>
+            <div className="editar-pet-container" onClick={(e) => e.stopPropagation()}>
                 <h2>Editar Pet</h2>
                 <div className="linha-edit">
                     <div className="editar-pet-container-1">
@@ -208,6 +209,8 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                     <button onClick={handleSave} className='botao-edit-salvar'>Salvar</button>
                     <button onClick={handleClose} className='botao-edit-fechar'>Fechar</button>
                 </div>
+                
+            
             </div>
         </div>
     );
