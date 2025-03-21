@@ -6,6 +6,8 @@ import './Login.css';
 import { useEffect } from 'react';
 import bcrypt from 'bcryptjs';
 
+import '../App.css';
+
 function Login() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
     const [email, setEmail] = useState('')
@@ -18,20 +20,17 @@ function Login() {
 
     const handleLogin = async () => {
         try {
-           
-            const salt = bcrypt.getSalt(10);
-            const senhacripto = bcrypt.getSalt(senha, salt);
-            console.log("Senha hasheada:", senhacripto);
-            const response = await fetch('http://localhost:3000/login', {
+            
+            const response = await fetch('http://localhost:3000/loginusr', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, senhacripto }),
+                body: JSON.stringify({ email }),
             });
             const data = await response.json();
             if (response.ok) {
-
+                if (await bcrypt.compare(senha, data.user.senha)) {
                 console.log('Login bem-sucedido:', data);
                 setErro('Login efetuado com sucesso!');
 
@@ -40,6 +39,11 @@ function Login() {
 
                 const lastPage = localStorage.getItem('lastPage') || '/home';
                 navigate(lastPage);
+    } else {
+        console.error('Erro no login:', data.error);
+        setErro(data.error);
+    }
+    
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
@@ -62,7 +66,7 @@ function Login() {
     }, [userLogado, setUserLogado]);
 
     return (
-        <div>
+        <div className="container">
             <div className="container-login">
                 <div className="img-login">
                     <img src="./images/golden1.svg" className='img_cachorro' />
