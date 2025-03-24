@@ -3,7 +3,7 @@
     flex-direction: column;
     margin: auto;
     align-items: center;
-    min-height: 55vh;
+    min-height: 90vh;
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 65vw;
@@ -30,7 +30,7 @@
 
 
 .titulo-barra-pet img{
-    width: 350px;
+    width: 380px;
 }
 
 .conteiner_modal label,
@@ -264,3 +264,35 @@
 
 
 
+.confirmation-modal {
+    position: fixed;
+    top: 10vh;
+    right: 30vw;
+    background-color: #967863;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 26px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    10% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    90% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+  }

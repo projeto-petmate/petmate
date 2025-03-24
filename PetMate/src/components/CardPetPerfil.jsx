@@ -15,6 +15,8 @@ function CardPetPerfil() {
     const [petToDelete, setPetToDelete] = useState(null);
     const [petToEdit, setPetToEdit] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
+    const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container few-pets' : 'card-pet-perfil-container';
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -37,6 +39,10 @@ function CardPetPerfil() {
             await deletePet(petToDelete.id_pet);
             setUserPets(userPets.filter(pet => pet.id_pet !== petToDelete.id_pet));
             setOpenModalExcluirPet(false);
+            setShowSuccessPopupDel(true);
+            setTimeout(() => {
+                setShowSuccessPopupDel(false);
+            }, 2000);
         } catch (error) {
             console.error('Erro ao deletar pet', error);
         }
@@ -58,27 +64,37 @@ function CardPetPerfil() {
     const ordemPerfil = [...userPets].sort((a, b) => a.id_pet - b.id_pet);
 
     return (
-        <div className="card-pet-perfil-container">
-            {ordemPerfil.map(pet => (
+        <div className={containerClass}>
+            {userPets.map((pet) => (
                 <div key={pet.id_pet} className="pet-card-perfil">
-                    <img src={pet.imagem || "/images/default_pet_image.jpg"} alt={`Imagem de ${pet.nome}`} className="pet-image" />
+                    <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                     <div className="pet-info">
                         <h3>{pet.nome}</h3>
                         <p><strong>Raça:</strong> {pet.raca}</p>
                         <p><strong>Idade:</strong> {pet.idade}</p>
                         <p>{pet.porte} | {pet.genero}</p>
-                        <div className="botoes-pet-perfil">
-                            <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
-                            <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
-                        </div>
+                    <div className="botoes-pet-perfil">
+                        <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
+                        <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                     </div>
                 </div>
-            ))}
-            {showSuccessPopup && (
-                <div className="success-popup-edit-pet">
-                    <p>Dados salvos com sucesso!</p>
                 </div>
-            )}
+    ))
+}
+{
+    showSuccessPopup && (
+        <div className="success-popup-edit-pet">
+            <p>Dados salvos com sucesso!</p>
+        </div>
+    )
+}
+{
+    showSuccessPopupDel && (
+        <div className="success-popup-edit-pet">
+            <p>Anúncio excluído com sucesso!</p>
+        </div>
+    )
+}
             <ModalEditarPet
                 isEditarPet={openModalEditarPet}
                 setPetEditOpen={setOpenModalEditarPet}
@@ -90,7 +106,7 @@ function CardPetPerfil() {
                 setPetDeleteOpen={setOpenModalExcluirPet}
                 onDeletePet={handleDelete}
             />
-        </div>
+        </div >
     );
 }
 

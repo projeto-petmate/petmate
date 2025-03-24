@@ -5,6 +5,12 @@
     justify-content: center;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
+    align-items: flex-start; 
+}
+
+.card-pet-perfil-container.few-pets {
+    align-items: center;
+    min-height: calc(100vh - 120px); 
 }
 
 .pet-card-perfil {
@@ -84,7 +90,7 @@
 .success-popup-edit-pet {
     position: fixed;
     top: 148px;
-    right: 80px;
+    right: 50%;
     background-color: #967863;
     color: white;
     padding: 10px 20px;

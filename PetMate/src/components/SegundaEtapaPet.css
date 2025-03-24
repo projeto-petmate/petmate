@@ -8,7 +8,7 @@
     border-radius: 10px;
     width: 65vw;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    min-height: 80vh;
+    min-height: 90vh;
     padding: 20px;
     border-left: 25px solid #654833;
     justify-content: space-evenly;
@@ -199,9 +199,10 @@
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: -40px;
+    margin-bottom: -20px;
 }
-.tag-button{
+
+.tag-button {
     display: flex;
     flex-direction: row;
 }
@@ -234,6 +235,7 @@
     color: #84644D;
     margin-left: 5px;
 }
+
 .termos-pet a:hover {
     transform: scale(1);
 }
@@ -241,39 +243,42 @@
 .link-termos:hover {
     color: #6b4f3a;
 }
-.erro-mensagem-pet{
+
+.erro-mensagem-pet {
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
     color: rgb(219, 16, 16);
 }
-.erro-cad-pet{
+
+.erro-cad-pet {
     min-height: 10px;
 }
 
 
-.condicoes-container{
+.condicoes-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.condicoes-pet{
+.condicoes-pet {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.condicoes-texto{
-    font-size: 20px;
+.condicoes-texto {
+    font-size: 22px;
 }
-.radio-condicoes input[type="radio"]{
-    /* margin-right: 10px; */
+
+.radio-condicoes input[type="radio"] {
     height: 30px;
     width: 20px;
 }
-.radio-condicoes{
+
+.radio-condicoes {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -283,14 +288,14 @@
     gap: 5px;
 }
 
-.input-condicao label{
+.input-condicao label {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     width: 665px;
 }
 
-#input-condicao{
+#input-condicao {
     width: 600px;
     margin: 0;
 }

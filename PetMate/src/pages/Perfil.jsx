@@ -44,6 +44,17 @@ function Perfil() {
         }
     }, [userLogado]);
 
+
+    useEffect(() => {
+        const hasReloaded = localStorage.getItem('hasReloaded');
+        if (!hasReloaded) {
+            localStorage.setItem('hasReloaded', 'true');
+            window.location.reload();
+        } else {
+            localStorage.removeItem('hasReloaded');
+        }
+    }, []);
+
     const handleLogout = () => {
         Logout();
         navigate('/home');
@@ -56,16 +67,16 @@ function Perfil() {
 
     const handleSave = async () => {
         try {
-          await updateUsuario(userData.id_usuario, userData);
-          setEditMode(false);
-          setShowSuccessPopup(true); 
-          setTimeout(() => {
-            setShowSuccessPopup(false); 
-          }, 2000);
+            await updateUsuario(userData.id_usuario, userData);
+            setEditMode(false);
+            setShowSuccessPopup(true);
+            setTimeout(() => {
+                setShowSuccessPopup(false);
+            }, 2000);
         } catch (error) {
-          console.error('Erro ao atualizar usuário', error);
+            console.error('Erro ao atualizar usuário', error);
         }
-      };
+    };
     const handleDelete = async () => {
         try {
             await deleteUsuario(userData.id_usuario);
@@ -228,8 +239,8 @@ function Perfil() {
                         </div>
                     )}
                     <div className="excluir-conta">
-                        <h4>Excluir conta permanentemente</h4>
                         <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir</button>
+                        <h4>Excluir conta permanentemente</h4>
                     </div>
                 </div>
             </div>

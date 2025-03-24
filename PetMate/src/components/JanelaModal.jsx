@@ -75,6 +75,11 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       await addPet(novoPet)
       console.log('Pet cadastrado:', novoPet)
       setModalOpen(false)
+      // setShowConfirmationModal(true); 
+      // setTimeout(() => {
+      //   setShowConfirmationModal(false);
+      //   window.location.reload();
+      // }, 3000);
       window.location.reload()
     } catch (error) {
       setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' })
