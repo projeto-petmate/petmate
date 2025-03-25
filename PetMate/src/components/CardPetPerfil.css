@@ -24,8 +24,8 @@
     overflow: hidden;
     transition: transform 0.2s;
     background-color: #fff;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    /* margin-bottom: 10px; */
 
 }
 
@@ -90,7 +90,7 @@
 .success-popup-edit-pet {
     position: fixed;
     top: 148px;
-    right: 50%;
+    right: 90px;
     background-color: #967863;
     color: white;
     padding: 10px 20px;

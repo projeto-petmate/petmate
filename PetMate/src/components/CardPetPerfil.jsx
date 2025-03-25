@@ -65,7 +65,7 @@ function CardPetPerfil() {
 
     return (
         <div className={containerClass}>
-            {userPets.map((pet) => (
+            {ordemPerfil.reverse().map((pet) => (
                 <div key={pet.id_pet} className="pet-card-perfil">
                     <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                     <div className="pet-info">

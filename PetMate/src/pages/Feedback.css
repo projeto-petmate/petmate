@@ -153,8 +153,6 @@
 
 .botao-add-feedback:hover{
     background-color: #4d3524;
-    /* transform: translateY(-2px); */
-    /* transform: scale(1.01); */
 }
 
 .erro-comentario{
@@ -167,7 +165,6 @@
 .botao-excluir-comentario{
     color: #F5F5F5;
     border: none;
-    /* padding: 5px 10px; */
     font-size: 30px;
     cursor: pointer;
     transition: 0.5s ease;

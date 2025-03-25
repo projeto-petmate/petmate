@@ -6,18 +6,26 @@
 }
 
 .info-perfil {
-    background-color: #FFFFFF;
-    width: 60vw;
-    padding: 20px;
+    background-color: #F6F4F1;
     min-height: calc(100vh - 120px);
+    width: 58vw;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+}
+.container-pets {
+    width: 42vw;
 }
 
 .info-perfil button:hover {
     cursor: pointer;
+}
+.container-configuracoes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: -50px;
 }
 
 .titulo-barra h2 {
@@ -27,17 +35,17 @@
 }
 
 .titulo-barra h4 {
-    font-weight: 500;
     font-size: 20px;
     font-weight: 400;
 }
 
 .user-icon-container {
     display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
     justify-content: center;
     align-items: center;
-    margin: auto;
-    width: fit-content;
 }
 
 .user-icon {
@@ -73,22 +81,20 @@
 
 }
 
-.container-pets {
-    width: 40vw;
-    min-height: 30vh;
-}
+
 
 .inputs-perfil {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 100px;
+    /* align-items: center; */
+    height: auto;
+    gap: 60px;
 }
 
 .inputs-perfil input {
-    height: 60px;
-    width: 400px;
+    /* height: 60px; */
+    /* width: 40px; */
     border-radius: 12px;
     border: solid #AD947E 1px;
     box-shadow: 0px 0px 1px;
@@ -108,6 +114,7 @@
 .inputs-perfil-2 {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
@@ -126,13 +133,13 @@
 }
 
 .botao-salvar-perfil {
-    width: 50%;
-    height: 60px;
-    font-size: 24px;
+    width: 240px;
+    height: 55px;;
+    font-size: 20px;
     background-color: #84644D;
     border-radius: 12px;
     border: none;
-    color: #FFFFFF;
+    color: #F6F4F1;
     font-weight: 600;
     letter-spacing: 0.025em;
     font-family: Roboto;
@@ -141,13 +148,13 @@
 }
 
 .botao-editar-perfil {
-    width: 50%;
-    height: 60px;
-    font-size: 24px;
+    width: 240px;
+    height: 55px;
+    font-size: 20px;
     background-color: #84644D;
     border-radius: 12px;
     border: none;
-    color: #FFFFFF;
+    color: #F6F4F1;
     font-weight: 600;
     letter-spacing: 0.025em;
     font-family: Roboto;
@@ -161,7 +168,7 @@
     font-family: Roboto;
     background-color: #84644D;
     border: none;
-    color: #FFFFFF;
+    color: #F6F4F1;
     margin-bottom: 30px;
     border-radius: 12px;
     padding: 5px;
@@ -183,37 +190,66 @@
 }
 
 .excluir-conta {
-    background-color: #FFF;
+    background-color: #F6F4F1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    /* width: 50%; */
     border-radius: 10px;
+    border: solid 2px #84644D;
+    padding: 15px;
     margin: auto;
+    gap: 10px;
 }
-
+.editar-conta {
+    background-color: #F6F4F1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: solid 2px #84644D;
+    padding: 15px;
+    margin: auto;
+    gap: 10px;
+    height: 132px;
+    width: 40%;
+}
+.editar-conta h4 {
+    font-size: 28px;
+    color: #484848;
+    text-align: center;
+}
 
 .excluir-conta h4 {
     font-size: 28px;
     color: #484848;
     text-align: center;
 }
+.botoes-perfil{
+    display: flex;
+    height: auto;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+    align-items: center;
+  }
 
 
 
 .botao-excluir-perfil {
-    height: 60px;
-    width: 300px;
+    height: 50px;
+    width: 150px;
     background-color: #EBE5E0;
     border: 2px solid #84644D;
     border-radius: 10px;
     color: #84644D;
-    font-size: 24px;
+    font-size: 22px;
     font-family: 'Nunito';
     font-weight: 700;
     letter-spacing: 0.03em;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .input-edit {
@@ -224,8 +260,7 @@
 
 .input-edit input {
     height: 50px;
-    width: 360px;
-    border-radius: 12px 0px 0px 12px;
+    border-radius: 6px 0px 0px 6px;
     border-color: #AD947E #ffffff00 #AD947E #AD947E;
     border-right: none;
     outline: none;
@@ -233,38 +268,35 @@
 
 .icon-lapis {
     display: flex;
-    height: 60px;
+    height: 55px;
     border: solid #AD947E 1px;
-    border-radius: 0px 12px 12px 0px;
+    border-radius: 0px 6px 6px 0px;
     border-color: #AD947E #AD947E #AD947E #ffffff00;
     border-left: none;
     background-color: #FBFBFB;
-    font-size: 33px;
+    font-size: 25px;
     color: #747373;
     padding-right: 4px;
 }
 
-.container-configuracoes {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
+
 
 .dadoPerma {
     color: #84644D;
 }
 
 .inputs-perfil input {
-    height: 60px;
+    height: 55px;
 }
 
 .input-nome input {
-    width: 400px;
-    height: 60px;
+    width: 440px;
+    height: 55px;
 }
 
 .input-perma input {
-    width: 433px;
+    width: 473px;
+    border-radius: 6px;
 }
 
 .inputs-perfil p {
@@ -303,3 +335,4 @@
       transform: translateY(-10px);
     }
   }
+

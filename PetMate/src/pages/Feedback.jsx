@@ -7,7 +7,7 @@ import axios from 'axios';
 import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
-
+import Swal from 'sweetalert2'
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
@@ -75,10 +75,13 @@ function Feedback() {
                 console.log('Comentário cadastrado:', novoComentario);
                 setErros('');
                 setInptComentario('');
-                setShowSuccessPopup(true);
-                setTimeout(() => {
-                    setShowSuccessPopup(false);
-                }, 2000);
+                Swal.fire({
+                    position: "mid",
+                    icon: "success",
+                    title: "Comentário enviado com sucesso!",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
             } else {
                 setErros('Comentário deve ter no mínimo 8 caracteres.');
             }

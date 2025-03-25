@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SegundaEtapaPet.css';
 import { IoArrowBackCircle } from "react-icons/io5";
 import { CgCloseO } from "react-icons/cg";
+import Swal from 'sweetalert2'
 
 function SegundaEtapaPet({
     inptPetEspecie,
@@ -53,6 +54,12 @@ function SegundaEtapaPet({
         const novosErros = validarFormulario();
         if (Object.keys(novosErros).length > 0) {
             setLocalErros(novosErros);
+            Swal.fire({
+                icon: "error",
+                title: "Ops...",
+                text: "Algum campo obrigatório não foi preenchido!",
+                // footer: 'Why do I have this issue?'
+              });
             return;
         }
         const condicoesAtualizadas = radioCondicoes === 'sim' ? inptCondicoes : 'Nenhuma';

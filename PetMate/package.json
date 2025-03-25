@@ -20,7 +20,8 @@
     "react-router-dom": "^6.26.2",
     "react-select": "^5.10.0",
     "react-spinners": "^0.15.0",
-    "router-context": "file:"
+    "router-context": "file:",
+    "sweetalert2": "^11.17.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

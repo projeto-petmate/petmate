@@ -217,30 +217,35 @@ function Perfil() {
                             </div>
                         </div>
                     </div>
-                    {!editMode ?
-                        <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
-                            <div className="editar-dados">
-                                Editar Dados
-                                <FaEdit className='icon-edit' />
-                            </div>
-                        </button>
-                        : (
-                            <button className="botao-salvar-perfil" onClick={handleSave}>
-                                <div className="salvar-dados">
-                                    Salvar Dados
-                                    <FaCheck className='icon-edit' />
+                    <div className="botoes-perfil">
+                    <div className="editar-conta">
+                        {!editMode ?
+                            <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
+                                <div className="editar-dados">
+                                    Editar
+                                    <FaEdit className='icon-edit' />
                                 </div>
                             </button>
+                            : (
+                                <button className="botao-salvar-perfil" onClick={handleSave}>
+                                    <div className="salvar-dados">
+                                        Salvar
+                                        <FaCheck className='icon-edit' />
+                                    </div>
+                                </button>
+                            )}
+                            <h4>Editar dados do perfil</h4>
+                        </div>
+                        <div className="excluir-conta">
+                            <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir</button>
+                            <h4>Excluir conta permanentemente</h4>
+                        </div>
+                        {showSuccessPopup && (
+                            <div className="success-popup-perfil">
+                                <p>Dados salvos com sucesso!</p>
+                            </div>
                         )}
 
-                    {showSuccessPopup && (
-                        <div className="success-popup-perfil">
-                            <p>Dados salvos com sucesso!</p>
-                        </div>
-                    )}
-                    <div className="excluir-conta">
-                        <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir</button>
-                        <h4>Excluir conta permanentemente</h4>
                     </div>
                 </div>
             </div>
