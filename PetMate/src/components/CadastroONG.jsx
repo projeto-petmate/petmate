@@ -22,7 +22,6 @@ function CadastroONG() {
   const [ongEstado, setOngEstado] = useState('')
   const [ongCidade, setOngCidade] = useState('')
   const [ongEndereco, setOngEndereco] = useState('')
-  const [ongDescricao, setOngDescricao] = useState('')
   const [ongFoto, setOngFoto] = useState('')
   const [ongImagemPreview, setOngImagemPreview] = useState(null)
   const [erros, setErros] = useState({})
@@ -43,7 +42,6 @@ function CadastroONG() {
     if (!ongEstado) erros.estado_ong = 'Estado é obrigatório'
     if (!ongCidade) erros.cidade_ong = 'Cidade é obrigatória'
     if (!ongEndereco) erros.endereco_ong = 'Endereço é obrigatório'
-    if (!ongDescricao) erros.descricao_ong = 'Descrição é obrigatória'
     if (!ongFoto) erros.foto_ong = 'Foto é obrigatória'
     return erros
   }
@@ -58,27 +56,26 @@ function CadastroONG() {
     }
 
     const novaOng = {
-       nome_ong: ongNome,
-       email: ongEmail,
-       senha: ongSenha,
-       telefone: ongTelefone,
-       telefone_denuncia: ongTelefoneDenuncia,
-       cnpj: ongCnpj,
-       nome_responsavel: ongNomeResponsavel,
-       cpf_responsavel: ongCpfResponsavel,
-       data_nascimento_responsavel: ongDataNascimentoResponsavel,
-       email_responsavel: ongEmailResponsavel,
-       telefone_responsavel: ongTelefoneResponsavel,
-       estado_ong: ongEstado,
-       cidade_ong: ongCidade,
-       endereco_ong: ongEndereco,
-       foto_ong: ongFoto,
-       descricao_ong: ongDescricao
+      nome_ong: ongNome,
+      email: ongEmail,
+      senha: ongSenha,
+      telefone: ongTelefone,
+      telefone_denuncia: ongTelefoneDenuncia,
+      cnpj: ongCnpj,
+      nome_responsavel: ongNomeResponsavel,
+      cpf_responsavel: ongCpfResponsavel,
+      data_nascimento_responsavel: ongDataNascimentoResponsavel,
+      email_responsavel: ongEmailResponsavel,
+      telefone_responsavel: ongTelefoneResponsavel,
+      estado_ong: ongEstado,
+      cidade_ong: ongCidade,
+      endereco_ong: ongEndereco,
+      foto_ong: ongFoto
     };
 
     console.log('Dados enviados para o servidor:', novaOng);
 
-    try { 
+    try {
       await addOng(novaOng);
       console.log('Ong cadastrada com sucesso!', novaOng);
       navigate('/Login'); // Use the navigate function to redirect
@@ -93,46 +90,51 @@ function CadastroONG() {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-        setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
-        setImagemPreviewPerfil(reader.result);
+      setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
+      setImagemPreviewPerfil(reader.result);
     };
     reader.readAsDataURL(file);
-};
+  };
 
 
   return (
     <div className="conteiner-cad-ong">
+
       <div className="conteiner-info-ong">
-        <div className="texto-cadastro-ong">
-          <Link to="/Cadastro">
-            <button className="botao-voltar-cad">X</button>
-          </Link>
+        
+        <div className="top-cad-ong">
+
+         <div className="texto-cadastro-ong">
+
           <div className="texto-cadastro-ong-img">
-            <h2>Cadastro ONG</h2>
+            <h2>Cadastro de ONG</h2>
             <img className="barra-cad-ong" src="/images/barra_marrom.png" alt="" />
           </div>
+            <img className='logoMarrom-cad-ong' src="/images/logoMarrom.svg" alt="" />
+
+         </div>
         </div>
 
-        <div className="user-icon-container">
+        <div className="user-icon-container-ong">
           <div className="add-img">
             <input
-                id="file-upload"
-                type="file"
-                onChange={handleImageChange}
-                style={{ display: 'none' }}
+              id="file-upload"
+              type="file"
+              onChange={handleImageChange}
+              style={{ display: 'none' }}
             />
 
           </div>
-                        
-        {imagemPreviewPerfil === null ?
-              <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
+
+          {imagemPreviewPerfil === null ?
+            <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
             <div className="img-preview-perfil" >
-                {imagemPreviewPerfil && (
-                    <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
-                )}
+              {imagemPreviewPerfil && (
+                <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
+              )}
             </div>
           }
-    </div>
+        </div>
 
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
@@ -207,41 +209,69 @@ function CadastroONG() {
                 value={ongTelefoneResponsavel}
                 onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
               />
-              <label htmlFor="">Estado onde se encontra a ONG:
+              <label htmlFor="">Estado:
               </label>
-              <input className="input-cad-ong" type="text"
+              <select className="input-cad-ong"
                 value={ongEstado}
                 onChange={(e) => setOngEstado(e.target.value)}
-              />
-              <label htmlFor="">Cidade onde se encontra a ONG:
+              >
+                <option value="">Escolha seu estado</option>
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BA">Bahia (BA)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Paraná (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+              </select>
+              <label htmlFor="">Cidade:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongCidade}
                 onChange={(e) => setOngCidade(e.target.value)}
               />
-              <label htmlFor="">Endereço da ONG:
+              <label htmlFor="">Endereço:
               </label>
               <input className="input-cad-ong" type="text"
                 value={ongEndereco}
                 onChange={(e) => setOngEndereco(e.target.value)}
               />
+              <label htmlFor="">Confirmar senha:
+              </label>
+              <input className="input-cad-ong" type="text"
+              />
             </div>
           </div>
-        <div className="descricao-ong">
-          <label htmlFor="">Descrição da ONG
-          </label>
-          <input className="input-descricao-cad-ong" type="text"
-            value={ongDescricao}
-            onChange={(e) => setOngDescricao(e.target.value)}
-            />
-        </div>
-        <div className="termos-ong">
-          <p>termos</p>
-        </div>
-        <div className="conteiner-botao-cad-ong">
-          <button type="submit" className="botao-cad-ong" onClick={cadastrarOng}>Cadastrar</button>
-        </div>
-            </form>
+          <div className="termos-ong">
+            <p>Ao preencher o formuário acima  você concorda com os nossos Termos de Uso e nossa Política de Privacidade.</p>
+          </div>
+          <div className="conteiner-botao-cad-ong">
+            <button type="submit" className="botao-cad-ong" onClick={cadastrarOng}>Cadastrar</button>
+            <div className='login-cad-ong'>
+            <p>Já possui conta?</p> <a href="/login"><p>Login</p></a>
+            </div>
+          </div>
+        </form>
       </div>
 
       <div className="img-lateral">
