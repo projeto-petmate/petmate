@@ -31,9 +31,9 @@ function Adotar() {
             <p>Transforme a vida de um pet e ganhe um amigo para sempre!</p>
           </div>
           <div>
-            {logado ? (
+            {logado && 
               <button className='botao-modal' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
-            ) : <button className='botao-modal' onClick={() => navigate('/login')}>Anunciar Pet</button>}
+            }
           </div>
         </div>
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />

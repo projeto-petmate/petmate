@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import SegundaEtapaPet from './SegundaEtapaPet'
 import { IoMdClose } from "react-icons/io"
 import { CgCloseO } from "react-icons/cg"
+import Swal from 'sweetalert2'
+
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
   const { addPet } = useContext(PetContext)
@@ -74,13 +76,17 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     try {
       await addPet(novoPet)
       console.log('Pet cadastrado:', novoPet)
+      Swal.fire({
+          position: "mid",
+          icon: "success",
+          title: "Anúncio enviado com sucesso!",
+          showConfirmButton: false,
+          timer: 2000
+        });
       setModalOpen(false)
-      // setShowConfirmationModal(true); 
-      // setTimeout(() => {
-      //   setShowConfirmationModal(false);
-      //   window.location.reload();
-      // }, 3000);
-      window.location.reload()
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); 
     } catch (error) {
       setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' })
     }

@@ -4,6 +4,7 @@ import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import './Login.css';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2'
 
 function Login() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
@@ -33,13 +34,22 @@ function Login() {
             if (response.ok) {
 
                 console.log('Login bem-sucedido:', data);
-                setErro('Login efetuado com sucesso!');
+                setErro('');
 
                 localStorage.setItem("logado", JSON.stringify(true));
                 localStorage.setItem("userLogado", JSON.stringify(data.user));
 
                 const lastPage = localStorage.getItem('lastPage') || '/home';
-                navigate(lastPage);
+                Swal.fire({
+                    position: "mid",
+                    icon: "success",
+                    title: "Login realizado com sucesso!",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+                  setTimeout(() => {
+                    navigate(lastPage);
+                  }, 1500);
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
@@ -65,7 +75,8 @@ function Login() {
         <div>
             <div className="container-login">
                 <div className="img-login">
-                    <img src="./images/golden1.svg" className='img_cachorro' />
+                    {/* <h2 className="titulo-bem-vindo">Bem-vindo de volta!</h2> */}
+                    <img src="./images/cachorro-login (1).png" className='img_cachorro' />
                 </div>
                 <div className="info-login">
                     <div className="titulo-input">

@@ -40,7 +40,7 @@ function SegundaEtapaPet({
 
     const validarFormulario = () => {
         const novosErros = {};
-        
+
         if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
@@ -56,14 +56,33 @@ function SegundaEtapaPet({
             setLocalErros(novosErros);
             Swal.fire({
                 icon: "error",
-                title: "Ops...",
-                text: "Algum campo obrigatório não foi preenchido!",
-                // footer: 'Why do I have this issue?'
-              });
+                title: "<strong>Erro ao enviar anúncio</strong>",
+                html: `
+                    <p style="color: #84644D; font-size: 16px;">
+                        Algum campo obrigatório não foi preenchido!
+                    </p>
+                `,
+                background: "#F6F4F1",  
+                color: "#654833", 
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#84644D", 
+                customClass: {
+                    popup: "custom-swal-popup",
+                    title: "custom-swal-title", 
+                    confirmButton: "custom-swal-button",
+                },
+                showClass: {
+                    popup: "animate__animated animate__fadeInDown", 
+                },
+                hideClass: {
+                    popup: "animate__animated animate__fadeOutUp", 
+                },
+            });
             return;
         }
         const condicoesAtualizadas = radioCondicoes === 'sim' ? inptCondicoes : 'Nenhuma';
         enviarPet(tags, condicoesAtualizadas);
+        
     };
 
 
@@ -104,11 +123,11 @@ function SegundaEtapaPet({
                             </div>
                         </div>
                         <div className="input-condicao">
-                            {radioCondicoes === 'sim' && 
+                            {radioCondicoes === 'sim' &&
                                 <label htmlFor="input-condicao">Descreva a condição especial do pet:
                                     <input type="text" name="" id="input-condicao"
                                         value={inptCondicoes}
-                                        onChange={ (e) => setInptCondicoes(e.target.value) } />
+                                        onChange={(e) => setInptCondicoes(e.target.value)} />
                                 </label>
                             }
                         </div>
@@ -145,9 +164,9 @@ function SegundaEtapaPet({
 
 
                     <div className="erro-cad-pet">
-                        {localErros.imagem && <p className="erro-mensagem-pet">{localErros.imagem}</p>}
-                        {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>}
-                        {localErros.termos && <p className="erro-mensagem-pet">{localErros.termos}</p>}
+                        {/* {localErros.imagem && <p className="erro-mensagem-pet">{localErros.imagem}</p>} */}
+                        {/* {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>} */}
+                        {/* {localErros.termos && <p className="erro-mensagem-pet">{localErros.termos}</p>} */}
                     </div>
                     <div className="termos-cadastro-pet">
                         <div className="termos-pet">

@@ -12,7 +12,8 @@
     justify-content: space-between;
     min-height: 100vh;
     width: 100%;
-    background-image: url('/images/fundo_patas.svg');
+    background-color: #D4C6B5;
+  
 
 }
 .titulo-input{
@@ -23,25 +24,41 @@
     width: 100%;
 }
 
-/* <<CONTAINER ESQUERDA>> */
-
 .img_cachorro{
-    margin-top: 5vh;
-    height: 900px;
+    height: 800px;
+    margin-top: 9em;
 }
+.img-login{
+    height: 100vh;
+    width: auto;
+    margin-left: 110px;
+    
+}
+/* .titulo-bem-vindo {
+    text-align: center;
+    position: relative;
+    top: 160px;
+    font-size: 55px;
+    color: #553a27;
+    font-weight: 800;
+    font-family: "Raleway", sans-serif;
+} */
 /* <<CONTAINER ESQUERDA//>> */
 
 
 /* <<CONTAINER DIREITA>> */
 .info-login{
+    background-color: #fdfaf4; 
+    border-radius: 16px;
+    padding: 70px;
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
     align-items: center;
     justify-content: center;
-    padding: 0px 20px 0px 10px;
-    height: 100vh;
-    width: 50%;
+    text-align: left;
+    margin-right: 300px;
+    z-index: 10;
+    box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.2); 
 }
 /* <<CONTAINER DIREITA//>> */
 
@@ -53,24 +70,23 @@
     flex-direction: column;
     text-align: start;
     height: auto;
-    margin-left: 3em;
-
+    position: relative;
 }   
 
 .texto-login h2{
-    font-family: Koh Santepheap;
-    font-size: 44px;
+    color: #3d3d3d;
+    font-size: 35px;
 }
 .texto-login p{
-    font-size: 20px;
+    font-size: 18px;
     font-family: inter;
 }
 
 .barra_marrom{
-    height: 12px;
-    width: 30%;
+    height: 5px;
+    width: 20%;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     
 }
 
@@ -102,7 +118,7 @@
 
 .inputs-login p{
     font-family: inter;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .inpt-p{
@@ -114,19 +130,17 @@
 .inpts-login{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-left: 50px;
+    
 
 }
 
 .inpts-login input{
-    width: 550px;
-    height: 65px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 450px;
+    height: 45px;
+    padding: 15px;
+    font-size: 15px;
+    border: 1px solid #84644D;
+    border-radius: 20px;
 }
 
 .inpts-login input:focus {
@@ -134,22 +148,6 @@
     border: 1px solid #84644D;
     background-color: #f3f3fc;
     transition: 0.23s;
-}
-
-.mostrar-senha {
-    display: flex;
-}
-
-.icon-mostrar-senha {
-    height: 65px;
-    width: 40px;
-    background-color: #FFFFFF;
-    border: 1px solid #ccc;
-    border-radius: 0px 5px 5px 0px;
-    border-left: none;
-    font-size: 28px;
-    cursor: pointer;
-    padding-right: 15px;
 }
 
 .icon-mostrar-senha button {
@@ -179,28 +177,37 @@
 
 
 #inputSenha{
-    width: calc(550px - 40px);
-    height: 65px;
+    width: calc(490px - 40px);
+    height: 45px;
     border-right: none;
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 1zzpx 0px 0px 18px;
 }
 
+/* <<<<<<<<<Mostrar senha>>>>>>>>>>>> */
 .mostrar-senha{
     display: flex;
+    align-items: center;
+    position: relative;
+    
 }
 
 .icon-mostrar-senha{
-    height: 65px;
+    height: 45px;
     width: 40px;
     background-color: #FFFFFF;
-    border: 1px solid #ccc;
-    border-radius: 0px 5px 5px 0px;
+    border: 1px solid #84644D;
     border-left: none;
-    font-size: 28px;
-    cursor: pointer;
+    font-size: 25px;
     padding-right: 15px;
-    outline: none;
+    border-radius: 0px 20px 20px 0px ;
+    position: absolute;
+    right: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
+
 /* <<INPUTS//>> */
 
 
@@ -211,26 +218,28 @@
     flex-direction: column;
     height: auto;
     width: 90%;
-    margin-top: 3em;
+    margin-top: 1em;
     margin-bottom: 0;
-    /* border: solid; */
-
+    justify-content:space-around ;
+    align-items: center;
 }
 
 .sem-cadastro{
-    font-size: 20px;
+    font-size: 18px;
     font-family: roboto;
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 70px;
     width: 100%;
+    align-items: center;
+    justify-content: center;
     /* border: solid; */
 
 }
 
-.sem-cadastro a{
-    font-size: 20px;
+.sem-cadastro a{ 
+    font-size: 18px;
     text-decoration: none;
     margin: 5px;
     color: #84644D;
@@ -238,29 +247,26 @@
 }
 
 .base-login button {
-    height: 65px;
-    padding: 10px;
+    width: 400px;
+    height: 47px;
+    font-size: 18px;
     font-weight: 600;
-    font-size: 24px;
-    background-color: var(--cor-1);
+    background-color: #84644D;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
 }
 
 .base-login button:hover {
-    transform: scale(1.02);
-    transition: 0.3s ease;
-    background-color: #5f4a3b;
+    background-color: #725540;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
 }
 /* <<CADASTRO + BOTÃO//>> */
 
 /* CUSTOMIZAÇÃO */
-.info-login, .base-login button {
-    width: 100%;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 .icon-input{
     display: flex;
@@ -281,9 +287,8 @@
     font-size: 20px;
     /* border: solid; */
     margin-left: 70px;
-    margin-top: -80px;
+    margin-top: -70px;
     margin-bottom: 90px;
-    /* margin-right: 40px; */
 }
 
 /* radio */
@@ -304,20 +309,13 @@
     height: 26px;
 
 }
-
-/* :focus {
-    outline: 0;
-    border-color: #2260ff;
-    box-shadow: 0 0 0 4px #b5c9fc;
-  } */
-  
   .mydict div {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     justify-content: center;
     /* border: solid; */
-    width: 165%;
+    
   }
   
   .mydict input[type="radio"] {
