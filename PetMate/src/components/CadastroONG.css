@@ -4,6 +4,7 @@
 
 .user-icon-container-ong{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: auto;
@@ -59,7 +60,7 @@
     height: 6px;
     width: 39%;
     margin-right: 61%;
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 
@@ -72,7 +73,7 @@
 }
 
 .inputs-cad-ong label{
-    margin-top: 3%;
+    margin-top: 1%;
     font-family: inter;
     font-size: 18px;
     
@@ -105,7 +106,7 @@ flex-direction: column;
     justify-content: center;
     align-items: center;
     font: inter;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-bottom: 1%;
 }
 

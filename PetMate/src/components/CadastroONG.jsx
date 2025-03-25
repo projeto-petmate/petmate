@@ -101,18 +101,18 @@ function CadastroONG() {
     <div className="conteiner-cad-ong">
 
       <div className="conteiner-info-ong">
-        
+
         <div className="top-cad-ong">
 
-         <div className="texto-cadastro-ong">
+          <div className="texto-cadastro-ong">
 
-          <div className="texto-cadastro-ong-img">
-            <h2>Cadastro de ONG</h2>
-            <img className="barra-cad-ong" src="/images/barra_marrom.png" alt="" />
-          </div>
+            <div className="texto-cadastro-ong-img">
+              <h2>Cadastro de ONG</h2>
+              <img className="barra-cad-ong" src="/images/barra_marrom.png" alt="" />
+            </div>
             <img className='logoMarrom-cad-ong' src="/images/logoMarrom.svg" alt="" />
 
-         </div>
+          </div>
         </div>
 
         <div className="user-icon-container-ong">
@@ -134,8 +134,8 @@ function CadastroONG() {
               )}
             </div>
           }
+          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px', }}>Coloque sua foto de perfil</p>
         </div>
-
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
             <div className="coluna-1-inputs"></div>
@@ -215,7 +215,7 @@ function CadastroONG() {
                 value={ongEstado}
                 onChange={(e) => setOngEstado(e.target.value)}
               >
-                <option value="">Escolha seu estado</option>
+                <option value=""></option>
                 <option value="AC">Acre (AC)</option>
                 <option value="AL">Alagoas (AL)</option>
                 <option value="AP">Amapá (AP)</option>
@@ -268,7 +268,7 @@ function CadastroONG() {
           <div className="conteiner-botao-cad-ong">
             <button type="submit" className="botao-cad-ong" onClick={cadastrarOng}>Cadastrar</button>
             <div className='login-cad-ong'>
-            <p>Já possui conta?</p> <a href="/login"><p>Login</p></a>
+              <p>Já possui conta?</p> <a href="/login"><p>Login</p></a>
             </div>
           </div>
         </form>
