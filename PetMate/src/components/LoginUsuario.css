@@ -1,0 +1,390 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.container-login{
+    font-family: inter;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #D4C6B5;
+  
+
+}
+.titulo-input{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.img_cachorro{
+    height: 800px;
+    margin-top: 9em;
+}
+.img-login{
+    height: 100vh;
+    width: auto;
+    margin-left: 110px;
+    
+}
+/* .titulo-bem-vindo {
+    text-align: center;
+    position: relative;
+    top: 160px;
+    font-size: 55px;
+    color: #553a27;
+    font-weight: 800;
+    font-family: "Raleway", sans-serif;
+} */
+/* <<CONTAINER ESQUERDA//>> */
+
+
+/* <<CONTAINER DIREITA>> */
+.info-login{
+    background-color: #fdfaf4; 
+    border-radius: 16px;
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    margin-right: 300px;
+    z-index: 10;
+    box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.2); 
+}
+/* <<CONTAINER DIREITA//>> */
+
+
+
+/* <<H2 + BOTÃO LOGIN>> */
+.texto-login{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    height: auto;
+    position: relative;
+}   
+
+.texto-login h2{
+    color: #3d3d3d;
+    font-size: 35px;
+}
+.texto-login p{
+    font-size: 18px;
+    font-family: inter;
+}
+
+.barra_marrom{
+    height: 5px;
+    width: 20%;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    
+}
+
+.texto-login button{
+    width: 8em;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    background-color: var(--cor-1);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* <<H2 + BOTÃO LOGIN//>> */
+
+
+
+/* <<INPUTS>> */
+.inputs-login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 20em;
+    /* border: solid; */
+    
+}
+
+.inputs-login p{
+    font-family: inter;
+    font-size: 18px;
+}
+
+.inpt-p{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    margin-bottom: 30px;
+}
+.inpts-login{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.inpts-login input{
+    width: 450px;
+    height: 45px;
+    padding: 15px;
+    font-size: 15px;
+    border: 1px solid #84644D;
+    border-radius: 20px;
+}
+
+.inpts-login input:focus {
+    outline: 1px;
+    border: 1px solid #84644D;
+    background-color: #f3f3fc;
+    transition: 0.23s;
+}
+
+.icon-mostrar-senha button {
+    background-color: #FFFFFF;
+    border: none;
+    outline: none;
+    font-size: 24px;
+}
+
+.icon-mostrar-senha button:focus {
+    background-color: #FFFFFF;
+    outline: none;
+    border: none;
+}
+
+.inpts-login input:focus + .icon-mostrar-senha {
+    background-color: #f3f3fc;
+    border: 1px solid #84644D;
+    border-left: none;
+    transition: 0.23s;
+
+}
+
+.icon-mostrar-senha button:focus-within {
+    background-color: #FFFFFF;
+}
+
+
+#inputSenha{
+    width: calc(490px - 40px);
+    height: 45px;
+    border-right: none;
+    border-radius: 1zzpx 0px 0px 18px;
+}
+
+/* <<<<<<<<<Mostrar senha>>>>>>>>>>>> */
+.mostrar-senha{
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+}
+
+.icon-mostrar-senha{
+    height: 45px;
+    width: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #84644D;
+    border-left: none;
+    font-size: 25px;
+    padding-right: 15px;
+    border-radius: 0px 20px 20px 0px ;
+    position: absolute;
+    right: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* <<INPUTS//>> */
+
+
+
+/* <<CADASTRO + BOTÃO>> */
+.base-login{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    margin-top: 1em;
+    margin-bottom: 0;
+    justify-content:space-around ;
+    align-items: center;
+}
+
+.sem-cadastro{
+    font-size: 18px;
+    font-family: roboto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    /* border: solid; */
+
+}
+
+.sem-cadastro a{ 
+    font-size: 18px;
+    text-decoration: none;
+    margin: 5px;
+    color: #84644D;
+    /* padding: 10px; */
+}
+
+.base-login button {
+    width: 400px;
+    height: 47px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #84644D;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.base-login button:hover {
+    background-color: #725540;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
+}
+/* <<CADASTRO + BOTÃO//>> */
+
+/* CUSTOMIZAÇÃO */
+
+.icon-input{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.icon-input p{
+    margin-left: 10px;
+}
+.icon-login{
+    font-size: 24px;
+}
+
+
+.erro-mensagem-login{
+    color: rgb(219, 16, 16);;
+    text-align: center;
+    font-size: 20px;
+    /* border: solid; */
+    margin-left: 70px;
+    margin-top: -70px;
+    margin-bottom: 90px;
+}
+
+/* radio */
+
+.ong-usuario-escolha{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    /* border: solid; */
+    width: 17%;
+    height: 16%;
+    margin-left: 4%;
+}
+
+.ong-usuario-escolha input{
+    width: 13%;
+    height: 26px;
+
+}
+  .mydict div {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    justify-content: center;
+    /* border: solid; */
+    
+  }
+  
+  .mydict input[type="radio"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+  
+  .mydict input[type="radio"]:checked + span {
+    box-shadow: 0 0 0 0.0625em #6b4f3a;
+    background-color: #f3f3fc;
+    z-index: 1;
+    color: #6b4f3a;
+  }
+  
+  label span {
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 0.375em .75em;
+    position: relative;
+    margin-left: .0625em;
+    box-shadow: 0 0 0 0.0725em #EBE5E0;
+    letter-spacing: .05em;
+    color: #6b4f3a;
+    text-align: center;
+    transition: background-color .3s ease;
+  }
+  
+  label:first-child span {
+    border-radius: .475em 0 0 .375em;
+  }
+  
+  label:last-child span {
+    border-radius: 0 .475em .375em 0;
+  }
+  
+
+
+
+@media screen and (max-width: 768px) {
+    .container-login {
+        flex-direction: column;
+    }
+
+    .img_cachorro {
+        height: 300px;
+    }
+
+    .info-login {
+        width: 80%;
+        padding: 20px;
+    }
+
+    .inpts-login input {
+        width: 90%;
+    }
+
+    .texto-login h2 {
+        font-size: 32px;
+    }
+
+    .texto-login p, .base-login button, .sem-cadastro a {
+        font-size: 18px;
+    }
+
+
+}

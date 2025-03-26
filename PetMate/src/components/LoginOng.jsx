@@ -1,19 +1,17 @@
 import React, { useContext, useState } from 'react';
+import './loginOng.css'
+import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
-import './Login.css';
-import { useEffect } from 'react';
 import Swal from 'sweetalert2'
-import LoginOng from '../components/LoginOng';
-import LoginUsuario from '../components/LoginUsuario';
 
-function Login() {
+function LoginOng() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [erro, setErro] = useState('')
-    const [mudarConta, setMudarConta] = useState('1')
+    const [mudarConta, setMudarConta] = useState('')
     const navigate = useNavigate()
     const [userData, setUserData] = useState(userLogado || {})
     const { } = useContext(GlobalContext);
@@ -76,42 +74,55 @@ function Login() {
 
     return (
         <div>
-            <div className="container-login">
-                <div className="img-login">
-                    {/* <h2 className="titulo-bem-vindo">Bem-vindo de volta!</h2> */}
-                    <img src="./images/cachorro-login (1).png" className='img_cachorro' />
-                </div>
 
-                <div className="info-login">
-                    <div className="titulo-input">
-                        <div className="texto-login">
-                            <h2>Login</h2>
-                            <img src="/images/barra_marrom.png" className='barra_marrom' />
-                            <p>Digite seus dados de acesso no campo abaixo.</p>
+            <div className="titulo-input">
+                <div className="inputs-login">
+                    <div className="inpts-login">
+                        <div className="inpt-p">
+                            <div className="icon-input">
+                                <FaEnvelope className="icon-login" />
+                                <p>Email da Ong:</p>
+                            </div>
+                            <input
+                                type="text"
+                                placeholder='Digite seu email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                            />
                         </div>
-                        <div class="mydict">
-                            <div>
-                                <label>
-                                    <input type="radio" name="radio" value='1'
-                                        onChange={(e) => setMudarConta(e.target.value)}></input>
-                                    <span>Usuário</span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="radio" value='2'
-                                        onChange={(e) => setMudarConta(e.target.value)}></input>
-                                    <span>Ong</span>
-                                </label>
+                        <div className="inpt-p">
+                            <div className="icon-input">
+                                <FaLock className="icon-login" />
+                                <p>Senha:</p>
+                            </div>
+                            <div className="mostrar-senha">
+                                <input
+                                    type="password"
+                                    placeholder='Digite sua senha'
+                                    id='inputSenha'
+                                    value={senha}
+                                    onChange={(e) => setSenha(e.target.value)}
+                                    onKeyDown={handleKeyDown}
+                                />
+                                <button onClick={MostrarSenha} className='icon-mostrar-senha'>
+                                    {mudarTipo ? <FaRegEyeSlash /> : <FaRegEye />}
+                                </button>
                             </div>
                         </div>
-
-                        { mudarConta === '1' ? <LoginUsuario/> : <LoginOng/> }
                     </div>
-                    
                 </div>
-
+                {erro && <p className="erro-mensagem-login">{erro}</p>}
+            </div>
+            <div className="base-login">
+                <button type='submit' onClick={handleLogin}>Login</button>
+                <div className="sem-cadastro">
+                    <p>Ainda não se cadastrou? </p>
+                    <Link to="/cadastro">Cadastre-se</Link>
+                </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Login;
+export default LoginOng
