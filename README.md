@@ -8,6 +8,18 @@ PetMate é uma plataforma que facilita a adoção e doação de pets.
 - [Gucrima](https://github.com/Gucrima) - Frontend e Backend
 - [josehvinii](https://github.com/josehvinii) - Frontend e Backend
 
+## Requisitos Funcionais 📋
+
+- RF01: O sistema deve permitir que usuários realizem o cadastro, edição e exclusão de suas contas.
+- RF02: O sistema deve permitir o cadastro, edição e remoção de animais disponíveis para adoção.
+- RF03: O sistema deve permitir a busca de animais para adoção por meio de filtros.
+- RF04: O sistema deve permitir que usuários favoritem animais de interesse.
+- RF05: O sistema deve disponibilizar uma barra de pesquisa para encontrar rapidamente pets ou usuários.
+- RF06: O sistema deve permitir que usuários realizem comentários sobre o sistema.
+- RF07: O sistema deve disponibilizar contato com ONGS para contribuição e denúncias. 
+- RF08: O sistema deve permitir que ONGS também possam colocar pets para adoção.
+
+
 ## Integrantes designados para cada função 📝
 
 - RF01: Emilly Lima de Souza
