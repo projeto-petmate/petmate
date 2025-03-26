@@ -23,8 +23,8 @@ function CadastroONG() {
   const [ongCidade, setOngCidade] = useState('')
   const [ongEndereco, setOngEndereco] = useState('')
   const [ongFoto, setOngFoto] = useState('')
-  const [ongImagemPreview, setOngImagemPreview] = useState(null)
   const [erros, setErros] = useState({})
+  const [ongImagemPreview, setOngImagemPreview] = useState(null)
   const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
 
   const validarFormulario = () => {
@@ -87,15 +87,14 @@ function CadastroONG() {
   }
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+    const file = e.target.files[0]
+    const reader = new FileReader()
     reader.onloadend = () => {
-      setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
-      setImagemPreviewPerfil(reader.result);
-    };
-    reader.readAsDataURL(file);
+      setOngFoto(reader.result)
+      setImagemPreviewPerfil(reader.result)
+    }
+    reader.readAsDataURL(file)
   };
-
 
   return (
     <div className="conteiner-cad-ong">
@@ -134,7 +133,7 @@ function CadastroONG() {
               )}
             </div>
           }
-          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px', }}>Coloque sua foto de perfil</p>
+          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>Clique aqui e coloque sua foto de perfil</p>
         </div>
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
