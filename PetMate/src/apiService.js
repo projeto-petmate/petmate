@@ -30,6 +30,11 @@ export const deleteUsuario = async (id) => {
     return response.data;
 };
 
+export const updateFavoritos = async (id, favoritos) => {
+    const response = await api.put(`/usuarios/${id}/favoritos`, { favoritos });
+    return response.data;
+};
+
 // Pets
 export const getPets = async () => {
     const response = await api.get('/pets');

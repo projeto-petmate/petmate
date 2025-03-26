@@ -8,6 +8,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2'
+import Footer from '../components/Footer';
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
@@ -58,6 +59,13 @@ function Feedback() {
             await deleteComentario(commentToDelete.id_comentario);
             setComentarios(comentarios.filter(comentario => comentario.id_comentario !== commentToDelete.id_comentario));
             setOpenModalExcluirComentario(false);
+            Swal.fire({
+                position: "mid",
+                icon: "success",
+                title: "Comentário deletado com sucesso!",
+                showConfirmButton: false,
+                timer: 1500
+              });
         } catch (error) {
             console.error('Erro ao deletar comentario', error);
         }
@@ -83,9 +91,34 @@ function Feedback() {
                     timer: 1500
                   });
             } else {
-                setErros('Comentário deve ter no mínimo 8 caracteres.');
+                Swal.fire({
+                    icon: "error",
+                    title: "<strong>Erro ao enviar comentário</strong>",
+                    html: `
+                        <p style="color: #84644D; font-size: 16px;">
+                           O comentário deve ter no mínimo 8 caracteres!
+                        </p>
+                    `,
+                    background: "#F6F4F1",  
+                    color: "#654833", 
+                    confirmButtonText: "Entendido",
+                    confirmButtonColor: "#84644D", 
+                    customClass: {
+                        popup: "custom-swal-popup",
+                        title: "custom-swal-title", 
+                        confirmButton: "custom-swal-button",
+                    },
+                    showClass: {
+                        popup: "animate__animated animate__fadeInDown", 
+                    },
+                    hideClass: {
+                        popup: "animate__animated animate__fadeOutUp", 
+                    },
+                });
+                // setErros('Comentário deve ter no mínimo 8 caracteres.');
             }
         } catch (error) {
+            
             setErros({ geral: 'Erro ao enviar comentário. Tente novamente.' });
         }
     };
@@ -161,6 +194,7 @@ function Feedback() {
                 setComentarioDeleteOpen={setOpenModalExcluirComentario}
                 onDeleteComentario={handleDeleteComment}
             />
+            <Footer />
         </div>
 
     )

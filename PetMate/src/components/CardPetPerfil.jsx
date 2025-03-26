@@ -16,7 +16,7 @@ function CardPetPerfil() {
     const [petToEdit, setPetToEdit] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
-    const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container few-pets' : 'card-pet-perfil-container';
+    const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container-poucos-pets' : 'card-pet-perfil-container';
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -65,36 +65,38 @@ function CardPetPerfil() {
 
     return (
         <div className={containerClass}>
-            {ordemPerfil.reverse().map((pet) => (
-                <div key={pet.id_pet} className="pet-card-perfil">
-                    <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
-                    <div className="pet-info">
-                        <h3>{pet.nome}</h3>
-                        <p><strong>Raça:</strong> {pet.raca}</p>
-                        <p><strong>Idade:</strong> {pet.idade}</p>
-                        <p>{pet.porte} | {pet.genero}</p>
-                    <div className="botoes-pet-perfil">
-                        <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
-                        <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+            {userPets.length > 0 ? (
+                    ordemPerfil.reverse().map((pet) => (
+                        <div key={pet.id_pet} className="pet-card-perfil">
+                            <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
+                            <div className="pet-info">
+                                <h3>{pet.nome}</h3>
+                                <p><strong>Raça:</strong> {pet.raca}</p>
+                                <p><strong>Idade:</strong> {pet.idade}</p>
+                                <p>{pet.porte} | {pet.genero}</p>
+                                <div className="botoes-pet-perfil">
+                                    <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
+                                    <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                
+            ) : (<p className='sem-pets'>Você não anunciou nenhum pet.</p>)}
+            {
+                showSuccessPopup && (
+                    <div className="success-popup-edit-pet">
+                        <p>Dados salvos com sucesso!</p>
                     </div>
-                </div>
-                </div>
-    ))
-}
-{
-    showSuccessPopup && (
-        <div className="success-popup-edit-pet">
-            <p>Dados salvos com sucesso!</p>
-        </div>
-    )
-}
-{
-    showSuccessPopupDel && (
-        <div className="success-popup-edit-pet">
-            <p>Anúncio excluído com sucesso!</p>
-        </div>
-    )
-}
+                )
+            }
+            {
+                showSuccessPopupDel && (
+                    <div className="success-popup-edit-pet">
+                        <p>Anúncio excluído com sucesso!</p>
+                    </div>
+                )
+            }
             <ModalEditarPet
                 isEditarPet={openModalEditarPet}
                 setPetEditOpen={setOpenModalEditarPet}

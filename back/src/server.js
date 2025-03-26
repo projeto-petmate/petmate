@@ -91,6 +91,25 @@ app.delete('/usuarios/:id', async (req, res) => {
     }
 });
 
+app.put('/usuarios/:id/favoritos', async (req, res) => {
+    const { id } = req.params;
+    const { favoritos } = req.body;
+
+    try {
+        const result = await pool.query(
+            'UPDATE usuarios SET favoritos = $1 WHERE id_usuario = $2 RETURNING *',
+            [favoritos, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar favoritos:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar favoritos' });
+    }
+});
+
 app.post('/login', async (req, res) => {
     const { email, senha } = req.body;
     try {

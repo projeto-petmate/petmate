@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <nav className="navbar-container">
       <div className="img-nav">
-        <Link to='/home'>
+        <Link to='/home' className="a-logo">
           <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
         </Link>
       </div>

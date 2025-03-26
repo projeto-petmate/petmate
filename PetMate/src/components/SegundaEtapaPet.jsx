@@ -41,7 +41,7 @@ function SegundaEtapaPet({
     const validarFormulario = () => {
         const novosErros = {};
 
-        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem) {
+        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem || !tags) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
         if (!aceitarTermos) {
@@ -136,7 +136,7 @@ function SegundaEtapaPet({
                     <div className="tags-container">
                         <div className="tag-button">
                             <div className="label-input-tag">
-                                <label htmlFor="input-tag">{'Características (opcional)'}</label>
+                                <label htmlFor="input-tag">{'Características'}</label>
                                 <div className="tag-button">
                                     <input
                                         type="text"

@@ -1,12 +1,14 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from 'axios';
+import { updateFavoritos } from "../apiService";
 
 export const PetContext = createContext();
 
 export const PetContextProvider = ({ children }) => {
     const [pets, setPets] = useState([]);
     const [pet, setPet] = useState();
-    const [favoritos, setFavoritos] = useState([]); //estado para os favoritos
+    const [favoritos, setFavoritos] = useState([]);
+    const [userLogado, setUserLogado] = useState(JSON.parse(localStorage.getItem('userLogado')));
 
     const addPet = async (novoPet) => {
         try {
@@ -41,18 +43,40 @@ export const PetContextProvider = ({ children }) => {
         especie: '',
         porte: '',
         genero: '',
-        favoritos: false, //campo para filtrar favoritos
+        favoritos: false, 
         ordem: 'recentes',
     });
 
-    const toggleFavorito = (id_pet) => {
-        setFavoritos((prevFavoritos) => {
-            if (prevFavoritos.includes(id_pet)) {
-                return prevFavoritos.filter((id) => id !== id_pet); // Remover do array
-            } else {
-                return [...prevFavoritos, id_pet]; // Adicionar ao array
-            }
-        });
+    // Sincroniza os favoritos ao carregar o contexto
+    useEffect(() => {
+        if (userLogado && userLogado.favoritos) {
+            setFavoritos(userLogado.favoritos.split(',').map(Number)); 
+        }
+    }, [userLogado]);
+
+    // Atualiza os favoritos no backend e no estado global
+    const toggleFavorito = async (idPet) => {
+        if (!userLogado) return;
+
+        let novosFavoritos;
+        if (favoritos.includes(idPet)) {
+            // Remove o pet dos favoritos
+            novosFavoritos = favoritos.filter((id) => id !== idPet);
+        } else {
+            // Adiciona o pet aos favoritos
+            novosFavoritos = [...favoritos, idPet];
+        }
+
+        setFavoritos(novosFavoritos);
+
+        try {
+            
+            const updatedUser = await updateFavoritos(userLogado.id_usuario, novosFavoritos.join(','));
+            localStorage.setItem('userLogado', JSON.stringify(updatedUser));
+            console.log('Favoritos atualizados com sucesso!');
+        } catch (error) {
+            console.error('Erro ao atualizar favoritos:', error);
+        }
     };
 
     return (

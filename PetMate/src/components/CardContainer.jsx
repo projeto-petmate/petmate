@@ -24,6 +24,8 @@ function CardContainer() {
     fetchPets();
   }, []);
 
+  
+
   // garantindo que 'favoritos' seja um array antes de usar includes
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 

@@ -8,9 +8,11 @@
     align-items: flex-start; 
 }
 
-.card-pet-perfil-container.few-pets {
+.card-pet-perfil-container-poucos-pets {
+    display: flex;
     align-items: center;
     min-height: calc(100vh - 120px); 
+    justify-content: center;
 }
 
 .pet-card-perfil {
@@ -27,6 +29,22 @@
     margin-top: 20px;
     /* margin-bottom: 10px; */
 
+}
+
+.sem-pets {
+  font-size: 24px;
+  font-weight: bold;
+  color: #84644D;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #F6F4F1;
+  border: 2px solid #AD947E;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  max-width: 400px;
+  margin-left: auto; 
+  margin-right: auto;
 }
 
 

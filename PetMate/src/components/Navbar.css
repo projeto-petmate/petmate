@@ -21,11 +21,19 @@
 }
 
 .img-nav{
+    display: flex;
     margin-left: 70px;
+}
+.nav-img {
+    width: 120px;
+    cursor: pointer;
 }
 
 a {
     font-size: 26px;
+}
+.a-logo{
+    font-size: 0%;
 }
 
 .botao-modal-navbar {
@@ -52,14 +60,7 @@ a {
     margin-right: 5vw;
 }
 
-.nav-img {
-    width: 120px;
-    align-items: center;
-}
 
-.nav-img:hover {
-    cursor: pointer;
-}
 
 
 .botoes-nav a {
