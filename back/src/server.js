@@ -111,9 +111,9 @@ app.put('/usuarios/:id/favoritos', async (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-    const { email, senha } = req.body;
+    const { email } = req.body;
     try {
-        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1 AND senha = $2', [email, senha]);
+        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (result.rows.length === 0) {
             return res.status(401).json({ error: 'Credenciais inválidas' });
         }

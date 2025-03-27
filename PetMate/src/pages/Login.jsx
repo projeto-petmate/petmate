@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2'
 import LoginOng from '../components/LoginOng';
 import LoginUsuario from '../components/LoginUsuario';
+import bcrypt from 'bcryptjs';
 
 function Login() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
@@ -31,11 +32,11 @@ function Login() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, senha }),
+                body: JSON.stringify({ email}),
             });
             const data = await response.json();
             if (response.ok) {
-
+                if (await bcrypt.compare(senha, data.user.senha)) {
                 console.log('Login bem-sucedido:', data);
                 setErro('');
 
@@ -53,6 +54,10 @@ function Login() {
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
+            } else {
+                console.error('Erro no login:', data.error);
+                setErro(data.error);
+            }
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);

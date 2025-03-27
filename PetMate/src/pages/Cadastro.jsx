@@ -6,6 +6,7 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
 import { addUsuario } from '../apiService';
 import InputMask from 'react-input-mask';
+import bcrypt from 'bcryptjs';
 
 function Cadastro() {
     const { PhoneInput, CpfInput, setUserLogado } = useContext(GlobalContext);
@@ -68,10 +69,21 @@ function Cadastro() {
         };
 
         try {
+            const salt = await bcrypt.genSalt(10);  
+            const senhaCriptografada = await bcrypt.hash(inptSenhaCadastro, salt);
+            const novoUser = {
+                nome: inptNomeCadastro,
+                email: inptEmailCadastro,
+                senha: senhaCriptografada,
+                telefone: inptTelefoneCadastro,
+                endereco: inptEnderecoCadastro,
+                cpf: inptCpfCadastro,
+                termos: termosCadastro
+            };
             await addUsuario(novoUser);
             setUserLogado(novoUser);
             console.log("Usuário cadastrado:", novoUser);
-            navigate("/login"); 
+            navigate("/login");
         } catch (error) {
             setErros({ email: 'Este email já está em uso' });
         }
@@ -92,12 +104,12 @@ function Cadastro() {
                         </div>
 
                         <div className="botoes-cad-login">
-                        <Link to="/CadastroONG">
-                        <button>Sou uma ONG</button>
-                        </Link>
-                        <Link to="/login">
-                            <button>Login</button>
-                        </Link>
+                            <Link to="/CadastroONG">
+                                <button>Sou uma ONG</button>
+                            </Link>
+                            <Link to="/login">
+                                <button>Login</button>
+                            </Link>
                         </div>
                     </div>
 
@@ -167,7 +179,7 @@ function Cadastro() {
                                 >
                                     {(inputProps) => <input {...inputProps} id="telefone" type="text" placeholder="(XX) X XXXX-XXXX" />}
                                 </InputMask>
-                                
+
                             </div>
 
                             <div className="inpt-p">
@@ -203,9 +215,9 @@ function Cadastro() {
                             </div>
                         </div>
                     </div>
-                            {erros.email && <p className="erro-mensagem">{erros.email}</p>}
-                            {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
-                            {erros.termos && <p className="erro-termos">{erros.termos}</p>}
+                    {erros.email && <p className="erro-mensagem">{erros.email}</p>}
+                    {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
+                    {erros.termos && <p className="erro-termos">{erros.termos}</p>}
 
 
                     <div className="botao-termos-cadastro">
