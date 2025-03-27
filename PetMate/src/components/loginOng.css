@@ -218,7 +218,7 @@
     flex-direction: column;
     height: auto;
     width: 90%;
-    margin-top: 1em;
+    /* margin-top: 1em; */
     margin-bottom: 0;
     justify-content:space-around ;
     align-items: center;

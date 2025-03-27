@@ -12,7 +12,7 @@ import BarraFiltro from "../components/BarraFiltro";
 
 function Adotar() {
   const [openModal, setOpenCadModal] = useState(false);
-  const { logado } = useContext(GlobalContext);
+  const logado = JSON.parse(localStorage.getItem("logado"));
   const navigate = useNavigate()
 
 

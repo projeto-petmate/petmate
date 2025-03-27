@@ -68,9 +68,7 @@
 .texto-login{
     display: flex;
     flex-direction: column;
-    text-align: start;
     height: auto;
-    position: relative;
 }   
 
 .texto-login h2{
@@ -213,16 +211,14 @@
 
 
 /* <<CADASTRO + BOTÃO>> */
-.base-login{
+.base-login {
     display: flex;
     flex-direction: column;
-    height: auto;
-    width: 90%;
-    margin-top: 1em;
-    margin-bottom: 0;
-    justify-content:space-around ;
-    align-items: center;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
 }
+
 
 .sem-cadastro{
     font-size: 18px;
@@ -388,3 +384,4 @@
 
 
 }
+

@@ -13,7 +13,7 @@
     min-height: 100vh;
     width: 100%;
     background-color: #D4C6B5;
-  
+    
 
 }
 .titulo-input{
@@ -218,9 +218,7 @@
     flex-direction: column;
     height: auto;
     width: 90%;
-    margin-top: 1em;
     margin-bottom: 0;
-    justify-content:space-around ;
     align-items: center;
 }
 

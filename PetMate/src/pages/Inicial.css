@@ -1,36 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-.home-container{
+.home-container {
     min-height: calc(100vh - 390px);
     display: flex;
     flex-direction: column;
 }
 
-.meio-home{
+.meio-home {
     display: flex;
     flex-direction: row;
     min-width: 100vw;
     overflow-x: hidden;
 }
 
-.banner-home{
+.banner-home {
     min-width: 100vw;
 }
 
-.texto-home{
+.texto-home {
     align-items: center;
     margin: auto;
     justify-content: flex-start;
 }
 
-.texto-home h2{
+.texto-home h2 {
     font-size: 65px;
     color: #654833;
     font-weight: 800;
     font-family: "Raleway", sans-serif;
 }
 
-.texto-home p{
+.texto-home p {
     width: 51vw;
     font-size: 32px;
     font-family: Nunito;
@@ -39,22 +39,22 @@
     margin-bottom: 8vh;
 }
 
-.dog-home{
+.dog-home {
     height: 85vh;
 }
 
-.botoes-home button{
+.botoes-home button {
     height: 85px;
     width: 400px;
     margin-left: 1vw;
     box-shadow: #000 0px 0px 1px;
 }
 
-.botoes-home button:hover{
+.botoes-home button:hover {
     cursor: pointer;
 }
 
-.botao-adotar{
+.botao-adotar {
     border-radius: 14px;
     border: 2px solid var(--cor-1);
     background-color: #ffffff00;
@@ -65,7 +65,7 @@
     color: #84644D;
 }
 
-.botao-cadastrar{
+.botao-cadastrar {
     border-radius: 14px;
     border: none;
     background-color: #84644D;
@@ -76,9 +76,23 @@
     color: #EBE5E0;
 }
 
-.titulo-home{
+.titulo-home {
     display: flex;
     flex-direction: column;
+}
+
+
+.botao-swal-login,
+.botao-swal-cancelar {
+    height: 45px;
+    width: 120px;
+    font-size: 16px;
+    font-family: Nunito;
+}
+
+.botao-swal-login:hover,
+.botao-swal-cancelar:hover {
+    transition: 0.3s;
 }
 
 @media screen and (max-width: 768px) {
