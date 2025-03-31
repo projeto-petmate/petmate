@@ -62,7 +62,7 @@ function Feedback() {
             Swal.fire({
                 position: "mid",
                 icon: "success",
-                title: "Comentário deletado com sucesso!",
+                title: "Comentário apagado com sucesso!",
                 showConfirmButton: false,
                 timer: 1500
               });
