@@ -15,6 +15,7 @@ function NavLogado() {
   let userIcon = userLogado.imagem;
 
   const getFirstName = (fullName) => {
+    
     return fullName.split(' ')[0];
   };
 

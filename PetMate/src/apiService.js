@@ -117,3 +117,15 @@ export const deleteComentario = async (id) => {
     const response = await api.delete(`/comentarios/${id}`);
     return response.data;
 };
+
+
+//Login
+export const loginUser = async (email, senha) => {
+    const response = await api.put('/login/', {email, senha})
+    return response.data;
+}
+
+export const loginOng = async (email, senha) => {
+    const response = await api.put('/loginOng/', {email, senha})
+    return response.data;
+}

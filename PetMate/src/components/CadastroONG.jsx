@@ -4,9 +4,21 @@ import "./cadastroONG.css"
 import { Link, useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
 import { FaUserCircle } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaPhone,
+  FaPhoneAlt,
+  FaIdCard,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaCity,
+  FaHome
+} from "react-icons/fa";
 
 function CadastroONG() {
-  const navigate = useNavigate(); // Use the hook to get the navigate function
+  const navigate = useNavigate();
 
   const [ongNome, setOngNome] = useState('')
   const [ongEmail, setOngEmail] = useState('')
@@ -78,7 +90,7 @@ function CadastroONG() {
     try {
       await addOng(novaOng);
       console.log('Ong cadastrada com sucesso!', novaOng);
-      navigate('/Login'); // Use the navigate function to redirect
+      navigate('/Login');
     }
     catch (error) {
       console.error('Erro ao cadastrar ONG:', error);
@@ -98,13 +110,9 @@ function CadastroONG() {
 
   return (
     <div className="conteiner-cad-ong">
-
       <div className="conteiner-info-ong">
-
         <div className="top-cad-ong">
-
           <div className="texto-cadastro-ong">
-
             <div className="texto-cadastro-ong-img">
               <h2>Cadastro de ONG</h2>
               <img className="barra-cad-ong" src="/images/barra_marrom.png" alt="" />
@@ -137,84 +145,177 @@ function CadastroONG() {
         </div>
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
-            <div className="coluna-1-inputs"></div>
             <div className="coluna-1-inputs">
-              <label htmlFor="">Nome:</label>
-              <input className="input-cad-ong" type="text"
+              <label htmlFor="ongNome">
+                <div className="icon-input-ong">
+                  <FaUser className="icon-cadastro" />
+                  <p>Nome:</p>
+                </div>
+              </label>
+              <input
+                id="ongNome"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o nome da ONG"
                 value={ongNome}
-                onChange={(e) => setOngNome(e.target.value)} />
-              <label htmlFor="">Email:</label>
-              <input className="input-cad-ong" type="text"
+                onChange={(e) => setOngNome(e.target.value)}
+              />
+
+              <label htmlFor="ongEmail">
+                <div className="icon-input-ong">
+                  <FaEnvelope className="icon-cadastro" />
+                  <p>Email:</p>
+                </div>
+              </label>
+              <input
+                id="ongEmail"
+                className="input-cad-ong"
+                type="email"
+                placeholder="Digite o email da ONG"
                 value={ongEmail}
                 onChange={(e) => setOngEmail(e.target.value)}
               />
-              <label htmlFor="">Senha:
+              <label htmlFor="ongCnpj">
+                <div className="icon-input-ong">
+                  <FaIdCard className="icon-cadastro" />
+                  <p>CNPJ da ONG:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
-                value={ongSenha}
-                onChange={(e) => setOngSenha(e.target.value)}
+              <input
+                id="ongCnpj"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o CNPJ da ONG"
+                value={ongCnpj}
+                onChange={(e) => setOngCnpj(e.target.value)}
               />
-              <label htmlFor="">Telefone:
+
+
+              <label htmlFor="ongTelefone">
+                <div className="icon-input-ong">
+                  <FaPhoneAlt className="icon-cadastro" />
+                  <p>Telefone:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongTelefone"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o telefone da ONG"
                 value={ongTelefone}
                 onChange={(e) => setOngTelefone(e.target.value)}
               />
-              <label htmlFor="">Telefone Denúncia:
+
+              <label htmlFor="ongTelefoneDenuncia">
+                <div className="icon-input-ong">
+                  <FaPhoneAlt className="icon-cadastro" />
+                  <p>Telefone de Denúncia (opcional):</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongTelefoneDenuncia"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o telefone para denúncias"
                 value={ongTelefoneDenuncia}
                 onChange={(e) => setOngTelefoneDenuncia(e.target.value)}
               />
             </div>
 
             <div className="coluna-2-inputs">
-              <label htmlFor="">Cnpj Ong:
+            <label htmlFor="ongTelefoneResponsavel">
+                <div className="icon-input-ong">
+                  <FaPhoneAlt className="icon-cadastro" />
+                  <p>Telefone do responsável:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
-                value={ongCnpj}
-                onChange={(e) => setOngCnpj(e.target.value)}
+              <input
+                id="ongTelefoneResponsavel"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o telefone do responsável"
+                value={ongTelefoneResponsavel}
+                onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
               />
-              <label htmlFor="">Nome do responsavel:
+
+              <label htmlFor="ongNomeResponsavel">
+                <div className="icon-input-ong">
+                  <FaUser className="icon-cadastro" />
+                  <p>Nome do responsável:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongNomeResponsavel"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o nome do responsável"
                 value={ongNomeResponsavel}
                 onChange={(e) => setOngNomeResponsavel(e.target.value)}
               />
-              <label htmlFor="">Cpf do responsavel:
+
+              <label htmlFor="ongCpfResponsavel">
+                <div className="icon-input-ong">
+                  <FaIdCard className="icon-cadastro" />
+                  <p>CPF do responsável:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongCpfResponsavel"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o CPF do responsável"
                 value={ongCpfResponsavel}
                 onChange={(e) => setOngCpfResponsavel(e.target.value)}
               />
-              <label htmlFor="">Data de nascimento do responsavel:
+
+              <label htmlFor="ongDataNascimentoResponsavel">
+                <div className="icon-input-ong">
+                  <FaCalendarAlt className="icon-cadastro" />
+                  <p>Data de nascimento do responsável:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongDataNascimentoResponsavel"
+                className="input-cad-ong"
+                type="date"
+                placeholder="Selecione a data de nascimento"
                 value={ongDataNascimentoResponsavel}
                 onChange={(e) => setOngDataNascimentoResponsavel(e.target.value)}
               />
-              <label htmlFor="">Email do responsavel:
+
+              <label htmlFor="ongEmailResponsavel">
+                <div className="icon-input-ong">
+                  <FaEnvelope className="icon-cadastro" />
+                  <p>Email do responsável:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongEmailResponsavel"
+                className="input-cad-ong"
+                type="email"
+                placeholder="Digite o email do responsável"
                 value={ongEmailResponsavel}
                 onChange={(e) => setOngEmailResponsavel(e.target.value)}
               />
             </div>
 
             <div className="coluna-3-inputs">
-              <label htmlFor="">Telefone do responsavel:
+
+              <label htmlFor="ongEstado">
+                <div className="icon-input-ong">
+                  <FaMapMarkerAlt className="icon-cadastro" />
+                  <p>Estado:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
-                value={ongTelefoneResponsavel}
-                onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
-              />
-              <label htmlFor="">Estado:
-              </label>
-              <select className="input-cad-ong"
+              <select
+                id="ongEstado"
+                className="select-estado"
                 value={ongEstado}
                 onChange={(e) => setOngEstado(e.target.value)}
               >
-                <option value=""></option>
+                <option value="" disabled>
+                  Selecione o estado
+                </option>
                 <option value="AC">Acre (AC)</option>
                 <option value="AL">Alagoas (AL)</option>
                 <option value="AP">Amapá (AP)</option>
@@ -243,21 +344,63 @@ function CadastroONG() {
                 <option value="SE">Sergipe (SE)</option>
                 <option value="TO">Tocantins (TO)</option>
               </select>
-              <label htmlFor="">Cidade:
+
+              <label htmlFor="ongCidade">
+                <div className="icon-input-ong">
+                  <FaCity className="icon-cadastro" />
+                  <p>Cidade:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongCidade"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite a cidade"
                 value={ongCidade}
                 onChange={(e) => setOngCidade(e.target.value)}
               />
-              <label htmlFor="">Endereço:
+
+              <label htmlFor="ongEndereco">
+                <div className="icon-input-ong">
+                  <FaHome className="icon-cadastro" />
+                  <p>Endereço:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongEndereco"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o endereço"
                 value={ongEndereco}
                 onChange={(e) => setOngEndereco(e.target.value)}
               />
-              <label htmlFor="">Confirmar senha:
+
+              <label htmlFor="ongSenha">
+                <div className="icon-input-ong">
+                  <FaLock className="icon-cadastro" />
+                  <p>Senha:</p>
+                </div>
               </label>
-              <input className="input-cad-ong" type="text"
+              <input
+                id="ongSenha"
+                className="input-cad-ong"
+                type="password"
+                placeholder="Digite a senha"
+                value={ongSenha}
+                onChange={(e) => setOngSenha(e.target.value)}
+              />
+
+              <label htmlFor="ongConfirmarSenha">
+                <div className="icon-input-ong">
+                  <FaLock className="icon-cadastro" />
+                  <p>Confirmar senha:</p>
+                </div>
+              </label>
+              <input
+                id="ongConfirmarSenha"
+                className="input-cad-ong"
+                type="password"
+                placeholder="Confirme sua senha"
               />
             </div>
           </div>
@@ -273,8 +416,8 @@ function CadastroONG() {
         </form>
       </div>
 
-      <div className="img-lateral">
-        <img src="" alt="" />
+      <div className="img-lateral-ong">
+        <img src="./images/dog_ong.svg" alt="cachorro do cadastro de ongs" className='dog-ong' />
       </div>
     </div>
   )

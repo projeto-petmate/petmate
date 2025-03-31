@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import Swal from 'sweetalert2'
+import { loginOng } from '../apiService';
+
 
 function LoginOng() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
@@ -19,12 +21,12 @@ function LoginOng() {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            handleLogin();
+            handleLoginOng();
         }
     };
-    const handleLogin = async () => {
+    const handleLoginOng = async () => {
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch('http://localhost:3000/loginOng', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,7 +117,7 @@ function LoginOng() {
                 {erro && <p className="erro-mensagem-login">{erro}</p>}
             </div>
             <div className="base-login">
-                <button type='submit' onClick={handleLogin}>Login</button>
+                <button type='submit' onClick={handleLoginOng}>Login</button>
                 <div className="sem-cadastro">
                     <p>Ainda não se cadastrou? </p>
                     <Link to="/cadastro">Cadastre-se</Link>
