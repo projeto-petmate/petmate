@@ -31,13 +31,14 @@ function Navbar() {
       <div className="botoes-nav">
         <Link to="/home">Home</Link>
         <Link to="/adotar">Adotar</Link>
-        {/* <Link to="/contato">Sobre Nós</Link> */}
+        <Link to="/ongs">ONGs</Link>
         <Link to="/feedback">Feedback</Link>
+        {/* <Link to="/contato">Sobre Nós</Link> */}
       </div>
 
-        <div className="perfil-nav">
-          {isLogado ? <NavLogado /> : <NavDeslogado />}
-        </div>
+      <div className="perfil-nav">
+        {isLogado ? <NavLogado /> : <NavDeslogado />}
+      </div>
 
     </nav>
   )

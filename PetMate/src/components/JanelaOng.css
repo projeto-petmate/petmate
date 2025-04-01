@@ -1,0 +1,68 @@
+.fundo-janela-ong {
+    height: calc(100vh - 120px);
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding-top: 120px;
+
+}
+
+.container-janela-ong {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 60vw;
+    overflow-y: auto;
+    height: 90vh;
+    /* border: solid; */
+    border-left: #654833 25px solid;
+    align-items: center;
+    padding-top: 20px;
+    padding-right: 20px;
+
+}
+
+.titulo-ong-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.titulo-ong-modal h2 {
+    font-size: 32px;
+    color: #654833;
+    justify-content: center;
+    margin: auto;
+}
+
+.botao-fechar-ong {
+    background-color: #654833;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.img-ong{
+    height: 50%;
+}
+.info-ong {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.dados-ong{
+    width: 100%;
+    height: 50%;
+    background-color: #F5F5F5;
+}

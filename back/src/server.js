@@ -334,6 +334,22 @@ app.delete('/ongs/:id', async (req, res) => {
     }
 });
 
+// Login de ONG
+app.post('/loginOng', async (req, res) => {
+    const { email } = req.body;
+    try {
+        const result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
+        if (result.rows.length === 0) {
+            return res.status(401).json({ error: 'Credenciais inválidas' });
+        }
+        res.json({ message: 'Login bem-sucedido', user: result.rows[0] });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao validar login' });
+    }
+});
+
+
 
 // CRUD para Comentários
 

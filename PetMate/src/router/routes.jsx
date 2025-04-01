@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Inicial from "../pages/Inicial";
 import Perfil from "../pages/Perfil";
 import Feedback from "../pages/Feedback";
+import Ongs from "../pages/Ongs";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     {path: "/contato", element: <Contato />},
     {path: "/cadastro", element: <Cadastro />},
     {path: "/CadastroONG", element: <CadastroONG />},
+    {path: "/ongs", element: <Ongs />},
     {path: "/login", element: <Login />},
     {path: "/perfil", element: <Perfil/>},
     {path: "/feedback", element: <Feedback/>},

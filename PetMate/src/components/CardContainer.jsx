@@ -24,9 +24,8 @@ function CardContainer() {
     fetchPets();
   }, []);
 
-  
 
-  // garantindo que 'favoritos' seja um array antes de usar includes
+
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
   const filteredPets = filterOn
@@ -40,10 +39,10 @@ function CardContainer() {
   const displayedPets = filter.favoritos
     ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
     : filteredPets;
-    
-    const ordemPets = filter.ordem === 'recentes'
-  ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
-  : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
+
+  const ordemPets = filter.ordem === 'recentes'
+    ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
+    : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
 
   return (
     <div>
@@ -59,7 +58,7 @@ function CardContainer() {
             />
             <div className="pet-info-card">
               <h3>{p.nome}</h3>
-              <p><strong>Raça:</strong> {p.raca}</p>
+              <h><strong>Raça:</strong> {p.raca}</h>
               <p><strong>Idade:</strong> {p.idade}</p>
               <p>{p.porte} | {p.genero}</p>
             </div>
@@ -70,16 +69,15 @@ function CardContainer() {
                 setOpenPetModal(true);
               }}>Mais informações</button>
               {logado &&
-              <button
-              alt="Favoritar"
-              className="favorito-icon"
-              onClick={() => toggleFavorito(p.id_pet)}>
-                {safeFavoritos.includes(p.id_pet) ?
-                 <FaStar className='estrela-preenchida' /> : <FaRegStar className='estrela-vazia' />}
-              </button>
-                }
+                <button
+                  alt="Favoritar"
+                  className="favorito-icon"
+                  onClick={() => toggleFavorito(p.id_pet)}>
+                  {safeFavoritos.includes(p.id_pet) ?
+                    <FaStar className='estrela-preenchida' /> : <FaRegStar className='estrela-vazia' />}
+                </button>
+              }
             </div>
-
           </div>
         ))}
       </div>

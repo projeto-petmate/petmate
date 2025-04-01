@@ -1,0 +1,38 @@
+.ongs-container {
+  background-image: url(/images/fundo_patas.svg);
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 120px);
+  padding-bottom: 20px;
+}
+
+.banner-ong {
+  height: 100%;
+  display: flex;
+  min-width: 100vw;
+}
+
+.banner-ong img{
+  width: 100%;
+}
+
+.titulo-pesquisa-ong {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  gap: 70px;
+}
+
+.titulo-ongs {
+  margin-left: 50px;
+}
+
+.titulo-ongs h2 {
+  font-size: 40px;
+  color: #654833;
+  margin-bottom: 10px;
+  font-weight: 800;
+  font-family: 'Raleway';
+}
