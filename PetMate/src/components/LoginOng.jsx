@@ -41,6 +41,8 @@ function LoginOng() {
 
                 localStorage.setItem("logado", JSON.stringify(true));
                 localStorage.setItem("userLogado", JSON.stringify(data.user));
+                localStorage.setItem("vrfOng", JSON.stringify(true));
+
 
                 const lastPage = localStorage.getItem('lastPage') || '/home';
                 Swal.fire({

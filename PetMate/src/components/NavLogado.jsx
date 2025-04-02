@@ -10,6 +10,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 
 function NavLogado() {
   const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
   const [openModal, setOpenCadModal] = useState(false);
   let userName = userLogado.nome;
   let userIcon = userLogado.imagem;

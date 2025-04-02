@@ -1,68 +1,139 @@
 .fundo-janela-ong {
-    height: calc(100vh - 120px);
-    width: 100vw;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    padding-top: 120px;
-
 }
 
 .container-janela-ong {
     background-color: #fff;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 60vw;
-    overflow-y: auto;
-    height: 90vh;
-    /* border: solid; */
+    padding: 20px;
+    min-width: 60%; 
+    max-width: 500px;
+    min-height: 70%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     border-left: #654833 25px solid;
-    align-items: center;
-    padding-top: 20px;
-    padding-right: 20px;
-
 }
 
 .titulo-ong-modal {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.titulo-ong-modal h2 {
-    font-size: 32px;
+    font-size: 1.5em;
     color: #654833;
-    justify-content: center;
-    margin: auto;
 }
 
 .botao-fechar-ong {
     background-color: #654833;
     color: white;
     border: none;
-    border-radius: 100px;
+    border-radius: 50%;
     padding: 10px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.img-ong{
-    height: 50%;
+.botao-fechar-ong:hover {
+    background-color: #84644D;
 }
+
+.img-ong {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+}
+
+.logo-ong {
+    width: 12em; 
+    height: 12em;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 .info-ong {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* gap: 15px; */
 }
-.dados-ong{
-    width: 100%;
-    height: 50%;
-    background-color: #F5F5F5;
+
+.dados-ong {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #EBE5E0;
+    border: #654833 solid 2px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 6em;
+    padding-bottom: 2em;
+    gap: 10px;
+}
+
+.telefone-ong,
+.telefone-denuncia,
+.descricao-ong {
+    margin-top: 5px;
+    text-align: center;
+}
+
+.dados-ong h3 {
+    /* font-size: 24px; */
+    color: #654833;
+}
+
+.dados-ong p {
+    font-size: 18px;
+}
+
+.descricao-ong h3{
+    /* font-size: 26px; */
+}
+.descricao-ong p {
+    font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .container-janela-ong {
+        width: 95%; 
+        padding: 15px;
+        height: 60%;
+    }
+
+    .titulo-ong-modal {
+        font-size: 1.2em; 
+    }
+
+    .logo-ong {
+        width: 10em; 
+        height: 10em;
+    }
+
+    .dados-ong {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .telefone-ong h3,
+    .telefone-denuncia h3,
+    .descricao-ong h3 {
+        font-size: 1em; 
+    }
+
+    .telefone-ong p,
+    .telefone-denuncia p,
+    .descricao-ong p {
+        font-size: 0.9em;
+    }
 }

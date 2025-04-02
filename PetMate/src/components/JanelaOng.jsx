@@ -18,7 +18,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                 </div>
                 <div className="info-ong">
                     <div className="img-ong">
-                        <img src={ong.foto_ong} alt="" />
+                        <img src={ong.foto_ong} alt="logo da ong" className='logo-ong' />
                     </div>
                     <div className="dados-ong">
                         <div className="telefone-ong">

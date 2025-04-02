@@ -126,15 +126,27 @@ app.post('/login', async (req, res) => {
 
 // CRUD para pets
 app.get('/pets', async (req, res) => {
+    const { id_usuario, id_ong } = req.query;
+
     try {
-        const result = await pool.query('SELECT * FROM pets');
+        let query = 'SELECT * FROM pets';
+        const params = [];
+
+        if (id_usuario) {
+            query += ' WHERE id_usuario = $1';
+            params.push(id_usuario);
+        } else if (id_ong) {
+            query += ' WHERE id_ong = $1';
+            params.push(id_ong);
+        }
+
+        const result = await pool.query(query, params);
         res.json(result.rows);
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao buscar pets:', err.message);
         res.status(500).json({ error: 'Erro ao buscar pets' });
     }
 });
-
 app.get('/pets/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -148,15 +160,24 @@ app.get('/pets/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar pet' });
     }
 });
-
 app.post('/pets', async (req, res) => {
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id_ong } = req.body;
+
+    if (!id_usuario && !id_ong) {
+        return res.status(400).json({ error: 'É necessário informar id_usuario ou id_ong' });
+    }
+
+    if (id_usuario && id_ong) {
+        return res.status(400).json({ error: 'Um pet não pode pertencer a um usuário e a uma ONG ao mesmo tempo' });
+    }
+
     try {
         const result = await pool.query(
-            'INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario]
+            `INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id_ong) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
+            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario || null, id_ong || null]
         );
-        res.json(result.rows[0]);
+        res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar pet:', err.message);
         res.status(500).json({ error: 'Erro ao criar pet' });
