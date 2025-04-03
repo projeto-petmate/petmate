@@ -1,0 +1,39 @@
+body{
+    background-color: #AD947E;
+}
+.NavbarAdm{
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 120px;
+    background-color: #84644D;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+.Links-gerenciamento{
+    display: flex;
+    width: 70%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 280px;
+    padding: 10px;
+    height: 110px;
+    background-color: #FBFBFB;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    margin-bottom: 80px;
+}
+.containeradm{
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 370px;
+    padding: 10px;
+    height: 500px;
+    background-color: #FBFBFB;
+    border-radius: 40px;
+}

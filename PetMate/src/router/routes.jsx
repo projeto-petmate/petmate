@@ -9,6 +9,7 @@ import Inicial from "../pages/Inicial";
 import Perfil from "../pages/Perfil";
 import Feedback from "../pages/Feedback";
 import Ongs from "../pages/Ongs";
+import PerfilAdm from "../pages/PerfilAdm";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     {path: "/login", element: <Login />},
     {path: "/perfil", element: <Perfil/>},
     {path: "/feedback", element: <Feedback/>},
+    {path: "/perfilAdm", element: <PerfilAdm/>},
 
 ])
 
