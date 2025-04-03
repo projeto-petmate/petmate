@@ -58,39 +58,47 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     }
     reader.readAsDataURL(file)
   }
-
+  
   const enviarPet = async (tags = [], condicoes = '') => {
+    const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+    const vrfOng = JSON.parse(localStorage.getItem("vrfOng")); // Verifica se é uma ONG
+
     const novoPet = {
-      especie: inptPetEspecie,
-      nome: inptPetNome,
-      raca: inptPetRaca,
-      idade: inptPetIdade,
-      porte: inptPetPorte,
-      genero: inptPetGenero,
-      descricao: inptPetDescricao,
-      imagem: inptPetImagem,
-      tags: tags.join(', '),
-      condicoes: condicoes,
-    }
+        especie: inptPetEspecie,
+        nome: inptPetNome,
+        raca: inptPetRaca,
+        idade: inptPetIdade,
+        porte: inptPetPorte,
+        genero: inptPetGenero,
+        descricao: inptPetDescricao,
+        imagem: inptPetImagem,
+        tags: tags.join(', '),
+        condicoes: condicoes,
+        id_usuario: vrfOng ? null : userLogado.id_usuario,
+        id_ong: vrfOng ? userLogado.id_ong : null,
+    };
 
     try {
-      await addPet(novoPet)
-      console.log('Pet cadastrado:', novoPet)
-      Swal.fire({
-          position: "mid",
-          icon: "success",
-          title: "Anúncio enviado com sucesso!",
-          showConfirmButton: false,
-          timer: 2000
+        await addPet(novoPet);
+        console.log('Pet cadastrado:', novoPet);
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Anúncio enviado com sucesso!",
+            showConfirmButton: false,
+            timer: 2000
         });
-      setModalOpen(false)
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000); 
+        setModalOpen(false);
     } catch (error) {
-      setErros({ geral: 'Erro ao cadastrar pet. Tente novamente.' })
+        console.error('Erro ao cadastrar pet:', error);
+        Swal.fire({
+            icon: "error",
+            title: "Erro ao cadastrar pet",
+            text: "Tente novamente mais tarde.",
+            confirmButtonColor: "#84644D",
+        });
     }
-  }
+};
 
   return (
     <div className='modal_conteiner' onClick={() => setModalOpen(false)}>

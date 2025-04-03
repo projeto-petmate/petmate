@@ -13,14 +13,14 @@ function NavLogado() {
   const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
   const [openModal, setOpenCadModal] = useState(false);
   let userName = userLogado.nome;
+  let userNameOng = userLogado.nome_ong;
   let userIcon = userLogado.imagem;
 
   const getFirstName = (fullName) => {
-    
     return fullName.split(' ')[0];
   };
 
-  userName = getFirstName(userName);
+  {vrfOng ? userName = userNameOng : userName = getFirstName(userName);}
 
   return (
     <div className='nav-logado'>
