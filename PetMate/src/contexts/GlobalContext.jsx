@@ -42,6 +42,7 @@ export const GlobalContextProvider = ({children}) => {
         setUserLogado(null);
         localStorage.removeItem("logado");
         localStorage.removeItem("userLogado");
+        localStorage.removeItem("vrfOng");
     };
 
     const MostrarSenha = () => {
