@@ -161,3 +161,23 @@ a {
     font-size: 20px;
     color: #F5F5F5;
 }
+
+.nav-link {
+    color: #fbfbfb;
+    text-decoration: none;
+    font-family: 'nunito', sans-serif;
+    font-weight: 300;
+    transition: color 0.5s;
+}
+
+.nav-link:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.nav-link.active {
+    font-weight: 700;
+    color: #fbfbfb;
+    border-bottom: 2px solid #fbfbfb; 
+}

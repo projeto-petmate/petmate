@@ -5,43 +5,59 @@ import './Navbar.css'
 import NavDeslogado from "./NavDeslogado"
 import NavLogado from "./NavLogado"
 import BarraPesquisa from "./BarraPesquisa"
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
-  const { logado, userLogado } = useContext(GlobalContext)
-  const [isLogado, setIsLogado] = useState(logado)
-
-
+  const { logado, userLogado } = useContext(GlobalContext);
+  const [isLogado, setIsLogado] = useState(logado);
 
   useEffect(() => {
-    const storedLogado = JSON.parse(localStorage.getItem("logado"))
+    const storedLogado = JSON.parse(localStorage.getItem("logado"));
     if (storedLogado !== null) {
-      setIsLogado(storedLogado)
+      setIsLogado(storedLogado);
     }
-  }, [logado])
+  }, [logado]);
 
   return (
     <nav className="navbar-container">
       <div className="img-nav">
-        <Link to='/home' className="a-logo">
+        <NavLink to="/home" className="a-logo">
           <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
-        </Link>
+        </NavLink>
       </div>
-      {/* <BarraPesquisa /> */}
 
       <div className="botoes-nav">
-        <Link to="/home">Home</Link>
-        <Link to="/adotar">Adotar</Link>
-        <Link to="/ongs">ONGs</Link>
-        <Link to="/feedback">Feedback</Link>
-        {/* <Link to="/contato">Sobre Nós</Link> */}
+        <NavLink
+          to="/home"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          Home
+        </NavLink>
+        <NavLink
+          to="/adotar"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          Adotar
+        </NavLink>
+        <NavLink
+          to="/ongs"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          ONGs
+        </NavLink>
+        <NavLink
+          to="/feedback"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          Feedback
+        </NavLink>
       </div>
 
       <div className="perfil-nav">
         {isLogado ? <NavLogado /> : <NavDeslogado />}
       </div>
-
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
