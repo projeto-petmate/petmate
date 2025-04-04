@@ -57,7 +57,7 @@ function CardContainer() {
             />
             <div className="pet-info-card">
               <h3>{p.nome}</h3>
-              <h><strong>Raça:</strong> {p.raca}</h>
+              <h4><strong>Raça:</strong> {p.raca}</h4>
               <p><strong>Idade:</strong> {p.idade}</p>
               <p>{p.porte} | {p.genero}</p>
             </div>
