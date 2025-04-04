@@ -10,6 +10,7 @@ function BarraFiltro() {
   const generoRef = useRef(null);
   const ordemRef = useRef(null);
   const [botaoFav, setBotaoFav] = useState(false)
+  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -20,7 +21,6 @@ function BarraFiltro() {
     setFilterOn(value !== '');
   };
 
-  // função para alternar favoritos
   const toggleFavoritos = () => {
     setFilter((prevFilter) => ({
       ...prevFilter,
@@ -29,7 +29,6 @@ function BarraFiltro() {
   };
 
   const clearFilters = () => {
-    // reset de favoritos
     setFilter({ ordem: 'recentes', favoritos: false });
     setFilterOn(false);
     especieRef.current.value = '';
@@ -41,14 +40,15 @@ function BarraFiltro() {
 
   return (
     <div className="filtro-container">
+      {vrfOng == false &&
       <div className="botao-fav" onClick={() => setBotaoFav(!botaoFav)}>
         {botaoFav === false ? <button onClick={toggleFavoritos} className={`botao-fav-off ${filter.favoritos ? 'ativo' : ''}`}><FaStar className="icon-estrela" /> Favoritos</button> : <button onClick={toggleFavoritos} className={`botao-fav-on ${filter.favoritos ? 'ativo' : ''}`}><FaStar className="icon-estrela" />Favoritos</button>}
           <div className="estrela">
             {/* <FaStar className="icon-estrela" /> */}
             {/* Favoritos */}
           </div>
-     
       </div>
+      }
       <div className="select-filter">
         <label htmlFor="selectEspecie">Espécie</label>
         <select name="especie" id="selectEspecie" onChange={handleFilterChange} ref={especieRef}>

@@ -16,6 +16,7 @@ function Adotar() {
   const navigate = useNavigate()
 
 
+
   return (
     <div>
       <Navbar />

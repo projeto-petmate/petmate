@@ -13,22 +13,24 @@ export const PetContextProvider = ({ children }) => {
     const addPet = async (novoPet) => {
         try {
             const userLogado = JSON.parse(localStorage.getItem("userLogado"));
-            if (!userLogado || !userLogado.id_usuario) {
-                throw new Error("Usuário não está logado ou ID do usuário não encontrado");
+            const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
+    
+            if (!userLogado) {
+                throw new Error("Usuário não está logado.");
             }
     
             const petData = {
                 ...novoPet,
-                id_usuario: userLogado.id_usuario 
+                id_usuario: vrfOng ? null : userLogado.id_usuario,
+                id_ong: vrfOng ? userLogado.id_ong : null,
             };
     
             const response = await axios.post("http://localhost:3000/pets", petData);
-            setPets([...pets, response.data]);
+            setPets((prevPets) => [...prevPets, response.data]);
         } catch (error) {
             console.error("Erro ao adicionar pet:", error);
         }
     };
-
     const fetchPets = async () => {
         try {
             const response = await axios.get("http://localhost:3000/pets");
@@ -47,23 +49,19 @@ export const PetContextProvider = ({ children }) => {
         ordem: 'recentes',
     });
 
-    // Sincroniza os favoritos ao carregar o contexto
     useEffect(() => {
         if (userLogado && userLogado.favoritos) {
             setFavoritos(userLogado.favoritos.split(',').map(Number)); 
         }
     }, [userLogado]);
 
-    // Atualiza os favoritos no backend e no estado global
     const toggleFavorito = async (idPet) => {
         if (!userLogado) return;
 
         let novosFavoritos;
         if (favoritos.includes(idPet)) {
-            // Remove o pet dos favoritos
             novosFavoritos = favoritos.filter((id) => id !== idPet);
         } else {
-            // Adiciona o pet aos favoritos
             novosFavoritos = [...favoritos, idPet];
         }
 

@@ -10,6 +10,7 @@ function CardContainer() {
   const [openPetModal, setOpenPetModal] = useState(false);
   const { filter, filterOn, setPet, favoritos, toggleFavorito } = useContext(PetContext);
   const logado = JSON.parse(localStorage.getItem("logado"));
+  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -23,8 +24,6 @@ function CardContainer() {
 
     fetchPets();
   }, []);
-
-
 
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
@@ -68,7 +67,7 @@ function CardContainer() {
                 setPet(p);
                 setOpenPetModal(true);
               }}>Mais informações</button>
-              {logado &&
+              {vrfOng == false &&
                 <button
                   alt="Favoritar"
                   className="favorito-icon"

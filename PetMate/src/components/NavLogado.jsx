@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 import './Navbar.css'
 import { FaUserCircle } from "react-icons/fa";
 import JanelaModal from "../components/JanelaModal";
-import { GlobalContext } from '../contexts/GlobalContext';
 
 
 
@@ -15,12 +14,14 @@ function NavLogado() {
   let userName = userLogado.nome;
   let userNameOng = userLogado.nome_ong;
   let userIcon = userLogado.imagem;
+  // let userIconOng = userLogado.foto_ong;
 
   const getFirstName = (fullName) => {
     return fullName.split(' ')[0];
   };
 
   {vrfOng ? userName = userNameOng : userName = getFirstName(userName);}
+  {vrfOng ? userIcon =  userLogado.foto_ong : userIcon = userIcon}
 
   return (
     <div className='nav-logado'>

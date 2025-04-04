@@ -3,11 +3,11 @@ import './PerfilAdm.css';
 
 function PerfilAdm() {
   return (
-    <div>
+    <div classname='container-painel-adm'>
       <div className='NavbarAdm'></div>
       <div className='Links-gerenciamento'></div>
       <div className="containeradm"></div>
-      </div>
+    </div>
   )
 }
 

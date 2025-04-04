@@ -9,15 +9,21 @@ import { IoMdClose } from "react-icons/io"
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
   const [doador, setDoador] = useState(null)
+  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
 
   useEffect(() => {
-    if (pet && pet.id_usuario) {
+    if (pet) {
       const fetchDoador = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/usuarios/${pet.id_usuario}`)
+          let response;
+          if (pet.id_usuario) {
+            response = await axios.get(`http://localhost:3000/usuarios/${pet.id_usuario}`)
+          } else if (pet.id_ong) {
+            response = await axios.get(`http://localhost:3000/ongs/${pet.id_ong}`)
+          }
           setDoador(response.data)
         } catch (error) {
-          console.error('Erro ao buscar informações do doador:', error)
+          console.error('Erro ao buscar informações do doador/ONG:', error)
         }
       }
       fetchDoador()
@@ -27,10 +33,15 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   if (!isOpen || !pet) {
     return null
   }
+  const telefone = doador?.telefone_contato || doador?.telefone;
+  const email = doador?.email_ong || doador?.email;
+  const endereco = doador?.endereco_ong || doador?.endereco;
+  const nome = doador?.nome_ong || doador?.nome
 
-  const linkWpp = doador ? `https://api.whatsapp.com/send?phone=${'55' + doador.telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#"
-  const linkEmail = doador ? `mailto:${doador.email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#"
-  const linkMaps = doador ? `https://www.google.com/maps/search/?api=1&query=${doador.endereco}` : "#"
+  const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
+  const linkEmail = email ? `mailto:${email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
+  const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${endereco}` : "#";
+
 
   const tagsArray = pet.tags ? pet.tags.split(', ') : []
 
@@ -91,18 +102,18 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                   Condições especiais
                 </p>
                 <div className="info-condicoes">
-                  {pet.condicoes != 'não' ? `${pet.condicoes}` : 'Nenhuma'}
+                  {pet.condicoes !== 'não' ? `${pet.condicoes}` : 'Nenhuma'}
                 </div>
               </div>
             </div>
 
             <div className="info-doador-modal">
               <h2>Quer Adotar?</h2>
-              <p>Para adotar este pet, entre em contato com o protetor:</p>
+              <p>Para adotar este pet, entre em contato com o anunciante:</p>
               {doador && (
                 <div className="info-doador">
-                  <p>Nome do anunciante: <div className="dados-doador"> {doador.nome}</div></p>
-                  <p>Endereço: <div className="dados-doador"> {doador.endereco}</div></p>
+                  <p>Nome do anunciante: <div className="dados-doador"> {nome}</div></p>
+                  <p>Endereço: <div className="dados-doador"> {endereco}</div></p>
                   <div className="links-contato">
                     <a href={linkWpp}>
                       <FaWhatsapp className='icon_wpp' />
