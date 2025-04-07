@@ -181,3 +181,44 @@ a {
     color: #fbfbfb;
     border-bottom: 2px solid #fbfbfb; 
 }
+
+.menu-hamburguer {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #654833;
+}
+
+.menu-hamburguer-icon {
+    font-size: 32px;
+}
+
+@media (max-width: 768px) {
+    .menu-hamburguer {
+        display: block; 
+    }
+
+    .botoes-nav {
+        display: none; 
+    }
+
+    .botoes-nav.ativo {
+        display: flex;
+    }
+}
+
+@media (max-width: 425px) {
+    .nav-img {
+        width: 70px;
+    }
+
+    .botoes-nav {
+        right: 10px; 
+    }
+
+    .menu-hamburguer-icon {
+        font-size: 28px; 
+    }
+}

@@ -6,8 +6,10 @@ import NavDeslogado from "./NavDeslogado"
 import NavLogado from "./NavLogado"
 import BarraPesquisa from "./BarraPesquisa"
 import { NavLink } from "react-router-dom";
+import { CgMenuRound } from "react-icons/cg";
 
 function Navbar() {
+  const [menuAberto, setMenuAberto] = useState(false);
   const { logado, userLogado } = useContext(GlobalContext);
   const [isLogado, setIsLogado] = useState(logado);
 
@@ -26,28 +28,37 @@ function Navbar() {
         </NavLink>
       </div>
 
-      <div className="botoes-nav">
+      {/* Ícone do menu hambúrguer */}
+      <button className="menu-hamburguer" onClick={() => setMenuAberto(!menuAberto)}>
+        <CgMenuRound className="menu-hamburguer-icon" />
+      </button>
+
+      <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
         <NavLink
           to="/home"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
         >
           Home
         </NavLink>
         <NavLink
           to="/adotar"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
         >
           Adotar
         </NavLink>
         <NavLink
           to="/ongs"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
         >
           ONGs
         </NavLink>
         <NavLink
           to="/feedback"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
         >
           Feedback
         </NavLink>

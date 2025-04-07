@@ -80,3 +80,72 @@
     height: auto;
     margin-right: 5em;
 }
+
+
+@media (max-width: 768px) {
+    .navbar-container {
+        width: 80px;
+        padding: 0;
+    }
+
+
+    .nav-img {
+        width: 90px;
+    }
+
+
+    .botoes-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 120px;
+        right: 170px;
+        background: #84644D;
+        /* width: 100%; */
+        text-align: center;
+        padding: 0px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .botoes-nav.ativo {
+        display: flex;
+    }
+
+    .menu-hamburguer {
+        display: block;
+        margin-right: 10px;
+        font-size: 40px;
+    }
+
+
+    .boas-vindas {
+        display: none;
+    }
+
+
+    .img-nav {
+        margin-left: 20px;
+        margin-right: 2vw;
+    }
+
+
+    .profile {
+        height: 50px;
+    }
+
+
+    .nav-logado {
+        gap: 0px;
+    }
+}
+
+@media (max-width: 425px) {
+    .nav-img {
+        width: 70px;
+    }
+
+
+    .botoes-nav {
+        right: 100px;
+    }
+}

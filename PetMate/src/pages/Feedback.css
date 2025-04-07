@@ -1,12 +1,17 @@
 .feedback-container{
     background-image: url(/images/fundo_patas.svg);
     min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .banner-container{
+    width: 100%;
     display: flex;
-    height: auto;
-    width: 100vw;
+    justify-content: center;
+    align-items: center;
 }
 
 .banner-feedback{
@@ -37,7 +42,8 @@
 .lista-comentarios{
     display: flex;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 100%;
+    
     align-items: center;
     justify-content: center;
     gap: 50px;
@@ -74,8 +80,8 @@
     font-size: 50px;
 }
 .icon-comentario {
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%; 
     object-fit: cover; 
 }
@@ -172,3 +178,60 @@
     transition: 0.5s ease;
 }
 
+@media (max-width: 768px) {
+    .titulo-feedback h2 {
+        font-size: 20px;
+    }
+
+    .titulo-feedback p {
+        font-size: 14px;
+    }
+
+    .inpt-feedback {
+        height: 80px;
+        font-size: 14px;
+    }
+
+    .botao-add-feedback {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .comentario-texto p {
+        font-size: 13px;
+    }
+
+    .icon-comentario {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-feedback h2 {
+        font-size: 18px;
+    }
+
+    .titulo-feedback p {
+        font-size: 12px;
+    }
+
+    .inpt-feedback {
+        height: 70px;
+        font-size: 12px;
+    }
+
+    .botao-add-feedback {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .comentario-texto p {
+        font-size: 12px;
+    }
+
+    .icon-comentario {
+        width: 30px;
+        height: 30px;
+    }
+}
