@@ -1,6 +1,3 @@
-.container-painel-adm {
-    background-color: #AD947E;
-}
 .NavbarAdm{
     display: flex;
     flex-direction: row;
@@ -13,7 +10,15 @@
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
 }
-.Links-gerenciamento{
+.h1Adm{
+    margin-right: 850px;
+    color: #FBFBFB;
+    text-decoration: none;
+    font-family: 'nunito', sans-serif;
+    font-weight: bold;
+}
+
+.NavbarAdm-links{
     display: flex;
     width: 70%;
     align-items: center;
@@ -26,6 +31,37 @@
     border-bottom-right-radius: 40px;
     margin-bottom: 80px;
 }
+.links-geneciamento{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+    min-width: 100vw;
+}
+.linksAdm{
+    color: #654833;
+    text-decoration: none;
+    font-family: 'nunito', sans-serif;
+    font-weight: bold;
+    transition: color 0.5s;
+}
+.linksAdm:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+    cursor: pointer;
+}
+/* .linksAdm.active {
+    font-weight: 700;
+    color: #fbfbfb;
+    border-bottom: 2px solid #fbfbfb; 
+} */
+.iconAdm{
+    color: #543A28;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+
 .containeradm{
     display: flex;
     width: 60%;
