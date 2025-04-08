@@ -6,7 +6,6 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
 import { addUsuario } from '../apiService';
 import InputMask from 'react-input-mask';
-import bcrypt from 'bcryptjs';
 
 function Cadastro() {
     const { PhoneInput, CpfInput, setUserLogado } = useContext(GlobalContext);
@@ -69,17 +68,6 @@ function Cadastro() {
         };
 
         try {
-            const salt = await bcrypt.genSalt(10);  
-            const senhaCriptografada = await bcrypt.hash(inptSenhaCadastro, salt);
-            const novoUser = {
-                nome: inptNomeCadastro,
-                email: inptEmailCadastro,
-                senha: senhaCriptografada,
-                telefone: inptTelefoneCadastro,
-                endereco: inptEnderecoCadastro,
-                cpf: inptCpfCadastro,
-                termos: termosCadastro
-            };
             await addUsuario(novoUser);
             setUserLogado(novoUser);
             console.log("Usuário cadastrado:", novoUser);

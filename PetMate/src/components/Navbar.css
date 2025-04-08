@@ -106,7 +106,7 @@ a {
 }
 
 .loginNav,
-.cadastroNav {
+.cadNav {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 20px;
@@ -125,7 +125,7 @@ a {
     font-family: 'nunito', sans-serif;
 }
 
-.cadastroNav {
+.cadNav {
     border: none;
     color: #F5F5F5;
     background-color: #654833;
@@ -133,7 +133,7 @@ a {
 }
 
 .loginNav:hover,
-.cadastroNav:hover {
+.cadNav:hover {
     cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
@@ -144,7 +144,7 @@ a {
     color: #312319;
 }
 
-.cadastroNav:hover {
+.cadNav:hover {
     background-color: #543A28;
     color: #F5F5F5;
 }

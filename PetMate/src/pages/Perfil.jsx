@@ -13,6 +13,7 @@ import ModalLogout from '../components/ModalLogout';
 import { FaUserCircle } from "react-icons/fa";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
+import { FaLock, FaLockOpen } from "react-icons/fa";
 
 function Perfil() {
     const [openModalExclui, setOpenModalExclui] = useState(false);
@@ -150,6 +151,7 @@ function Perfil() {
                                         value={userData.email || ''}
                                         disabled
                                     />
+                                    
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -162,7 +164,7 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' />
+                                    <FaLock className='icon-lapis' />
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -175,7 +177,7 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' />
+                                    <FaLock className='icon-lapis' />
                                 </div>
                             </div>
                         </div>
@@ -199,7 +201,7 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' />
+                                    <FaLock className='icon-lapis' />
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -212,7 +214,7 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaEdit className='icon-lapis' />
+                                    <FaLock className='icon-lapis' />
                                 </div>
                             </div>
                         </div>

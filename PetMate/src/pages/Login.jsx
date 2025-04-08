@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2'
 import LoginOng from '../components/LoginOng';
 import LoginUsuario from '../components/LoginUsuario';
-import bcrypt from 'bcryptjs';
 
 function Login() {
     const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
