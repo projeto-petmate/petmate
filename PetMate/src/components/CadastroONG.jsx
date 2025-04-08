@@ -130,18 +130,31 @@ function CadastroONG() {
               onChange={handleImageChange}
               style={{ display: 'none' }}
             />
-
           </div>
 
-          {imagemPreviewPerfil === null ?
-            <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
-            <div className="img-preview-perfil" >
+          {imagemPreviewPerfil === null ? (
+            <FaUserCircle
+              className="user-icon"
+              onClick={() => document.getElementById('file-upload').click()}
+            />
+          ) : (
+            <div
+              className="img-preview-perfil"
+              onClick={() => document.getElementById('file-upload').click()} /* Permite clicar na imagem */
+            >
               {imagemPreviewPerfil && (
-                <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
+                <img
+                  src={imagemPreviewPerfil}
+                  alt="Pré-visualização"
+                  className="imagem-preview-perfil"
+                />
               )}
             </div>
-          }
-          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>Clique aqui e coloque sua foto de perfil</p>
+          )}
+
+          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
+            Clique aqui e coloque sua foto de perfil
+          </p>
         </div>
         <form className="forms-cad-ong" action="">
           <div className="inputs-cad-ong">
@@ -223,7 +236,7 @@ function CadastroONG() {
             </div>
 
             <div className="coluna-2-inputs">
-            <label htmlFor="ongTelefoneResponsavel">
+              <label htmlFor="ongTelefoneResponsavel">
                 <div className="icon-input-ong">
                   <FaPhoneAlt className="icon-cadastro" />
                   <p>Telefone do responsável:</p>

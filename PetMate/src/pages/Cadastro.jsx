@@ -167,7 +167,6 @@ function Cadastro() {
                                 >
                                     {(inputProps) => <input {...inputProps} id="telefone" type="text" placeholder="(XX) X XXXX-XXXX" />}
                                 </InputMask>
-
                             </div>
 
                             <div className="inpt-p">
@@ -180,7 +179,7 @@ function Cadastro() {
                                 <input
                                     id="endereco"
                                     type="text"
-                                    placeholder="Digite seu endereço"
+                                    placeholder="Bairro, Cidade"
                                     value={inptEnderecoCadastro}
                                     onChange={(e) => setInptEnderecoCadastro(e.target.value)}
                                 />

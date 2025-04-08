@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import './Perfil.css';
 import { FiLogOut } from "react-icons/fi";
-import { FaCheck } from "react-icons/fa";
+import { FaCheck, FaUnlock } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
@@ -127,16 +127,30 @@ function Perfil() {
                                 style={{ display: 'none' }}
                                 disabled={!editMode}
                             />
-
                         </div>
 
-                        {imagemPreviewPerfil === null ?
-                            <FaUserCircle className='user-icon' onClick={() => document.getElementById('file-upload').click()} /> :
-                            <div className="img-preview-perfil" >
+                        {imagemPreviewPerfil === null ? (
+                            <FaUserCircle
+                                className="user-icon"
+                                onClick={() => document.getElementById('file-upload').click()}
+                            />
+                        ) : (
+                            <div
+                                className="img-preview-perfil"
+                                onClick={() => document.getElementById('file-upload').click()}
+                            >
                                 {imagemPreviewPerfil && (
-                                    <img src={imagemPreviewPerfil} alt="Pré-visualização" className="imagem-preview-perfil" />
+                                    <img
+                                        src={imagemPreviewPerfil}
+                                        alt="Pré-visualização"
+                                        className="imagem-preview-perfil"
+                                    />
                                 )}
                             </div>
+                        )}
+                        {editMode && <p className="trocar-foto-texto">
+                            Clique no ícone para alterar sua imagem de perfil
+                        </p>
                         }
                     </div>
 
@@ -151,7 +165,6 @@ function Perfil() {
                                         value={userData.email || ''}
                                         disabled
                                     />
-                                    
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -164,7 +177,10 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaLock className='icon-lapis' />
+                                    {!editMode ?
+                                        <FaLock className='icon-lapis' />
+                                        : <FaUnlock className='icon-lapis' />
+                                    }
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -177,7 +193,10 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaLock className='icon-lapis' />
+                                    {!editMode ?
+                                        <FaLock className='icon-lapis' />
+                                        : <FaUnlock className='icon-lapis' />
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -201,7 +220,10 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaLock className='icon-lapis' />
+                                    {!editMode ?
+                                        <FaLock className='icon-lapis' />
+                                        : <FaUnlock className='icon-lapis' />
+                                    }
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -214,7 +236,10 @@ function Perfil() {
                                         onChange={handleChange}
                                         disabled={!editMode}
                                     />
-                                    <FaLock className='icon-lapis' />
+                                    {!editMode ?
+                                        <FaLock className='icon-lapis' />
+                                        : <FaUnlock className='icon-lapis' />
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -224,7 +249,7 @@ function Perfil() {
                             {!editMode ?
                                 <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
                                     <div className="editar-dados">
-                                        Editar
+                                        Clique para editar
                                         <FaEdit className='icon-edit' />
                                     </div>
                                 </button>
