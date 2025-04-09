@@ -158,13 +158,14 @@ function Perfil() {
                         <div className="inputs-perfil-1">
                             <div className="input-perma">
                                 <p className='dadoPerma'>Email*</p>
-                                <div>
+                                <div className='input-perma-lock'>
                                     <input
                                         type="text"
                                         name="email"
                                         value={userData.email || ''}
                                         disabled
                                     />
+                                    <FaLock className='icon-lock' />
                                 </div>
                             </div>
                             <div className="input-nome">
@@ -178,8 +179,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lapis' />
-                                        : <FaUnlock className='icon-lapis' />
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
+                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
                                     }
                                 </div>
                             </div>
@@ -194,8 +195,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lapis' />
-                                        : <FaUnlock className='icon-lapis' />
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
+                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
                                     }
                                 </div>
                             </div>
@@ -203,13 +204,17 @@ function Perfil() {
                         <div className="inputs-perfil-2">
                             <div className="input-perma">
                                 <p className='dadoPerma'>CPF*</p>
-                                <input
-                                    type="text"
-                                    name="cpf"
-                                    value={userData.cpf || ''}
-                                    disabled
-                                />
+                                <div className="input-perma-lock">
+                                    <input
+                                        type="text"
+                                        name="cpf"
+                                        value={userData.cpf || ''}
+                                        disabled
+                                    />
+                                    <FaLock className='icon-lock' />
+                                </div>
                             </div>
+
                             <div className="input-nome">
                                 <p>Endereço</p>
                                 <div className="input-edit">
@@ -221,8 +226,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lapis' />
-                                        : <FaUnlock className='icon-lapis' />
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
+                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
                                     }
                                 </div>
                             </div>
@@ -237,8 +242,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lapis' />
-                                        : <FaUnlock className='icon-lapis' />
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
+                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
                                     }
                                 </div>
                             </div>

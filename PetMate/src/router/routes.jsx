@@ -10,6 +10,7 @@ import Perfil from "../pages/Perfil";
 import Feedback from "../pages/Feedback";
 import Ongs from "../pages/Ongs";
 import PerfilAdm from "../pages/PerfilAdm";
+import Favoritos from "../pages/Favoritos";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -21,9 +22,10 @@ const router = createBrowserRouter([
     {path: "/CadastroONG", element: <CadastroONG />},
     {path: "/ongs", element: <Ongs />},
     {path: "/login", element: <Login />},
-    {path: "/perfil", element: <Perfil/>},
-    {path: "/feedback", element: <Feedback/>},
-    {path: "/perfilAdm", element: <PerfilAdm/>},
+    {path: "/perfil", element: <Perfil />},
+    {path: "/feedback", element: <Feedback />},
+    {path: "/perfiladm", element: <PerfilAdm />},
+    {path: "/favoritos", element: <Favoritos />},
 
 ])
 

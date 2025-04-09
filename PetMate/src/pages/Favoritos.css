@@ -1,0 +1,100 @@
+.container-favoritos {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/images/fundo_patas.svg);
+}
+
+
+.titulo-favoritos {
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.titulo-favoritos h2 {
+    font-size: 40px;
+    color: #654833;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+    /* margin-top: 30px; */
+
+}
+
+.titulo-favoritos p {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.sem-pets-fav {
+    font-size: 24px;
+    font-weight: bold;
+    color: #84644D;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #F6F4F1;
+    border: 2px solid #AD947E;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-favoritos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    justify-content: center;
+}
+
+.pet-card-fav {
+    width: 350px;
+    height: 475px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pet-card-fav:hover {
+    transform: scale(1.02);
+}
+
+.pet-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.pet-info-card-fav {
+    padding: 15px;
+    text-align: center;
+}
+
+.pet-info-card-fav h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.pet-info-card-fav p {
+    font-size: 18px;
+    margin: 5px 0;
+    color: black;
+}
+
+.botoes-card-fav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}

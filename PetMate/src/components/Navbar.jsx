@@ -28,10 +28,6 @@ function Navbar() {
         </NavLink>
       </div>
 
-      {/* Ícone do menu hambúrguer */}
-      <button className="menu-hamburguer" onClick={() => setMenuAberto(!menuAberto)}>
-        <CgMenuRound className="menu-hamburguer-icon" />
-      </button>
 
       <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
         <NavLink
@@ -47,6 +43,13 @@ function Navbar() {
           onClick={() => setMenuAberto(false)}
         >
           Adotar
+        </NavLink>
+        <NavLink
+          to="/favoritos"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
+        >
+          Favoritos
         </NavLink>
         <NavLink
           to="/ongs"
@@ -67,6 +70,10 @@ function Navbar() {
       <div className="perfil-nav">
         {isLogado ? <NavLogado /> : <NavDeslogado />}
       </div>
+      {/* Ícone do menu hambúrguer */}
+      <button className="menu-hamburguer" onClick={() => setMenuAberto(!menuAberto)}>
+        <CgMenuRound className="menu-hamburguer-icon" />
+      </button>
     </nav>
   );
 }

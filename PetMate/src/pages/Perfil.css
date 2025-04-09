@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 120px);
-    background-image: url(/images/fundo_patas.svg);
+    /* background-image: url(/images/fundo_patas.svg); */
 }
 
 .info-perfil {
@@ -260,6 +260,9 @@
 }
 
 .input-edit input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     height: 50px;
     border-radius: 6px 0px 0px 6px;
     border-color: #AD947E #ffffff00 #AD947E #AD947E;
@@ -267,7 +270,7 @@
     outline: none;
 }
 
-.icon-lapis {
+.icon-lock {
     display: flex;
     height: 55px;
     border: solid #AD947E 1px;
@@ -279,8 +282,6 @@
     color: #747373;
     padding-right: 4px;
 }
-
-
 
 .dadoPerma {
     color: #84644D;
@@ -295,14 +296,25 @@
     width: 440px;
     height: 55px;
 }
+.input-perma-lock{
+    display: flex;
+    flex-direction: row;
+}
 
 .input-perma input {
-    width: 473px;
+    width: 440px;
     border-radius: 6px;
+    border-right: none;
+    border-radius: 6px 0px 0px 6px;
 }
 
 .inputs-perfil p {
     font-size: 22px;
+}
+
+.input-edit .icon-lock {
+    cursor: pointer;
+    color: #84644D;
 }
 
 .success-popup-perfil {

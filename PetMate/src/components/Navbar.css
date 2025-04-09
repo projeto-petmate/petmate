@@ -186,7 +186,7 @@ a {
     display: none; 
     background: none;
     border: none;
-    font-size: 28px;
+    font-size: 40px;
     cursor: pointer;
     color: #654833;
 }
@@ -198,14 +198,22 @@ a {
 @media (max-width: 768px) {
     .menu-hamburguer {
         display: block; 
+        margin-left: -15%;
     }
 
     .botoes-nav {
         display: none; 
     }
-
+    .nav-link {
+        font-size: 26px;
+        margin-bottom: 5px;
+    }
     .botoes-nav.ativo {
         display: flex;
+        left: 50%;
+        padding: 10px;
+        border-radius: 0px 0px 8px 8px;
+        background-color: #94725a;
     }
 }
 
@@ -219,6 +227,6 @@ a {
     }
 
     .menu-hamburguer-icon {
-        font-size: 28px; 
+        font-size: 36px; 
     }
 }

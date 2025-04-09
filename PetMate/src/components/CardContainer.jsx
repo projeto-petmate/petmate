@@ -46,7 +46,7 @@ function CardContainer() {
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
-      {filter.favoritos && displayedPets.length === 0 && <p className='p-favoritos'>Você ainda não favoritou nenhum pet.</p>}
+      {filter.favoritos && displayedPets.length === 0 && <p className='sem-pets-filtro'>Você ainda não favoritou nenhum pet.</p>}
       <div className="card-container">
         {ordemPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
