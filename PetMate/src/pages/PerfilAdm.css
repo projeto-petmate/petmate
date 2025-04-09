@@ -1,3 +1,8 @@
+.body-adm{
+    background-color: #AD947E;
+    min-height: 100vh;
+}
+
 .NavbarAdm{
     display: flex;
     flex-direction: row;
@@ -10,8 +15,11 @@
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
 }
-.h1Adm{
-    margin-right: 850px;
+
+.painelAdministrativo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #FBFBFB;
     text-decoration: none;
     font-family: 'nunito', sans-serif;
@@ -61,14 +69,24 @@
     margin-top: 10px;
 }
 
+.h2Adm{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #FBFBFB;
+    text-decoration: none;
+    font-family: 'nunito', sans-serif;
+    font-weight: bold;
+}
 
 .containeradm{
     display: flex;
-    width: 60%;
-    align-items: center;
     justify-content: center;
-    margin-left: 370px;
-    padding: 10px;
+    align-items: center;
+}
+.containeradm2{
+    width: 60%;
     height: 500px;
     background-color: #FBFBFB;
     border-radius: 40px;

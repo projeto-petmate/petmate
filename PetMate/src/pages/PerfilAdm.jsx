@@ -7,11 +7,12 @@ import { BsChatRightHeart } from "react-icons/bs";
 
 function PerfilAdm() {
   return (
-    <div>
+    <div className='body-adm'>
       <div className='NavbarAdm'>
       <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
-      <h1 className='h1Adm'>Painel Administrativo</h1>
+      <h1 className='painelAdministrativo'>Painel Administrativo</h1>
       </div>
+
       <div className='NavbarAdm-links'>
       <div className="links-geneciamento">
         <div className='icon-link'>
@@ -36,7 +37,13 @@ function PerfilAdm() {
         
       </div>
       </div>
-      <div className="containeradm"></div>
+
+      <h2 className='h2Adm'>Gerenciamento</h2>
+
+      <div className='containeradm'>
+      <div className="containeradm2"></div>
+      </div>
+      
     </div>
   )
 }
