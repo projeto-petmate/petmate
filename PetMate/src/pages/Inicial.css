@@ -95,27 +95,117 @@
     transition: 0.3s;
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 1024px) {
     .texto-home h2 {
-        font-size: 48px;
+        font-size: 50px; /* Reduz tamanho do título */
     }
 
+
     .texto-home p {
-        width: 80vw;
-        font-size: 24px;
+        font-size: 26px;
+        width: 70vw;
     }
+
+
+    .dog-home {
+        height: 65vh;
+    }
+
+
+    .botoes-home button {
+        width: 300px;
+        height: 70px;
+        font-size: 28px;
+    }
+}
+
+
+/* Para telas menores que 768px (smartphones grandes) */
+@media (max-width: 768px) {
+    .meio-home {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+        align-items: center;
+        min-width: 100%;
+    }
+
+
+    .banner-home {
+        min-width: 100%;
+    }
+
+
+    .texto-home {
+        text-align: center;
+        padding: 20px;
+    }
+
+
+    .texto-home h2 {
+        font-size: 40px;
+    }
+
+
+    .texto-home p {
+        font-size: 22px;
+        width: 80vw;
+    }
+
+
+    .dog-home {
+        height: 50vh;
+        width: 80vw;
+    }
+
+
+    .botoes-home {
+        display: flex;
+        flex-direction: column; /* Empilha os botões */
+        gap: 10px;
+    }
+
 
     .botoes-home button {
         width: 250px;
         height: 60px;
         font-size: 24px;
+        margin-left: 0;
     }
+}
+
+
+/* Para telas menores que 480px (celulares pequenos) */
+@media (max-width: 480px) {
+    .texto-home{
+        padding: 10px;
+    }
+    .texto-home h2 {
+        font-size: 30px;
+    }
+
+
+    .texto-home p {
+        font-size: 18px;
+        width: 90vw;
+    }
+
 
     .dog-home {
-        height: 50vh;
+        width: 90vw;
+        margin-left: 10vw;
     }
 
-    .meio-home {
+
+    .botoes-home button {
+        width: 240px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+
+    .botoes-home{
+        display: flex;
         flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 }

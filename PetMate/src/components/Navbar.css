@@ -16,11 +16,11 @@
     align-items: center;
 }
 
-.perfil-nav{
+.perfil-nav {
     margin-right: 70px;
 }
 
-.img-nav{
+.img-nav {
     margin-left: 70px;
 }
 
@@ -80,7 +80,8 @@ a {
     font-size: 80px;
     color: #fbfbfb;
 }
-.nav-profile{
+
+.nav-profile {
     background-color: #EBE5E0;
     border-radius: 100%;
     min-height: 70px;
@@ -89,12 +90,14 @@ a {
     max-width: 70px;
     object-fit: cover;
 }
-.nav-profile:hover, .nav-profile-icon:hover{
+
+.nav-profile:hover,
+.nav-profile-icon:hover {
     transform: scale(1.05);
     transition: 0.3s ease;
 }
 
-.nav-profile-icon{
+.nav-profile-icon {
     color: #FBFBFB;
     font-size: 70px;
 }
@@ -179,11 +182,11 @@ a {
 .nav-link.active {
     font-weight: 700;
     color: #fbfbfb;
-    border-bottom: 2px solid #fbfbfb; 
+    border-bottom: 2px solid #fbfbfb;
 }
 
 .menu-hamburguer {
-    display: none; 
+    display: none;
     background: none;
     border: none;
     font-size: 40px;
@@ -194,39 +197,84 @@ a {
 .menu-hamburguer-icon {
     font-size: 32px;
 }
-
 @media (max-width: 768px) {
-    .menu-hamburguer {
-        display: block; 
-        margin-left: -15%;
+    .navbar-container {
+        width: 80px;
+        padding: 0;
     }
+
+
+    .nav-img {
+        width: 90px;
+    }
+
 
     .botoes-nav {
-        display: none; 
-    }
-    .nav-link {
-        font-size: 26px;
-        margin-bottom: 5px;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 120px;
+      right: 170px;
+      background: #84644D;
+      /* width: 100%; */
+      text-align: center;
+      padding: 0px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     }
     .botoes-nav.ativo {
         display: flex;
+        flex-direction: column;
         left: 50%;
         padding: 10px;
         border-radius: 0px 0px 8px 8px;
         background-color: #94725a;
     }
-}
-
-@media (max-width: 425px) {
-    .nav-img {
-        width: 70px;
+    .cadNav {
+        display: none;
+    }
+    .loginNav {
+        margin-right: -10%;
+    }
+ 
+    .menu-hamburguer {
+      display: block;
+      margin-right: 10px;
+      font-size: 40px;
+      transform: scale(1.3);
     }
 
-    .botoes-nav {
-        right: 10px; 
+
+    .boas-vindas {
+        display: none;
     }
 
-    .menu-hamburguer-icon {
-        font-size: 36px; 
+
+    .img-nav {
+        margin-left: 20px;
+        margin-right: 2vw;
     }
-}
+
+
+    .profile, .nav-profile {
+        height: 50px;
+        width: fit-content;
+        /* margin-right: -50px; */
+        margin-left: 35px;
+    }
+
+
+    .nav-logado{
+        gap: 0px;
+    }
+  }
+ 
+    @media (max-width: 425px) {
+        .nav-img {
+            width: 70px;
+        }
+
+
+        .botoes-nav {
+            right: 100px;
+        }
+    }

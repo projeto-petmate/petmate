@@ -116,3 +116,76 @@
     gap: 10px;
     align-items: center;
 }
+
+.toggle-filtro-btn {
+    display: none;
+    margin: 1rem;
+    padding: 10px 20px;
+    background-color: #84644D;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Nunito;
+    transition: background-color 0.3s ease;
+  }
+
+
+
+@media (max-width: 768px) {
+
+    .toggle-filtro-btn {
+        display: block;
+        margin: 10px auto 10px auto;
+        justify-content: center;
+        align-items: center;
+    }
+    .filtro-container {
+      flex-direction: column;
+      height: auto;
+      padding: 20px 10px;
+      gap: 20px;
+    }
+ 
+    .select-filter {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+ 
+    .filtro-container label,
+    .filtro-container select,
+    .botao-limpar,
+    .botao-fav-on,
+    .botao-fav-off {
+      font-size: 16px;
+      width: 100%;
+    }
+ 
+    .botao-limpar,
+    .botao-fav-on,
+    .botao-fav-off {
+      justify-content: center;
+    }
+ 
+    .estrela {
+      flex-direction: column;
+      width: 100%;
+      gap: 10px;
+    }
+ 
+    .estrela-bnt {
+      width: 100%;
+      justify-content: center;
+    }
+
+
+    .pet-card{
+        width: 150px;
+        height: 225px;
+    }
+
+
+   
+  }

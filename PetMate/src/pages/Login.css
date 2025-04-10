@@ -357,32 +357,32 @@
   
 
 
-
-@media screen and (max-width: 768px) {
+  @media (max-width: 1200px) {
     .container-login {
-        flex-direction: column;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .img_cachorro {
-        height: 300px;
+    .img_cachorro{
+        margin-left: -70px;
+        max-height: 300px;
+        margin-top: 0;
+    }
+    .img_cachorro img {
+        margin: 0;
     }
 
+    .img-login {
+      max-height: 440px;
+      margin: 0;
+    }
+ 
     .info-login {
-        width: 80%;
-        padding: 20px;
+        width: 100%;
+        padding: 10px;
+        margin-left: 300px;
     }
-
-    .inpts-login input {
-        width: 90%;
-    }
-
-    .texto-login h2 {
-        font-size: 32px;
-    }
-
-    .texto-login p, .base-login button, .sem-cadastro a {
-        font-size: 18px;
-    }
-
-
-}
+ 
+   
+  }

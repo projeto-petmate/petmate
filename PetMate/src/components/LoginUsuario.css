@@ -26,7 +26,7 @@
 
 .img_cachorro{
     height: 800px;
-    margin-top: 9em;
+    /* margin-top: 9em; */
 }
 .img-login{
     height: 100vh;
@@ -355,33 +355,63 @@
   
 
 
-
-@media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     .container-login {
         flex-direction: column;
     }
 
-    .img_cachorro {
-        height: 300px;
-    }
+
+
+
 
     .info-login {
-        width: 80%;
+        width: 90%;
         padding: 20px;
+        margin-top: -50%;
     }
 
-    .inpts-login input {
-        width: 90%;
+
+    .inputs-login{
+      height: 250px;  
     }
+
+
+    .inpts-login input{
+        width: 115%;
+    }
+
+
+    #inputSenha {
+        width: 115%;
+    }
+
+
+    .mostrar-senha {
+        width: 115%;
+    }
+
+
+    .sem-cadastro {
+        flex-direction: column;
+        font-size: 16px;
+        margin-left: 40px;
+    }
+
 
     .texto-login h2 {
         font-size: 32px;
     }
+
 
     .texto-login p, .base-login button, .sem-cadastro a {
         font-size: 18px;
     }
 
 
-}
+    .base-login button {
+        margin-left: 40px;
+        width: 115%;
+      }
 
+
+}

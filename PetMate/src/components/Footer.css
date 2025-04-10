@@ -8,6 +8,7 @@
     align-items: center;
 }
 
+
 .topo-footer{
     display: flex;
     align-items: center;
@@ -15,10 +16,12 @@
     margin-bottom: 2vh;
 }
 
+
 .icon_footer:hover,
 .links-footer p:hover{
     cursor: pointer;
 }
+
 
 .links-footer{
     display: flex;
@@ -29,6 +32,7 @@
     font-weight: 500;
     font-size: 22px;
 }
+
 
 .links-footer p{
     color: #FBFBFB;
@@ -42,13 +46,16 @@
 }
 
 
+
+
 .barra_footer{
-    width: 80vw; 
-    height: 2px; 
-    background-color: #FBFBFB; 
-    border: none; 
-    border-radius: 20px; 
+    width: 80vw;
+    height: 2px;
+    background-color: #FBFBFB;
+    border: none;
+    border-radius: 20px;
 }
+
 
 .icons-footer{
     margin-left: 10em;
@@ -60,11 +67,13 @@
     margin-left: 25px;
 }
 
+
 .icon_wpp, .icon_insta{
     color: #FBFBFB;
     margin-left: 10px;
     font-size: 40px;
 }
+
 
 .direitos p{
     display: flex;
@@ -82,70 +91,63 @@
 }
 
 
-@media (max-width: 768px) {
-    .navbar-container {
-        width: 80px;
-        padding: 0;
-    }
-
-
-    .nav-img {
-        width: 90px;
-    }
-
-
-    .botoes-nav {
-        display: none;
+@media (max-width: 1280px) {
+    .topo-footer {
         flex-direction: column;
-        position: absolute;
-        top: 120px;
-        right: 170px;
-        background: #84644D;
-        /* width: 100%; */
-        text-align: center;
-        padding: 0px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .botoes-nav.ativo {
-        display: flex;
-    }
-
-    .menu-hamburguer {
-        display: block;
-        margin-right: 10px;
-        font-size: 40px;
+        width: 50%;
+        gap: 10px;
     }
 
 
-    .boas-vindas {
-        display: none;
-    }
-
-
-    .img-nav {
-        margin-left: 20px;
-        margin-right: 2vw;
-    }
-
-
-    .profile {
-        height: 50px;
-    }
-
-
-    .nav-logado {
-        gap: 0px;
-    }
-}
-
-@media (max-width: 425px) {
-    .nav-img {
+    .logo-footer {
         width: 70px;
+        margin: 0%;
+        /* margin-left: -230px; */
     }
 
 
-    .botoes-nav {
-        right: 100px;
+    .links-footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
+
+
+    .icons-footer {
+        flex-direction: row;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+
+    .direitos {
+        text-align: center;
+    }
+
+
+    .direitos p {
+        font-size: 16px;
+    }
+
+
+    .barra_footer {
+        width: 70vw;
+        border: 1px solid #FBFBFB;
+    }
+
+
+    .links-footer p {
+        font-size: 16px;
+    }
+
+
+    .icon_footer {
+        font-size: 24px;
+    }
+
+
+    .footer-container {
+        height: 310px;
+    }
+   
 }

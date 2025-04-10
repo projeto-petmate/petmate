@@ -259,70 +259,135 @@
     font-size: 20px;
     transform: scaleX(-1);
 }
-@media (max-width: 1024px) {
+
+@media (max-width: 1280px) {
     .container-cadastro {
         flex-direction: column;
+        gap: 0px;
+        padding: 20px;
     }
 
     .container-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         height: auto;
     }
 
     .img-cadastro {
-        width: 100%;
-        max-height: 400px;
+        height: 200px; 
+        max-height: 80%;
+        margin-top: 0; 
+        margin-left: -70px;
     }
 
-    .texto-cadastro {
-        flex-direction: column;
-        gap: 10px;
+    .info-cadastro {
+        margin-right: 0;
+        width: 90%;
+        padding: 20px;
+        margin-top: 0;
+
+    }
+
+    
+
+    .texto-cadastro h2 {
+        font-size: 25px;
+        margin-right: 0;
     }
 
     .inputs-cadastro {
         flex-direction: column;
-        gap: 15px;
-    }
-}
-
-@media (max-width: 768px) {
-    .texto-cadastro h2 {
-        font-size: 1.8rem;
+        height: auto;
+        padding: 10px;
+       
     }
 
     .inputs-column input {
-        height: 45px;
-    }
-
-    .botao-termos-cadastro button {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .img-cadastro {
-        margin-top: 1em;
-    }
-
-    .texto-cadastro h2 {
-        font-size: 1.5rem;
-    }
-
-    .texto-cadastro button {
-        width: 100%;
-        font-size: 14px;
-    }
-
-    .inputs-column input {
-        font-size: 0.9rem;
+        width: 270px;
         height: 40px;
+        padding: 10px;
+        font-size: 14px;
     }
 
     .botao-termos-cadastro button {
-        font-size: 12px;
-        height: 45px;
+        width: 100%;
+        font-size: 20px;
     }
-}
 
+    .termos {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .inputs-cadastro p {
+        font-family: inter;
+        font-size: 15px;
+    }
+    .icon-cadastro {
+        font-size: 15px;
+    }
+    .texto-cadastro button {
+        width: 9em;
+        height: 35px;
+        font-size: 13px;
+        font-weight: 600;
+        background-color: #84644D;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .termos p {
+        font-size: 12px;
+        display: block;
+        margin-block-start: -0em;
+    }
+    .termos a {
+        font-size: 12px;
+        text-decoration: none;
+        margin: 5px;
+        color: #84644D;
+    }
+    .termos {
+        font-family: roboto;
+        display: flex;
+        flex-direction: row;
+        
+        height: 70px;
+        width: 110%;
+    }
+    
+    .barra-img img {
+        height: 2.5px;
+        width: 70px;
+    }
+    .barra_cadastro {
+        margin-top: 5px;
+    }
+    .texto-cadastro {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 5px;
+        align-items: flex-start;
+        width: 100%;
+        height: auto;
+        margin-bottom: 2em;
+    }
+    .erro-mensagem {
+    color: rgb(219, 16, 16);
+    text-align: center;
+    font-size: 12px;
+    }
+    .botao-termos-cadastro button:hover {
+    background-color: #725540;
+    transform: translateY(-2px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.5s ease;
+}
+    
+}
 
 .erro-termos{
     color: rgb(219, 16, 16);;
