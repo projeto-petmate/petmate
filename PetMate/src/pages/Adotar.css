@@ -55,3 +55,38 @@
   margin-right: 100px;
 }
 
+@media (max-width: 1024px ) {
+  .titulo-adotar {
+    margin-left: 20px;
+  }
+
+
+  .titulo-adotar h2 {
+    font-size: 32px;
+  }
+
+
+  .titulo-adotar p {
+    font-size: 20px;
+  }
+
+
+  .titulo-botao-adotar {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+
+  .botao-modal {
+    width: 160px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin: 0;
+  }
+
+
+
+}

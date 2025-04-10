@@ -273,6 +273,10 @@ a {
             width: 70px;
         }
 
+        .menu-hamburguer-icon{
+            margin-left: -50px;
+        }
+
 
         .botoes-nav {
             right: 100px;

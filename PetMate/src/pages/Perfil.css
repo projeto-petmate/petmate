@@ -356,3 +356,104 @@
     color: #84644D;
     text-align: center;
 }
+
+/* Responsividade para a página de perfil */
+@media (max-width: 1280px) {
+    .container-perfil {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .info-perfil {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .container-pets {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .user-icon-container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .user-icon {
+        font-size: 70px;
+    }
+
+    .img-preview-perfil img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .inputs-perfil {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .inputs-perfil-1,
+    .inputs-perfil-2 {
+        width: 100%;
+    }
+
+    .input-edit input,
+    .input-perma input {
+        width: 100%;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .botoes-perfil {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .botao-editar-perfil,
+    .botao-salvar-perfil,
+    .botao-excluir-perfil {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-perfil {
+        padding: 10px;
+    }
+
+    .user-icon {
+        font-size: 60px;
+    }
+
+    .img-preview-perfil img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .input-edit input,
+    .input-perma input {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .botao-editar-perfil,
+    .botao-salvar-perfil,
+    .botao-excluir-perfil {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .titulo-barra h2 {
+        font-size: 18px;
+    }
+
+    .barra-perfil {
+        width: 180px;
+    }
+}

@@ -74,8 +74,8 @@ function CardPetPerfil() {
                             <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                             <div className="pet-info">
                                 <h3>{pet.nome}</h3>
-                                <p><strong>Raça:</strong> {pet.raca}</p>
-                                <p><strong>Idade:</strong> {pet.idade}</p>
+                                <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
+                                <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
                                 <p>{pet.porte} | {pet.genero}</p>
                                 <div className="botoes-pet-perfil">
                                     <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>

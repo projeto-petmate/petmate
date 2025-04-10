@@ -101,9 +101,6 @@ function Perfil() {
         <div>
             <Navbar />
             <div className="container-perfil">
-                <div className="container-pets">
-                    <CardPetPerfil />
-                </div>
                 <div className="info-perfil">
                     <div className="container-configuracoes">
                         <div className="titulo-barra">
@@ -179,8 +176,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
-                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        : <FaUnlock className='icon-lock' onClick={handleSave} />
                                     }
                                 </div>
                             </div>
@@ -195,8 +192,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
-                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        : <FaUnlock className='icon-lock' onClick={handleSave} />
                                     }
                                 </div>
                             </div>
@@ -226,8 +223,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
-                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        : <FaUnlock className='icon-lock' onClick={handleSave} />
                                     }
                                 </div>
                             </div>
@@ -242,8 +239,8 @@ function Perfil() {
                                         disabled={!editMode}
                                     />
                                     {!editMode ?
-                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)}/>
-                                        : <FaUnlock className='icon-lock' onClick={handleSave}/>
+                                        <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        : <FaUnlock className='icon-lock' onClick={handleSave} />
                                     }
                                 </div>
                             </div>
@@ -275,6 +272,9 @@ function Perfil() {
 
                     </div>
                 </div>
+            <div className="container-pets">
+                <CardPetPerfil />
+            </div>
             </div>
             {showSuccessPopup && (
                 <div className="success-popup-perfil">
