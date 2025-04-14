@@ -1,0 +1,21 @@
+.conteiner-config-conta-ong{
+    background-color: #F6F4F1;
+    min-height: calc(100vh - 120px);
+    width: 58vw;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container-perfil-ong {
+    display: flex;
+    flex-direction: row;
+    min-height: calc(100vh - 120px);
+}
+
+.inputs-infom-ong{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}

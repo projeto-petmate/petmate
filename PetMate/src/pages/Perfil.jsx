@@ -14,6 +14,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
 import { FaLock, FaLockOpen } from "react-icons/fa";
+import PerfilOng from '../components/PerfilOng';
+
 
 function Perfil() {
     const [openModalExclui, setOpenModalExclui] = useState(false);
@@ -26,8 +28,10 @@ function Perfil() {
     const [imagem, setImagem] = useState('');
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const storedSerOng = localStorage.getItem('vrfOng');
 
     const navigate = useNavigate();
+    
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -97,11 +101,12 @@ function Perfil() {
         reader.readAsDataURL(file);
     };
 
+
     return (
         <div>
             <Navbar />
             <div className="container-perfil">
-                <div className="info-perfil">
+              { storedSerOng == false ? <div className="info-perfil">
                     <div className="container-configuracoes">
                         <div className="titulo-barra">
                             <h2>Configurações de Conta</h2>
@@ -271,7 +276,7 @@ function Perfil() {
                         </div>
 
                     </div>
-                </div>
+                </div> : <PerfilOng />}
             <div className="container-pets">
                 <CardPetPerfil />
             </div>
