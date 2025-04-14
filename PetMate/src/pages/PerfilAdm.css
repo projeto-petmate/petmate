@@ -147,8 +147,10 @@
     align-items: center;
 }
 .containeradm2{
-    width: 60%;
-    height: 500px;
+    min-width: 60%;
+    min-height: 500px;
     background-color: #FBFBFB;
     border-radius: 40px;
+    padding: 20px;
 }
+

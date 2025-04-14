@@ -23,7 +23,7 @@ function Footer() {
           <div className="icons-footer">
               <FaFacebook className='icon_footer'/>
               <FaWhatsapp className='icon_footer'/>
-              <a href="https://www.instagram.com/projeto_petmate/">
+              <a href="https://www.instagram.com/petmate_projeto/">
                 <FaInstagram className='icon_footer'/>
               </a>
 

@@ -111,6 +111,14 @@ function BarraFiltro() {
               <option value="Fêmea">Fêmea</option>
             </select>
           </div>
+
+          <div className="select-filter">
+            <label htmlFor="selectOrdem">Ordem</label>
+            <select name="ordem" id="selectOrdem" onChange={handleFilterChange} ref={ordemRef}>
+              <option value="recentes">Mais recentes</option>
+              <option value="antigos">Mais antigos</option>
+            </select>
+          </div>
           <button onClick={clearFilters} className='botao-limpar'>
             Limpar Filtros
           </button>

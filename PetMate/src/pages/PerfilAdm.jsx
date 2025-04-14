@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './PerfilAdm.css';
 import { FaUsers } from "react-icons/fa";
 import { LuHandshake } from "react-icons/lu";
 import { MdOutlinePets } from "react-icons/md";
 import { BsChatRightHeart } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
+import CardContainer from '../components/CardContainer';
 
 function PerfilAdm() {
+  const [mostrarPet, setMostrarPet ] = useState(false)
   return (
     <div className='body-adm'>
       <div className='NavbarAdm'>
@@ -35,7 +37,7 @@ function PerfilAdm() {
 
             <div className="icon-link3">
               <MdOutlinePets className='iconAdm3' />
-              <a className='linksAdm'>Pets</a>
+              <a className='linksAdm' onClick={() => {setMostrarPet(true)}}>Pets</a>
             </div>
 
             <div className="icon-link4">
@@ -46,11 +48,16 @@ function PerfilAdm() {
         </div>
       </div>
 
-      <h2 className='h2Adm'>Gerenciamento</h2>
+      <h2 className='h2Adm'>
+        Gerenciamento
+      </h2>
 
-      <div className='containeradm'>
-        <div className="containeradm2"></div>
-      </div>
+      {/* <div className='containeradm'> */}
+        <div className="containeradm2">
+        {mostrarPet && <CardContainer />}
+          
+        </div>
+      {/* </div> */}
 
     </div>
   )
