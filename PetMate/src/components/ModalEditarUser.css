@@ -1,0 +1,90 @@
+.editar-user-background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .editar-user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 40vw;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .editar-user-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #3d2b1e;
+  }
+  
+  .inputs-editar-user {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  .inputs-editar-user label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3d2b1e;
+  }
+  
+  .inputs-editar-user input {
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #EBE5E0;
+  }
+  
+  .botoes-editar-user {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .botao-salvar-user,
+  .botao-cancelar-user {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .botao-salvar-user {
+    background-color: #84644D;
+    color: #EBE5E0;
+  }
+  
+  .botao-cancelar-user {
+    background-color: #EBE5E0;
+    color: #3d2b1e;
+  }
+  
+  .botao-salvar-user:hover {
+    background-color: #3d2b1e;
+    color: white;
+  }
+  
+  .botao-cancelar-user:hover {
+    background-color: #d9d5d5;
+  }
+
+  ''

@@ -71,3 +71,11 @@
     letter-spacing: 0.01em;
     /* margin-left: 45px; */
   }
+
+  .botao-excluir-ong{
+    color: #9C7A5E;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.5s ease;
+}

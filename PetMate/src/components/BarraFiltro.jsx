@@ -40,7 +40,6 @@ function BarraFiltro() {
 
   return (
     <div>
-      {/* Botão para mostrar/esconder filtros (visível em dispositivos móveis) */}
       <button
         className="toggle-filtro-btn"
         onClick={() => setMostrarFiltro((prev) => !prev)}
@@ -48,7 +47,6 @@ function BarraFiltro() {
         {mostrarFiltro ? 'Esconder filtros' : 'Mostrar filtros'}
       </button>
 
-      {/* Renderiza a barra de filtros somente se mostrarFiltro for true */}
       {mostrarFiltro && (
         <div className="filtro-container">
           {vrfOng == false && (

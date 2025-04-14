@@ -9,7 +9,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
     min-width: 100vw;
     padding: 10px;
     height: 120px;
@@ -68,7 +67,7 @@
     background-color: #FBFBFB;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
 }
 .links-geneciamento{
     display: flex;
