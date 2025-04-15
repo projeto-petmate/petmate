@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import CardOng from "../components/CardOng";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -12,6 +12,7 @@ import BarraPesquisa from "../components/BarraPesquisa";
 function Ongs() {
   const { logado } = useContext(GlobalContext);
   const navigate = useNavigate();
+  const [termoPesquisa, setTermoPesquisa] = useState("");
 
   return (
     <div>
@@ -25,10 +26,10 @@ function Ongs() {
           <div className="titulo-ongs">
             <h2>Encontre uma ONG e faça a diferença!</h2>
           </div>
-          <BarraPesquisa />
+          <BarraPesquisa valor={termoPesquisa} setValor={setTermoPesquisa} />
         </div>
         <div className="container-ongs">
-          <CardOng />
+          <CardOng termoPesquisa={termoPesquisa} />
         </div>
         <LastPage />
       </div>
