@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import './perfilOng.css'
+import './PerfilOng.css'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CardPetPerfil from '../components/CardPetPerfil';
@@ -38,7 +38,7 @@ function PerfilOng() {
             <div className='conteiner-config-conta-ong'>
                 <div className="texto-e-botao">
                     <div className="texto-e-img-barra">
-                        <h2>Configurações de conta da ONG</h2>
+                        <h2 className='config-conta-ong-titulo'>Configurações de conta da ONG</h2>
                         <img className='barra-marro-perfil-ong' src="/images/barra_marrom.png" alt="" />
                     </div>
                     <div className="botao-logout-ong">

@@ -2,8 +2,7 @@
     background-color: #F6F4F1;
     min-height: calc(100vh - 120px);
     width: 58vw;
-    padding: 20px;
-    display: flex;
+    padding: 1%;
     flex-direction: column;
     justify-content: center;
 }
@@ -23,6 +22,30 @@
 .texto-e-botao{
     display: flex;
     flex-direction: row;
-    gap: 53%;
+    gap: 30%;
+    border: solid;
+}
+
+.texto-e-img-barra{
+    /* border: solid; */
+    width: 70%;
+}
+
+.barra-marro-perfil-ong{
+    height: 8px;
+    width: 230px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+.config-conta-ong-titulo{
+    color: #484848;
+    font-size: 32px;
+}
+
+.inputs-infom-ong{
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
     border: solid;
 }
