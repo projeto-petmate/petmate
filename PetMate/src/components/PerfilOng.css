@@ -19,3 +19,10 @@
     flex-direction: row;
     width: 100%;
 }
+
+.texto-e-botao{
+    display: flex;
+    flex-direction: row;
+    gap: 53%;
+    border: solid;
+}

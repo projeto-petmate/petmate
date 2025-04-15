@@ -106,7 +106,7 @@ function Perfil() {
         <div>
             <Navbar />
             <div className="container-perfil">
-              { storedSerOng == false ? <div className="info-perfil">
+              { storedSerOng === "true" ? (<PerfilOng/>) : <div className="info-perfil">
                     <div className="container-configuracoes">
                         <div className="titulo-barra">
                             <h2>Configurações de Conta</h2>
@@ -276,7 +276,7 @@ function Perfil() {
                         </div>
 
                     </div>
-                </div> : <PerfilOng />}
+                </div> }
             <div className="container-pets">
                 <CardPetPerfil />
             </div>
