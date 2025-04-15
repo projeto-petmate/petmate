@@ -148,8 +148,23 @@
 .containeradm2{
     min-width: 60%;
     min-height: 500px;
-    background-color: #FBFBFB;
-    border-radius: 40px;
+    background-color: #D4C6B5;
+    border-radius: 25px;
     padding: 20px;
+}
+.gerenciar-title2{
+    font-size: 24px;
+  font-weight: bold;
+  color: #84644D;
+  text-align: center;
+  margin-top: 200px;
+  padding: 10px 20px;
+  background-color: #F6F4F1;
+  border: 2px solid #AD947E;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 470px;
+  margin-left: auto;
+  margin-right: auto;
 }
 

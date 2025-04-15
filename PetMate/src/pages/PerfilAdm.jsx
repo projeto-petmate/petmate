@@ -64,7 +64,7 @@ function PerfilAdm() {
       {/* <div className='containeradm'> */}
       <div className="containeradm2">
         <div className="gerenciar-title">
-          {mostrarPet == false && mostrarOng == false && mostrarComentario == false && mostrarUsers == false ? (<p>Selecione a área que deseja gerenciar!</p>) : (<p></p>)}
+          {mostrarPet == false && mostrarOng == false && mostrarComentario == false && mostrarUsers == false ? (<p className='gerenciar-title2'>Selecione a área que deseja gerenciar!</p>) : (<p></p>)}
         </div>
         {mostrarPet && <PetsAdm />}
         {mostrarComentario && <ComentarioAdm />}
