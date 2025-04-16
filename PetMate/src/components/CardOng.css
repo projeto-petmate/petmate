@@ -1,87 +1,91 @@
 .ongs-container {
-    padding: 50px;
-    text-align: center;
-  }
-  
-  .cardOng-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 80px;
-    justify-content: center;
-  }
-  
-  .ong-card {
-    width: 350px;
-    height: 430px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transition: transform 0.2s;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .ong-card:hover {
-    transform: scale(1.02);
-  }
-  
-  .ong-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-  
-  .ong-info-card {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .ong-info-card h3 {
-    font-size: 20px;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  
-  .ong-info-card p {
-    font-size: 18px;
-    margin: 5px 0;
-    color: black;
-  }
-  
-  .botoes-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .botao-info-ong {
-    cursor: pointer;
-    height: 45px;
-    width: 180px;
-    text-align: center;
-    background-color: #9C7A5E;
-    border: none;
-    border-radius: 8px;
-    color: #F5F5F5;
-    font-size: 16px;
-    font-weight: bold;
-    font-family: nunito;
-    letter-spacing: 0.01em;
-    /* margin-left: 45px; */
-  }
-
-  .botao-excluir-ong{
-    color: #9C7A5E;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    transition: 0.5s ease;
+  padding: 50px;
+  text-align: center;
 }
 
-/* Mensagem de Ong não encontrada */
-.sem-ONGs{
+.cardOng-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  justify-content: center;
+}
+
+.ong-card {
+  width: 350px;
+  height: 430px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.2s;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.ong-card:hover {
+  transform: scale(1.02);
+}
+
+.ong-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.ong-info-card {
+  padding: 15px;
+  text-align: center;
+}
+
+.ong-info-card h3 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.ong-info-card p {
+  font-size: 18px;
+  margin: 5px 0;
+  color: black;
+}
+
+.botoes-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.botao-info-ong {
+  cursor: pointer;
+  height: 45px;
+  width: 180px;
+  text-align: center;
+  background-color: #9C7A5E;
+  border: none;
+  border-radius: 8px;
+  color: #F5F5F5;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: nunito;
+  letter-spacing: 0.01em;
+  /* margin-left: 45px; */
+}
+.botao-editar-ong {
+  color: #9C7A5E;
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+.botao-excluir-ong {
+  color: #9C7A5E;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.sem-ONGs {
   font-size: 24px;
   font-weight: bold;
   color: #84644D;

@@ -1,24 +1,14 @@
-import { useContext, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { GlobalContext } from "../contexts/GlobalContext"
-import './Navbar.css'
-import NavDeslogado from "./NavDeslogado"
-import NavLogado from "./NavLogado"
-import BarraPesquisa from "./BarraPesquisa"
+import React, { useContext, useState } from "react";
+import BarraPesquisa from "./BarraPesquisa";
 import { NavLink } from "react-router-dom";
 import { CgMenuRound } from "react-icons/cg";
+import { GlobalContext } from "../contexts/GlobalContext";
+import NavLogado from "./NavLogado";
+import NavDeslogado from "./NavDeslogado";
 
 function Navbar() {
   const [menuAberto, setMenuAberto] = useState(false);
-  const { logado, userLogado } = useContext(GlobalContext);
-  const [isLogado, setIsLogado] = useState(logado);
-
-  useEffect(() => {
-    const storedLogado = JSON.parse(localStorage.getItem("logado"));
-    if (storedLogado !== null) {
-      setIsLogado(storedLogado);
-    }
-  }, [logado]);
+  const { logado } = useContext(GlobalContext);
 
   return (
     <nav className="navbar-container">
@@ -27,7 +17,6 @@ function Navbar() {
           <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
         </NavLink>
       </div>
-
 
       <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
         <NavLink
@@ -43,13 +32,6 @@ function Navbar() {
           onClick={() => setMenuAberto(false)}
         >
           Adotar
-        </NavLink>
-        <NavLink
-          to="/favoritos"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-          onClick={() => setMenuAberto(false)}
-        >
-          Favoritos
         </NavLink>
         <NavLink
           to="/ongs"
@@ -68,9 +50,9 @@ function Navbar() {
       </div>
 
       <div className="perfil-nav">
-        {isLogado ? <NavLogado /> : <NavDeslogado />}
+        {logado ? <NavLogado /> : <NavDeslogado />}
       </div>
-      {/* Ícone do menu hambúrguer */}
+
       <button className="menu-hamburguer" onClick={() => setMenuAberto(!menuAberto)}>
         <CgMenuRound className="menu-hamburguer-icon" />
       </button>

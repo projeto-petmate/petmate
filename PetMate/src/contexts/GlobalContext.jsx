@@ -1,123 +1,151 @@
 import { createContext, useState, useEffect } from "react";
-import InputMask from 'react-input-mask';
-import { getUsuarioById, updateUsuario as apiUpdateUsuario, deleteUsuario as apiDeleteUsuario } from '../apiService';
+import { getUsuarioById, getOngById, updateUsuario as apiUpdateUsuario, deleteUsuario as apiDeleteUsuario } from '../apiService';
 
 export const GlobalContext = createContext();
 
-export const GlobalContextProvider = ({children}) => {
-    const [logado, setLogado] = useState(() => {
-        const savedLogado = localStorage.getItem("logado");
-        return savedLogado !== null ? JSON.parse(savedLogado) : false;
+export const GlobalContextProvider = ({ children }) => {
+    const [logado, setLogado] = useState(false);
+    const [userLogado, setUserLogado] = useState({
+        id: null,
+        nome: '',
+        email: '',
+        senha: '',
+        endereco: '',
+        telefone: '',
+        cpf: '',
+        favoritos: '',
+        imagem: '',
+        tipo: '',
     });
-    const [mudarTipo, setMudarTipo] = useState(false);
-    const [userLogado, setUserLogado] = useState(() => {
-        const savedUserLogado = localStorage.getItem("userLogado");
-        return savedUserLogado !== null ? JSON.parse(savedUserLogado) : null;
-    });
+    const [token, setToken] = useState(null);
     const [usuarios, setUsuarios] = useState([]);
+    const [ongs, setOngs] = useState([]);
 
     useEffect(() => {
-        localStorage.setItem("logado", JSON.stringify(logado));
-        localStorage.setItem("userLogado", JSON.stringify(userLogado));
-    }, [logado, userLogado]);
+        const fetchLoggedUser = async () => {
+            if (!token) return; 
 
-    const Logar = (email, senha) => {
-        const usuario = usuarios.find((user) => user.email === email);
-        if (usuario) {
-            if (usuario.senha === senha) {
-                setUserLogado(usuario);
-                setLogado(true);
-                localStorage.setItem("logado", JSON.stringify(true));
-                localStorage.setItem("userLogado", JSON.stringify(usuario));
-            } else {
-                return { error: "Senha incorreta" };
+            try {
+                const response = await fetch('http://localhost:3000/loggedUser', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`, 
+                    },
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setUserLogado(data.user);
+                    setLogado(true);
+                } else {
+                    setLogado(false);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar usuário logado:", error);
+                setLogado(false);
             }
-        } else {
-            return { error: "Usuário não encontrado" };
+        };
+
+        fetchLoggedUser();
+    }, [token]);
+
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try {
+                const data = await getUsuarioById();
+                setUsuarios(data);
+            } catch (error) {
+                console.error("Erro ao buscar usuários:", error);
+            }
+        };
+
+        const fetchOngs = async () => {
+            try {
+                const data = await getOngById();
+                setOngs(data);
+            } catch (error) {
+                console.error("Erro ao buscar ONGs:", error);
+            }
+        };
+
+        fetchUsuarios();
+        fetchOngs();
+    }, []);
+
+    const Logar = async (email, senha) => {
+        try {
+            const response = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, senha }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUserLogado(data.user);
+                setToken(data.token);
+                setLogado(true);
+            } else {
+                const errorData = await response.json();
+                return { error: errorData.error };
+            }
+        } catch (error) {
+            console.error("Erro ao realizar login:", error);
+            return { error: "Erro ao realizar login" };
         }
     };
 
     const Logout = () => {
         setLogado(false);
-        setUserLogado(null);
-        localStorage.removeItem("logado");
-        localStorage.removeItem("userLogado");
-        localStorage.removeItem("vrfOng");
-    };
-
-    const MostrarSenha = () => {
-        const inputSenha = document.getElementById('inputSenha');
-        if (inputSenha.type === 'password') {
-            setMudarTipo(true);
-            inputSenha.type = 'text';
-        } else {
-            setMudarTipo(false);
-            inputSenha.type = 'password';
-        }
-    };
-
-    const PhoneInput = () => {
-        return (
-            <div>
-                <InputMask
-                    mask="(99) 999999999"
-                    placeholder="(XX) XXXXX-XXXX"
-                >
-                    {(inputProps) => <input {...inputProps} type="tel" />}
-                </InputMask>
-            </div>
-        );
-    };
-
-    const CpfInput = () => {
-        return (
-            <div>
-                <InputMask
-                    mask="999.999.999-99"
-                    placeholder="XXX.XXX.XXX-XX"
-                >
-                    {(inputProps) => <input {...inputProps} type="text" />}
-                </InputMask>
-            </div>
-        );
+        setUserLogado({
+            id: null,
+            nome: '',
+            email: '',
+            senha: '',
+            endereco: '',
+            telefone: '',
+            cpf: '',
+            favoritos: '',
+            imagem: '',
+            tipo: '',
+        });
+        setToken(null); 
     };
 
     const updateUsuario = async (id, updatedData) => {
         try {
             const updatedUser = await apiUpdateUsuario(id, updatedData);
-            setUserLogado(updatedUser);
-            return updatedUser;
+            setUserLogado((prevUser) => ({
+                ...prevUser,
+                ...updatedUser,
+            }));
         } catch (error) {
             console.error("Erro ao atualizar usuário:", error);
-            throw error;
         }
     };
-    
 
     const deleteUsuario = async (id) => {
         try {
             await apiDeleteUsuario(id);
             Logout();
         } catch (error) {
-            console.error("Erro ao deletar usuário:", error);
-            throw error;
+            console.error("Erro ao excluir usuário:", error);
         }
     };
 
     return (
-        <GlobalContext.Provider value={{
-            mudarTipo,
-            MostrarSenha,
-            logado,
-            Logar,
-            Logout,
-            PhoneInput,
-            CpfInput,
-            userLogado,
-            setUserLogado,
-            updateUsuario,
-            deleteUsuario
-        }}>
+        <GlobalContext.Provider
+            value={{
+                logado,
+                userLogado,
+                token,
+                Logar,
+                Logout,
+                updateUsuario,
+                deleteUsuario,
+            }}
+        >
             {children}
         </GlobalContext.Provider>
     );

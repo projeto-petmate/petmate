@@ -3,7 +3,7 @@ import { OngContext } from '../contexts/OngContext';
 import { getOngs, deleteOng, updateOng } from '../apiService';
 import './CardOng.css';
 import JanelaOng from './JanelaOng';
-import { IoTrashOutline } from "react-icons/io5";
+import { IoTrash, IoTrashOutline } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import ModalExcluirOng from './ModalExcluirOng';
@@ -105,14 +105,14 @@ function OngsAdm() {
                 Mais Informações
               </button>
               <FaEdit
-                className="botao-editar-user"
+                className="botao-editar-ong"
                 onClick={() => {
                   setOngToEdit(o);
                   setOpenModalEditarOng(true);
                 }}
                 title="Editar ONG"
               />
-              <IoTrashOutline
+              <IoTrash
                 className="botao-excluir-ong"
                 onClick={() => {
                   setOngToDelete(o);

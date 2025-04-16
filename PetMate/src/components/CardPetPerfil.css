@@ -133,6 +133,13 @@ margin-right: auto;
   animation: fadeInOut 3s ease-in-out;
 }
 
+.botao-editar-pet {
+  color: #84644D;
+  font-size: 24px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 @keyframes fadeInOut {
   0% {
     opacity: 0;
@@ -162,7 +169,7 @@ margin-right: auto;
   }
 
   .pet-card-perfil {
-    width: 90%; /* Ocupa quase toda a tela */
+    width: 90%; 
     height: auto;
   }
 

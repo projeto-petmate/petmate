@@ -65,10 +65,10 @@ function ComentarioAdm() {
     return (
         <div>
             <div className="comentario-adm-container">
-                <div className="titulo-comentarios-adm">
+                {/* <div className="titulo-comentarios-adm">
                     <h2>Comentários</h2>
                     <p>Gerencie os comentários enviados pelos usuários.</p>
-                </div>
+                </div> */}
                 <div className="lista-comentarios-adm">
                     {nomesComentarios.map((c) => (
                         <div key={c.id_comentario} className="comentario">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUsuarios, deleteUsuario, updateUsuario } from '../apiService';
 import { FaEdit, FaUserCircle } from 'react-icons/fa';
-import { IoTrashOutline } from 'react-icons/io5';
+import { IoTrash, IoTrashOutline } from 'react-icons/io5';
 import './UsersAdm.css';
 import ModalExcluirUser from './ModalExcluirUser';
 import ModalEditarUser from './ModalEditarUser';
@@ -72,7 +72,7 @@ function UsersAdm() {
                 }}
                 title="Editar Usuário"
               />
-              <IoTrashOutline
+              <IoTrash
                 className="botao-excluir-user"
                 onClick={() => {
                   setUserToDelete(user);

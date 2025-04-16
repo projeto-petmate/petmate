@@ -7,7 +7,6 @@ function NavDeslogado() {
     <div>
         <Link to="/login"><button className="loginNav">Entrar</button></Link>
         <Link to="/cadastro"><button className="cadNav">Cadastrar</button></Link>
-        {/* <Link to="/cadastro"><button className="cadastroNav">Cadastro</button></Link> */}
     </div>
   )
 }

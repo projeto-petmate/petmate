@@ -42,13 +42,13 @@ app.get('/usuarios/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
-
+// Rotas para usuários
 app.post('/usuarios', async (req, res) => {
-    const { nome, email, senha, endereco, telefone, cpf, imagem } = req.body;
+    const { nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO usuarios (nome, email, senha, endereco, telefone, cpf, imagem) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [nome, email, senha, endereco, telefone, cpf, imagem]
+            'INSERT INTO usuarios (nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+            [nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo]
         );
         res.json(result.rows[0]);
     } catch (err) {
@@ -59,19 +59,24 @@ app.post('/usuarios', async (req, res) => {
 
 app.put('/usuarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, email, senha, endereco, telefone, cpf, imagem } = req.body;
+    const { nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo } = req.body;
+
+    if (!id) {
+        return res.status(400).json({ error: 'ID do usuário é obrigatório.' });
+    }
+
     try {
         const result = await pool.query(
-            'UPDATE usuarios SET nome = $1, email = $2, senha = $3, endereco = $4, telefone = $5, cpf = $6, imagem = $7 WHERE id_usuario = $8 RETURNING *',
-            [nome, email, senha, endereco, telefone, cpf, imagem, id]
+            'UPDATE usuarios SET nome = $1, email = $2, senha = $3, endereco = $4, telefone = $5, cpf = $6, favoritos = $7, imagem = $8, tipo = $9 WHERE id_usuario = $10 RETURNING *',
+            [nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo, id]
         );
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
         }
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao atualizar usuário:', err.message);
-        res.status(500).json({ error: 'Erro ao atualizar usuário' });
+        res.status(500).json({ error: 'Erro ao atualizar usuário.' });
     }
 });
 
@@ -84,46 +89,73 @@ app.delete('/usuarios/:id', async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Usuário não encontrado' });
         }
-        res.json({ message: 'Usuário e seus pets deletados com sucesso' });
+        res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao deletar usuário:', err.message);
         res.status(500).json({ error: 'Erro ao deletar usuário' });
     }
 });
 
-app.put('/usuarios/:id/favoritos', async (req, res) => {
-    const { id } = req.params;
-    const { favoritos } = req.body;
-
-    try {
-        const result = await pool.query(
-            'UPDATE usuarios SET favoritos = $1 WHERE id_usuario = $2 RETURNING *',
-            [favoritos, id]
-        );
-        if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
-        }
-        res.json(result.rows[0]);
-    } catch (err) {
-        console.error('Erro ao atualizar favoritos:', err.message);
-        res.status(500).json({ error: 'Erro ao atualizar favoritos' });
-    }
-});
+const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'sua_chave_secreta';
 
 app.post('/login', async (req, res) => {
-    const { email } = req.body;
+    const { email, senha } = req.body;
+
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (result.rows.length === 0) {
             return res.status(401).json({ error: 'Credenciais inválidas' });
         }
-        res.json({ message: 'Login bem-sucedido', user: result.rows[0] });
+
+        const usuario = result.rows[0];
+        if (usuario.senha !== senha) {
+            return res.status(401).json({ error: 'Senha incorreta' });
+        }
+
+        const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '1h' });
+
+        res.json({ message: 'Login bem-sucedido', user: usuario, token });
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao validar login:', err.message);
         res.status(500).json({ error: 'Erro ao validar login' });
     }
 });
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
+    if (!token) return res.status(401).json({ error: 'Token não fornecido' });
+
+    jwt.verify(token, SECRET_KEY, (err, user) => {
+        if (err) return res.status(403).json({ error: 'Token inválido' });
+        req.user = user;
+        next();
+    });
+};
+
+app.get('/loggedUser', authenticateToken, async (req, res) => {
+    const { id, tipo } = req.user;
+
+    try {
+        if (tipo === 'usuario') {
+            const result = await pool.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id]);
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: 'Usuário não encontrado' });
+            }
+            return res.json({ user: result.rows[0] });
+        } else if (tipo === 'ong') {
+            const result = await pool.query('SELECT * FROM ongs WHERE id_ong = $1', [id]);
+            if (result.rows.length === 0) {
+                return res.status(404).json({ error: 'ONG não encontrada' });
+            }
+            return res.json({ user: result.rows[0] });
+        }
+    } catch (error) {
+        console.error('Erro ao buscar usuário logado:', error.message);
+        res.status(500).json({ error: 'Erro ao buscar usuário logado' });
+    }
+});
 // CRUD para pets
 app.get('/pets', async (req, res) => {
     const { id_usuario, id_ong } = req.query;
@@ -247,100 +279,67 @@ app.get('/ongs/:id', async (req, res) => {
     }
 });
 
-
-// Criar uma nova ONG
 app.post('/ongs', async (req, res) => {
     const {
-        nome_ong,
-        email,
-        senha,
-        telefone,
-        telefone_denuncia,
-        cnpj,
-        nome_responsavel,
-        cpf_responsavel,
-        data_nascimento_responsavel,
-        email_responsavel,
-        telefone_responsavel,
-        estado_ong,
-        cidade_ong,
-        endereco_ong,
-        foto_ong,
-        descricao_ong,
+        nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
+        data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
+        endereco_ong, foto_ong, descricao_ong, tipo
     } = req.body;
-
-
     try {
         const result = await pool.query(
             `INSERT INTO ongs (
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
-                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
+                endereco_ong, foto_ong, descricao_ong, tipo
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`,
             [
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
-                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
+                endereco_ong, foto_ong, descricao_ong, tipo
             ]
         );
-        res.status(201).json(result.rows[0]);
+        res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).json({ error: 'Erro ao adicionar ONG' });
+        console.error('Erro ao criar ONG:', err.message);
+        res.status(500).json({ error: 'Erro ao criar ONG' });
     }
 });
 
-
-// Atualizar uma ONG por ID
 app.put('/ongs/:id', async (req, res) => {
     const { id } = req.params;
     const {
-        nome_ong,
-        email,
-        senha,
-        telefone,
-        telefone_denuncia,
-        cnpj,
-        nome_responsavel,
-        cpf_responsavel,
-        data_nascimento_responsavel,
-        email_responsavel,
-        telefone_responsavel,
-        estado_ong,
-        cidade_ong,
-        endereco_ong,
-        foto_ong,
-        descricao_ong,
+        nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
+        data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
+        endereco_ong, foto_ong, descricao_ong, tipo
     } = req.body;
 
+    if (!id) {
+        return res.status(400).json({ error: 'ID da ONG é obrigatório.' });
+    }
 
     try {
         const result = await pool.query(
-            `UPDATE ongs SET
-                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5,
-                cnpj = $6, nome_responsavel = $7, cpf_responsavel = $8,
-                data_nascimento_responsavel = $9, email_responsavel = $10,
-                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13,
-                endereco_ong = $14, foto_ong = $15, descricao_ong = $16
-            WHERE id_ong = $17 RETURNING *`,
+            `UPDATE ongs SET 
+                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5, cnpj = $6,
+                nome_responsavel = $7, cpf_responsavel = $8, data_nascimento_responsavel = $9, email_responsavel = $10,
+                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13, endereco_ong = $14, foto_ong = $15,
+                descricao_ong = $16, tipo = $17 WHERE id_ong = $18 RETURNING *`,
             [
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel,
-                cpf_responsavel, data_nascimento_responsavel, email_responsavel,
-                telefone_responsavel, estado_ong, cidade_ong, endereco_ong, foto_ong, descricao_ong, id
+                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
+                endereco_ong, foto_ong, descricao_ong, tipo, id
             ]
         );
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'ONG não encontrada' });
+            return res.status(404).json({ error: 'ONG não encontrada.' });
         }
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao atualizar ONG:', err.message);
-        res.status(500).json({ error: 'Erro ao atualizar ONG' });
+        res.status(500).json({ error: 'Erro ao atualizar ONG.' });
     }
 });
 
-
-// Deletar uma ONG por ID
 app.delete('/ongs/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -348,7 +347,7 @@ app.delete('/ongs/:id', async (req, res) => {
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'ONG não encontrada' });
         }
-        res.json({ message: 'ONG deletada com sucesso' });
+        res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao deletar ONG:', err.message);
         res.status(500).json({ error: 'Erro ao deletar ONG' });
@@ -357,15 +356,26 @@ app.delete('/ongs/:id', async (req, res) => {
 
 // Login de ONG
 app.post('/loginOng', async (req, res) => {
-    const { email } = req.body;
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
+    }
+
     try {
         const result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
         if (result.rows.length === 0) {
             return res.status(401).json({ error: 'Credenciais inválidas' });
         }
-        res.json({ message: 'Login bem-sucedido', user: result.rows[0] });
+
+        const ong = result.rows[0];
+        if (ong.senha !== senha) {
+            return res.status(401).json({ error: 'Senha incorreta' });
+        }
+
+        res.json({ message: 'Login bem-sucedido', user: ong });
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao validar login:', err.message);
         res.status(500).json({ error: 'Erro ao validar login' });
     }
 });

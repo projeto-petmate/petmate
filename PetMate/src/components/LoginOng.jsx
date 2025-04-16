@@ -1,29 +1,24 @@
 import React, { useContext, useState } from 'react';
-import './LoginOng.css'
-import { useEffect } from 'react';
+import './LoginOng.css';
 import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
-import Swal from 'sweetalert2'
-import { loginOng } from '../apiService';
-
+import Swal from 'sweetalert2';
 
 function LoginOng() {
-    const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [erro, setErro] = useState('')
-    const [mudarConta, setMudarConta] = useState('')
-    const navigate = useNavigate()
-    const [userData, setUserData] = useState(userLogado || {})
-    const { } = useContext(GlobalContext);
-
+    const { Logar, setUserLogado } = useContext(GlobalContext);
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erro, setErro] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+    const navigate = useNavigate();
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleLoginOng();
         }
     };
+
     const handleLoginOng = async () => {
         try {
             const response = await fetch('http://localhost:3000/loginOng', {
@@ -35,16 +30,13 @@ function LoginOng() {
             });
             const data = await response.json();
             if (response.ok) {
-
                 console.log('Login bem-sucedido:', data);
                 setErro('');
-
+                setUserLogado(data.user);
                 localStorage.setItem("logado", JSON.stringify(true));
-                localStorage.setItem("userLogado", JSON.stringify(data.user));
                 localStorage.setItem("vrfOng", JSON.stringify(true));
 
 
-                const lastPage = localStorage.getItem('lastPage') || '/home';
                 Swal.fire({
                     position: "mid",
                     icon: "success",
@@ -52,6 +44,8 @@ function LoginOng() {
                     showConfirmButton: false,
                     timer: 1500
                 });
+
+                const lastPage = localStorage.getItem('lastPage') || '/home';
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
@@ -65,20 +59,12 @@ function LoginOng() {
         }
     };
 
-
-    useEffect(() => {
-        if (!userLogado) {
-            const storedUser = JSON.parse(localStorage.getItem('userLogado'));
-            if (storedUser) {
-                setUserLogado(storedUser);
-                setUserData(storedUser);
-            }
-        }
-    }, [userLogado, setUserLogado]);
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
 
     return (
         <div>
-
             <div className="titulo-input">
                 <div className="inputs-login">
                     <div className="inpts-login">
@@ -89,7 +75,7 @@ function LoginOng() {
                             </div>
                             <input
                                 type="text"
-                                placeholder='Digite seu email'
+                                placeholder="Digite seu email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 onKeyDown={handleKeyDown}
@@ -102,15 +88,14 @@ function LoginOng() {
                             </div>
                             <div className="mostrar-senha">
                                 <input
-                                    type="password"
-                                    placeholder='Digite sua senha'
-                                    id='inputSenha'
+                                    type={mostrarSenha ? "text" : "password"}
+                                    placeholder="Digite sua senha"
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
                                     onKeyDown={handleKeyDown}
                                 />
-                                <button onClick={MostrarSenha} className='icon-mostrar-senha'>
-                                    {mudarTipo ? <FaRegEyeSlash /> : <FaRegEye />}
+                                <button onClick={toggleMostrarSenha} className="icon-mostrar-senha">
+                                    {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
                             </div>
                         </div>
@@ -119,14 +104,14 @@ function LoginOng() {
                 {erro && <p className="erro-mensagem-login">{erro}</p>}
             </div>
             <div className="base-login">
-                <button type='submit' onClick={handleLoginOng}>Login</button>
+                <button type="submit" onClick={handleLoginOng}>Login</button>
                 <div className="sem-cadastro">
                     <p>Ainda não se cadastrou? </p>
                     <Link to="/cadastro">Cadastre-se</Link>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default LoginOng
+export default LoginOng;
