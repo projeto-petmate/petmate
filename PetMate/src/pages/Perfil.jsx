@@ -14,7 +14,9 @@ import { getPets } from '../apiService';
 function Perfil() {
     const { userLogado, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
     const [editMode, setEditMode] = useState(false);
-    const [userData, setUserData] = useState(userLogado || {});
+    // const [userData, setUserData] = useState(userLogado || {});
+    const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [userPets, setUserPets] = useState([]);
     const [openModalExclui, setOpenModalExclui] = useState(false);
     const [openModalLogout, setOpenModalLogout] = useState(false);
@@ -39,9 +41,16 @@ function Perfil() {
         }
     }, [userLogado]);
 
+    useEffect(() => {
+        if (userLogado) {
+            setUserData(userLogado);
+            setIsLoading(false);
+        }
+    }, [userLogado]);
+
     const handleLogout = () => {
-        Logout(); // Chama a função Logout do contexto
-        navigate('/home'); // Redireciona para a página inicial
+        Logout();
+        navigate('/home');
     };
 
     const handleChange = (e) => {
@@ -51,20 +60,25 @@ function Perfil() {
 
     const handleSave = async () => {
         try {
-            await updateUsuario(userData.id, userData);
+            if (!userData.id_usuario) {
+                console.error("Erro: ID do usuário não definido.");
+                return;
+            }
+
+            await updateUsuario(userData.id_usuario, userData);
             setEditMode(false);
             setShowSuccessPopup(true);
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
         } catch (error) {
-            console.error('Erro ao atualizar usuário', error);
+            console.error('Erro ao atualizar usuário:', error);
         }
     };
 
     const handleDelete = async () => {
         try {
-            await deleteUsuario(userData.id);
+            await deleteUsuario(userData.id_usuario);
             handleLogout();
         } catch (error) {
             console.error('Erro ao deletar usuário', error);
@@ -80,6 +94,9 @@ function Perfil() {
         };
         reader.readAsDataURL(file);
     };
+    if (isLoading) {
+        return <div className="loading">Carregando...</div>;
+    }
 
     return (
         <div>

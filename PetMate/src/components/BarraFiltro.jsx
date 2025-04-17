@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { PetContext } from '../contexts/PetContext';
 import './BarraFiltro.css';
 import { FaStar } from "react-icons/fa6";
+import { GlobalContext } from "../contexts/GlobalContext";
 
 function BarraFiltro() {
   const { filter, setFilter, filterOn, setFilterOn, favoritos } = useContext(PetContext);
@@ -10,8 +11,10 @@ function BarraFiltro() {
   const generoRef = useRef(null);
   const ordemRef = useRef(null);
   const [botaoFav, setBotaoFav] = useState(false);
-  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
-  const [mostrarFiltro, setMostrarFiltro] = useState(true); // Estado para controlar a visibilidade dos filtros
+  const [mostrarFiltro, setMostrarFiltro] = useState(true);
+  const { userLogado } = useContext(GlobalContext);
+  const vrfUser = userLogado?.id_usuario ? true : false;
+
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +52,7 @@ function BarraFiltro() {
 
       {mostrarFiltro && (
         <div className="filtro-container">
-          {vrfOng == false && (
+          {vrfUser == true && (
             <div className="botao-fav" onClick={() => setBotaoFav(!botaoFav)}>
               {botaoFav === false ? (
                 <button

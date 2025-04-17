@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
+import { GlobalContext } from "../contexts/GlobalContext";
 import axios from 'axios';
 
 export const UserContext = createContext()
@@ -15,30 +16,28 @@ export const UserContextProvider = ({ children }) => {
     const [termosCadastro, setTermosCadastro] = useState(false)
     const [users, setUsers] = useState([])
     const [comentarios, setComentarios] = useState([])
-    
+    const { userLogado } = useContext(GlobalContext);
 
     const addUser = (novoUser) => {
         setUsers([...users, novoUser])
     }
 
 
-
     const addComentario = async (novoComentario) => {
         try {
-            const userLogado = JSON.parse(localStorage.getItem("userLogado"));
             if (!userLogado || !userLogado.id_usuario) {
                 throw new Error("Usuário não está logado ou ID do usuário não encontrado");
             }
     
             const comentarioData = {
                 ...novoComentario,
-                id_usuario: userLogado.id_usuario 
+                id_usuario: userLogado.id_usuario, 
             };
     
             const response = await axios.post("http://localhost:3000/comentarios", comentarioData);
-            setComentarios([...comentarios, response.data]);
+            setComentarios((prevComentarios) => [...prevComentarios, response.data]); 
         } catch (error) {
-            console.error("Erro ao adicionar comentario:", error);
+            console.error("Erro ao adicionar comentário:", error);
         }
     };
 

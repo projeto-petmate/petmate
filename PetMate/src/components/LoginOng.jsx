@@ -32,20 +32,17 @@ function LoginOng() {
             if (response.ok) {
                 console.log('Login bem-sucedido:', data);
                 setErro('');
-                setUserLogado(data.user);
-                localStorage.setItem("logado", JSON.stringify(true));
-                localStorage.setItem("vrfOng", JSON.stringify(true));
-
-
+                Logar(data.user.email, data.user.senha);
+    
                 Swal.fire({
-                    position: "mid",
+                    position: "center", 
                     icon: "success",
                     title: "Login realizado com sucesso!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
-
-                const lastPage = localStorage.getItem('lastPage') || '/home';
+    
+                const lastPage = '/home';
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);

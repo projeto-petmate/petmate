@@ -11,6 +11,10 @@ export const getUsuarios = async () => {
 };
 
 export const getUsuarioById = async (id) => {
+    if (!id) {
+        console.error("Erro: ID do usuário não fornecido.");
+        throw new Error("ID do usuário não fornecido.");
+    }
     const response = await api.get(`/usuarios/${id}`);
     return response.data;
 };
@@ -30,9 +34,16 @@ export const deleteUsuario = async (id) => {
     return response.data;
 };
 
-export const updateFavoritos = async (id, favoritos) => {
-    const response = await api.put(`/usuarios/${id}/favoritos`, { favoritos });
-    return response.data;
+export const updateFavoritos = async (id_usuario, favoritos) => {
+    try {
+        const response = await axios.put(`http://localhost:3000/usuarios/${id_usuario}/favoritos`, {
+            favoritos,
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao atualizar favoritos no backend:', error);
+        throw error;
+    }
 };
 
 // Pets
@@ -68,10 +79,13 @@ export const getOngs = async () => {
 };
 
 export const getOngById = async (id) => {
+    if (!id) {
+        console.error("Erro: ID da ONG não fornecido.");
+        throw new Error("ID da ONG não fornecido.");
+    }
     const response = await api.get(`/ongs/${id}`);
     return response.data;
 };
-
 export const addOng = async (ong) => {
     try {
         const response = await api.post('/ongs', ong);

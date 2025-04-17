@@ -9,10 +9,6 @@ function CardOng({ termoPesquisa }) {
   const { ong, setOng } = useContext(OngContext);
   const [openModalOng, setOpenModalOng] = useState(false);
 
-
-
-
-
   useEffect(() => {
     const fetchOngs = async () => {
       try {

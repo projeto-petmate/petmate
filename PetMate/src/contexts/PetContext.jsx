@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { updateFavoritos } from "../apiService";
+import { GlobalContext } from "./GlobalContext";
 
 export const PetContext = createContext();
 
@@ -8,29 +9,35 @@ export const PetContextProvider = ({ children }) => {
     const [pets, setPets] = useState([]);
     const [pet, setPet] = useState();
     const [favoritos, setFavoritos] = useState([]);
-    const [userLogado, setUserLogado] = useState(JSON.parse(localStorage.getItem('userLogado')));
-
+    const { userLogado, setUserLogado } = useContext(GlobalContext)
     const addPet = async (novoPet) => {
         try {
-            const userLogado = JSON.parse(localStorage.getItem("userLogado"));
-            const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
-    
             if (!userLogado) {
                 throw new Error("Usuário não está logado.");
             }
     
+            const vrfOng = userLogado?.id_ong ? true : false;
+    
             const petData = {
                 ...novoPet,
-                id_usuario: vrfOng ? null : userLogado.id_usuario,
-                id_ong: vrfOng ? userLogado.id_ong : null,
+                id_usuario: vrfOng ? null : userLogado.id_usuario, 
+                id_ong: vrfOng ? userLogado.id_ong : null, 
             };
     
+            if (!petData.nome || !petData.especie || !petData.raca || !petData.idade || !petData.porte || !petData.genero) {
+                throw new Error("Todos os campos obrigatórios devem ser preenchidos.");
+            }
+    
             const response = await axios.post("http://localhost:3000/pets", petData);
+    
             setPets((prevPets) => [...prevPets, response.data]);
+    
+            console.log("Pet cadastrado com sucesso:", response.data);
         } catch (error) {
             console.error("Erro ao adicionar pet:", error);
         }
     };
+    
     const fetchPets = async () => {
         try {
             const response = await axios.get("http://localhost:3000/pets");
@@ -56,7 +63,10 @@ export const PetContextProvider = ({ children }) => {
     }, [userLogado]);
 
     const toggleFavorito = async (idPet) => {
-        if (!userLogado) return;
+        if (!userLogado) {
+            console.error("Erro: Usuário não está logado.");
+            return;
+        }
 
         let novosFavoritos;
         if (favoritos.includes(idPet)) {
@@ -68,9 +78,13 @@ export const PetContextProvider = ({ children }) => {
         setFavoritos(novosFavoritos);
 
         try {
-            
             const updatedUser = await updateFavoritos(userLogado.id_usuario, novosFavoritos.join(','));
-            localStorage.setItem('userLogado', JSON.stringify(updatedUser));
+
+            setUserLogado((prevUser) => ({
+                ...prevUser,
+                favoritos: updatedUser.favoritos,
+            }));
+
             console.log('Favoritos atualizados com sucesso!');
         } catch (error) {
             console.error('Erro ao atualizar favoritos:', error);

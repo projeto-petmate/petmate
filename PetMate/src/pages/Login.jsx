@@ -42,7 +42,7 @@ function Login() {
                             <img src="/images/barra_marrom.png" className='barra_marrom' />
                             <p>Digite seus dados de acesso no campo abaixo.</p>
                         </div>
-                        <div class="mydict">
+                        <div className="mydict">
                             <div>
                                 <label>
                                     <input type="radio" name="radio" value='1' checked={mudarConta === '1'}

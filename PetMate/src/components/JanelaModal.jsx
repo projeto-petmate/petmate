@@ -7,12 +7,13 @@ import SegundaEtapaPet from './SegundaEtapaPet'
 import { IoMdClose } from "react-icons/io"
 import { CgCloseO } from "react-icons/cg"
 import Swal from 'sweetalert2'
-
+import { GlobalContext } from "../contexts/GlobalContext";
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
   const { addPet } = useContext(PetContext)
   const navigate = useNavigate()
-
+  const { userLogado } = useContext(GlobalContext); 
+  const vrfOng = userLogado?.id_ong ? true : false; 
   const [inptPetEspecie, setInptPetEspecie] = useState('')
   const [inptPetNome, setInptPetNome] = useState('')
   const [inptPetRaca, setInptPetRaca] = useState('')
@@ -60,48 +61,44 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   }
   
   const enviarPet = async (tags = [], condicoes = '') => {
-    const userLogado = JSON.parse(localStorage.getItem("userLogado"));
-    const vrfOng = JSON.parse(localStorage.getItem("vrfOng")); 
+    if (!userLogado) {
+      console.error("Erro: Usuário não está logado.");
+      return;
+    }
 
     const novoPet = {
-        especie: inptPetEspecie,
-        nome: inptPetNome,
-        raca: inptPetRaca,
-        idade: inptPetIdade,
-        porte: inptPetPorte,
-        genero: inptPetGenero,
-        descricao: inptPetDescricao,
-        imagem: inptPetImagem,
-        tags: tags.join(', '),
-        condicoes: condicoes,
-        id_usuario: vrfOng == false ? null : userLogado.id_usuario,
-        id_ong: vrfOng ? userLogado.id_ong : null,
+      especie: inptPetEspecie,
+      nome: inptPetNome,
+      raca: inptPetRaca,
+      idade: inptPetIdade,
+      porte: inptPetPorte,
+      genero: inptPetGenero,
+      descricao: inptPetDescricao,
+      imagem: inptPetImagem,
+      tags: tags.join(', '),
+      condicoes: condicoes,
+      id_usuario: vrfOng ? null : userLogado.id_usuario, 
+      id_ong: vrfOng ? userLogado.id_ong : null,
     };
 
     try {
-        await addPet(novoPet);
-        console.log('Pet cadastrado:', novoPet);
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Anúncio enviado com sucesso!",
-            showConfirmButton: false,
-            timer: 2000
-        });
-        setModalOpen(false);
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000); 
+      await addPet(novoPet);
+      console.log('Pet cadastrado:', novoPet);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Anúncio enviado com sucesso!",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      setModalOpen(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } catch (error) {
-        console.error('Erro ao cadastrar pet:', error);
-        Swal.fire({
-            icon: "error",
-            title: "Erro ao cadastrar pet",
-            text: "Tente novamente mais tarde.",
-            confirmButtonColor: "#84644D",
-        });
+      console.error("Erro ao cadastrar pet:", error);
     }
-};
+  };
 
   return (
     <div className='modal_conteiner' onClick={() => setModalOpen(false)}>
@@ -183,7 +180,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                   <div className="label-inpt">
                     <label htmlFor="selectGenero">Gênero:</label>
                     <select
-                      id="selectGenero"
+                      id="selectGeneroCad"
                       name="selectGenero"
                       value={inptPetGenero}
                       onChange={(e) => setInptPetGenero(e.target.value)}

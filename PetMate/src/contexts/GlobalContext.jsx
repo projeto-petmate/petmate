@@ -23,19 +23,30 @@ export const GlobalContextProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchLoggedUser = async () => {
-            if (!token) return; 
-
+            const storedToken = localStorage.getItem('token'); 
+            if (!storedToken) return; 
+    
+            setToken(storedToken); 
+    
             try {
                 const response = await fetch('http://localhost:3000/loggedUser', {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`, 
+                        Authorization: `Bearer ${storedToken}`, 
                     },
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setUserLogado(data.user);
-                    setLogado(true);
+                    const user = data.user;
+    
+                    if (user.id_usuario || user.id_ong) {
+                        setUserLogado(user);
+                        setLogado(true);
+                        console.log("Usuário logado carregado:", user);
+                    } else {
+                        console.error("Erro: ID do usuário ou ONG não definido.");
+                        setLogado(false);
+                    }
                 } else {
                     setLogado(false);
                 }
@@ -44,33 +55,35 @@ export const GlobalContextProvider = ({ children }) => {
                 setLogado(false);
             }
         };
-
+    
         fetchLoggedUser();
-    }, [token]);
-
-    useEffect(() => {
-        const fetchUsuarios = async () => {
-            try {
-                const data = await getUsuarioById();
-                setUsuarios(data);
-            } catch (error) {
-                console.error("Erro ao buscar usuários:", error);
-            }
-        };
-
-        const fetchOngs = async () => {
-            try {
-                const data = await getOngById();
-                setOngs(data);
-            } catch (error) {
-                console.error("Erro ao buscar ONGs:", error);
-            }
-        };
-
-        fetchUsuarios();
-        fetchOngs();
     }, []);
 
+    const fetchUsuarios = async () => {
+        try {
+            if (!userLogado?.id) {
+                console.error("Erro: ID do usuário não definido.");
+                return;
+            }
+            const data = await getUsuarioById(userLogado.id);
+            setUsuarios(data);
+        } catch (error) {
+            console.error("Erro ao buscar usuários:", error);
+        }
+    };
+
+    const fetchOngs = async () => {
+        try {
+            if (!userLogado?.id) {
+                console.error("Erro: ID da ONG não definido.");
+                return;
+            }
+            const data = await getOngById(userLogado.id);
+            setOngs(data);
+        } catch (error) {
+            console.error("Erro ao buscar ONGs:", error);
+        }
+    };
     const Logar = async (email, senha) => {
         try {
             const response = await fetch('http://localhost:3000/login', {
@@ -80,12 +93,21 @@ export const GlobalContextProvider = ({ children }) => {
                 },
                 body: JSON.stringify({ email, senha }),
             });
-
+    
             if (response.ok) {
                 const data = await response.json();
-                setUserLogado(data.user);
-                setToken(data.token);
-                setLogado(true);
+                const user = data.user;
+
+                if (user.id_usuario || user.id_ong) {
+                    setUserLogado(user);
+                    setToken(data.token); 
+                    localStorage.setItem('token', data.token);
+                    setLogado(true);
+                    console.log("Usuário logado com sucesso:", user);
+                } else {
+                    console.error("Erro: ID do usuário ou ONG não definido.");
+                    return { error: "Erro interno: ID do usuário ou ONG não encontrado." };
+                }
             } else {
                 const errorData = await response.json();
                 return { error: errorData.error };
@@ -110,7 +132,8 @@ export const GlobalContextProvider = ({ children }) => {
             imagem: '',
             tipo: '',
         });
-        setToken(null); 
+        setToken(null);
+        localStorage.removeItem('token'); 
     };
 
     const updateUsuario = async (id, updatedData) => {
@@ -120,6 +143,7 @@ export const GlobalContextProvider = ({ children }) => {
                 ...prevUser,
                 ...updatedUser,
             }));
+            console.log("Usuário atualizado com sucesso:", updatedUser);
         } catch (error) {
             console.error("Erro ao atualizar usuário:", error);
         }
@@ -139,6 +163,7 @@ export const GlobalContextProvider = ({ children }) => {
             value={{
                 logado,
                 userLogado,
+                setUserLogado,
                 token,
                 Logar,
                 Logout,

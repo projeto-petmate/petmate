@@ -9,6 +9,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2'
 import Footer from '../components/Footer';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
@@ -18,8 +19,7 @@ function Feedback() {
     const [erros, setErros] = useState('');
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
-    const userLogado = JSON.parse(localStorage.getItem("userLogado"));
-    const logado = JSON.parse(localStorage.getItem("logado"));
+    const { userLogado, logado } = useContext(GlobalContext);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
 

@@ -96,6 +96,28 @@ app.delete('/usuarios/:id', async (req, res) => {
     }
 });
 
+
+app.put('/usuarios/:id/favoritos', async (req, res) => {
+    const { id } = req.params;
+    const { favoritos } = req.body;
+
+    try {
+        const result = await pool.query(
+            'UPDATE usuarios SET favoritos = $1 WHERE id_usuario = $2 RETURNING *',
+            [favoritos, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error('Erro ao atualizar favoritos:', error.message);
+        res.status(500).json({ error: 'Erro ao atualizar favoritos.' });
+    }
+});
+
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'sua_chave_secreta';
 
@@ -133,7 +155,6 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
-
 app.get('/loggedUser', authenticateToken, async (req, res) => {
     const { id, tipo } = req.user;
 
@@ -156,6 +177,7 @@ app.get('/loggedUser', authenticateToken, async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário logado' });
     }
 });
+
 // CRUD para pets
 app.get('/pets', async (req, res) => {
     const { id_usuario, id_ong } = req.query;

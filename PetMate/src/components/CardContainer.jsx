@@ -4,13 +4,15 @@ import { getPets } from '../apiService';
 import './CardContainer.css';
 import JanelaPet from './JanelaPet';
 import { FaRegStar, FaStar } from "react-icons/fa";
+import { GlobalContext } from "../contexts/GlobalContext";
 
 function CardContainer() {
   const [pets, setPets] = useState([]);
   const [openPetModal, setOpenPetModal] = useState(false);
   const { filter, filterOn, setPet, favoritos, toggleFavorito } = useContext(PetContext);
-  const logado = JSON.parse(localStorage.getItem("logado"));
-  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
+  const { userLogado } = useContext(GlobalContext);
+  const vrfUser = userLogado?.id_usuario ? true : false;
+
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -24,6 +26,9 @@ function CardContainer() {
 
     fetchPets();
   }, []);
+  const handleToggleFavorito = (id_pet) => {
+    toggleFavorito(id_pet); 
+  };
 
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
@@ -46,7 +51,7 @@ function CardContainer() {
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
-      {filter.favoritos && displayedPets.length === 0 && <p className='sem-pets-filtro'>Você ainda não favoritou nenhum pet.</p>}
+      {filter.favoritos && displayedPets.length === 0 && <p className='sem-pets-fav'>Você ainda não favoritou nenhum pet.</p>}
       <div className="card-container">
         {ordemPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
@@ -67,11 +72,11 @@ function CardContainer() {
                 setPet(p);
                 setOpenPetModal(true);
               }}>Mais informações</button>
-              {vrfOng == false &&
+              {vrfUser == true &&
                 <button
                   alt="Favoritar"
                   className="favorito-icon"
-                  onClick={() => toggleFavorito(p.id_pet)}>
+                  onClick={() => handleToggleFavorito(p.id_pet)}>
                   {safeFavoritos.includes(p.id_pet) ?
                     <FaStar className='estrela-preenchida' /> : <FaRegStar className='estrela-vazia' />}
                 </button>

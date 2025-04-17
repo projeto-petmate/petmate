@@ -30,16 +30,16 @@ function LoginUsuario() {
             if (response.ok) {
                 console.log('Login bem-sucedido:', data);
                 setErro('');
-                Logar(data.user.email, data.user.senha); 
-    
+                Logar(data.user.email, data.user.senha);
+
                 Swal.fire({
-                    position: "mid",
+                    position: "center",
                     icon: "success",
                     title: "Login realizado com sucesso!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
-    
+
                 const lastPage = '/home';
                 setTimeout(() => {
                     navigate(lastPage);
