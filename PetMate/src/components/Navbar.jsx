@@ -33,14 +33,15 @@ function Navbar() {
         >
           Adotar
         </NavLink>
-        {/* {userLogado} */}
-        <NavLink
-          to="/favoritos"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-          onClick={() => setMenuAberto(false)}
-        >
-          Favoritos
-        </NavLink>
+        {userLogado.id_usuario &&
+          <NavLink
+            to="/favoritos"
+            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            onClick={() => setMenuAberto(false)}
+          >
+            Favoritos
+          </NavLink>
+        }
         <NavLink
           to="/ongs"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}

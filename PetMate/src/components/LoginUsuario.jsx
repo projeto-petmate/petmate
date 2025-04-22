@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -62,7 +62,7 @@ function LoginUsuario() {
                         <div className="inpt-p">
                             <div className="icon-input">
                                 <FaEnvelope className="icon-login" />
-                                <p>Email Usuário:</p>
+                                <p>Email de Usuário:</p>
                             </div>
                             <input
                                 type="text"
@@ -97,6 +97,10 @@ function LoginUsuario() {
             </div>
             <div className="base-login">
                 <button type="submit" onClick={handleLogin}>Login</button>
+                <div className="sem-cadastro">
+                    <p>Ainda não se cadastrou? </p>
+                    <Link to="/cadastro">Cadastre-se</Link>
+                </div>
             </div>
         </div>
     );

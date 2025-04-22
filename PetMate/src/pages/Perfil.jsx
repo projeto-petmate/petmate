@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import './Perfil.css';
-import { FaCheck, FaUnlock, FaEdit, FaUserCircle, FaLock } from "react-icons/fa";
+import { FaCheck, FaUnlock, FaEdit, FaUserCircle, FaLock, FaTrash } from "react-icons/fa";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
@@ -10,11 +10,12 @@ import CardPetPerfil from '../components/CardPetPerfil';
 import PerfilOng from '../components/PerfilOng';
 import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
+import { TbMoodEdit } from 'react-icons/tb';
+import ModalConfirmFoto from '../components/ModalConfirmFoto';
 
 function Perfil() {
     const { userLogado, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
     const [editMode, setEditMode] = useState(false);
-    // const [userData, setUserData] = useState(userLogado || {});
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [userPets, setUserPets] = useState([]);
@@ -22,8 +23,15 @@ function Perfil() {
     const [openModalLogout, setOpenModalLogout] = useState(false);
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(userLogado?.imagem || null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+
+    const handleRemovePhoto = () => {
+        setImagemPreviewPerfil(null);
+        setUserData((prevData) => ({ ...prevData, imagem: null }));
+        document.getElementById('file-upload').value = null;
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -128,39 +136,48 @@ function Perfil() {
                                     disabled={!editMode}
                                 />
                             </div>
-                            {imagemPreviewPerfil === null ? (
-                                <FaUserCircle
-                                    className="user-icon"
-                                    onClick={() => document.getElementById('file-upload').click()}
-                                />
-                            ) : (
+                            {imagemPreviewPerfil || userData?.imagem ? (
                                 <div
                                     className="img-preview-perfil"
-                                    onClick={() => document.getElementById('file-upload').click()}
+                                    onClick={() => editMode && document.getElementById('file-upload').click()}
                                 >
-                                    {imagemPreviewPerfil && (
-                                        <img
-                                            src={imagemPreviewPerfil}
-                                            alt="Pré-visualização"
-                                            className="imagem-preview-perfil"
-                                        />
-                                    )}
+                                    <img
+                                        src={imagemPreviewPerfil || userData?.imagem}
+                                        alt="Pré-visualização"
+                                        className="imagem-preview-perfil"
+                                    />
                                 </div>
+                            ) : (
+                                <TbMoodEdit
+                                    className="user-icon-perfil"
+                                    onClick={() => editMode && document.getElementById('file-upload').click()}
+                                />
                             )}
+                            <div className="icon-trash-container">
+                                {(imagemPreviewPerfil || userData?.imagem) && (
+                                    <FaTrash
+                                        className="icon-trash"
+                                        onClick={() => setIsModalOpen(true)}
+                                        style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
+                                    />
+                                )}
+                            </div>
                             {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
                         </div>
                         <div className="inputs-perfil">
                             <div className="inputs-perfil-1">
                                 <div className="input-perma">
                                     <p className='dadoPerma'>Email*</p>
-                                    <div className='input-perma-lock'>
+                                    <div className='input-perma-lock'
+                                    >
                                         <input
                                             type="text"
                                             name="email"
                                             value={userData.email || ''}
                                             disabled
                                         />
-                                        <FaLock className='icon-lock' />
+                                        <FaLock className='icon-lock'
+                                            style={{ cursor: 'not-allowed' }} />
                                     </div>
                                 </div>
                                 <div className="input-nome">
@@ -208,7 +225,8 @@ function Perfil() {
                                             value={userData.cpf || ''}
                                             disabled
                                         />
-                                        <FaLock className='icon-lock' />
+                                        <FaLock className='icon-lock'
+                                            style={{ cursor: 'not-allowed' }} />
                                     </div>
                                 </div>
                                 <div className="input-nome">
@@ -284,6 +302,11 @@ function Perfil() {
             )}
             <ModalExclusaoDeConta isExclui={openModalExclui} setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)} onDelete={handleDelete} />
             <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
+            <ModalConfirmFoto
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleRemovePhoto}
+            />
         </div>
     );
 }

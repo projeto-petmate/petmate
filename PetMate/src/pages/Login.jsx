@@ -15,18 +15,6 @@ function Login() {
     const [userData, setUserData] = useState(userLogado || {})
     const { } = useContext(GlobalContext);
 
-
-
-    useEffect(() => {
-        if (!userLogado) {
-            const storedUser = JSON.parse(localStorage.getItem('userLogado'));
-            if (storedUser) {
-                setUserLogado(storedUser);
-                setUserData(storedUser);
-            }
-        }
-    }, [userLogado, setUserLogado]);
-
     return (
         <div>
             <div className="container-login">
@@ -52,7 +40,7 @@ function Login() {
                                 <label>
                                     <input type="radio" name="radio" value='2' checked={mudarConta === '2'}
                                         onChange={(e) => setMudarConta(e.target.value)}></input>
-                                    <span>Ong</span>
+                                    <span>ONG</span>
                                 </label>
                             </div>
                         </div>

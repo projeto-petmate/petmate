@@ -68,7 +68,7 @@ function LoginOng() {
                         <div className="inpt-p">
                             <div className="icon-input">
                                 <FaEnvelope className="icon-login" />
-                                <p>Email da Ong:</p>
+                                <p>Email da ONG:</p>
                             </div>
                             <input
                                 type="text"

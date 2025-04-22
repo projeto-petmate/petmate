@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './PerfilOng.css'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -13,19 +13,19 @@ import { BsDoorOpenFill } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import { FaCheck, FaUnlock } from "react-icons/fa";
+import { deleteOng, updateOng } from '../apiService';
 
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
     const [openModalExclui, setOpenModalExclui] = useState(false);
     const { userLogado, PhoneInput, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
-    const [userData, setUserData] = useState(userLogado || {});
+    const [userData, setUserData] = useState(null);
     const [userPets, setUserPets] = useState([]);
     const [openModal, setOpenCadModal] = useState(false);
     const [openModalLogout, setOpenModalLogout] = useState(false);
     const [imagem, setImagem] = useState('');
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-    const storedSerOng = localStorage.getItem('vrfOng');
 
     const navigate = useNavigate();
 
@@ -34,6 +34,12 @@ function PerfilOng() {
         navigate('/home');
     };
 
+    useEffect(() => {
+        if (userLogado) {
+            setUserData(userLogado);
+        }
+    }, [userLogado]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prevData) => ({ ...prevData, [name]: value }));
@@ -41,20 +47,25 @@ function PerfilOng() {
 
     const handleSave = async () => {
         try {
-            await updateUsuario(userData.id_ong, userData);
+            if (!userData.id_ong) {
+                console.error("Erro: ID da ONG não definido.");
+                return;
+            }
+
+            await updateOng(userData.id_ong, userData);
             setEditMode(false);
             setShowSuccessPopup(true);
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
         } catch (error) {
-            console.error('Erro ao atualizar usuário', error);
+            console.error("Erro ao atualizar dados da ONG:", error);
         }
     };
 
     const handleDelete = async () => {
         try {
-            await deleteUsuario(userData.id_ong);
+            await deleteOng(userData.id_ong);
             handleLogout();
         } catch (error) {
             console.error('Erro ao deletar usuário', error);
@@ -104,30 +115,35 @@ function PerfilOng() {
                 </div>
                 <div className="inputs-infom-ong">
                     <div className="colum-1">
-                        <label className='descricao-inputs' htmlFor="">E-mail da ONG*</label>
+                        <label className='descricao-inputs'>E-mail da ONG*</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-1'
                                 type="text"
                                 name="email"
-                                disabled />
+                                value={userData?.email || ''}
+                                disabled
+                            />
                             <FaLock className='icon-cadeado-sem-edicao' />
                         </div>
-                        <label className='descricao-inputs' htmlFor="">CNPJ*</label>
+                        <label className='descricao-inputs'>CNPJ*</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-2'
                                 type="text"
-                                name="email"
-                                disabled />
+                                name="cnpj"
+                                value={userData?.cnpj || ''}
+                                disabled
+                            />
                             <FaLock className='icon-cadeado-sem-edicao' />
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Nome da ONG:</label>
+                        <label className='descricao-inputs'>Nome da ONG:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-3'
                                 type="text"
-                                name="nome"
+                                name="nome_ong"
+                                value={userData?.nome_ong || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -135,158 +151,169 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Telefone da ONG:</label>
+                        <label className='descricao-inputs'>Telefone da ONG:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-4'
                                 type="text"
-                                name="nome"
+                                name="telefone"
+                                value={userData?.telefone || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Telefone para denúncias</label>
+                        <label className='descricao-inputs'>Telefone para denúncias</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-5'
                                 type="text"
-                                name="nome"
+                                name="telefone_denuncia"
+                                value={userData?.telefone_denuncia || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                     </div>
                     <div className='colum-2'>
-                        <label className='descricao-inputs' htmlFor="">Estado:</label>
+                        <label className='descricao-inputs'>Estado:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-6'
                                 type="text"
-                                name="nome"
+                                name="estado_ong"
+                                value={userData?.estado_ong || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Cidade:</label>
+                        <label className='descricao-inputs'>Cidade:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-7'
                                 type="text"
-                                name="nome"
+                                name="cidade_ong"
+                                value={userData?.cidade_ong || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Endereço:</label>
+                        <label className='descricao-inputs'>Endereço:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-8'
                                 type="text"
-                                name="nome"
+                                name="endereco_ong"
+                                value={userData?.endereco_ong || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Nome do responsável:</label>
+                        <label className='descricao-inputs'>Nome do responsável:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-9'
                                 type="text"
-                                name="nome"
+                                name="nome_responsavel"
+                                value={userData?.nome_responsavel || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Telefone do reponsável:</label>
+                        <label className='descricao-inputs'>Telefone do responsável:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-10'
                                 type="text"
-                                name="nome"
+                                name="telefone_responsavel"
+                                value={userData?.telefone_responsavel || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                     </div>
                     <div className='colum-3'>
-                        <label className='descricao-inputs' htmlFor="">CPF:</label>
+                        <label className='descricao-inputs'>CPF:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-12'
                                 type="text"
-                                name="nome"
+                                name="cpf_responsavel"
+                                value={userData?.cpf_responsavel || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Data de nascimento:</label>
+                        <label className='descricao-inputs'>Data de nascimento:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-12'
                                 type="text"
-                                name="nome"
+                                name="data_nascimento_responsavel"
+                                value={userData?.data_nascimento_responsavel || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">E-mail do reponsável</label>
+                        <label className='descricao-inputs'>E-mail do responsável</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-13'
                                 type="text"
-                                name="nome"
+                                name="email_responsavel"
+                                value={userData?.email_responsavel || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs' htmlFor="">Senha:</label>
+                        <label className='descricao-inputs'>Senha:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-14'
-                                type="text"
-                                name="nome"
+                                type="password"
+                                name="senha"
+                                value={userData?.senha || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                             {!editMode ?
+                            {!editMode ?
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
-                            
+
 
                         </div>
-                            <button className="botao-editar-descricao-ong">Editar Descrição do perfil</button>
-                        </div>
-                        
+                        <button className="botao-editar-descricao-ong">Editar Descrição do perfil</button>
+                    </div>
+
                 </div>
                 <div className="botoes">
                     {!editMode ?
@@ -302,7 +329,7 @@ function PerfilOng() {
                                     Salvar Dados
                                     <FaCheck className='icon-edit' />
                                 </div>
-                            </button>  
+                            </button>
                         )}
                     {showSuccessPopup && (
                         <div className="success-popup-perfil">
