@@ -8,7 +8,7 @@ import NavDeslogado from "./NavDeslogado";
 
 function Navbar() {
   const [menuAberto, setMenuAberto] = useState(false);
-  const { logado } = useContext(GlobalContext);
+  const { logado, userLogado } = useContext(GlobalContext);
 
   return (
     <nav className="navbar-container">
@@ -33,6 +33,7 @@ function Navbar() {
         >
           Adotar
         </NavLink>
+        {/* {userLogado} */}
         <NavLink
           to="/favoritos"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}

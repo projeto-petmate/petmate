@@ -6,12 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import './Inicial.css';
 import LastPage from '../components/LastPage';
 import Swal from 'sweetalert2'
+import { GlobalContext } from '../contexts/GlobalContext';
 
 
 function Inicial() {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate()
-  const logado = JSON.parse(localStorage.getItem("logado"));
+  const { logado } = useContext(GlobalContext)
 
   const ModalLogin = async () => {
     Swal.fire({

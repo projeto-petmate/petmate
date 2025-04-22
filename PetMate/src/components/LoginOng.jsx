@@ -32,10 +32,10 @@ function LoginOng() {
             if (response.ok) {
                 console.log('Login bem-sucedido:', data);
                 setErro('');
-                Logar(data.user.email, data.user.senha);
+                Logar(data.user.email, data.user.senha, 'ong'); 
     
                 Swal.fire({
-                    position: "center", 
+                    position: "center",
                     icon: "success",
                     title: "Login realizado com sucesso!",
                     showConfirmButton: false,

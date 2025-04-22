@@ -84,9 +84,10 @@ export const GlobalContextProvider = ({ children }) => {
             console.error("Erro ao buscar ONGs:", error);
         }
     };
-    const Logar = async (email, senha) => {
+    const Logar = async (email, senha, tipo) => {
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const endpoint = tipo === 'ong' ? '/loginOng' : '/login';
+            const response = await fetch(`http://localhost:3000${endpoint}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,11 +98,12 @@ export const GlobalContextProvider = ({ children }) => {
             if (response.ok) {
                 const data = await response.json();
                 const user = data.user;
-
+    
                 if (user.id_usuario || user.id_ong) {
                     setUserLogado(user);
-                    setToken(data.token); 
-                    localStorage.setItem('token', data.token);
+                    setToken(data.token);
+                    localStorage.setItem('token', data.token); 
+                    localStorage.setItem('userLogado', JSON.stringify(user));
                     setLogado(true);
                     console.log("Usuário logado com sucesso:", user);
                 } else {
