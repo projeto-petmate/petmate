@@ -23,7 +23,7 @@
     display: flex;
     flex-direction: row;
     gap: 30%;
-    border: solid;
+    /* border: solid; */
 }
 
 .texto-e-img-barra{
@@ -46,6 +46,98 @@
 .inputs-infom-ong{
     display: flex;
     flex-direction: row;
-    gap: 10%;
-    border: solid;
+    justify-content: center;
+    gap: 5%;
+    /* border: solid; */
+}
+
+.input-ongs-mostra-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* border: solid; */
+    width: 320px;
+}
+
+.input-1,
+.input-2,
+.input-3,
+.input-4,
+.input-5,
+.input-6,
+.input-7,
+.input-8,
+.input-9,
+.input-10,
+.input-12,
+.input-13,
+.input-14{
+    width: 150%;
+    height: 40px;
+    border: solid 1px #84644D;
+    border-radius: 5px;
+    border: solid #AD947E 1px;
+    box-shadow: 0px 0px 1px;
+    background-color: #FBFBFB;
+    margin-bottom: 2vh;
+    outline: none;
+    padding: 10px;
+    font: 18px Roboto;
+    border-right: none;
+    border-radius: 5px 0px 0px 5px;
+}
+
+
+
+.icon-cadeado{
+    width: 38px;
+    height: 40px;
+    padding-right: 5px;
+    color: #84644D;
+    background-color: #FBFBFB;
+    border: solid #AD947E 1px;
+    border-left: none;
+    border-radius: 5px;
+    border-radius: 0px 5px 5px 0px;
+}
+.icon-cadeado-sem-edicao{
+    width: 38px;
+    height: 40px;
+    padding-right: 5px;
+    color: #484848;
+    background-color: #FBFBFB;
+    border: solid #AD947E 1px;
+    border-left: none;
+    border-radius: 5px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.descricao-inputs{
+    display: flex;
+    align-items: center;
+    color: #84644D;
+    font-size: 22px;
+}
+
+.botao-sair-logout{
+    cursor: pointer;
+}
+
+.botao-editar-descricao-ong{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* margin-left: 30px; */
+    margin-top: 17px;
+    background-color: #84644D;
+    color: #FBFBFB;
+    border-radius: 10px;
+    padding: 20px 47px;
+    font-size: 20px;
+    border: none;
+    box-shadow: 0px 0px 1px;
+    font-family: Roboto;
+    font-weight: 600;
 }
