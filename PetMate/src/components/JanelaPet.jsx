@@ -9,7 +9,6 @@ import { IoMdClose } from "react-icons/io"
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
   const [doador, setDoador] = useState(null)
-  const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
 
   useEffect(() => {
     if (pet) {

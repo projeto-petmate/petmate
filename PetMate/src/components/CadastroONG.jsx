@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import "./cadastroONG.css"
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import "./cadastroONG.css";
+import { useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
 import { FaUserCircle } from "react-icons/fa";
 import {
   FaUser,
   FaEnvelope,
   FaLock,
-  FaPhone,
   FaPhoneAlt,
   FaIdCard,
   FaCalendarAlt,
@@ -20,52 +18,70 @@ import {
 function CadastroONG() {
   const navigate = useNavigate();
 
-  const [ongNome, setOngNome] = useState('')
-  const [ongEmail, setOngEmail] = useState('')
-  const [ongSenha, setOngSenha] = useState('')
-  const [ongTelefone, setOngTelefone] = useState('')
-  const [ongTelefoneDenuncia, setOngTelefoneDenuncia] = useState('')
-  const [ongCnpj, setOngCnpj] = useState('')
-  const [ongNomeResponsavel, setOngNomeResponsavel] = useState('')
-  const [ongCpfResponsavel, setOngCpfResponsavel] = useState('')
-  const [ongDataNascimentoResponsavel, setOngDataNascimentoResponsavel] = useState('')
-  const [ongEmailResponsavel, setOngEmailResponsavel] = useState('')
-  const [ongTelefoneResponsavel, setOngTelefoneResponsavel] = useState('')
-  const [ongEstado, setOngEstado] = useState('')
-  const [ongCidade, setOngCidade] = useState('')
-  const [ongEndereco, setOngEndereco] = useState('')
-  const [ongFoto, setOngFoto] = useState('')
-  const [erros, setErros] = useState({})
-  const [ongImagemPreview, setOngImagemPreview] = useState(null)
+  const [ongNome, setOngNome] = useState('');
+  const [ongEmail, setOngEmail] = useState('');
+  const [ongSenha, setOngSenha] = useState('');
+  const [ongConfirmarSenha, setOngConfirmarSenha] = useState('');
+  const [ongTelefone, setOngTelefone] = useState('');
+  const [ongTelefoneDenuncia, setOngTelefoneDenuncia] = useState('');
+  const [ongCnpj, setOngCnpj] = useState('');
+  const [ongNomeResponsavel, setOngNomeResponsavel] = useState('');
+  const [ongCpfResponsavel, setOngCpfResponsavel] = useState('');
+  const [ongDataNascimentoResponsavel, setOngDataNascimentoResponsavel] = useState('');
+  const [ongEmailResponsavel, setOngEmailResponsavel] = useState('');
+  const [ongTelefoneResponsavel, setOngTelefoneResponsavel] = useState('');
+  const [ongEstado, setOngEstado] = useState('');
+  const [ongCidade, setOngCidade] = useState('');
+  const [ongEndereco, setOngEndereco] = useState('');
+  const [ongFoto, setOngFoto] = useState('');
+  const [erros, setErros] = useState({});
   const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
 
+  const calcularIdade = (dataNascimento) => {
+    const [ano, mes, dia] = dataNascimento.split('-');
+    const hoje = new Date();
+    const nascimento = new Date(ano, mes - 1, dia);
+    let idade = hoje.getFullYear() - nascimento.getFullYear();
+    const mesAtual = hoje.getMonth() - nascimento.getMonth();
+    if (mesAtual < 0 || (mesAtual === 0 && hoje.getDate() < nascimento.getDate())) {
+      idade--;
+    }
+    return idade;
+  };
+
   const validarFormulario = () => {
-    const erros = {}
-    if (!ongNome) erros.nome_ong = 'Nome é obrigatório'
-    if (!ongEmail) erros.email = 'Email é obrigatório'
-    if (!ongSenha) erros.senha = 'Senha é obrigatória'
-    if (!ongTelefone) erros.telefone = 'Telefone é obrigatório'
-    if (!ongCnpj) erros.cnpj = 'CNPJ é obrigatório'
-    if (!ongNomeResponsavel) erros.nome_responsavel = 'Nome do responsável é obrigatório'
-    if (!ongCpfResponsavel) erros.cpf_responsavel = 'CPF do responsável é obrigatório'
-    if (!ongDataNascimentoResponsavel) erros.data_nascimento_responsavel = 'Data de nascimento do responsável é obrigatória'
-    if (!ongEmailResponsavel) erros.email_responsavel = 'Email do responsável é obrigatório'
-    if (!ongTelefoneResponsavel) erros.telefone_responsavel = 'Telefone do responsável é obrigatório'
-    if (!ongEstado) erros.estado_ong = 'Estado é obrigatório'
-    if (!ongCidade) erros.cidade_ong = 'Cidade é obrigatória'
-    if (!ongEndereco) erros.endereco_ong = 'Endereço é obrigatório'
-    if (!ongFoto) erros.foto_ong = 'Foto é obrigatória'
-    return erros
-  }
+    const novosErros = {};
+
+    if (!ongNome) novosErros.nome_ong = 'O nome da ONG é obrigatório.';
+    if (!ongEmail) novosErros.email = 'O email é obrigatório.';
+    if (!ongSenha) novosErros.senha = 'A senha é obrigatória.';
+    if (ongSenha !== ongConfirmarSenha) {
+      novosErros.confirmar_senha = 'As senhas não coincidem.';
+    }
+    if (!ongTelefone) novosErros.telefone = 'O telefone é obrigatório.';
+    if (!ongCnpj || ongCnpj.length !== 14) novosErros.cnpj = 'O CNPJ deve ter 14 dígitos.';
+    if (!ongNomeResponsavel) novosErros.nome_responsavel = 'O nome do responsável é obrigatório.';
+    if (!ongCpfResponsavel || ongCpfResponsavel.length !== 11) novosErros.cpf_responsavel = 'O CPF do responsável deve ter 11 dígitos.';
+    if (!ongDataNascimentoResponsavel) {
+      novosErros.data_nascimento_responsavel = 'A data de nascimento do responsável é obrigatória.';
+    } else if (calcularIdade(ongDataNascimentoResponsavel) < 18) {
+      novosErros.data_nascimento_responsavel = 'O responsável deve ter mais de 18 anos.';
+    }
+    if (!ongEmailResponsavel) novosErros.email_responsavel = 'O email do responsável é obrigatório.';
+    if (!ongTelefoneResponsavel) novosErros.telefone_responsavel = 'O telefone do responsável é obrigatório.';
+    if (!ongEstado || ongEstado.length !== 2) novosErros.estado_ong = 'O estado deve ter 2 caracteres.';
+    if (!ongCidade) novosErros.cidade_ong = 'A cidade é obrigatória.';
+    if (!ongEndereco) novosErros.endereco_ong = 'O endereço é obrigatório.';
+    if (!ongFoto) novosErros.foto_ong = 'A foto é obrigatória.';
+
+    setErros(novosErros);
+    return Object.keys(novosErros).length === 0;
+  };
 
   const cadastrarOng = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const errosValidacao = validarFormulario()
-    if (Object.keys(errosValidacao).length > 0) {
-      setErros(errosValidacao)
-      return
-    }
+    if (!validarFormulario()) return;
 
     const novaOng = {
       nome_ong: ongNome,
@@ -82,30 +98,30 @@ function CadastroONG() {
       estado_ong: ongEstado,
       cidade_ong: ongCidade,
       endereco_ong: ongEndereco,
-      foto_ong: ongFoto
+      foto_ong: ongFoto,
+      tipo: "ong"
     };
-
-    console.log('Dados enviados para o servidor:', novaOng);
 
     try {
       await addOng(novaOng);
       console.log('Ong cadastrada com sucesso!', novaOng);
       navigate('/Login');
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Erro ao cadastrar ONG:', error);
       setErros({ email: 'Email já cadastrado' });
     }
-  }
+  };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    const reader = new FileReader()
+    const file = e.target.files[0];
+    const reader = new FileReader();
     reader.onloadend = () => {
-      setOngFoto(reader.result)
-      setImagemPreviewPerfil(reader.result)
+      setOngFoto(reader.result);
+      setImagemPreviewPerfil(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
     }
-    reader.readAsDataURL(file)
   };
 
   return (
@@ -118,7 +134,6 @@ function CadastroONG() {
               <img className="barra-cad-ong" src="/images/barra_marrom.png" alt="" />
             </div>
             <img className='logoMarrom-cad-ong' src="/images/logoMarrom.svg" alt="" />
-
           </div>
         </div>
 
@@ -140,7 +155,7 @@ function CadastroONG() {
           ) : (
             <div
               className="img-preview-perfil"
-              onClick={() => document.getElementById('file-upload').click()} /* Permite clicar na imagem */
+              onClick={() => document.getElementById('file-upload').click()}
             >
               {imagemPreviewPerfil && (
                 <img
@@ -156,7 +171,7 @@ function CadastroONG() {
             Clique aqui e coloque sua foto de perfil
           </p>
         </div>
-        <form className="forms-cad-ong" action="">
+        <form className="forms-cad-ong" onSubmit={cadastrarOng}>
           <div className="inputs-cad-ong">
             <div className="coluna-1-inputs">
               <label htmlFor="ongNome">
@@ -173,6 +188,7 @@ function CadastroONG() {
                 value={ongNome}
                 onChange={(e) => setOngNome(e.target.value)}
               />
+              {erros.nome_ong && <p className="erro-mensagem">{erros.nome_ong}</p>}
 
               <label htmlFor="ongEmail">
                 <div className="icon-input-ong">
@@ -188,6 +204,8 @@ function CadastroONG() {
                 value={ongEmail}
                 onChange={(e) => setOngEmail(e.target.value)}
               />
+              {erros.email && <p className="erro-mensagem">{erros.email}</p>}
+
               <label htmlFor="ongCnpj">
                 <div className="icon-input-ong">
                   <FaIdCard className="icon-cadastro" />
@@ -202,7 +220,7 @@ function CadastroONG() {
                 value={ongCnpj}
                 onChange={(e) => setOngCnpj(e.target.value)}
               />
-
+              {erros.cnpj && <p className="erro-mensagem">{erros.cnpj}</p>}
 
               <label htmlFor="ongTelefone">
                 <div className="icon-input-ong">
@@ -218,6 +236,7 @@ function CadastroONG() {
                 value={ongTelefone}
                 onChange={(e) => setOngTelefone(e.target.value)}
               />
+              {erros.telefone && <p className="erro-mensagem">{erros.telefone}</p>}
 
               <label htmlFor="ongTelefoneDenuncia">
                 <div className="icon-input-ong">
@@ -250,6 +269,7 @@ function CadastroONG() {
                 value={ongTelefoneResponsavel}
                 onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
               />
+              {erros.telefone_responsavel && <p className="erro-mensagem">{erros.telefone_responsavel}</p>}
 
               <label htmlFor="ongNomeResponsavel">
                 <div className="icon-input-ong">
@@ -265,6 +285,7 @@ function CadastroONG() {
                 value={ongNomeResponsavel}
                 onChange={(e) => setOngNomeResponsavel(e.target.value)}
               />
+              {erros.nome_responsavel && <p className="erro-mensagem">{erros.nome_responsavel}</p>}
 
               <label htmlFor="ongCpfResponsavel">
                 <div className="icon-input-ong">
@@ -280,6 +301,7 @@ function CadastroONG() {
                 value={ongCpfResponsavel}
                 onChange={(e) => setOngCpfResponsavel(e.target.value)}
               />
+              {erros.cpf_responsavel && <p className="erro-mensagem">{erros.cpf_responsavel}</p>}
 
               <label htmlFor="ongDataNascimentoResponsavel">
                 <div className="icon-input-ong">
@@ -295,6 +317,7 @@ function CadastroONG() {
                 value={ongDataNascimentoResponsavel}
                 onChange={(e) => setOngDataNascimentoResponsavel(e.target.value)}
               />
+              {erros.data_nascimento_responsavel && <p className="erro-mensagem">{erros.data_nascimento_responsavel}</p>}
 
               <label htmlFor="ongEmailResponsavel">
                 <div className="icon-input-ong">
@@ -310,10 +333,10 @@ function CadastroONG() {
                 value={ongEmailResponsavel}
                 onChange={(e) => setOngEmailResponsavel(e.target.value)}
               />
+              {erros.email_responsavel && <p className="erro-mensagem">{erros.email_responsavel}</p>}
             </div>
 
             <div className="coluna-3-inputs">
-
               <label htmlFor="ongEstado">
                 <div className="icon-input-ong">
                   <FaMapMarkerAlt className="icon-cadastro" />
@@ -357,6 +380,7 @@ function CadastroONG() {
                 <option value="SE">Sergipe (SE)</option>
                 <option value="TO">Tocantins (TO)</option>
               </select>
+              {erros.estado_ong && <p className="erro-mensagem">{erros.estado_ong}</p>}
 
               <label htmlFor="ongCidade">
                 <div className="icon-input-ong">
@@ -372,6 +396,7 @@ function CadastroONG() {
                 value={ongCidade}
                 onChange={(e) => setOngCidade(e.target.value)}
               />
+              {erros.cidade_ong && <p className="erro-mensagem">{erros.cidade_ong}</p>}
 
               <label htmlFor="ongEndereco">
                 <div className="icon-input-ong">
@@ -387,6 +412,7 @@ function CadastroONG() {
                 value={ongEndereco}
                 onChange={(e) => setOngEndereco(e.target.value)}
               />
+              {erros.endereco_ong && <p className="erro-mensagem">{erros.endereco_ong}</p>}
 
               <label htmlFor="ongSenha">
                 <div className="icon-input-ong">
@@ -402,6 +428,7 @@ function CadastroONG() {
                 value={ongSenha}
                 onChange={(e) => setOngSenha(e.target.value)}
               />
+              {erros.senha && <p className="erro-mensagem">{erros.senha}</p>}
 
               <label htmlFor="ongConfirmarSenha">
                 <div className="icon-input-ong">
@@ -414,14 +441,17 @@ function CadastroONG() {
                 className="input-cad-ong"
                 type="password"
                 placeholder="Confirme sua senha"
+                value={ongConfirmarSenha}
+                onChange={(e) => setOngConfirmarSenha(e.target.value)}
               />
+              {erros.confirmar_senha && <p className="erro-mensagem">{erros.confirmar_senha}</p>}
             </div>
           </div>
           <div className="termos-ong">
-            <p>Ao preencher o formuário acima  você concorda com os nossos Termos de Uso e nossa Política de Privacidade.</p>
+            <p>Ao preencher o formulário acima, você concorda com os nossos Termos de Uso e nossa Política de Privacidade.</p>
           </div>
           <div className="conteiner-botao-cad-ong">
-            <button type="submit" className="botao-cad-ong" onClick={cadastrarOng}>Cadastrar</button>
+            <button type="submit" className="botao-cad-ong">Cadastrar</button>
             <div className='login-cad-ong'>
               <p>Já possui conta?</p> <a href="/login"><p>Login</p></a>
             </div>
@@ -433,7 +463,7 @@ function CadastroONG() {
         <img src="./images/dog_ong.svg" alt="cachorro do cadastro de ongs" className='dog-ong' />
       </div>
     </div>
-  )
+  );
 }
 
-export default CadastroONG
+export default CadastroONG;

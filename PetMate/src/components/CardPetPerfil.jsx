@@ -17,13 +17,13 @@ function CardPetPerfil() {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
     const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container-poucos-pets' : 'card-pet-perfil-container';
-    const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
+    const isOng = userLogado?.tipo === "ong";
 
     useEffect(() => {
         const fetchUserPets = async () => {
             try {
                 const pets = await getPets();
-                const filteredPets = vrfOng
+                const filteredPets = isOng
                     ? pets.filter(pet => pet.id_ong === userLogado.id_ong)
                     : pets.filter(pet => pet.id_usuario === userLogado.id_usuario);
                 setUserPets(filteredPets);
@@ -31,11 +31,11 @@ function CardPetPerfil() {
                 console.error("Erro ao buscar pets do usuário/ONG:", error);
             }
         };
-
+    
         if (userLogado) {
             fetchUserPets();
         }
-    }, [userLogado, vrfOng]);
+    }, [userLogado, isOng]);;
 
     const handleDelete = async () => {
         try {

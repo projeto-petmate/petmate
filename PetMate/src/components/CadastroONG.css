@@ -24,7 +24,7 @@
     background-color: #F6F4F1;
     box-shadow: 0 0 10px rgba(10, 10, 10, 0.2);
     width: 65vw;
-    height: 900px;
+    min-height: 900px;
     margin-left: 3%;
     margin-top: 1%;
     border-radius: 10px;
@@ -259,6 +259,13 @@
     margin-left: 10px;
 }
 
+.erro-mensagem {
+    color: rgb(219, 16, 16);
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
 
 @media (max-width: 1280px) {
     .conteiner-cad-ong {
@@ -352,7 +359,7 @@
     }
 
     .img-lateral-ong {
-        display: none; /* Esconde a imagem lateral em telas menores */
+        display: none; 
     }
 }
 

@@ -133,7 +133,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       value={inptPetEspecie}
                       onChange={(e) => setInptPetEspecie(e.target.value)}
                     >
-                      <option value=""></option>
+                      <option value="" disabled>Espécie do Pet</option>
                       <option value="Cachorro">Cachorro</option>
                       <option value="Gato">Gato</option>
                       <option value="Outro">Outro</option>
@@ -159,7 +159,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       value={inptPetPorte}
                       onChange={(e) => setInptPetPorte(e.target.value)}
                     >
-                      <option value=""></option>
+                      <option value="" disabled>Porte do Pet</option>
                       <option value="Pequeno">Pequeno</option>
                       <option value="Médio">Médio</option>
                       <option value="Grande">Grande</option>
@@ -185,7 +185,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                       value={inptPetGenero}
                       onChange={(e) => setInptPetGenero(e.target.value)}
                     >
-                      <option value=""></option>
+                      <option value="" disabled>Gênero do Pet</option>
                       <option value="Fêmea">Fêmea</option>
                       <option value="Macho">Macho</option>
                     </select>

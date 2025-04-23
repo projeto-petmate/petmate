@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CardPetPerfil from '../components/CardPetPerfil';
 import { FiLogOut } from "react-icons/fi";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
 import ModalLogout from '../components/ModalLogout';
@@ -14,6 +14,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaLock, FaLockOpen } from "react-icons/fa";
 import { FaCheck, FaUnlock } from "react-icons/fa";
 import { deleteOng, updateOng } from '../apiService';
+import { TbMoodEdit } from 'react-icons/tb';
+import ModalConfirmFoto from './ModalConfirmFoto';
 
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
@@ -26,7 +28,7 @@ function PerfilOng() {
     const [imagem, setImagem] = useState('');
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
+    const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -34,6 +36,7 @@ function PerfilOng() {
         navigate('/home');
     };
 
+    
     useEffect(() => {
         if (userLogado) {
             setUserData(userLogado);
@@ -44,7 +47,32 @@ function PerfilOng() {
         const { name, value } = e.target;
         setUserData((prevData) => ({ ...prevData, [name]: value }));
     };
+    
+    useEffect(() => {
+        if (userLogado) {
+            setUserData(userLogado);
+            setImagemPreviewPerfil(userLogado?.foto_ong || null); 
+        }
+    }, [userLogado]);
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagemPreviewPerfil(reader.result);
+            setUserData((prevData) => ({ ...prevData, foto_ong: reader.result }));
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleRemovePhoto = () => {
+        setImagemPreviewPerfil(null);
+        setUserData((prevData) => ({ ...prevData, foto_ong: null }));
+        document.getElementById('file-upload').value = null; 
+        setIsModalConfirmOpen(false);
+    };
     const handleSave = async () => {
         try {
             if (!userData.id_ong) {
@@ -88,30 +116,44 @@ function PerfilOng() {
                     </div>
                 </div>
                 <p>Dados do Perfil</p>
-                <div className="add-img">
-                    {imagemPreviewPerfil === null ? (
-                        <FaUserCircle
-                            className="user-icon"
-                            onClick={() => document.getElementById('file-upload').click()}
+              <div className="user-icon-container">
+                    <div className="add-img">
+                        <input
+                            id="file-upload"
+                            type="file"
+                            onChange={handleImageChange}
+                            style={{ display: 'none' }}
+                            disabled={!editMode}
                         />
-                    ) : (
+                    </div>
+                    {imagemPreviewPerfil || userData?.foto_ong ? (
                         <div
                             className="img-preview-perfil"
-                            onClick={() => document.getElementById('file-upload').click()}
+                            onClick={() => editMode && document.getElementById('file-upload').click()}
                         >
-                            {imagemPreviewPerfil && (
-                                <img
-                                    src={imagemPreviewPerfil}
-                                    alt="Pré-visualização"
-                                    className="imagem-preview-perfil"
-                                />
-                            )}
+                            <img
+                                src={imagemPreviewPerfil || userData?.foto_ong}
+                                alt="Pré-visualização"
+                                className="imagem-preview-perfil"
+                            />
                         </div>
+                    ) : (
+                        <TbMoodEdit
+                            className="user-icon-perfil"
+                            onClick={() => editMode && document.getElementById('file-upload').click()}
+                        />
                     )}
-                    {editMode && <p className="trocar-foto-texto">
-                        Clique no ícone para alterar sua imagem de perfil
-                    </p>
-                    }
+                    <div className="icon-trash-container">
+                        {(imagemPreviewPerfil || userData?.foto_ong) && (
+                            <FaTrash
+                                className="icon-trash"
+                                onClick={() => setIsModalConfirmOpen(true)}
+                                style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
+                            />
+                        )}
+                    </div>
+                    {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
+                    
                 </div>
                 <div className="inputs-infom-ong">
                     <div className="colum-1">
@@ -339,6 +381,11 @@ function PerfilOng() {
                 </div>
                 <ModalExclusaoDeConta isExclui={openModalExclui} setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)} onDelete={handleDelete} />
                 <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
+                <ModalConfirmFoto
+                    isOpen={isModalConfirmOpen}
+                    onClose={() => setIsModalConfirmOpen(false)} 
+                    onConfirm={handleRemovePhoto} 
+                />
             </div>
         </div>
     )

@@ -103,7 +103,6 @@ export const GlobalContextProvider = ({ children }) => {
                     setUserLogado(user);
                     setToken(data.token);
                     localStorage.setItem('token', data.token); 
-                    localStorage.setItem('userLogado', JSON.stringify(user));
                     setLogado(true);
                     console.log("Usuário logado com sucesso:", user);
                 } else {

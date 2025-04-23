@@ -7,7 +7,7 @@ function Loading() {
     useEffect(() => {
       const hasReloaded = localStorage.getItem('hasReloaded');
   
-      setLoading(true); // Ativa o loading
+      setLoading(true); 
   
       if (!hasReloaded) {
           localStorage.setItem('hasReloaded', 'true');
@@ -32,8 +32,8 @@ function Loading() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.8)", // Fundo semi-transparente
-        zIndex: 9999, // Fica sobre tudo
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        zIndex: 9999, 
     }}>
         <BeatLoader color="#8B4513" size={20} />
     </div>

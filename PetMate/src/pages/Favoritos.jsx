@@ -11,7 +11,6 @@ function Favoritos() {
     const [pets, setPets] = useState([]);
     const [openPetModal, setOpenPetModal] = useState(false);
     const { setPet, favoritos, toggleFavorito } = useContext(PetContext);
-    const vrfOng = JSON.parse(localStorage.getItem("vrfOng"));
 
     useEffect(() => {
         const fetchPets = async () => {
