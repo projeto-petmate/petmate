@@ -85,7 +85,7 @@
 }
 
 .img-preview-perfil img {
-    border: solid 3px #84644D;
+    /* border: solid 3px #84644D; */
     border-radius: 100%;
     min-height: 80px;
     max-height: 80px;

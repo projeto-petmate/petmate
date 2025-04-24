@@ -131,7 +131,7 @@
     margin-bottom: 5px;
 }
 
-.select-estado{
+.select-estado {
     width: 340px;
     height: 45px;
     padding-left: 10px;
@@ -204,8 +204,23 @@
     margin-top: 2%;
 }
 
-.user-icon {
-    height: 80%;
+.container-icon-cad-ong {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.user-icon-ong {
+    font-size: 70px;
+    color: #84644D;
+}
+
+.icon-trash-cad-ong {
+    font-size: 24px;
+    color: #84644D;
+    margin-left: -100px;
 }
 
 .forms-cad-ong {
@@ -248,14 +263,15 @@
 }
 
 
-.icon-input-ong{
+.icon-input-ong {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
     color: #4e3727;
 }
-.icon-input-ong p{
+
+.icon-input-ong p {
     margin-left: 10px;
 }
 
@@ -265,6 +281,15 @@
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+.termos-ong a {
+    font-size: 16px;
+    text-decoration: none;
+    margin: 5px;
+    color: #84644D;
+}
+
+
 
 
 @media (max-width: 1280px) {
@@ -307,7 +332,7 @@
         font-size: 80px;
     }
 
-    .img-preview-perfil img {
+    .img-preview-ong img {
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -359,7 +384,7 @@
     }
 
     .img-lateral-ong {
-        display: none; 
+        display: none;
     }
 }
 
@@ -390,7 +415,7 @@
         font-size: 60px;
     }
 
-    .img-preview-perfil img {
+    .img-preview-ong img {
         width: 60px;
         height: 60px;
     }

@@ -5,10 +5,11 @@ import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 
 function LoginUsuario() {
-    const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
+    const { Logar, mudarTipo } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState('');
+    const [mostrarSenha, setMostrarSenha] = useState(false);
     const navigate = useNavigate();
 
     const handleKeyDown = (e) => {
@@ -54,6 +55,10 @@ function LoginUsuario() {
         }
     };
 
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
+
     return (
         <div>
             <div className="titulo-input">
@@ -79,15 +84,15 @@ function LoginUsuario() {
                             </div>
                             <div className="mostrar-senha">
                                 <input
-                                    type="password"
+                                    type={mostrarSenha ? "text" : "password"}
                                     placeholder='Digite sua senha'
                                     id='inputSenha'
                                     value={senha}
                                     onChange={(e) => setSenha(e.target.value)}
                                     onKeyDown={handleKeyDown}
                                 />
-                                <button onClick={MostrarSenha} className='icon-mostrar-senha'>
-                                    {mudarTipo ? <FaRegEyeSlash /> : <FaRegEye />}
+                                <button onClick={toggleMostrarSenha} className='icon-mostrar-senha'>
+                                    {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
                             </div>
                         </div>

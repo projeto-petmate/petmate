@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./cadastroONG.css";
 import { useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
-import { FaUserCircle } from "react-icons/fa";
+import { FaTrash, FaUserCircle } from "react-icons/fa";
 import {
   FaUser,
   FaEnvelope,
@@ -136,40 +136,54 @@ function CadastroONG() {
             <img className='logoMarrom-cad-ong' src="/images/logoMarrom.svg" alt="" />
           </div>
         </div>
+        <div className="container-icon-cad-ong">
+          <div className="user-icon-container-ong">
+            <div className="add-img">
+              <input
+                id="file-upload"
+                type="file"
+                onChange={handleImageChange}
+                style={{ display: 'none' }}
+              />
+            </div>
 
-        <div className="user-icon-container-ong">
-          <div className="add-img">
-            <input
-              id="file-upload"
-              type="file"
-              onChange={handleImageChange}
-              style={{ display: 'none' }}
-            />
+            {imagemPreviewPerfil === null ? (
+              <FaUserCircle
+                className="user-icon-ong"
+                onClick={() => document.getElementById('file-upload').click()}
+              />
+            ) : (
+              <div
+                className="img-preview-perfil"
+                onClick={() => document.getElementById('file-upload').click()}
+              >
+                {imagemPreviewPerfil && (
+                  <img
+                    src={imagemPreviewPerfil}
+                    alt="Pré-visualização"
+                    className="imagem-preview-ong"
+                  />
+                )}
+              </div>
+            )}
+            <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
+              Clique aqui e coloque sua foto de perfil
+            </p>
           </div>
 
-          {imagemPreviewPerfil === null ? (
-            <FaUserCircle
-              className="user-icon"
-              onClick={() => document.getElementById('file-upload').click()}
-            />
-          ) : (
-            <div
-              className="img-preview-perfil"
-              onClick={() => document.getElementById('file-upload').click()}
-            >
-              {imagemPreviewPerfil && (
-                <img
-                  src={imagemPreviewPerfil}
-                  alt="Pré-visualização"
-                  className="imagem-preview-perfil"
-                />
-              )}
-            </div>
-          )}
-
-          <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
-            Clique aqui e coloque sua foto de perfil
-          </p>
+          <div className="icon-trash-container-ong">
+            {imagemPreviewPerfil && (
+              <FaTrash
+                className="icon-trash-cad-ong"
+                onClick={() => {
+                  setImagemPreviewPerfil(null);
+                  setOngFoto('');
+                  document.getElementById('file-upload').value = null;
+                }}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+          </div>
         </div>
         <form className="forms-cad-ong" onSubmit={cadastrarOng}>
           <div className="inputs-cad-ong">
@@ -448,7 +462,11 @@ function CadastroONG() {
             </div>
           </div>
           <div className="termos-ong">
-            <p>Ao preencher o formulário acima, você concorda com os nossos Termos de Uso e nossa Política de Privacidade.</p>
+            <p>
+              Ao preencher o formulário acima você concorda com os nossos{" "}
+              <a href="">Termos de Uso</a> e nossa{" "}
+              <a href="">Política de Privacidade</a>.
+            </p>
           </div>
           <div className="conteiner-botao-cad-ong">
             <button type="submit" className="botao-cad-ong">Cadastrar</button>
