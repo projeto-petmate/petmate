@@ -44,11 +44,11 @@ app.get('/usuarios/:id', async (req, res) => {
 });
 // Rotas para usuários
 app.post('/usuarios', async (req, res) => {
-    const { nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo } = req.body;
+    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
     try {
         const result = await pool.query(
-            'INSERT INTO usuarios (nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-            [nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo]
+            'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
+            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo]
         );
         res.json(result.rows[0]);
     } catch (err) {
@@ -59,7 +59,7 @@ app.post('/usuarios', async (req, res) => {
 
 app.put('/usuarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo } = req.body;
+    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: 'ID do usuário é obrigatório.' });
@@ -67,8 +67,8 @@ app.put('/usuarios/:id', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'UPDATE usuarios SET nome = $1, email = $2, senha = $3, endereco = $4, telefone = $5, cpf = $6, favoritos = $7, imagem = $8, tipo = $9 WHERE id_usuario = $10 RETURNING *',
-            [nome, email, senha, endereco, telefone, cpf, favoritos, imagem, tipo, id]
+            'UPDATE usuarios SET nome = $1, email = $2, genero = $3, senha = $4, uf = $5, cidade = $6, bairro = $7, telefone = $8, cpf = $9, favoritos = $10, imagem = $11, tipo = $12 WHERE id_usuario = $13 RETURNING *',
+            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Usuário não encontrado.' });
@@ -395,7 +395,10 @@ app.post('/loginOng', async (req, res) => {
             return res.status(401).json({ error: 'Senha incorreta' });
         }
 
-        res.json({ message: 'Login bem-sucedido', user: ong });
+        const token = jwt.sign({ id: ong.id_ong, tipo: 'ong' }, SECRET_KEY, { expiresIn: '1h' });
+
+        res.json({ message: 'Login bem-sucedido', user: ong, token });
+        
     } catch (err) {
         console.error('Erro ao validar login:', err.message);
         res.status(500).json({ error: 'Erro ao validar login' });

@@ -13,6 +13,10 @@ export const UserContextProvider = ({ children }) => {
     const [inptEnderecoCadastro, setInptEnderecoCadastro] = useState('')
     const [inptCpfCadastro, setInptCpfCadastro] = useState('')
     const [inptTelefoneCadastro, setInptTelefoneCadastro] = useState('')
+    const [inptEstadoUser, setInptEstadoUser] = useState('')
+    const [inptCidadeUser, setInptCidadeUser] = useState('')
+    const [inptBairroUser, setInptBairroUser] = useState('')
+    const [inptGeneroUser, setInptGeneroUser] = useState('')
     const [termosCadastro, setTermosCadastro] = useState(false)
     const [users, setUsers] = useState([])
     const [comentarios, setComentarios] = useState([])
@@ -62,6 +66,10 @@ export const UserContextProvider = ({ children }) => {
             inptTelefoneCadastro, setInptTelefoneCadastro,
             inptEnderecoCadastro, setInptEnderecoCadastro,
             inptCpfCadastro, setInptCpfCadastro,
+            inptEstadoUser, setInptEstadoUser,
+            inptCidadeUser, setInptCidadeUser,
+            inptBairroUser, setInptBairroUser,
+            inptGeneroUser, setInptGeneroUser,
             termosCadastro, setTermosCadastro,
             users, setUsers, addUser,
             comentarios, setComentarios, addComentario,

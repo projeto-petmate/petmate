@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Cadastro.css";
-import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard, FaCity, FaGlobeAmericas } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
 import { addUsuario } from '../apiService';
 import InputMask from 'react-input-mask';
+import { MdHolidayVillage } from "react-icons/md";
 
 function Cadastro() {
     const { PhoneInput, CpfInput, setUserLogado } = useContext(GlobalContext);
@@ -14,11 +15,15 @@ function Cadastro() {
         inptEmailCadastro, setInptEmailCadastro,
         inptSenhaCadastro, setInptSenhaCadastro,
         inptTelefoneCadastro, setInptTelefoneCadastro,
-        inptEnderecoCadastro, setInptEnderecoCadastro,
         inptCpfCadastro, setInptCpfCadastro,
+        inptEstadoUser, setInptEstadoUser,
+        inptCidadeUser, setInptCidadeUser,
+        inptBairroUser, setInptBairroUser,
+        inptGeneroUser, setInptGeneroUser,
         termosCadastro, setTermosCadastro,
         addUser
     } = useContext(UserContext);
+    const [inptConfirmarSenha, setInptConfirmarSenha] = useState()
 
     const [erros, setErros] = useState({});
     const navigate = useNavigate();
@@ -34,9 +39,6 @@ function Cadastro() {
             return { geral: 'Todos os campos são obrigatórios.' };
         }
         if (!inptTelefoneCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
-        }
-        if (!inptEnderecoCadastro) {
             return { geral: 'Todos os campos são obrigatórios.' };
         }
         if (!inptCpfCadastro) {
@@ -60,11 +62,14 @@ function Cadastro() {
         const novoUser = {
             nome: inptNomeCadastro,
             email: inptEmailCadastro,
+            genero: inptGeneroUser,
             senha: inptSenhaCadastro,
             telefone: inptTelefoneCadastro,
-            endereco: inptEnderecoCadastro,
             cpf: inptCpfCadastro,
-            termos: termosCadastro
+            uf: inptEstadoUser,
+            cidade: inptCidadeUser,
+            bairro: inptBairroUser,
+            termos: termosCadastro,
         };
 
         try {
@@ -136,6 +141,25 @@ function Cadastro() {
                             </div>
 
                             <div className="inpt-p">
+                                <label htmlFor="genero">
+                                    <div className="icon-input">
+                                        <FaUser className="icon-cadastro" />
+                                        <p>Gênero:</p>
+                                    </div>
+                                </label>
+                                <select
+                                    id="genero"
+                                    className="select-genero-user"
+                                    value={inptGeneroUser}
+                                    onChange={(e) =>  setInptGeneroUser(e.target.value) } >
+                                    <option value="" disabled>Selecione</option>
+                                    <option value="Feminino">Feminino</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div className="inpt-p">
                                 <label htmlFor="senha">
                                     <div className="icon-input">
                                         <FaLock className="icon-cadastro" />
@@ -150,6 +174,24 @@ function Cadastro() {
                                     onChange={(e) => setInptSenhaCadastro(e.target.value)}
                                 />
                             </div>
+
+                            <div className="inpt-p">
+                                <label htmlFor="confirmarSenha">
+                                    <div className="icon-input">
+                                        <FaLock className="icon-cadastro" />
+                                        <p>Confirmar senha:</p>
+                                    </div>
+                                </label>
+                                <input
+                                    id="confirmarSenha"
+                                    type="password"
+                                    placeholder="Confirme sua senha"
+                                    value={inptConfirmarSenha}
+                                    onChange={(e) => setInptConfirmarSenha(e.target.value)}
+                                />
+                            </div>
+
+
                         </div>
 
                         <div className="inputs-column">
@@ -161,30 +203,13 @@ function Cadastro() {
                                     </div>
                                 </label>
                                 <InputMask
-                                    mask="99999999999"
+                                    mask="(99) 99999-9999"
                                     value={inptTelefoneCadastro}
                                     onChange={(e) => setInptTelefoneCadastro(e.target.value)}
                                 >
                                     {(inputProps) => <input {...inputProps} id="telefone" type="text" placeholder="(XX) X XXXX-XXXX" />}
                                 </InputMask>
                             </div>
-
-                            <div className="inpt-p">
-                                <label htmlFor="endereco">
-                                    <div className="icon-input">
-                                        <FaMapMarkerAlt className="icon-cadastro" />
-                                        <p>Endereço:</p>
-                                    </div>
-                                </label>
-                                <input
-                                    id="endereco"
-                                    type="text"
-                                    placeholder="Bairro, Cidade"
-                                    value={inptEnderecoCadastro}
-                                    onChange={(e) => setInptEnderecoCadastro(e.target.value)}
-                                />
-                            </div>
-
                             <div className="inpt-p">
                                 <label htmlFor="cpf">
                                     <div className="icon-input">
@@ -200,10 +225,88 @@ function Cadastro() {
                                     {(inputProps) => <input {...inputProps} id="cpf" type="text" placeholder="Digite seu CPF" />}
                                 </InputMask>
                             </div>
+
+                            <div className="inpt-p">
+                                <label htmlFor="estado">
+                                    <div className="icon-input">
+                                        <FaGlobeAmericas className="icon-cadastro" />
+                                        <p>Estado:</p>
+                                    </div>
+                                </label>
+                                <select
+                                    id="estado"
+                                    className="select-estado-user"
+                                    value={inptEstadoUser}
+                                    onChange={(e) => setInptEstadoUser(e.target.value)}
+                                >
+                                    <option value="" disabled>Selecione o estado</option>
+                                    <option value="AC">Acre (AC)</option>
+                                    <option value="AL">Alagoas (AL)</option>
+                                    <option value="AP">Amapá (AP)</option>
+                                    <option value="AM">Amazonas (AM)</option>
+                                    <option value="BA">Bahia (BA)</option>
+                                    <option value="CE">Ceará (CE)</option>
+                                    <option value="DF">Distrito Federal (DF)</option>
+                                    <option value="ES">Espírito Santo (ES)</option>
+                                    <option value="GO">Goiás (GO)</option>
+                                    <option value="MA">Maranhão (MA)</option>
+                                    <option value="MT">Mato Grosso (MT)</option>
+                                    <option value="MS">Mato Grosso do Sul (MS)</option>
+                                    <option value="MG">Minas Gerais (MG)</option>
+                                    <option value="PA">Pará (PA)</option>
+                                    <option value="PB">Paraíba (PB)</option>
+                                    <option value="PR">Paraná (PR)</option>
+                                    <option value="PE">Pernambuco (PE)</option>
+                                    <option value="PI">Piauí (PI)</option>
+                                    <option value="RJ">Rio de Janeiro (RJ)</option>
+                                    <option value="RN">Rio Grande do Norte (RN)</option>
+                                    <option value="RS">Rio Grande do Sul (RS)</option>
+                                    <option value="RO">Rondônia (RO)</option>
+                                    <option value="RR">Roraima (RR)</option>
+                                    <option value="SC">Santa Catarina (SC)</option>
+                                    <option value="SP">São Paulo (SP)</option>
+                                    <option value="SE">Sergipe (SE)</option>
+                                    <option value="TO">Tocantins (TO)</option>
+                                </select>
+                            </div>
+
+                            <div className="inpt-p">
+                                <label htmlFor="cidade">
+                                    <div className="icon-input">
+                                        <FaCity className="icon-cadastro" />
+                                        <p>Cidade:</p>
+                                    </div>
+                                </label>
+                                <input
+                                    id="cidade"
+                                    type="text"
+                                    placeholder="Digite sua cidade"
+                                    value={inptCidadeUser}
+                                    onChange={(e) => setInptCidadeUser(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="inpt-p">
+                                <label htmlFor="bairro">
+                                    <div className="icon-input">
+                                        <MdHolidayVillage className="icon-cadastro" />
+                                        <p>Bairro:</p>
+                                    </div>
+                                </label>
+                                <input
+                                    id="bairro"
+                                    type="text"
+                                    placeholder="Digite seu bairro"
+                                    value={inptBairroUser}
+                                    onChange={(e) => setInptBairroUser(e.target.value)}
+                                />
+                            </div>
+
+
                         </div>
                     </div>
-                    {erros.email && <p className="erro-mensagem">{erros.email}</p>}
-                    {erros.geral && <p className="erro-mensagem">{erros.geral}</p>}
+                    {erros.email && <p className="erro-mensagem-user">{erros.email}</p>}
+                    {erros.geral && <p className="erro-mensagem-user">{erros.geral}</p>}
                     {erros.termos && <p className="erro-termos">{erros.termos}</p>}
 
 
