@@ -198,6 +198,23 @@ function Perfil() {
                                     </div>
                                 </div>
                                 <div className="input-nome">
+                                    <p>Telefone</p>
+                                    <div className="input-edit">
+                                        <input
+                                            type="text"
+                                            name="telefone"
+                                            value={userData.telefone || ''}
+                                            onChange={handleChange}
+                                            disabled={!editMode}
+                                        />
+                                        {!editMode ? (
+                                            <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        ) : (
+                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="input-nome">
                                     <p>Senha</p>
                                     <div className="input-edit">
                                         <input
@@ -230,12 +247,59 @@ function Perfil() {
                                     </div>
                                 </div>
                                 <div className="input-nome">
-                                    <p>Endereço</p>
+                                    <p>UF</p>
+                                    <div className="input-edit">
+                                        <select
+                                            id="estado"
+                                            name="uf"
+                                            className="uf-perfil-user"
+                                            value={userData.uf || ''}
+                                            onChange={handleChange}
+                                            disabled={!editMode}
+                                        >
+                                            <option value="" disabled>Selecione o estado</option>
+                                            <option value="AC">Acre (AC)</option>
+                                            <option value="AL">Alagoas (AL)</option>
+                                            <option value="AP">Amapá (AP)</option>
+                                            <option value="AM">Amazonas (AM)</option>
+                                            <option value="BA">Bahia (BA)</option>
+                                            <option value="CE">Ceará (CE)</option>
+                                            <option value="DF">Distrito Federal (DF)</option>
+                                            <option value="ES">Espírito Santo (ES)</option>
+                                            <option value="GO">Goiás (GO)</option>
+                                            <option value="MA">Maranhão (MA)</option>
+                                            <option value="MT">Mato Grosso (MT)</option>
+                                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                                            <option value="MG">Minas Gerais (MG)</option>
+                                            <option value="PA">Pará (PA)</option>
+                                            <option value="PB">Paraíba (PB)</option>
+                                            <option value="PR">Paraná (PR)</option>
+                                            <option value="PE">Pernambuco (PE)</option>
+                                            <option value="PI">Piauí (PI)</option>
+                                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                                            <option value="RN">Rio Grande do Norte (RN)</option>
+                                            <option value="RS">Rio Grande do Sul (RS)</option>
+                                            <option value="RO">Rondônia (RO)</option>
+                                            <option value="RR">Roraima (RR)</option>
+                                            <option value="SC">Santa Catarina (SC)</option>
+                                            <option value="SP">São Paulo (SP)</option>
+                                            <option value="SE">Sergipe (SE)</option>
+                                            <option value="TO">Tocantins (TO)</option>
+                                        </select>
+                                        {!editMode ? (
+                                            <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        ) : (
+                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="input-nome">
+                                    <p>Cidade</p>
                                     <div className="input-edit">
                                         <input
                                             type="text"
-                                            name="endereco"
-                                            value={userData.endereco || ''}
+                                            name="cidade"
+                                            value={userData.cidade || ''}
                                             onChange={handleChange}
                                             disabled={!editMode}
                                         />
@@ -247,12 +311,12 @@ function Perfil() {
                                     </div>
                                 </div>
                                 <div className="input-nome">
-                                    <p>Telefone</p>
+                                    <p>Bairro</p>
                                     <div className="input-edit">
                                         <input
                                             type="text"
-                                            name="telefone"
-                                            value={userData.telefone || ''}
+                                            name="bairro"
+                                            value={userData.bairro || ''}
                                             onChange={handleChange}
                                             disabled={!editMode}
                                         />
@@ -263,6 +327,7 @@ function Perfil() {
                                         )}
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div className="botoes-perfil">

@@ -52,9 +52,6 @@
 .user-icon-perfil {
     font-size: 80px;
     color: #84644D;
-    /* border: solid; */
-    /* border-radius: 50px; */
-    /* padding-left: 10px; */
 }
 
 .user-icon-container {
@@ -119,9 +116,7 @@
     gap: 60px;
 }
 
-.inputs-perfil input {
-    /* height: 60px; */
-    /* width: 40px; */
+.inputs-perfil input, .inputs-perfil select {
     border-radius: 12px;
     border: solid #AD947E 1px;
     box-shadow: 0px 0px 1px;
@@ -285,7 +280,7 @@
     justify-content: center;
 }
 
-.input-edit input {
+.input-edit input, .input-edit select{
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -294,6 +289,10 @@
     border-color: #AD947E #ffffff00 #AD947E #AD947E;
     border-right: none;
     outline: none;
+}
+.uf-perfil-user:disabled {
+    border-color: #74523b #ffffff00 #74523b #74523b;
+    color: #000;
 }
 
 .icon-lock {
@@ -318,7 +317,7 @@
     height: 55px;
 }
 
-.input-nome input {
+.input-nome input, .input-edit select {
     width: 440px;
     height: 55px;
 }
