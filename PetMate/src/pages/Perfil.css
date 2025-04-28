@@ -25,7 +25,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: -50px;
+    /* margin-top: -50px; */
 }
 
 .titulo-barra h2 {
@@ -114,6 +114,8 @@
     /* align-items: center; */
     height: auto;
     gap: 60px;
+    margin-top: -10px;
+
 }
 
 .inputs-perfil input, .inputs-perfil select {
@@ -254,7 +256,7 @@
     height: auto;
     flex-direction: row;
     justify-content: center;
-    margin-top: 50px;
+    /* margin-top: 50px; */
     align-items: center;
   }
 
@@ -291,7 +293,7 @@
     outline: none;
 }
 .uf-perfil-user:disabled {
-    border-color: #74523b #ffffff00 #74523b #74523b;
+    border-color: #9e7458 #ffffff00 #9e7458 #9e7458;
     color: #000;
 }
 
@@ -320,6 +322,7 @@
 .input-nome input, .input-edit select {
     width: 440px;
     height: 55px;
+    
 }
 .input-perma-lock{
     display: flex;
@@ -332,6 +335,7 @@
     border-right: none;
     border-radius: 6px 0px 0px 6px;
 }
+
 
 .inputs-perfil p {
     font-size: 22px;

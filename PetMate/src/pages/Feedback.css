@@ -137,11 +137,11 @@
 }
 
 .inpt-feedback{
-    width: 780px;
-    height: 140px;
+    width: 500px;
+    height: 80px;
     border-radius: 12px;
-    border: 1px solid #654833;
-    /* border: none; */
+    /* border: 1px solid #654833; */
+    border: none;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px;
     outline: none;
@@ -156,8 +156,8 @@
 .botao-add-feedback{
     width: 100px;
     height: 50px;
-    border-radius: 4px;
-    background-color: #654833;
+    border-radius: 6px;
+    background-color: #84644D;
     font-size: 18px;
     font-weight: bold;
     color: #F5F5F5;
@@ -167,7 +167,7 @@
 }
 
 .botao-add-feedback:hover{
-    background-color: #4d3524;
+    background-color: #725744;
 }
 
 .erro-comentario{

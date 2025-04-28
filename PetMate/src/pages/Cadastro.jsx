@@ -4,7 +4,7 @@ import "./Cadastro.css";
 import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard, FaCity, FaGlobeAmericas } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
-import { addUsuario } from '../apiService';
+import { addUsuario, verificarCpfUnico, verificarEmailUnico } from '../apiService';
 import InputMask from 'react-input-mask';
 import { MdHolidayVillage } from "react-icons/md";
 
@@ -28,34 +28,57 @@ function Cadastro() {
     const [erros, setErros] = useState({});
     const navigate = useNavigate();
 
-    const validarFormulario = () => {
+    const validarFormulario = async () => {
+        const novosErros = {};
+
         if (!inptNomeCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
+            novosErros.nome = 'O nome é obrigatório.';
         }
         if (!inptEmailCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
+            novosErros.email = 'O email é obrigatório.';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inptEmailCadastro)) {
+            novosErros.email = 'O email não é válido.';
+        } else {
+            const emailExiste = await verificarEmailUnico(inptEmailCadastro);
+            if (emailExiste) {
+                novosErros.email = 'Este email já está em uso.';
+            }
         }
+
         if (!inptSenhaCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
+            novosErros.senha = 'A senha é obrigatória.';
+        }
+        if (inptSenhaCadastro !== inptConfirmarSenha) {
+            novosErros.confirmarSenha = 'As senhas não coincidem.';
         }
         if (!inptTelefoneCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
+            novosErros.telefone = 'O telefone é obrigatório.';
         }
+
         if (!inptCpfCadastro) {
-            return { geral: 'Todos os campos são obrigatórios.' };
+            novosErros.cpf = 'O CPF é obrigatório.';
+        } else {
+            const cpfNormalizado = inptCpfCadastro.replace(/\D/g, '');
+            const cpfExiste = await verificarCpfUnico(cpfNormalizado);
+            if (cpfExiste) {
+                novosErros.cpf = 'Este CPF já está em uso.';
+            }
         }
         if (!termosCadastro) {
-            return { geral: 'Você deve aceitar os termos e condições.' };
+            novosErros.termos = 'Você deve aceitar os termos e condições.';
         }
-        return {};
+
+        setErros(novosErros);
+        return Object.keys(novosErros).length === 0;
     };
+
+
 
     const CadastrarUsuario = async (e) => {
         e.preventDefault();
 
-        const novosErros = validarFormulario();
-        if (Object.keys(novosErros).length > 0) {
-            setErros(novosErros);
+        const formularioValido = await validarFormulario();
+        if (!formularioValido) {
             return;
         }
 
@@ -70,17 +93,19 @@ function Cadastro() {
             cidade: inptCidadeUser,
             bairro: inptBairroUser,
             termos: termosCadastro,
+            tipo: 'user',
         };
 
         try {
-            await addUsuario(novoUser);
+            await addUser(novoUser);
             setUserLogado(novoUser);
             console.log("Usuário cadastrado:", novoUser);
             navigate("/login");
         } catch (error) {
-            setErros({ email: 'Este email já está em uso' });
+            console.error('Erro ao cadastrar usuário:', error);
+            setErros({ geral: 'Erro ao cadastrar usuário. Tente novamente mais tarde.' });
         }
-    }
+    };
 
     return (
         <div>
@@ -151,7 +176,7 @@ function Cadastro() {
                                     id="genero"
                                     className="select-genero-user"
                                     value={inptGeneroUser}
-                                    onChange={(e) =>  setInptGeneroUser(e.target.value) } >
+                                    onChange={(e) => setInptGeneroUser(e.target.value)} >
                                     <option value="" disabled>Selecione</option>
                                     <option value="Feminino">Feminino</option>
                                     <option value="Masculino">Masculino</option>
@@ -202,13 +227,20 @@ function Cadastro() {
                                         <p>Telefone:</p>
                                     </div>
                                 </label>
-                                <InputMask
-                                    mask="(99) 99999-9999"
+                                <input
+                                    id="telefone"
+                                    type="text"
+                                    placeholder="(XX) X XXXX-XXXX"
                                     value={inptTelefoneCadastro}
-                                    onChange={(e) => setInptTelefoneCadastro(e.target.value)}
-                                >
-                                    {(inputProps) => <input {...inputProps} id="telefone" type="text" placeholder="(XX) X XXXX-XXXX" />}
-                                </InputMask>
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                            .replace(/\D/g, '')
+                                            .replace(/(\d{2})(\d)/, '($1) $2')
+                                            .replace(/(\d{5})(\d)/, '$1-$2')
+                                            .slice(0, 15);
+                                        setInptTelefoneCadastro(value);
+                                    }}
+                                />
                             </div>
                             <div className="inpt-p">
                                 <label htmlFor="cpf">
@@ -217,13 +249,21 @@ function Cadastro() {
                                         <p>CPF:</p>
                                     </div>
                                 </label>
-                                <InputMask
-                                    mask="999.999.999-99"
+                                <input
+                                    id="cpf"
+                                    type="text"
+                                    placeholder="000.000.000-00"
                                     value={inptCpfCadastro}
-                                    onChange={(e) => setInptCpfCadastro(e.target.value)}
-                                >
-                                    {(inputProps) => <input {...inputProps} id="cpf" type="text" placeholder="Digite seu CPF" />}
-                                </InputMask>
+                                    onChange={(e) => {
+                                        const value = e.target.value
+                                            .replace(/\D/g, '')
+                                            .replace(/(\d{3})(\d)/, '$1.$2')
+                                            .replace(/(\d{3})(\d)/, '$1.$2')
+                                            .replace(/(\d{3})(\d{2})$/, '$1-$2')
+                                            .slice(0, 14);
+                                        setInptCpfCadastro(value);
+                                    }}
+                                />
                             </div>
 
                             <div className="inpt-p">
@@ -306,6 +346,7 @@ function Cadastro() {
                         </div>
                     </div>
                     {erros.email && <p className="erro-mensagem-user">{erros.email}</p>}
+                    {erros.cpf && <p className="erro-mensagem-user">{erros.cpf}</p>}
                     {erros.geral && <p className="erro-mensagem-user">{erros.geral}</p>}
                     {erros.termos && <p className="erro-termos">{erros.termos}</p>}
 

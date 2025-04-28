@@ -19,6 +19,27 @@ export const getUsuarioById = async (id) => {
     return response.data;
 };
 
+
+export const verificarEmailUnico = async (email) => {
+    try {
+        const response = await api.get(`/usuarios/verificar-email?email=${email}`);
+        return response.data.existe;
+    } catch (error) {
+        console.error('Erro ao verificar email:', error);
+        return false; 
+    }
+};
+
+export const verificarCpfUnico = async (cpf) => {
+    try {
+        const response = await api.get(`/usuarios/verificar-cpf?cpf=${cpf}`);
+        return response.data.existe;
+    } catch (error) {
+        console.error('Erro ao verificar CPF:', error);
+        return false;
+    }
+}
+
 export const addUsuario = async (usuario) => {
     const response = await api.post('/usuarios', usuario);
     return response.data;
