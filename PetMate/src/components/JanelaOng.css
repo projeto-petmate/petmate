@@ -69,39 +69,61 @@
 }
 
 .dados-ong {
+    background-color: #EBE5E0;
+    border: 2px solid #654833;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 3em;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: #EBE5E0;
-    border: #654833 solid 2px;
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 6em;
-    padding-bottom: 2em;
+    gap: 20px;
+}
+
+.contato-redes {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 0 100px;
+}
+
+.contato-ong, .redesSociais-ong {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 10px;
 }
-
-.telefone-ong,
-.telefone-denuncia,
-.descricao-ong {
-    margin-top: 5px;
-    text-align: center;
+.descricao-ong{
+    
 }
 
-.dados-ong h3 {
-    /* font-size: 24px; */
+.contato-ong h3, .redesSociais-ong h3, .descricao-ong h3 {
     color: #654833;
+    margin-bottom: 10px;
 }
 
 .dados-ong p {
-    font-size: 18px;
+    font-size: 16px;
+    margin: 5px 0;
+    color: black;
 }
 
-.descricao-ong h3{
-    /* font-size: 26px; */
+.iconeWhats{
+    font-size: 25px;
+    margin-right: 3px;
+    color: #654833;
+    transform: translateY(5px);
 }
-.descricao-ong p {
-    font-size: 20px;
+.iconeInsta {
+    font-size: 25px;
+    margin-right: 6px;
+    color: #654833;
+    transform: translateY(5px);
+}
+.iconeEmail {
+    font-size: 25px;
+    margin-right: 6px;
+    color: #654833;
+    transform: translateY(5px);
 }
 
 @media (max-width: 768px) {
