@@ -2,10 +2,9 @@ import React, { useContext } from 'react'
 import './JanelaOng.css'
 import { OngContext } from '../contexts/OngContext'
 import { IoMdClose } from 'react-icons/io'
-import { IoLogoWhatsapp } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
-import { PiInstagramLogoFill } from "react-icons/pi";
-
+import { FaWhatsapp } from "react-icons/fa6";
+import { MdOutlineMail } from "react-icons/md";
+import { FaInstagram } from "react-icons/fa";
 
 export default function JanelaOng({ isOpen, setOpenModalOng }) {
     const { ong } = useContext(OngContext)
@@ -30,12 +29,12 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                         <div className="contato-redes">
                             <div className="contato-ong">
                                 <h3>Contato:</h3>
-                                <p><IoLogoWhatsapp className="iconeWhats"/> <strong>WhatsApp:</strong> {ong.telefone}</p>
-                                <p><MdEmail className="iconeEmail" /> <strong>Email:</strong> {ong.email}</p>
+                                <p><FaWhatsapp className="iconeWhats" /> <strong>WhatsApp:</strong> {ong.telefone}</p>
+                                <p><MdOutlineMail className="iconeEmail" /> <strong>Email:</strong> {ong.email}</p>
                             </div>
                             <div className="redesSociais-ong">
                                 <h3>Redes Sociais:</h3>
-                                <p><PiInstagramLogoFill className="iconeInsta" /> <strong>Instagram:</strong> @{ong.instagram}</p>
+                                <p><FaInstagram className="iconeInsta" /> <strong>Instagram:</strong> @ tralalero_tralala{ong.instagram}</p>
                             </div>
                         </div>
                         <div className="descricao-ong">
