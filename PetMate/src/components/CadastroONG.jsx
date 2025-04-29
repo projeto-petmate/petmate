@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
 import { FaTrash, FaUserCircle } from "react-icons/fa";
 import { cpf, cnpj } from 'cpf-cnpj-validator';
+import Swal from 'sweetalert2';
 import {
   FaUser,
   FaEnvelope,
@@ -180,7 +181,18 @@ function CadastroONG() {
     try {
       await addOng(novaOng);
       console.log('Ong cadastrada com sucesso!', novaOng);
-      navigate('/Login');
+      
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Cadastro realizado com sucesso!",
+        showConfirmButton: false,
+        timer: 1500,
+    });
+
+    setTimeout(() => {
+        navigate("/login");
+    }, 1500);
     } catch (error) {
       console.error('Erro ao cadastrar ONG:', error);
       setErros({ email: 'Email já cadastrado' });
@@ -244,6 +256,8 @@ function CadastroONG() {
             <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
               Clique aqui e adicione a foto de perfil da ONG.
             </p>
+                        {erros.foto_ong && <p className="erro-mensagem">{erros.foto_ong}</p>}
+
           </div>
 
           <div className="icon-trash-container-ong">
@@ -381,7 +395,14 @@ function CadastroONG() {
                 type="text"
                 placeholder="Digite o telefone do responsável"
                 value={ongTelefoneResponsavel}
-                onChange={(e) => setOngTelefoneResponsavel(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d)/, '($1) $2')
+                    .replace(/(\d{5})(\d)/, '$1-$2')
+                    .slice(0, 15);
+                  setOngTelefoneResponsavel(value)
+                }}
               />
               {erros.telefone_responsavel && <p className="erro-mensagem">{erros.telefone_responsavel}</p>}
 

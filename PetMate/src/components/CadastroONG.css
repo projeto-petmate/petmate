@@ -34,9 +34,10 @@
 .texto-cadastro-ong {
     display: flex;
     flex-direction: row;
-    /* border: solid; */
     align-items: center;
     margin-left: 1%;
+    margin-bottom: -30px;
+    /* border: solid; */
 }
 
 .texto-cadastro-ong-img {

@@ -106,23 +106,35 @@
     color: #654833;
     font-size: 30px;
 }
+.ctt-ong {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: solid; */
+}
 
+.dados-ong strong {
+    font-size: 21px;
+}
 .dados-ong p {
-    font-size: 23px;
+    font-size: 20px;
     color: black;
 }
 
-.iconeWhats{
-    font-size: 25px;
+.icone-info-ong {
+    font-size: 30px;
     color: #654833;
     transform: translateY(5px);
 }
+.icone-wpp-ong, .icone-email-ong, .icone-mapa-ong {
+    font-size: 28px;
+    color: #654833;
+    transform: translateY(5px);
+}
+
+
 .iconeInsta {
-    font-size: 25px;
-    color: #654833;
-    transform: translateY(5px);
-}
-.iconeEmail {
     font-size: 25px;
     color: #654833;
     transform: translateY(5px);
