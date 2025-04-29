@@ -40,7 +40,7 @@ function Feedback() {
         const fetchNomesUsuarios = async () => {
             try {
                 const nomesComentarios = await Promise.all(comentarios.map(async (comentario) => {
-                    const response = await axios.get(`http://localhost:3000/usuarios/${comentario.id_usuario}`);
+                    const response = await axios.get(`http://localhost:3000/usuarios/id/${comentario.id_usuario}`);
                     return { ...comentario, nomeUsuario: response.data.nome };
                 }));
                 setNomesComentarios(nomesComentarios);

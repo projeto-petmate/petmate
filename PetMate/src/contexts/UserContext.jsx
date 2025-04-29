@@ -22,10 +22,18 @@ export const UserContextProvider = ({ children }) => {
     const [comentarios, setComentarios] = useState([])
     const { userLogado } = useContext(GlobalContext);
 
-    const addUser = (novoUser) => {
-        setUsers([...users, novoUser])
+    const addUser = async (novoUser) => {
+        try {
+            const response = await axios.post("http://localhost:3000/usuarios", novoUser);
+            
+            setUsers([...users, response.data]);
+            
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao adicionar usuário:", error);
+            throw error; 
+        }
     }
-
 
     const addComentario = async (novoComentario) => {
         try {

@@ -5,11 +5,13 @@ import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard, FaCity, 
 import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
 import { addUsuario, verificarCpfUnico, verificarEmailUnico } from '../apiService';
-import InputMask from 'react-input-mask';
 import { MdHolidayVillage } from "react-icons/md";
+import Swal from 'sweetalert2';
+import { cpf } from 'cpf-cnpj-validator';
+
 
 function Cadastro() {
-    const { PhoneInput, CpfInput, setUserLogado } = useContext(GlobalContext);
+    const { setUserLogado } = useContext(GlobalContext);
     const {
         inptNomeCadastro, setInptNomeCadastro,
         inptEmailCadastro, setInptEmailCadastro,
@@ -34,6 +36,11 @@ function Cadastro() {
         if (!inptNomeCadastro) {
             novosErros.nome = 'O nome é obrigatório.';
         }
+        else if (inptNomeCadastro.length < 6) {
+            novosErros.nome = 'O nome deve ter pelo menos 6 caractéres'
+        } else if (/[^a-zA-ZÀ-ÿ\s]/.test(inptNomeCadastro)) {
+            novosErros.nome = 'O nome não pode conter caracteres especiais ou números.'
+        }
         if (!inptEmailCadastro) {
             novosErros.email = 'O email é obrigatório.';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inptEmailCadastro)) {
@@ -44,12 +51,15 @@ function Cadastro() {
                 novosErros.email = 'Este email já está em uso.';
             }
         }
-
         if (!inptSenhaCadastro) {
             novosErros.senha = 'A senha é obrigatória.';
         }
-        if (inptSenhaCadastro !== inptConfirmarSenha) {
-            novosErros.confirmarSenha = 'As senhas não coincidem.';
+        else if (inptSenhaCadastro.length < 8 || !/[!@#$%^&*(),.?":{}|<>]/.test(inptSenhaCadastro)) {
+            novosErros.senha = 'A senha deve ter pelo menos 8 caractéres e conter pelo menos um caractére especial.';
+        }
+
+        else if (inptSenhaCadastro !== inptConfirmarSenha) {
+            novosErros.confirmar_senha = 'As senhas não coincidem.';
         }
         if (!inptTelefoneCadastro) {
             novosErros.telefone = 'O telefone é obrigatório.';
@@ -57,13 +67,31 @@ function Cadastro() {
 
         if (!inptCpfCadastro) {
             novosErros.cpf = 'O CPF é obrigatório.';
+        } else if (!cpf.isValid(inptCpfCadastro)) {
+            novosErros.cpf = 'O CPF é inválido.';
         } else {
-            const cpfNormalizado = inptCpfCadastro.replace(/\D/g, '');
-            const cpfExiste = await verificarCpfUnico(cpfNormalizado);
+            const cpfExiste = await verificarCpfUnico(inptCpfCadastro);
             if (cpfExiste) {
                 novosErros.cpf = 'Este CPF já está em uso.';
             }
         }
+
+        if (!inptGeneroUser) {
+            novosErros.genero = 'O gênero é obrigatório.';
+        }
+
+        if (!inptEstadoUser) {
+            novosErros.estado = 'A UF é obrigatória.'
+        }
+
+        if (!inptCidadeUser) {
+            novosErros.cidade = 'A cidade é obrigatória.';
+        }
+
+        if (!inptBairroUser) {
+            novosErros.bairro = 'O bairro é obrigatório.';
+        }
+
         if (!termosCadastro) {
             novosErros.termos = 'Você deve aceitar os termos e condições.';
         }
@@ -71,7 +99,6 @@ function Cadastro() {
         setErros(novosErros);
         return Object.keys(novosErros).length === 0;
     };
-
 
 
     const CadastrarUsuario = async (e) => {
@@ -95,12 +122,34 @@ function Cadastro() {
             termos: termosCadastro,
             tipo: 'user',
         };
-
         try {
             await addUser(novoUser);
             setUserLogado(novoUser);
             console.log("Usuário cadastrado:", novoUser);
-            navigate("/login");
+
+            setInptNomeCadastro('');
+            setInptEmailCadastro('');
+            setInptGeneroUser('');
+            setInptSenhaCadastro('');
+            setInptConfirmarSenha('');
+            setInptTelefoneCadastro('');
+            setInptCpfCadastro('');
+            setInptEstadoUser('');
+            setInptCidadeUser('');
+            setInptBairroUser('');
+            setTermosCadastro(false);
+
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Cadastro realizado com sucesso!",
+                showConfirmButton: false,
+                timer: 1500,
+            });
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 1500);
         } catch (error) {
             console.error('Erro ao cadastrar usuário:', error);
             setErros({ geral: 'Erro ao cadastrar usuário. Tente novamente mais tarde.' });
@@ -147,6 +196,7 @@ function Cadastro() {
                                     value={inptNomeCadastro}
                                     onChange={(e) => setInptNomeCadastro(e.target.value)}
                                 />
+                                {erros.nome && <p className="erro-input-user">{erros.nome}</p>}
                             </div>
 
                             <div className="inpt-p">
@@ -163,6 +213,7 @@ function Cadastro() {
                                     value={inptEmailCadastro}
                                     onChange={(e) => setInptEmailCadastro(e.target.value)}
                                 />
+                                {erros.email && <p className="erro-input-user">{erros.email}</p>}
                             </div>
 
                             <div className="inpt-p">
@@ -182,6 +233,7 @@ function Cadastro() {
                                     <option value="Masculino">Masculino</option>
                                     <option value="Outro">Outro</option>
                                 </select>
+                                {erros.genero && <p className="erro-input-user">{erros.genero}</p>}
                             </div>
 
                             <div className="inpt-p">
@@ -198,6 +250,8 @@ function Cadastro() {
                                     value={inptSenhaCadastro}
                                     onChange={(e) => setInptSenhaCadastro(e.target.value)}
                                 />
+                                {erros.senha && <p className="erro-input-user">{erros.senha}</p>}
+
                             </div>
 
                             <div className="inpt-p">
@@ -214,6 +268,7 @@ function Cadastro() {
                                     value={inptConfirmarSenha}
                                     onChange={(e) => setInptConfirmarSenha(e.target.value)}
                                 />
+                                {erros.confirmar_senha && <p className="erro-input-user">{erros.confirmar_senha}</p>}
                             </div>
 
 
@@ -241,6 +296,7 @@ function Cadastro() {
                                         setInptTelefoneCadastro(value);
                                     }}
                                 />
+                                {erros.telefone && <p className="erro-input-user">{erros.telefone}</p>}
                             </div>
                             <div className="inpt-p">
                                 <label htmlFor="cpf">
@@ -255,22 +311,25 @@ function Cadastro() {
                                     placeholder="000.000.000-00"
                                     value={inptCpfCadastro}
                                     onChange={(e) => {
-                                        const value = e.target.value
-                                            .replace(/\D/g, '')
+                                        let value = e.target.value.replace(/\D/g, '');
+                                        value = value.slice(0, 11);
+
+                                        const formattedValue = value
                                             .replace(/(\d{3})(\d)/, '$1.$2')
                                             .replace(/(\d{3})(\d)/, '$1.$2')
-                                            .replace(/(\d{3})(\d{2})$/, '$1-$2')
-                                            .slice(0, 14);
-                                        setInptCpfCadastro(value);
+                                            .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+                                        setInptCpfCadastro(formattedValue);
                                     }}
                                 />
+                                {erros.cpf && <p className="erro-input-user">{erros.cpf}</p>}
                             </div>
 
                             <div className="inpt-p">
                                 <label htmlFor="estado">
                                     <div className="icon-input">
                                         <FaGlobeAmericas className="icon-cadastro" />
-                                        <p>Estado:</p>
+                                        <p>UF:</p>
                                     </div>
                                 </label>
                                 <select
@@ -308,6 +367,7 @@ function Cadastro() {
                                     <option value="SE">Sergipe (SE)</option>
                                     <option value="TO">Tocantins (TO)</option>
                                 </select>
+                                {erros.estado && <p className="erro-input-user">{erros.estado}</p>}
                             </div>
 
                             <div className="inpt-p">
@@ -324,6 +384,7 @@ function Cadastro() {
                                     value={inptCidadeUser}
                                     onChange={(e) => setInptCidadeUser(e.target.value)}
                                 />
+                                {erros.cidade && <p className="erro-input-user">{erros.cidade}</p>}
                             </div>
 
                             <div className="inpt-p">
@@ -340,16 +401,13 @@ function Cadastro() {
                                     value={inptBairroUser}
                                     onChange={(e) => setInptBairroUser(e.target.value)}
                                 />
+                                {erros.bairro && <p className="erro-input-user">{erros.bairro}</p>}
                             </div>
 
 
                         </div>
                     </div>
-                    {erros.email && <p className="erro-mensagem-user">{erros.email}</p>}
-                    {erros.cpf && <p className="erro-mensagem-user">{erros.cpf}</p>}
-                    {erros.geral && <p className="erro-mensagem-user">{erros.geral}</p>}
                     {erros.termos && <p className="erro-termos">{erros.termos}</p>}
-
 
                     <div className="botao-termos-cadastro">
                         <div className="termos">

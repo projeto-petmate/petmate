@@ -134,6 +134,7 @@
     border: 1px solid #84644D;
     border-radius: 20px;
     margin-bottom: 5px;
+    outline: none;
 }
 
 .input-cad-ong:focus,
@@ -144,10 +145,10 @@
     transition: 0.23s;
 }
 
-.inputs-cadastro p {
+/* .inputs-cadastro p {
     font-family: inter;
     font-size: 18px;
-}
+} */
 
 .inpt-p {
     display: flex;
@@ -431,7 +432,6 @@
 
 .erro-termos {
     color: rgb(219, 16, 16);
-    ;
     text-align: center;
     font-size: 20px;
     margin-right: 40px;
@@ -445,9 +445,11 @@
     margin-top: 5px;
 }
 
-.erro-mensagem-user {
+
+.erro-input-user {
     color: rgb(219, 16, 16);
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
     margin-right: 40px;
+    margin-top: 5px;
 }

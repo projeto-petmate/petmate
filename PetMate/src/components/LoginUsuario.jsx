@@ -10,6 +10,7 @@ function LoginUsuario() {
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const lastPage = localStorage.getItem('lastPage')
     const navigate = useNavigate();
 
     const handleKeyDown = (e) => {
@@ -41,7 +42,6 @@ function LoginUsuario() {
                     timer: 1500,
                 });
     
-                const lastPage = '/home';
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);

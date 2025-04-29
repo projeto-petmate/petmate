@@ -3,6 +3,7 @@ import "./cadastroONG.css";
 import { useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
 import { FaTrash, FaUserCircle } from "react-icons/fa";
+import { cpf, cnpj } from 'cpf-cnpj-validator';
 import {
   FaUser,
   FaEnvelope,
@@ -52,31 +53,105 @@ function CadastroONG() {
   const validarFormulario = () => {
     const novosErros = {};
 
-    if (!ongNome) novosErros.nome_ong = 'O nome da ONG é obrigatório.';
-    if (!ongEmail) novosErros.email = 'O email é obrigatório.';
-    if (!ongSenha) novosErros.senha = 'A senha é obrigatória.';
-    if (ongSenha !== ongConfirmarSenha) {
-      novosErros.confirmar_senha = 'As senhas não coincidem.';
+    // Validação do nome da ONG
+    if (!ongNome) {
+        novosErros.nome_ong = 'O nome da ONG é obrigatório.';
+    } else if (ongNome.length < 6) {
+        novosErros.nome_ong = 'O nome da ONG deve ter pelo menos 6 caracteres.';
     }
-    if (!ongTelefone) novosErros.telefone = 'O telefone é obrigatório.';
-    if (!ongCnpj || ongCnpj.length !== 14) novosErros.cnpj = 'O CNPJ deve ter 14 dígitos.';
-    if (!ongNomeResponsavel) novosErros.nome_responsavel = 'O nome do responsável é obrigatório.';
-    if (!ongCpfResponsavel || ongCpfResponsavel.length !== 11) novosErros.cpf_responsavel = 'O CPF do responsável deve ter 11 dígitos.';
+
+    // Validação do email
+    if (!ongEmail) {
+        novosErros.email = 'O email é obrigatório.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmail)) {
+        novosErros.email = 'O email não é válido.';
+    }
+
+    // Validação da senha
+    if (!ongSenha) {
+        novosErros.senha = 'A senha é obrigatória.';
+    } else if (ongSenha.length < 8) {
+        novosErros.senha = 'A senha deve ter pelo menos 8 caracteres.';
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(ongSenha)) {
+        novosErros.senha = 'A senha deve conter pelo menos um caractere especial.';
+    }
+    // Validação da confirmação de senha
+    else if (ongSenha !== ongConfirmarSenha) {
+        novosErros.confirmar_senha = 'As senhas não coincidem.';
+    }
+
+    // Validação do telefone
+    if (!ongTelefone) {
+        novosErros.telefone = 'O telefone é obrigatório.';
+    } else if (!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(ongTelefone)) {
+        novosErros.telefone = 'O telefone deve estar no formato (XX) XXXXX-XXXX.';
+    }
+
+    // Validação do CNPJ
+    if (!ongCnpj) {
+        novosErros.cnpj = 'O CNPJ é obrigatório.';
+    } else if (!cnpj.isValid(ongCnpj)) {
+        novosErros.cnpj = 'O CNPJ é inválido.';
+    }
+
+    // Validação do nome do responsável
+    if (!ongNomeResponsavel) {
+        novosErros.nome_responsavel = 'O nome do responsável é obrigatório.';
+    } else if (/[^a-zA-ZÀ-ÿ\s]/.test(ongNomeResponsavel)) {
+        novosErros.nome_responsavel = 'O nome do responsável não pode conter caracteres especiais ou números.';
+    }
+
+    // Validação do CPF do responsável
+    if (!ongCpfResponsavel) {
+        novosErros.cpf_responsavel = 'O CPF do responsável é obrigatório.';
+    } else if (!cpf.isValid(ongCpfResponsavel)) {
+        novosErros.cpf_responsavel = 'O CPF do responsável é inválido.';
+    }
+
+    // Validação da data de nascimento do responsável
     if (!ongDataNascimentoResponsavel) {
-      novosErros.data_nascimento_responsavel = 'A data de nascimento do responsável é obrigatória.';
+        novosErros.data_nascimento_responsavel = 'A data de nascimento do responsável é obrigatória.';
     } else if (calcularIdade(ongDataNascimentoResponsavel) < 18) {
-      novosErros.data_nascimento_responsavel = 'O responsável deve ter mais de 18 anos.';
+        novosErros.data_nascimento_responsavel = 'O responsável deve ter mais de 18 anos.';
     }
-    if (!ongEmailResponsavel) novosErros.email_responsavel = 'O email do responsável é obrigatório.';
-    if (!ongTelefoneResponsavel) novosErros.telefone_responsavel = 'O telefone do responsável é obrigatório.';
-    if (!ongEstado || ongEstado.length !== 2) novosErros.estado_ong = 'O estado deve ter 2 caracteres.';
-    if (!ongCidade) novosErros.cidade_ong = 'A cidade é obrigatória.';
-    if (!ongEndereco) novosErros.endereco_ong = 'O endereço é obrigatório.';
-    if (!ongFoto) novosErros.foto_ong = 'A foto é obrigatória.';
+
+    // Validação do email do responsável
+    if (!ongEmailResponsavel) {
+        novosErros.email_responsavel = 'O email do responsável é obrigatório.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmailResponsavel)) {
+        novosErros.email_responsavel = 'O email do responsável não é válido.';
+    }
+
+    // Validação do telefone do responsável
+    if (!ongTelefoneResponsavel) {
+        novosErros.telefone_responsavel = 'O telefone do responsável é obrigatório.';
+    } else if (!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(ongTelefoneResponsavel)) {
+        novosErros.telefone_responsavel = 'O telefone do responsável deve estar no formato (XX) XXXXX-XXXX.';
+    }
+
+    // Validação do estado
+    if (!ongEstado || ongEstado.length !== 2) {
+        novosErros.estado_ong = 'O estado deve ter 2 caracteres.';
+    }
+
+    // Validação da cidade
+    if (!ongCidade) {
+        novosErros.cidade_ong = 'A cidade é obrigatória.';
+    }
+
+    // Validação do endereço
+    if (!ongEndereco) {
+        novosErros.endereco_ong = 'O endereço é obrigatório.';
+    }
+
+    // Validação da foto
+    if (!ongFoto) {
+        novosErros.foto_ong = 'A foto é obrigatória.';
+    }
 
     setErros(novosErros);
     return Object.keys(novosErros).length === 0;
-  };
+};
 
   const cadastrarOng = async (e) => {
     e.preventDefault();
@@ -167,7 +242,7 @@ function CadastroONG() {
               </div>
             )}
             <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
-              Clique aqui e coloque sua foto de perfil
+              Clique aqui e adicione a foto de perfil da ONG.
             </p>
           </div>
 
@@ -232,7 +307,18 @@ function CadastroONG() {
                 type="text"
                 placeholder="Digite o CNPJ da ONG"
                 value={ongCnpj}
-                onChange={(e) => setOngCnpj(e.target.value)}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, '');
+                  value = value.slice(0, 14);
+
+                  const formattedValue = value
+                    .replace(/(\d{2})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d{4})$/, '$1/$2')
+                    .replace(/(\d{4})(\d{2})$/, '$1-$2');
+
+                  setOngCnpj(formattedValue);
+                }}
               />
               {erros.cnpj && <p className="erro-mensagem">{erros.cnpj}</p>}
 
@@ -248,7 +334,14 @@ function CadastroONG() {
                 type="text"
                 placeholder="Digite o telefone da ONG"
                 value={ongTelefone}
-                onChange={(e) => setOngTelefone(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d)/, '($1) $2')
+                    .replace(/(\d{5})(\d)/, '$1-$2')
+                    .slice(0, 15);
+                  setOngTelefone(value)
+                }}
               />
               {erros.telefone && <p className="erro-mensagem">{erros.telefone}</p>}
 
@@ -264,7 +357,14 @@ function CadastroONG() {
                 type="text"
                 placeholder="Digite o telefone para denúncias"
                 value={ongTelefoneDenuncia}
-                onChange={(e) => setOngTelefoneDenuncia(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d)/, '($1) $2')
+                    .replace(/(\d{5})(\d)/, '$1-$2')
+                    .slice(0, 15);
+                  setOngTelefoneDenuncia(value)
+                }}
               />
             </div>
 
@@ -313,7 +413,17 @@ function CadastroONG() {
                 type="text"
                 placeholder="Digite o CPF do responsável"
                 value={ongCpfResponsavel}
-                onChange={(e) => setOngCpfResponsavel(e.target.value)}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, '');
+                  value = value.slice(0, 11);
+
+                  const formattedValue = value
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d)/, '$1.$2')
+                    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+
+                  setOngCpfResponsavel(formattedValue);
+                }}
               />
               {erros.cpf_responsavel && <p className="erro-mensagem">{erros.cpf_responsavel}</p>}
 
