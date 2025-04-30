@@ -35,7 +35,7 @@ PetMate é uma plataforma que facilita a adoção e doação de pets.
 ### Redes Sociais 🖥️
 <a href="https://www.instagram.com/projeto_petmate/followers/?next=%2F"><img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="instagram logo"  /></a>
 
-### [https://www.figma.com/design/YRC8YzLZYwYbdF6OqDJS6x/SA-PETMATE?node-id=0-1&p=f&t=5ulL8xjbUlvHqR8s-0)
+### [Protótipos das Telas](https://www.figma.com/design/YRC8YzLZYwYbdF6OqDJS6x/SA-PETMATE?node-id=0-1&p=f&t=5ulL8xjbUlvHqR8s-0)
 ![printTelas1](./LinksPostagens/printsTelaSA3/Group135.png)
 ![printTelas2](./LinksPostagens/printsTelaSA3/Group145.png)
 ![printTelas3](./LinksPostagens/printsTelaSA3/Group147.png)
