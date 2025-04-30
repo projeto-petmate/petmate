@@ -31,6 +31,9 @@ function Favoritos() {
         <div>
             <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
             <Navbar />
+            <div className="banner-favoritos">
+                <img src="/images/banner-Favoritos.svg" alt="" />
+            </div>
             <div className='container-favoritos'>
                 <div className="titulo-favoritos">
                     <h2>Favoritos</h2>

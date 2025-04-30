@@ -6,7 +6,15 @@
     background-image: url(/images/fundo_patas.svg);
 }
 
-
+.banner-favoritos {
+    height: 100%;
+    display: flex;
+    min-width: 100vw;
+  }
+  
+  .banner-favoritos img{
+    width: 100%;
+  }
 .titulo-favoritos {
     padding: 20px;
     margin: 0;

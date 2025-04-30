@@ -7,6 +7,7 @@ import './Inicial.css';
 import LastPage from '../components/LastPage';
 import Swal from 'sweetalert2'
 import { GlobalContext } from '../contexts/GlobalContext';
+import Carrossel from '../components/Carrossel';
 
 
 function Inicial() {
@@ -46,7 +47,7 @@ function Inicial() {
     <div>
       <Navbar />
       <div className="home-container">
-        <img src="/images/banner-home-2025.svg" className='banner-home' />
+        <Carrossel />
         <div className="meio-home">
           <div className="texto-home">
             <div className="titulo-home">
@@ -69,6 +70,33 @@ function Inicial() {
             <img src="/images/dog_marrom_invertido.png" className='dog-home' />
           </div>
         </div>
+
+        <div className="info-cards">
+          <div className="card-info">
+            <img src="/images/cachorro1-card.png" alt="Importância da adoção" />
+            <div className='texto-info'>
+              <h3>A importância da adoção</h3>
+              <p>Adotar salva vidas e oferece uma segunda chance a animais abandonados. Além de transformar o destino de um pet, a adoção traz amor, alegria e companheirismo para sua vida.</p>
+            </div>
+          </div>
+
+          <div className="card-info">
+            <img src="/images/gato-card.png" alt="Ato de responsabilidade" />
+            <div className='texto-info'>
+              <h3>Adotar é um ato de responsabilidade</h3>
+              <p>Adotar é um compromisso sério. Um pet precisa de cuidado, atenção e amor por toda a vida. Adoção responsável garante bem-estar para o animal e uma convivência feliz para todos.</p>
+            </div>
+          </div>
+
+          <div className="card-info">
+            <img src="/images/cachorro2-card.png" alt="Adotar e não comprar" />
+            <div className='texto-info'>
+              <h3>Por que adotar e não comprar?</h3>
+              <p>Adotar combate o comércio exploratório de animais e salva vidas. Milhares de pets esperam por um lar amoroso — adotar é um ato de compaixão e transformação.</p>
+            </div>
+          </div>
+        </div>
+        
         <JanelaModal isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)} />
         <LastPage />
       </div>
