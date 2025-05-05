@@ -29,7 +29,7 @@ app.get('/usuarios', async (req, res) => {
     }
 });
 
-app.get('/usuarios/:id', async (req, res) => {
+app.get('/usuarios/id/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id]);
@@ -42,14 +42,59 @@ app.get('/usuarios/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
+
+app.get('/usuarios/verificar-email', async (req, res) => {
+    const { email } = req.query;
+
+    if (!email) {
+        return res.status(400).json({ error: 'O email é obrigatório.' });
+    }
+
+    try {
+        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+
+        if (result.rows.length > 0) {
+            return res.json({ existe: true }); 
+        }
+        res.json({ existe: false }); 
+    } catch (err) {
+        console.error('Erro ao verificar email:', err.message);
+        res.status(500).json({ error: 'Erro ao verificar email.' });
+    }
+});
+
+app.get('/usuarios/verificar-cpf', async (req, res) => {
+    const { cpf } = req.query;
+
+    if (!cpf) {
+        return res.status(400).json({ error: 'O CPF é obrigatório.' });
+    }
+
+    try {
+        const result = await pool.query('SELECT * FROM usuarios WHERE cpf = $1', [cpf]);
+
+        if (result.rows.length > 0) {
+            return res.json({ existe: true }); 
+        }
+        res.json({ existe: false }); 
+    } catch (err) {
+        console.error('Erro ao verificar CPF:', err.message);
+        res.status(500).json({ error: 'Erro ao verificar CPF' });
+    }
+});
+
 // Rotas para usuários
 app.post('/usuarios', async (req, res) => {
     const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
+
+    console.log("Dados recebidos no backend:", req.body); // Log para verificar os dados recebidos
+
     try {
         const result = await pool.query(
             'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
             [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo]
         );
+        console.log("Resultado da inserção:", result.rows); // Log para verificar o resultado da consulta
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar usuário:', err.message);
@@ -201,6 +246,7 @@ app.get('/pets', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar pets' });
     }
 });
+
 app.get('/pets/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -214,8 +260,9 @@ app.get('/pets/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar pet' });
     }
 });
+
 app.post('/pets', async (req, res) => {
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id_ong } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
 
     if (!id_usuario && !id_ong) {
         return res.status(400).json({ error: 'É necessário informar id_usuario ou id_ong' });
@@ -227,9 +274,9 @@ app.post('/pets', async (req, res) => {
 
     try {
         const result = await pool.query(
-            `INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id_ong) 
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`,
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario || null, id_ong || null]
+            `INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
+            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
@@ -240,11 +287,15 @@ app.post('/pets', async (req, res) => {
 
 app.put('/pets/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
+
     try {
         const result = await pool.query(
-            'UPDATE pets SET nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagem = $7, especie = $8, tags = $9, condicoes = $10, id_usuario = $11 WHERE id_pet = $12 RETURNING *',
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, id_usuario, id]
+            `UPDATE pets SET 
+                nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagem = $7, 
+                especie = $8, tags = $9, condicoes = $10, disponivel = $11, id_usuario = $12, id_ong = $13 
+            WHERE id_pet = $14 RETURNING *`,
+            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Pet não encontrado' });
@@ -269,7 +320,6 @@ app.delete('/pets/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao deletar pet' });
     }
 });
-
 
 // CRUD para ONGs
 
