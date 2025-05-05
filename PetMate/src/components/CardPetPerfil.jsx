@@ -7,14 +7,19 @@ import ModalEditarPet from './ModalEditarPet';
 import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import { FaShieldDog } from 'react-icons/fa6';
+import ModalPetAdotado from './ModalPetAdotado';
+import { PetContext } from '../contexts/PetContext';
 
 function CardPetPerfil() {
     const { userLogado } = useContext(GlobalContext);
+    const { togglePetAdotado } = useContext(PetContext)
     const [userPets, setUserPets] = useState([]);
     const [openModalExcluirPet, setOpenModalExcluirPet] = useState(false);
     const [openModalEditarPet, setOpenModalEditarPet] = useState(false);
+    const [openModalPetAdotado, setOpenModalPetAdotado] = useState(false);
     const [petToDelete, setPetToDelete] = useState(null);
     const [petToEdit, setPetToEdit] = useState(null);
+    const [petAdotado, setPetAdotado] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
     const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container-poucos-pets' : 'card-pet-perfil-container';
@@ -32,7 +37,7 @@ function CardPetPerfil() {
                 console.error("Erro ao buscar pets do usuário/ONG:", error);
             }
         };
-    
+
         if (userLogado) {
             fetchUserPets();
         }
@@ -65,28 +70,43 @@ function CardPetPerfil() {
             console.error('Erro ao editar pet', error);
         }
     };
+
+    const handleMarcar = async (idPet) => {
+        try {
+            await togglePetAdotado(idPet);
+
+            setOpenModalPetAdotado(false);
+            setShowSuccessPopup(true);
+            setTimeout(() => {
+                setShowSuccessPopup(false);
+            }, 2000);
+        } catch (error) {
+            console.error('Erro ao marcar pet como adotado:', error);
+        }
+    };
+
     const ordemPerfil = [...userPets].sort((a, b) => a.id_pet - b.id_pet);
 
     return (
         <div className={containerClass}>
             {userPets.length > 0 ? (
-                    ordemPerfil.reverse().map((pet) => (
-                        <div key={pet.id_pet} className="pet-card-perfil">
-                            <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
-                            <div className="pet-info">
-                                <h3>{pet.nome}</h3>
-                                <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
-                                <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
-                                <p>{pet.porte} | {pet.genero}</p>
-                                <div className="botoes-pet-perfil">
-                                    <FaShieldDog className='botao-adotado' />
-                                    <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
-                                    <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
-                                </div>
+                ordemPerfil.reverse().map((pet) => (
+                    <div key={pet.id_pet} className="pet-card-perfil">
+                        <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
+                        <div className="pet-info">
+                            <h3>{pet.nome}</h3>
+                            <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
+                            <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
+                            <p>{pet.porte} | {pet.genero}</p>
+                            <div className="botoes-pet-perfil">
+                                <FaShieldDog className='botao-adotado' onClick={() => { setPetAdotado(pet); setOpenModalPetAdotado(true) }} />
+                                <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
+                                <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                             </div>
                         </div>
-                    ))
-                
+                    </div>
+                ))
+
             ) : (<p className='sem-pets'>Você não anunciou nenhum pet.</p>)}
             {
                 showSuccessPopup && (
@@ -102,6 +122,12 @@ function CardPetPerfil() {
                     </div>
                 )
             }
+            <ModalPetAdotado
+                isMarcarPet={openModalPetAdotado}
+                setOpenModalPetAdotado={setOpenModalPetAdotado}
+                onMarcarPet={handleMarcar}
+                petAdotado={petAdotado}
+            />
             <ModalEditarPet
                 isEditarPet={openModalEditarPet}
                 setPetEditOpen={setOpenModalEditarPet}

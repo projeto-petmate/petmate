@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import { updateFavoritos } from "../apiService";
+import { updateFavoritos, updatePet } from "../apiService";
 import { GlobalContext } from "./GlobalContext";
 
 export const PetContext = createContext();
@@ -62,6 +62,30 @@ export const PetContextProvider = ({ children }) => {
         }
     }, [userLogado]);
 
+    const togglePetAdotado = async (idPet) => {
+        try {
+            const pet = pets.find((p) => p.id_pet === idPet);
+            if (!pet) {
+                console.error("Erro: Pet não encontrado.");
+                return;
+            }
+    
+            const novoEstado = !pet.disponivel;
+    
+            const petAtualizado = await updatePet(idPet, { disponivel: novoEstado });
+    
+            setPets((prevPets) =>
+                prevPets.map((p) =>
+                    p.id_pet === idPet ? { ...p, disponivel: petAtualizado.disponivel } : p
+                )
+            );
+    
+            console.log(`Estado do pet ${idPet} atualizado para: ${novoEstado ? 'Disponível' : 'Adotado'}`);
+        } catch (error) {
+            console.error("Erro ao atualizar o estado do pet:", error);
+        }
+    };
+
     const toggleFavorito = async (idPet) => {
         if (!userLogado) {
             console.error("Erro: Usuário não está logado.");
@@ -105,7 +129,8 @@ export const PetContextProvider = ({ children }) => {
             filterOn,
             setFilterOn,
             filter,
-            setFilter
+            setFilter,
+            togglePetAdotado
         }}>
             {children}
         </PetContext.Provider>

@@ -87,14 +87,13 @@ app.get('/usuarios/verificar-cpf', async (req, res) => {
 app.post('/usuarios', async (req, res) => {
     const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
 
-    console.log("Dados recebidos no backend:", req.body); // Log para verificar os dados recebidos
-
+    console.log("Dados recebidos no backend:", req.body);
     try {
         const result = await pool.query(
             'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
             [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo]
         );
-        console.log("Resultado da inserção:", result.rows); // Log para verificar o resultado da consulta
+        console.log("Resultado da inserção:", result.rows);
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar usuário:', err.message);

@@ -42,7 +42,7 @@ export const GlobalContextProvider = ({ children }) => {
                     if (user.id_usuario || user.id_ong) {
                         setUserLogado(user);
                         setLogado(true);
-                        console.log("Usuário logado carregado:", user);
+                        // console.log("Usuário logado carregado:", user);
                     } else {
                         console.error("Erro: ID do usuário ou ONG não definido.");
                         setLogado(false);
