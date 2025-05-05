@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Carrossel.css'; 
+import './Carrossel.css';
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { HiArrowCircleRight } from "react-icons/hi";
 

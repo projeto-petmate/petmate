@@ -36,23 +36,7 @@ function Feedback() {
         fetchComentarios();
     }, [setComentarios]);
 
-    useEffect(() => {
-        const fetchNomesUsuarios = async () => {
-            try {
-                const nomesComentarios = await Promise.all(comentarios.map(async (comentario) => {
-                    const response = await axios.get(`http://localhost:3000/usuarios/id/${comentario.id_usuario}`);
-                    return { ...comentario, nomeUsuario: response.data.nome };
-                }));
-                setNomesComentarios(nomesComentarios);
-            } catch (error) {
-                console.error("Erro ao buscar nomes dos usuários:", error);
-            }
-        };
-
-        if (comentarios.length > 0) {
-            fetchNomesUsuarios();
-        }
-    }, [comentarios]);
+   
 
     const handleDeleteComment = async () => {
         try {
@@ -150,7 +134,7 @@ function Feedback() {
                     : ''}
 
                 <div className="lista-comentarios">
-                    {nomesComentarios.map((c) => (
+                    {comentarios.map((c) => (
                         <div key={c.id_comentario} className="comentario">
                             <div className="comentario-container">
                                 <div className="comentario-info">
@@ -160,7 +144,7 @@ function Feedback() {
                                         ) : (
                                             <FaUserCircle className="icon-comentario" />
                                         )}
-                                        <h3>{c.nomeUsuario}</h3>
+                                        <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="apagar-comentario">
                                         {userLogado && userLogado.id_usuario === c.id_usuario ? (

@@ -6,6 +6,7 @@ import './CardPetPerfil.css';
 import ModalEditarPet from './ModalEditarPet';
 import { FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
+import { FaShieldDog } from 'react-icons/fa6';
 
 function CardPetPerfil() {
     const { userLogado } = useContext(GlobalContext);
@@ -78,6 +79,7 @@ function CardPetPerfil() {
                                 <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
                                 <p>{pet.porte} | {pet.genero}</p>
                                 <div className="botoes-pet-perfil">
+                                    <FaShieldDog className='botao-adotado' />
                                     <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
                                     <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                                 </div>

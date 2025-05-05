@@ -83,9 +83,6 @@ margin-right: auto;
 .botoes-pet-perfil{
   display: flex;
   align-items: center;
-  margin-left: 35px;
-
-
 }
 
 
@@ -116,6 +113,14 @@ margin-right: auto;
   color: #84644D;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.botao-adotado {
+  font-size: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #84644D;
+
 }
 
 
