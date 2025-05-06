@@ -15,7 +15,7 @@ export default function ModalLogout({ isLogout, setLogoutOpen, onLogout }) {
                             <h1>Tem certeza que deseja sair?</h1> 
                         </div>
                         <div className='botoes-logout'>
-                            <button className='botao-modal-logout' onClick={onLogout}>Confirmar</button>
+                            <button className='botao-modal-logout' onClick={onLogout}>Sair</button>
                             <button onClick={() => setLogoutOpen(false)} className='botao-cancelar-logout'>Cancelar</button>
                         </div>
                     </div>

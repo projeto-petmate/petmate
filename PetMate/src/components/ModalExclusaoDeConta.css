@@ -1,4 +1,4 @@
-.modal_conteiner_Exclui {
+.modal_conteiner_excluir_conta {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,15 +11,15 @@
     align-items: center;
     z-index: 1000;
 }
-.conteiner_modal_Exclui {
+.conteiner_modal_excluir_conta {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: auto;
-    min-height: 40vh;
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: 36vw;
+    min-height: 300px;
+    width: 600px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     padding-left: 50px;
@@ -34,22 +34,25 @@
     text-align: center;
 }
 
+.botoes-excluir-conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
-.botao-modal-excluir-conta, .botao-modal-cancelar-conta {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 10px 20px;
-    margin-left: 10px;
+.botao-modal-excluir-conta, .botao-modal-cancelar-excluir-conta {
+    font-size: 1rem;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    height: 55px;
-    width: 150px;
-    transition: background-color 0.3s ease;
+    height: 50px;
+    width: 120px;
+    font-family: nunito;
+    transition: 0.3s ease;
 }
 
-.botao-modal-cancelar-conta{
+.botao-modal-cancelar-excluir-conta{
     background-color: #84644D;
     color: #EBE5E0;
 }
@@ -59,31 +62,27 @@
     color: #333;
 }
 .botao-modal-excluir-conta:hover {
-    /* background-color: #6b4f3a; */
+    background-color: #b3aba5;
+    transition: 0.3s;
 }
 
-.botao-modal-cancelar-conta:hover {
-    background-color: #a67c5b;
+.botao-modal-cancelar-excluir-conta:hover {
+    background-color: #6e533f;
 }
 
 
-
-
-.texto_Exclui h1 {
-    font-size: 27px;
+.texto_excluir_conta h1 {
+    font-size: 1.5rem;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-.texto_Exclui{
-    margin-top: 80px;
-    font-size: 20px;
+.texto_excluir_conta{
+    width: 110%;
+    margin-top: 60px;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
     text-align: center;
     color: #333;
 }
 
-.Botao_Exclui {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}

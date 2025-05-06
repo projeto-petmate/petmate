@@ -47,6 +47,10 @@ export const PetContextProvider = ({ children }) => {
         }
     };
 
+    useEffect(() => {
+        fetchPets(); 
+    }, []);
+
     const [filterOn, setFilterOn] = useState(false);
     const [filter, setFilter] = useState({
         especie: '',
@@ -62,29 +66,31 @@ export const PetContextProvider = ({ children }) => {
         }
     }, [userLogado]);
 
-    const togglePetAdotado = async (idPet) => {
-        try {
-            const pet = pets.find((p) => p.id_pet === idPet);
-            if (!pet) {
-                console.error("Erro: Pet não encontrado.");
-                return;
-            }
-    
-            const novoEstado = !pet.disponivel;
-    
-            const petAtualizado = await updatePet(idPet, { disponivel: novoEstado });
-    
-            setPets((prevPets) =>
-                prevPets.map((p) =>
-                    p.id_pet === idPet ? { ...p, disponivel: petAtualizado.disponivel } : p
-                )
-            );
-    
-            console.log(`Estado do pet ${idPet} atualizado para: ${novoEstado ? 'Disponível' : 'Adotado'}`);
-        } catch (error) {
-            console.error("Erro ao atualizar o estado do pet:", error);
+ const togglePetAdotado = async (idPet) => {
+    try {
+        const pet = pets.find((p) => p.id_pet === idPet);
+        if (!pet) {
+            console.error("Erro: Pet não encontrado.");
+            return;
         }
-    };
+
+        const novoEstado = !pet.disponivel;
+
+        const petAtualizado = { ...pet, disponivel: novoEstado };
+
+        await updatePet(idPet, petAtualizado);
+
+        setPets((prevPets) =>
+            prevPets.map((p) =>
+                p.id_pet === idPet ? { ...p, disponivel: novoEstado } : p
+            )
+        );
+
+        console.log(`Estado do pet ${idPet} atualizado para: ${novoEstado ? 'Disponível' : 'Adotado'}`);
+    } catch (error) {
+        console.error("Erro ao atualizar o estado do pet:", error);
+    }
+};
 
     const toggleFavorito = async (idPet) => {
         if (!userLogado) {

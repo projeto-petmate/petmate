@@ -24,6 +24,7 @@
     flex-direction: column;
     gap: 20px;
     border-left: #654833 25px solid;
+    transition: 0.3s ease;
 }
 
 .titulo-ong-modal {
@@ -100,8 +101,10 @@
     color: #654833;
     font-size: 30px;
 }
+.descricao-ong {
+    margin-bottom: 50px;
+}
 .descricao-ong h3{
-    margin-top: 50px;
     margin-right: 50px;
     color: #654833;
     font-size: 30px;

@@ -11,6 +11,7 @@ import ModalPetAdotado from './ModalPetAdotado';
 import { PetContext } from '../contexts/PetContext';
 
 function CardPetPerfil() {
+    
     const { userLogado } = useContext(GlobalContext);
     const { togglePetAdotado } = useContext(PetContext)
     const [userPets, setUserPets] = useState([]);
@@ -74,7 +75,13 @@ function CardPetPerfil() {
     const handleMarcar = async (idPet) => {
         try {
             await togglePetAdotado(idPet);
-
+    
+            setUserPets((prevUserPets) =>
+                prevUserPets.map((pet) =>
+                    pet.id_pet === idPet ? { ...pet, disponivel: !pet.disponivel } : pet
+                )
+            );
+    
             setOpenModalPetAdotado(false);
             setShowSuccessPopup(true);
             setTimeout(() => {
@@ -98,6 +105,11 @@ function CardPetPerfil() {
                             <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
                             <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
                             <p>{pet.porte} | {pet.genero}</p>
+                            {pet.disponivel == false &&
+                            <div className="faixa-adotado">
+                                <p>ADOTADO</p>
+                            </div>
+                            }
                             <div className="botoes-pet-perfil">
                                 <FaShieldDog className='botao-adotado' onClick={() => { setPetAdotado(pet); setOpenModalPetAdotado(true) }} />
                                 <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>

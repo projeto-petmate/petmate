@@ -5,6 +5,7 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,9 +14,13 @@
 
 .container-adotar-pet {
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 8px;
     padding: 20px;
-    width: 400px;
+    width: 600px;
+    height: 300px;
     max-width: 90%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -33,38 +38,45 @@
     margin-bottom: 20px;
 }
 
-.Botao_Adotar {
+.botoes-adotar {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    justify-content: center;
+    gap: 20px;
+    /* justify-content: space-between; */
+}
+
+.botoes-adotar button {
+    height: 50px;
+    width: 120px;
+    font-family: Nunito;
 }
 
 .botao-modal-adotar-pet {
-    background-color: #4caf50;
+    background-color: #84644D;
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: 0.3s ease;
+    /* padding: 10px 20px; */
 }
 
 .botao-modal-adotar-pet:hover {
-    background-color: #45a049;
+    background-color: #6e533f;
 }
 
-.botao-modal-cancelar-pet {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+.botao-modal-cancelar-adotado {
+    background-color: #EBE5E0;
+    color: #6e533f;
+    border: 1px solid #6e533f;
     border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    /* padding: 10px 20px; */
 }
 
-.botao-modal-cancelar-pet:hover {
-    background-color: #d32f2f;
+.botao-modal-cancelar-adotado:hover {
+    background-color: #b3aba5;
 }

@@ -33,20 +33,21 @@ function CardContainer() {
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
   const filteredPets = filterOn
-    ? pets.filter(pet => (
+  ? pets.filter(pet => (
+      pet.disponivel &&
       (filter.especie ? pet.especie === filter.especie : true) &&
       (filter.porte ? pet.porte === filter.porte : true) &&
       (filter.genero ? pet.genero === filter.genero : true)
     ))
-    : pets;
+  : pets.filter(pet => pet.disponivel); 
 
-  const displayedPets = filter.favoritos
-    ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
-    : filteredPets;
+const displayedPets = filter.favoritos
+  ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
+  : filteredPets;
 
-  const ordemPets = filter.ordem === 'recentes'
-    ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
-    : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
+const ordemPets = filter.ordem === 'recentes'
+  ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
+  : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
 
   return (
     <div>

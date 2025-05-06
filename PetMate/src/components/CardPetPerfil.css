@@ -19,7 +19,7 @@
 
 .pet-card-perfil {
   width: 300px;
-  height: 450px;
+  min-height: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -120,7 +120,24 @@ margin-right: auto;
   margin-right: 10px;
   cursor: pointer;
   color: #84644D;
+}
 
+.faixa-adotado {
+  background-color: #6e533f; 
+  font-weight: bold;
+  text-align: center; 
+  padding: 5px 10px; 
+  border-radius: 5px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  font-size: 14px; 
+  letter-spacing: 1px; 
+  transform: translateY(-380px);
+}
+
+.faixa-adotado p {
+  margin: 0; 
+  padding: 0;
+  color: #ffffff; 
 }
 
 
