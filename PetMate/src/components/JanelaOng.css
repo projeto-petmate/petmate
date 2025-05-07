@@ -66,7 +66,6 @@
 .info-ong {
     display: flex;
     flex-direction: column;
-    /* gap: 15px; */
 }
 
 .dados-ong {
@@ -77,52 +76,70 @@
     margin-top: 5em;
     display: flex;
     flex-direction: column;
-    /* gap: 20px; */
 }
 
 .contato-redes {
     display: flex;
     justify-content: space-between;
-    gap: 00px;
+    gap: 0px;
     padding: 0 50px;
 }
-.redesSociais-ong{
-    margin-right: 100px;
+
+.redesSociais-ong {
+    margin-right: 150px;
+}
+.redesSociais-ong p{
+    margin-top: 7px;
+    transform: translateX(-8px)
+    
+}
+.redesSociais-ong strong, .iconeInsta{
+    margin-top: 7px;
 }
 
 .contato-ong, .redesSociais-ong {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    
+    margin-top: 10px;
 }
 
-.contato-ong h3, .redesSociais-ong h3 {
+.contato-ong h3 {
     color: #654833;
     font-size: 30px;
 }
-.descricao-ong {
-    margin-bottom: 50px;
+.redesSociais-ong h3{
+    color: #654833;
+    font-size: 30px;
 }
-.descricao-ong h3{
+
+.descricao-ong {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.descricao-ong h3 {
     margin-right: 50px;
     color: #654833;
     font-size: 30px;
 }
+
 .ctt-ong {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* border: solid; */
 }
 
 .dados-ong strong {
     font-size: 21px;
 }
+
 .dados-ong p {
     font-size: 20px;
     color: black;
+    padding: 8px;
+    padding-left: 5px;
 }
 
 .icone-info-ong {
@@ -130,17 +147,53 @@
     color: #654833;
     transform: translateY(5px);
 }
-.icone-wpp-ong, .icone-email-ong, .icone-mapa-ong {
+
+.icone-wpp-ong,
+.icone-email-ong,
+.icone-mapa-ong {
     font-size: 28px;
     color: #654833;
-    transform: translateY(5px);
+    transition: color 0.3s ease;
+    transform: translateX(3px);
 }
-
 
 .iconeInsta {
     font-size: 25px;
     color: #654833;
-    transform: translateY(5px);
+    transition: color 0.3s ease;
+    transform: translateX(3px);
+}
+
+/* Animações de hover nos links */
+.ctt-ong a, .redesSociais-ong a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.ctt-ong a:hover .icone-wpp-ong {
+    color: #25D366;
+}
+
+.ctt-ong a:hover .icone-email-ong {
+    color: #D44638;
+}
+
+.ctt-ong a:hover .icone-mapa-ong {
+    color: #4285F4;
+}
+
+.redesSociais-ong a:hover .iconeInsta {
+    color: #E1306C;
+}
+
+.ctt-ong a:hover,
+.redesSociais-ong a:hover {
+    color: #654833;
+    transition: color 0.3s ease;
 }
 
 @media (max-width: 768px) {
