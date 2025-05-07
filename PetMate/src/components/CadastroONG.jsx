@@ -16,6 +16,7 @@ import {
   FaCity,
   FaHome
 } from "react-icons/fa";
+import { BiLogoInstagramAlt } from 'react-icons/bi';
 
 function CadastroONG() {
   const navigate = useNavigate();
@@ -56,103 +57,103 @@ function CadastroONG() {
 
     // Validação do nome da ONG
     if (!ongNome) {
-        novosErros.nome_ong = 'O nome da ONG é obrigatório.';
+      novosErros.nome_ong = 'O nome da ONG é obrigatório.';
     } else if (ongNome.length < 6) {
-        novosErros.nome_ong = 'O nome da ONG deve ter pelo menos 6 caracteres.';
+      novosErros.nome_ong = 'O nome da ONG deve ter pelo menos 6 caracteres.';
     }
 
     // Validação do email
     if (!ongEmail) {
-        novosErros.email = 'O email é obrigatório.';
+      novosErros.email = 'O email é obrigatório.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmail)) {
-        novosErros.email = 'O email não é válido.';
+      novosErros.email = 'O email não é válido.';
     }
 
     // Validação da senha
     if (!ongSenha) {
-        novosErros.senha = 'A senha é obrigatória.';
+      novosErros.senha = 'A senha é obrigatória.';
     } else if (ongSenha.length < 8) {
-        novosErros.senha = 'A senha deve ter pelo menos 8 caracteres.';
+      novosErros.senha = 'A senha deve ter pelo menos 8 caracteres.';
     } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(ongSenha)) {
-        novosErros.senha = 'A senha deve conter pelo menos um caractere especial.';
+      novosErros.senha = 'A senha deve conter pelo menos um caractere especial.';
     }
     // Validação da confirmação de senha
     else if (ongSenha !== ongConfirmarSenha) {
-        novosErros.confirmar_senha = 'As senhas não coincidem.';
+      novosErros.confirmar_senha = 'As senhas não coincidem.';
     }
 
     // Validação do telefone
     if (!ongTelefone) {
-        novosErros.telefone = 'O telefone é obrigatório.';
+      novosErros.telefone = 'O telefone é obrigatório.';
     } else if (!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(ongTelefone)) {
-        novosErros.telefone = 'O telefone deve estar no formato (XX) XXXXX-XXXX.';
+      novosErros.telefone = 'O telefone deve estar no formato (XX) XXXXX-XXXX.';
     }
 
     // Validação do CNPJ
     if (!ongCnpj) {
-        novosErros.cnpj = 'O CNPJ é obrigatório.';
+      novosErros.cnpj = 'O CNPJ é obrigatório.';
     } else if (!cnpj.isValid(ongCnpj)) {
-        novosErros.cnpj = 'O CNPJ é inválido.';
+      novosErros.cnpj = 'O CNPJ é inválido.';
     }
 
     // Validação do nome do responsável
     if (!ongNomeResponsavel) {
-        novosErros.nome_responsavel = 'O nome do responsável é obrigatório.';
+      novosErros.nome_responsavel = 'O nome do responsável é obrigatório.';
     } else if (/[^a-zA-ZÀ-ÿ\s]/.test(ongNomeResponsavel)) {
-        novosErros.nome_responsavel = 'O nome do responsável não pode conter caracteres especiais ou números.';
+      novosErros.nome_responsavel = 'O nome do responsável não pode conter caracteres especiais ou números.';
     }
 
     // Validação do CPF do responsável
     if (!ongCpfResponsavel) {
-        novosErros.cpf_responsavel = 'O CPF do responsável é obrigatório.';
+      novosErros.cpf_responsavel = 'O CPF do responsável é obrigatório.';
     } else if (!cpf.isValid(ongCpfResponsavel)) {
-        novosErros.cpf_responsavel = 'O CPF do responsável é inválido.';
+      novosErros.cpf_responsavel = 'O CPF do responsável é inválido.';
     }
 
     // Validação da data de nascimento do responsável
     if (!ongDataNascimentoResponsavel) {
-        novosErros.data_nascimento_responsavel = 'A data de nascimento do responsável é obrigatória.';
+      novosErros.data_nascimento_responsavel = 'A data de nascimento do responsável é obrigatória.';
     } else if (calcularIdade(ongDataNascimentoResponsavel) < 18) {
-        novosErros.data_nascimento_responsavel = 'O responsável deve ter mais de 18 anos.';
+      novosErros.data_nascimento_responsavel = 'O responsável deve ter mais de 18 anos.';
     }
 
     // Validação do email do responsável
     if (!ongEmailResponsavel) {
-        novosErros.email_responsavel = 'O email do responsável é obrigatório.';
+      novosErros.email_responsavel = 'O email do responsável é obrigatório.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmailResponsavel)) {
-        novosErros.email_responsavel = 'O email do responsável não é válido.';
+      novosErros.email_responsavel = 'O email do responsável não é válido.';
     }
 
     // Validação do telefone do responsável
     if (!ongTelefoneResponsavel) {
-        novosErros.telefone_responsavel = 'O telefone do responsável é obrigatório.';
+      novosErros.telefone_responsavel = 'O telefone do responsável é obrigatório.';
     } else if (!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(ongTelefoneResponsavel)) {
-        novosErros.telefone_responsavel = 'O telefone do responsável deve estar no formato (XX) XXXXX-XXXX.';
+      novosErros.telefone_responsavel = 'O telefone do responsável deve estar no formato (XX) XXXXX-XXXX.';
     }
 
     // Validação do estado
     if (!ongEstado || ongEstado.length !== 2) {
-        novosErros.estado_ong = 'O estado deve ter 2 caracteres.';
+      novosErros.estado_ong = 'O estado deve ter 2 caracteres.';
     }
 
     // Validação da cidade
     if (!ongCidade) {
-        novosErros.cidade_ong = 'A cidade é obrigatória.';
+      novosErros.cidade_ong = 'A cidade é obrigatória.';
     }
 
     // Validação do endereço
     if (!ongEndereco) {
-        novosErros.endereco_ong = 'O endereço é obrigatório.';
+      novosErros.endereco_ong = 'O endereço é obrigatório.';
     }
 
     // Validação da foto
     if (!ongFoto) {
-        novosErros.foto_ong = 'A foto é obrigatória.';
+      novosErros.foto_ong = 'A foto é obrigatória.';
     }
 
     setErros(novosErros);
     return Object.keys(novosErros).length === 0;
-};
+  };
 
   const cadastrarOng = async (e) => {
     e.preventDefault();
@@ -181,18 +182,18 @@ function CadastroONG() {
     try {
       await addOng(novaOng);
       console.log('Ong cadastrada com sucesso!', novaOng);
-      
+
       Swal.fire({
         position: "center",
         icon: "success",
         title: "Cadastro realizado com sucesso!",
         showConfirmButton: false,
         timer: 1500,
-    });
+      });
 
-    setTimeout(() => {
+      setTimeout(() => {
         navigate("/login");
-    }, 1500);
+      }, 1500);
     } catch (error) {
       console.error('Erro ao cadastrar ONG:', error);
       setErros({ email: 'Email já cadastrado' });
@@ -256,7 +257,7 @@ function CadastroONG() {
             <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
               Clique aqui e adicione a foto de perfil da ONG.
             </p>
-                        {erros.foto_ong && <p className="erro-mensagem">{erros.foto_ong}</p>}
+            {erros.foto_ong && <p className="erro-mensagem">{erros.foto_ong}</p>}
 
           </div>
 
@@ -335,11 +336,67 @@ function CadastroONG() {
                 }}
               />
               {erros.cnpj && <p className="erro-mensagem">{erros.cnpj}</p>}
+              <label htmlFor="ongSenha">
+                <div className="icon-input-ong">
+                  <FaLock className="icon-cadastro" />
+                  <p>Senha:</p>
+                </div>
+              </label>
+              <input
+                id="ongSenha"
+                className="input-cad-ong"
+                type="password"
+                placeholder="Digite a senha"
+                value={ongSenha}
+                onChange={(e) => setOngSenha(e.target.value)}
+              />
+              {erros.senha && <p className="erro-mensagem">{erros.senha}</p>}
 
+              <label htmlFor="ongConfirmarSenha">
+                <div className="icon-input-ong">
+                  <FaLock className="icon-cadastro" />
+                  <p>Confirmar senha:</p>
+                </div>
+              </label>
+              <input
+                id="ongConfirmarSenha"
+                className="input-cad-ong"
+                type="password"
+                placeholder="Confirme sua senha"
+                value={ongConfirmarSenha}
+                onChange={(e) => setOngConfirmarSenha(e.target.value)}
+              />
+              {erros.confirmar_senha && <p className="erro-mensagem">{erros.confirmar_senha}</p>}
+
+            </div>
+
+            <div className="coluna-2-inputs">
+              <label htmlFor="ongTelefoneDenuncia">
+                <div className="icon-input-ong">
+                  <BiLogoInstagramAlt className="icon-cadastro" />
+                  <p>Instagram da ONG (opcional):</p>
+                </div>
+              </label>
+              <input
+                id="ongTelefoneDenuncia"
+                className="input-cad-ong"
+                type="text"
+                placeholder="Digite o instagram da ONG"
+                value={ongTelefoneDenuncia}
+                onChange={(e) => {
+                  const value = e.target.value
+                    .replace(/\D/g, '')
+                    .replace(/(\d{2})(\d)/, '($1) $2')
+                    .replace(/(\d{5})(\d)/, '$1-$2')
+                    .slice(0, 15);
+                  setOngTelefoneDenuncia(value)
+                }}
+              />
+            
               <label htmlFor="ongTelefone">
                 <div className="icon-input-ong">
                   <FaPhoneAlt className="icon-cadastro" />
-                  <p>Telefone:</p>
+                  <p>Telefone de contato:</p>
                 </div>
               </label>
               <input
@@ -358,31 +415,36 @@ function CadastroONG() {
                 }}
               />
               {erros.telefone && <p className="erro-mensagem">{erros.telefone}</p>}
-
-              <label htmlFor="ongTelefoneDenuncia">
+              <label htmlFor="ongEmailResponsavel">
                 <div className="icon-input-ong">
-                  <FaPhoneAlt className="icon-cadastro" />
-                  <p>Telefone de Denúncia (opcional):</p>
+                  <FaEnvelope className="icon-cadastro" />
+                  <p>Email de contato:</p>
                 </div>
               </label>
               <input
-                id="ongTelefoneDenuncia"
+                id="ongEmailResponsavel"
+                className="input-cad-ong"
+                type="email"
+                placeholder="Digite o email de contato"
+                value={ongEmailResponsavel}
+                onChange={(e) => setOngEmailResponsavel(e.target.value)}
+              />
+              {erros.email_responsavel && <p className="erro-mensagem">{erros.email_responsavel}</p>}
+              <label htmlFor="ongNomeResponsavel">
+                <div className="icon-input-ong">
+                  <FaUser className="icon-cadastro" />
+                  <p>Nome do responsável:</p>
+                </div>
+              </label>
+              <input
+                id="ongNomeResponsavel"
                 className="input-cad-ong"
                 type="text"
-                placeholder="Digite o telefone para denúncias"
-                value={ongTelefoneDenuncia}
-                onChange={(e) => {
-                  const value = e.target.value
-                    .replace(/\D/g, '')
-                    .replace(/(\d{2})(\d)/, '($1) $2')
-                    .replace(/(\d{5})(\d)/, '$1-$2')
-                    .slice(0, 15);
-                  setOngTelefoneDenuncia(value)
-                }}
+                placeholder="Digite o nome do responsável"
+                value={ongNomeResponsavel}
+                onChange={(e) => setOngNomeResponsavel(e.target.value)}
               />
-            </div>
-
-            <div className="coluna-2-inputs">
+              {erros.nome_responsavel && <p className="erro-mensagem">{erros.nome_responsavel}</p>}
               <label htmlFor="ongTelefoneResponsavel">
                 <div className="icon-input-ong">
                   <FaPhoneAlt className="icon-cadastro" />
@@ -406,21 +468,9 @@ function CadastroONG() {
               />
               {erros.telefone_responsavel && <p className="erro-mensagem">{erros.telefone_responsavel}</p>}
 
-              <label htmlFor="ongNomeResponsavel">
-                <div className="icon-input-ong">
-                  <FaUser className="icon-cadastro" />
-                  <p>Nome do responsável:</p>
-                </div>
-              </label>
-              <input
-                id="ongNomeResponsavel"
-                className="input-cad-ong"
-                type="text"
-                placeholder="Digite o nome do responsável"
-                value={ongNomeResponsavel}
-                onChange={(e) => setOngNomeResponsavel(e.target.value)}
-              />
-              {erros.nome_responsavel && <p className="erro-mensagem">{erros.nome_responsavel}</p>}
+            </div>
+
+            <div className="coluna-3-inputs">
 
               <label htmlFor="ongCpfResponsavel">
                 <div className="icon-input-ong">
@@ -463,25 +513,6 @@ function CadastroONG() {
                 onChange={(e) => setOngDataNascimentoResponsavel(e.target.value)}
               />
               {erros.data_nascimento_responsavel && <p className="erro-mensagem">{erros.data_nascimento_responsavel}</p>}
-
-              <label htmlFor="ongEmailResponsavel">
-                <div className="icon-input-ong">
-                  <FaEnvelope className="icon-cadastro" />
-                  <p>Email do responsável:</p>
-                </div>
-              </label>
-              <input
-                id="ongEmailResponsavel"
-                className="input-cad-ong"
-                type="email"
-                placeholder="Digite o email do responsável"
-                value={ongEmailResponsavel}
-                onChange={(e) => setOngEmailResponsavel(e.target.value)}
-              />
-              {erros.email_responsavel && <p className="erro-mensagem">{erros.email_responsavel}</p>}
-            </div>
-
-            <div className="coluna-3-inputs">
               <label htmlFor="ongEstado">
                 <div className="icon-input-ong">
                   <FaMapMarkerAlt className="icon-cadastro" />
@@ -559,37 +590,7 @@ function CadastroONG() {
               />
               {erros.endereco_ong && <p className="erro-mensagem">{erros.endereco_ong}</p>}
 
-              <label htmlFor="ongSenha">
-                <div className="icon-input-ong">
-                  <FaLock className="icon-cadastro" />
-                  <p>Senha:</p>
-                </div>
-              </label>
-              <input
-                id="ongSenha"
-                className="input-cad-ong"
-                type="password"
-                placeholder="Digite a senha"
-                value={ongSenha}
-                onChange={(e) => setOngSenha(e.target.value)}
-              />
-              {erros.senha && <p className="erro-mensagem">{erros.senha}</p>}
 
-              <label htmlFor="ongConfirmarSenha">
-                <div className="icon-input-ong">
-                  <FaLock className="icon-cadastro" />
-                  <p>Confirmar senha:</p>
-                </div>
-              </label>
-              <input
-                id="ongConfirmarSenha"
-                className="input-cad-ong"
-                type="password"
-                placeholder="Confirme sua senha"
-                value={ongConfirmarSenha}
-                onChange={(e) => setOngConfirmarSenha(e.target.value)}
-              />
-              {erros.confirmar_senha && <p className="erro-mensagem">{erros.confirmar_senha}</p>}
             </div>
           </div>
           <div className="termos-ong">

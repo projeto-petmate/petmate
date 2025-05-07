@@ -16,7 +16,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         try {
           let response;
           if (pet.id_usuario) {
-            response = await axios.get(`http://localhost:3000/usuarios/${pet.id_usuario}`)
+            response = await axios.get(`http://localhost:3000/usuarios/id/${pet.id_usuario}`)
           } else if (pet.id_ong) {
             response = await axios.get(`http://localhost:3000/ongs/${pet.id_ong}`)
           }

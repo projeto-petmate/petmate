@@ -36,7 +36,7 @@ function PerfilOng() {
         navigate('/home');
     };
 
-    
+
     useEffect(() => {
         if (userLogado) {
             setUserData(userLogado);
@@ -47,11 +47,11 @@ function PerfilOng() {
         const { name, value } = e.target;
         setUserData((prevData) => ({ ...prevData, [name]: value }));
     };
-    
+
     useEffect(() => {
         if (userLogado) {
             setUserData(userLogado);
-            setImagemPreviewPerfil(userLogado?.foto_ong || null); 
+            setImagemPreviewPerfil(userLogado?.foto_ong || null);
         }
     }, [userLogado]);
 
@@ -70,7 +70,7 @@ function PerfilOng() {
     const handleRemovePhoto = () => {
         setImagemPreviewPerfil(null);
         setUserData((prevData) => ({ ...prevData, foto_ong: null }));
-        document.getElementById('file-upload').value = null; 
+        document.getElementById('file-upload').value = null;
         setIsModalConfirmOpen(false);
     };
     const handleSave = async () => {
@@ -116,7 +116,7 @@ function PerfilOng() {
                     </div>
                 </div>
                 <p>Dados do Perfil</p>
-              <div className="user-icon-container">
+                <div className="user-icon-container">
                     <div className="add-img">
                         <input
                             id="file-upload"
@@ -153,7 +153,7 @@ function PerfilOng() {
                         )}
                     </div>
                     {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
-                    
+
                 </div>
                 <div className="inputs-infom-ong">
                     <div className="colum-1">
@@ -179,6 +179,20 @@ function PerfilOng() {
                             />
                             <FaLock className='icon-cadeado-sem-edicao' />
                         </div>
+                        <label className='descricao-inputs'>Senha:</label>
+                        <div className="input-ongs-mostra-info">
+                            <input
+                                className='input-14'
+                                type="password"
+                                name="senha"
+                                value={userData?.senha || ''}
+                                onChange={handleChange}
+                                disabled={!editMode}
+                            />
+                            {!editMode ?
+                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                            }
+                        </div>
                         <label className='descricao-inputs'>Nome da ONG:</label>
                         <div className="input-ongs-mostra-info">
                             <input
@@ -193,6 +207,23 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
+                        <label className='descricao-inputs'>Instragram da ONG (opcional)</label>
+                        <div className="input-ongs-mostra-info">
+                            <input
+                                className='input-13'
+                                type="text"
+                                name="email_responsavel"
+                                value={userData?.email_responsavel || ''}
+                                onChange={handleChange}
+                                disabled={!editMode}
+                            />
+                            {!editMode ?
+                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                            }
+                        </div>
+
+                    </div>
+                    <div className='colum-2'>
                         <label className='descricao-inputs'>Telefone da ONG:</label>
                         <div className="input-ongs-mostra-info">
                             <input
@@ -207,7 +238,7 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs'>Telefone para denúncias</label>
+                        <label className='descricao-inputs'>Email de Contato ONG:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-5'
@@ -221,8 +252,6 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                    </div>
-                    <div className='colum-2'>
                         <label className='descricao-inputs'>Estado:</label>
                         <div className="input-ongs-mostra-info">
                             <input
@@ -265,6 +294,23 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
+
+                    </div>
+                    <div className='colum-3'>
+                        <label className='descricao-inputs'>Descrição:</label>
+                        <div className="input-ongs-mostra-info">
+                            <input
+                                className='input-14'
+                                type="text"
+                                name="descricao"
+                                value={userData?.descricao_ong || ''}
+                                onChange={handleChange}
+                                disabled={!editMode}
+                            />
+                            {!editMode ?
+                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                            }
+                        </div>
                         <label className='descricao-inputs'>Nome do responsável:</label>
                         <div className="input-ongs-mostra-info">
                             <input
@@ -293,9 +339,7 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                    </div>
-                    <div className='colum-3'>
-                        <label className='descricao-inputs'>CPF:</label>
+                        <label className='descricao-inputs'>CPF do responsável:</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-12'
@@ -323,37 +367,6 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
-                        <label className='descricao-inputs'>E-mail do responsável</label>
-                        <div className="input-ongs-mostra-info">
-                            <input
-                                className='input-13'
-                                type="text"
-                                name="email_responsavel"
-                                value={userData?.email_responsavel || ''}
-                                onChange={handleChange}
-                                disabled={!editMode}
-                            />
-                            {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
-                            }
-                        </div>
-                        <label className='descricao-inputs'>Senha:</label>
-                        <div className="input-ongs-mostra-info">
-                            <input
-                                className='input-14'
-                                type="password"
-                                name="senha"
-                                value={userData?.senha || ''}
-                                onChange={handleChange}
-                                disabled={!editMode}
-                            />
-                            {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
-                            }
-
-
-                        </div>
-                        <button className="botao-editar-descricao-ong">Editar Descrição do perfil</button>
                     </div>
 
                 </div>
@@ -383,8 +396,8 @@ function PerfilOng() {
                 <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
                 <ModalConfirmFoto
                     isOpen={isModalConfirmOpen}
-                    onClose={() => setIsModalConfirmOpen(false)} 
-                    onConfirm={handleRemovePhoto} 
+                    onClose={() => setIsModalConfirmOpen(false)}
+                    onConfirm={handleRemovePhoto}
                 />
             </div>
         </div>

@@ -18,6 +18,24 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 app.use(express.json());
 
+const path = require('path');
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API PetMate',
+            version: '1.0.0',
+            description: 'Documentação da API para gerenciar pets, usuários, ONGs e comentários.',
+        },
+    },
+    apis: [path.join(__dirname, 'swaggerDefinitions.js')],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/usuarios', async (req, res) => {
     try {
@@ -259,6 +277,7 @@ app.get('/pets/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar pet' });
     }
 });
+
 
 app.post('/pets', async (req, res) => {
     const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
