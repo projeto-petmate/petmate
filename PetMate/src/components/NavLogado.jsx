@@ -18,7 +18,7 @@ function NavLogado() {
     : getFirstName(userLogado?.nome || '');
 
   const userIcon = userLogado?.tipo === 'ong'
-    ? userLogado.foto_ong
+    ? userLogado.foto_perfil
     : userLogado?.imagem;
 
   return (

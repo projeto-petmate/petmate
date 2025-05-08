@@ -26,7 +26,7 @@
     width: 65vw;
     min-height: 900px;
     margin-left: 3%;
-    margin-top: 1%;
+    margin-top: 0.5%;
     border-radius: 10px;
     padding-left: 20px;
 }
@@ -36,7 +36,7 @@
     flex-direction: row;
     align-items: center;
     margin-left: 1%;
-    margin-bottom: -30px;
+    margin-bottom: -90px;
     /* border: solid; */
 }
 
@@ -100,14 +100,13 @@
 }
 
 
-
 .termos-ong {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font: inter;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-bottom: 1%;
 }
 
@@ -150,19 +149,6 @@
     transition: 0.23s;
 }
 
-
-
-.descricao-ong label {
-    margin-bottom: 1%;
-}
-
-.descricao-ong label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .ong-foto {
     display: flex;
     justify-content: center;
@@ -181,6 +167,18 @@
 .ong-foto input {
     justify-content: center;
     align-items: center;
+}
+
+.input-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}
+#ongDescricao {
+    height: 80px;
+    width: 50rem;
 }
 
 .botao-cad-ong {
@@ -228,6 +226,7 @@
     margin-bottom: 8%;
     margin-right: 2%;
 }
+
 
 .login-cad-ong {
     display: flex;
@@ -279,8 +278,8 @@
 .erro-mensagem {
     color: rgb(219, 16, 16);
     font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-top: 1px;
+    margin-bottom: 2px;
 }
 
 .termos-ong a {

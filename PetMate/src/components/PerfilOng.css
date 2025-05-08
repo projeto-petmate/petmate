@@ -87,30 +87,6 @@
     border-radius: 5px 0px 0px 5px;
 }
 
-.input-instagram-wrapper {
-    display: flex;
-    align-items: center;
-    width: 100%; /* Garante que o wrapper ocupe toda a largura */
-    height: 40px; /* Altura consistente com os outros inputs */
-    border: 1px solid #ccc; /* Bordas consistentes */
-    border-radius: 5px; /* Bordas arredondadas */
-    background-color: #fff; /* Fundo branco */
-    box-sizing: border-box; /* Inclui padding e borda no tamanho total */
-}
-
-.input-instagram-prefix {
-    padding: 0 10px; /* Espaçamento interno para o @ */
-    font-size: 16px; /* Tamanho da fonte */
-    color: #666; /* Cor do texto */
-    background-color: #f9f9f9; /* Fundo levemente diferente para destaque */
-    border-right: 1px solid #ccc; /* Borda separando o @ do input */
-    border-radius: 5px 0 0 5px; /* Bordas arredondadas apenas no lado esquerdo */
-    height: 100%; /* Altura igual ao wrapper */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .icon-cadeado{
     width: 38px;
     height: 40px;
@@ -164,3 +140,37 @@
     font-family: Roboto;
     font-weight: 600;
 }
+
+.botao-perfil-excluir-ong {
+    height: 50px;
+    min-width: 150px;
+    background-color: #EBE5E0;
+    border: 2px solid #84644D;
+    border-radius: 10px;
+    color: #84644D;
+    font-size: 22px;
+    font-family: 'Nunito';
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0px 15px 0px 15px;
+    cursor: pointer;
+    /* margin-top: 10px; */
+}
+
+.botoes-perfil-ong {
+    background-color: #F6F4F1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* width: 50%; */
+    border-radius: 10px;
+    border: solid 2px #84644D;
+    padding: 15px;
+    margin: auto;
+    gap: 10px;
+}
+
+/* #desc-ong-perfil {
+    height: 100px;
+} */

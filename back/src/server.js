@@ -368,58 +368,49 @@ app.get('/ongs/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar ONG' });
     }
 });
-
 app.post('/ongs', async (req, res) => {
     const {
-        nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
-        data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
-        endereco_ong, foto_ong, descricao_ong, tipo
+        nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
+        data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
     } = req.body;
+
     try {
         const result = await pool.query(
             `INSERT INTO ongs (
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
-                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
-                endereco_ong, foto_ong, descricao_ong, tipo
+                nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`,
             [
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
-                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
-                endereco_ong, foto_ong, descricao_ong, tipo
+                nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
             ]
         );
-        res.json(result.rows[0]);
+        res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar ONG:', err.message);
         res.status(500).json({ error: 'Erro ao criar ONG' });
     }
 });
-
 app.put('/ongs/:id', async (req, res) => {
     const { id } = req.params;
     const {
-        nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
-        data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
-        endereco_ong, foto_ong, descricao_ong, tipo
+        nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
+        data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
     } = req.body;
-
-    if (!id) {
-        return res.status(400).json({ error: 'ID da ONG é obrigatório.' });
-    }
 
     try {
         const result = await pool.query(
             `UPDATE ongs SET 
-                nome_ong = $1, email = $2, senha = $3, telefone = $4, telefone_denuncia = $5, cnpj = $6,
-                nome_responsavel = $7, cpf_responsavel = $8, data_nascimento_responsavel = $9, email_responsavel = $10,
-                telefone_responsavel = $11, estado_ong = $12, cidade_ong = $13, endereco_ong = $14, foto_ong = $15,
-                descricao_ong = $16, tipo = $17 WHERE id_ong = $18 RETURNING *`,
+                nome_ong = $1, email = $2, senha = $3, telefone = $4, instagram = $5, cnpj = $6, email_contato = $7,
+                nome_responsavel = $8, cpf_responsavel = $9, data_nascimento_responsavel = $10, telefone_responsavel = $11,
+                estado = $12, cidade = $13, endereco = $14, foto_perfil = $15, descricao = $16, tipo = $17
+            WHERE id_ong = $18 RETURNING *`,
             [
-                nome_ong, email, senha, telefone, telefone_denuncia, cnpj, nome_responsavel, cpf_responsavel,
-                data_nascimento_responsavel, email_responsavel, telefone_responsavel, estado_ong, cidade_ong,
-                endereco_ong, foto_ong, descricao_ong, tipo, id
+                nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
+                data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo, id
             ]
         );
+
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'ONG não encontrada.' });
         }
@@ -429,7 +420,6 @@ app.put('/ongs/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao atualizar ONG.' });
     }
 });
-
 app.delete('/ongs/:id', async (req, res) => {
     const { id } = req.params;
     try {

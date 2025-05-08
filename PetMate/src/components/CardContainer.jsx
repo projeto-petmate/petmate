@@ -7,9 +7,8 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 
 function CardContainer() {
-  const [pets, setPets] = useState([]);
   const [openPetModal, setOpenPetModal] = useState(false);
-  const { filter, filterOn, setPet, favoritos, toggleFavorito } = useContext(PetContext);
+  const { filter, filterOn, pets, setPets, setPet, favoritos, toggleFavorito } = useContext(PetContext);
   const { userLogado } = useContext(GlobalContext);
   const vrfUser = userLogado?.id_usuario ? true : false;
 
@@ -26,6 +25,7 @@ function CardContainer() {
 
     fetchPets();
   }, []);
+
   const handleToggleFavorito = (id_pet) => {
     toggleFavorito(id_pet); 
   };

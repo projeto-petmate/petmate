@@ -58,7 +58,8 @@ function Feedback() {
     const enviarComentario = async (e) => {
         const novoComentario = {
             texto: inptComentario,
-            id_usuario: userLogado.id_usuario
+            id_usuario: userLogado.id_usuario,
+            data_criacao: new Date().toISOString(),
         };
 
         try {

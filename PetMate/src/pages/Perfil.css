@@ -169,6 +169,7 @@
     font-family: Roboto;
     margin-top: 30px;
     margin: auto;
+    cursor: pointer;
 }
 
 .botao-editar-perfil {
@@ -184,6 +185,7 @@
     font-family: Roboto;
     margin-top: 30px;
     margin: auto;
+    cursor: pointer;
 
 }
 

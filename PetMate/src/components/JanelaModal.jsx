@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import './Navbar.css'
 import './JanelaModal.css'
 import { PetContext } from "../contexts/PetContext"
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
-  const { addPet } = useContext(PetContext)
+  const { addPet, setPets, pets } = useContext(PetContext)
   const navigate = useNavigate()
   const { userLogado } = useContext(GlobalContext); 
   const vrfOng = userLogado?.id_ong ? true : false; 
@@ -37,6 +37,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
     }
     return {}
   }
+  
 
   const CadastrarPet = async (e) => {
     e.preventDefault()
@@ -49,6 +50,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
 
     enviarPet()
   }
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0]
@@ -79,11 +81,15 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       condicoes: condicoes,
       id_usuario: vrfOng ? null : userLogado.id_usuario, 
       id_ong: vrfOng ? userLogado.id_ong : null,
+      disponivel: true,
+      data_criacao: new Date().toISOString(),
     };
 
     try {
-      await addPet(novoPet);
-      console.log('Pet cadastrado:', novoPet);
+      const response = await addPet(novoPet);
+      console.log('Pet cadastrado:', response);
+
+     
       Swal.fire({
         position: "center",
         icon: "success",
@@ -91,10 +97,12 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
         showConfirmButton: false,
         timer: 2000,
       });
+
       setModalOpen(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+
+      // setTimeout(() => {
+        // window.location.reload();
+      // }, 2000);
     } catch (error) {
       console.error("Erro ao cadastrar pet:", error);
     }

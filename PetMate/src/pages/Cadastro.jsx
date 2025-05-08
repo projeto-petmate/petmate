@@ -121,6 +121,7 @@ function Cadastro() {
             bairro: inptBairroUser,
             termos: termosCadastro,
             tipo: 'user',
+            data_criacao: new Date().toISOString(),
         };
         try {
             await addUser(novoUser);

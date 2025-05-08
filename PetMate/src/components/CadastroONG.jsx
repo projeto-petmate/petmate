@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./cadastroONG.css";
 import { useNavigate } from "react-router-dom";
 import { addOng } from '../apiService';
-import { FaTrash, FaUserCircle } from "react-icons/fa";
+import { FaInfoCircle, FaTrash, FaUserCircle } from "react-icons/fa";
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 import Swal from 'sweetalert2';
 import {
@@ -31,12 +31,14 @@ function CadastroONG() {
   const [ongNomeResponsavel, setOngNomeResponsavel] = useState('');
   const [ongCpfResponsavel, setOngCpfResponsavel] = useState('');
   const [ongDataNascimentoResponsavel, setOngDataNascimentoResponsavel] = useState('');
-  const [ongEmailResponsavel, setOngEmailResponsavel] = useState('');
+  const [ongEmailContato, setOngEmailContato] = useState('');
   const [ongTelefoneResponsavel, setOngTelefoneResponsavel] = useState('');
   const [ongEstado, setOngEstado] = useState('');
   const [ongCidade, setOngCidade] = useState('');
   const [ongEndereco, setOngEndereco] = useState('');
   const [ongFoto, setOngFoto] = useState('');
+  const [ongInstagram, setOngInstagram] = useState('');
+  const [ongDescricao, setOngDescricao] = useState('');
   const [erros, setErros] = useState({});
   const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
 
@@ -118,10 +120,10 @@ function CadastroONG() {
     }
 
     // Validação do email do responsável
-    if (!ongEmailResponsavel) {
-      novosErros.email_responsavel = 'O email do responsável é obrigatório.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmailResponsavel)) {
-      novosErros.email_responsavel = 'O email do responsável não é válido.';
+    if (!ongEmailContato) {
+      novosErros.email_contato = 'O email de contato é obrigatório.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmailContato)) {
+      novosErros.email_contato = 'O email de contato não é válido.';
     }
 
     // Validação do telefone do responsável
@@ -148,7 +150,7 @@ function CadastroONG() {
 
     // Validação da foto
     if (!ongFoto) {
-      novosErros.foto_ong = 'A foto é obrigatória.';
+      novosErros.foto_ong = 'A foto de perfil é obrigatória.';
     }
 
     setErros(novosErros);
@@ -156,6 +158,7 @@ function CadastroONG() {
   };
 
   const cadastrarOng = async (e) => {
+    ''
     e.preventDefault();
 
     if (!validarFormulario()) return;
@@ -165,18 +168,20 @@ function CadastroONG() {
       email: ongEmail,
       senha: ongSenha,
       telefone: ongTelefone,
-      telefone_denuncia: ongTelefoneDenuncia,
+      instagram: ongInstagram,
       cnpj: ongCnpj,
+      email_contato: ongEmailContato,
       nome_responsavel: ongNomeResponsavel,
       cpf_responsavel: ongCpfResponsavel,
       data_nascimento_responsavel: ongDataNascimentoResponsavel,
-      email_responsavel: ongEmailResponsavel,
       telefone_responsavel: ongTelefoneResponsavel,
-      estado_ong: ongEstado,
-      cidade_ong: ongCidade,
-      endereco_ong: ongEndereco,
-      foto_ong: ongFoto,
-      tipo: "ong"
+      estado: ongEstado,
+      cidade: ongCidade,
+      endereco: ongEndereco,
+      foto_perfil: ongFoto,
+      descricao: ongDescricao,
+      tipo: 'ong',
+      data_criacao: new Date().toISOString(),
     };
 
     try {
@@ -382,17 +387,10 @@ function CadastroONG() {
                 className="input-cad-ong"
                 type="text"
                 placeholder="Digite o instagram da ONG"
-                value={ongTelefoneDenuncia}
-                onChange={(e) => {
-                  const value = e.target.value
-                    .replace(/\D/g, '')
-                    .replace(/(\d{2})(\d)/, '($1) $2')
-                    .replace(/(\d{5})(\d)/, '$1-$2')
-                    .slice(0, 15);
-                  setOngTelefoneDenuncia(value)
-                }}
+                value={ongInstagram}
+                onChange={(e) => setOngInstagram(e.target.value.replace(/^@/, ''))}
               />
-            
+
               <label htmlFor="ongTelefone">
                 <div className="icon-input-ong">
                   <FaPhoneAlt className="icon-cadastro" />
@@ -415,21 +413,21 @@ function CadastroONG() {
                 }}
               />
               {erros.telefone && <p className="erro-mensagem">{erros.telefone}</p>}
-              <label htmlFor="ongEmailResponsavel">
+              <label htmlFor="ongEmailContatol">
                 <div className="icon-input-ong">
                   <FaEnvelope className="icon-cadastro" />
                   <p>Email de contato:</p>
                 </div>
               </label>
               <input
-                id="ongEmailResponsavel"
+                id="ongEmailContato"
                 className="input-cad-ong"
                 type="email"
                 placeholder="Digite o email de contato"
-                value={ongEmailResponsavel}
-                onChange={(e) => setOngEmailResponsavel(e.target.value)}
+                value={ongEmailContato}
+                onChange={(e) => setOngEmailContato(e.target.value)}
               />
-              {erros.email_responsavel && <p className="erro-mensagem">{erros.email_responsavel}</p>}
+              {erros.email_contato && <p className="erro-mensagem">{erros.email_contato}</p>}
               <label htmlFor="ongNomeResponsavel">
                 <div className="icon-input-ong">
                   <FaUser className="icon-cadastro" />
@@ -592,6 +590,25 @@ function CadastroONG() {
 
 
             </div>
+
+          </div>
+          <div className="input-desc">
+
+            <label htmlFor="ongDescricao">
+              <div className="icon-input-ong">
+                <FaInfoCircle className="icon-cadastro" />
+                <p>Descrição da ONG:</p>
+              </div>
+            </label>
+            <textarea
+              id="ongDescricao"
+              className="input-cad-ong"
+              placeholder="Digite uma breve descrição da ONG"
+              value={ongDescricao}
+              onChange={(e) => setOngDescricao(e.target.value)}
+              maxLength={300}
+            />
+            {erros.descricao && <p className="erro-mensagem">{erros.descricao}</p>}
           </div>
           <div className="termos-ong">
             <p>

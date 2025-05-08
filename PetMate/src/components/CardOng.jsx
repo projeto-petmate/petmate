@@ -34,7 +34,7 @@ function CardOng({ termoPesquisa }) {
           ongsFiltradas.map((o) => (
             <div key={o.id_ong} className='ong-card'>
               <img
-                src={o.foto_ong}
+                src={o.foto_perfil}
                 alt=""
                 className='ong-image'
               />

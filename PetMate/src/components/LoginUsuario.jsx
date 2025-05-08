@@ -30,7 +30,7 @@ function LoginUsuario() {
             });
             const data = await response.json();
             if (response.ok) {
-                console.log('Login bem-sucedido:', data);
+                // console.log('Login bem-sucedido:', data);
                 setErro('');
                 Logar(data.user.email, data.user.senha, 'usuario'); 
     

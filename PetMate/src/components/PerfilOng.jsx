@@ -29,6 +29,7 @@ function PerfilOng() {
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
+    
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -51,7 +52,7 @@ function PerfilOng() {
     useEffect(() => {
         if (userLogado) {
             setUserData(userLogado);
-            setImagemPreviewPerfil(userLogado?.foto_ong || null);
+            setImagemPreviewPerfil(userLogado?.foto_perfil || null);
         }
     }, [userLogado]);
 
@@ -60,7 +61,7 @@ function PerfilOng() {
         const reader = new FileReader();
         reader.onloadend = () => {
             setImagemPreviewPerfil(reader.result);
-            setUserData((prevData) => ({ ...prevData, foto_ong: reader.result }));
+            setUserData((prevData) => ({ ...prevData, foto_perfil: reader.result }));
         };
         if (file) {
             reader.readAsDataURL(file);
@@ -69,7 +70,7 @@ function PerfilOng() {
 
     const handleRemovePhoto = () => {
         setImagemPreviewPerfil(null);
-        setUserData((prevData) => ({ ...prevData, foto_ong: null }));
+        setUserData((prevData) => ({ ...prevData, foto_perfil: null }));
         document.getElementById('file-upload').value = null;
         setIsModalConfirmOpen(false);
     };
@@ -126,13 +127,13 @@ function PerfilOng() {
                             disabled={!editMode}
                         />
                     </div>
-                    {imagemPreviewPerfil || userData?.foto_ong ? (
+                    {imagemPreviewPerfil || userData?.foto_perfil ? (
                         <div
                             className="img-preview-perfil"
                             onClick={() => editMode && document.getElementById('file-upload').click()}
                         >
                             <img
-                                src={imagemPreviewPerfil || userData?.foto_ong}
+                                src={imagemPreviewPerfil || userData?.foto_perfil}
                                 alt="Pré-visualização"
                                 className="imagem-preview-perfil"
                             />
@@ -144,7 +145,7 @@ function PerfilOng() {
                         />
                     )}
                     <div className="icon-trash-container">
-                        {(imagemPreviewPerfil || userData?.foto_ong) && (
+                        {(imagemPreviewPerfil || userData?.foto_perfil) && (
                             <FaTrash
                                 className="icon-trash"
                                 onClick={() => setIsModalConfirmOpen(true)}
@@ -157,7 +158,7 @@ function PerfilOng() {
                 </div>
                 <div className="inputs-infom-ong">
                     <div className="colum-1">
-                        <label className='descricao-inputs'>E-mail da ONG*</label>
+                        <label className='descricao-inputs'>E-mail da Conta*</label>
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-1'
@@ -212,8 +213,8 @@ function PerfilOng() {
                             <input
                                 className='input-13'
                                 type="text"
-                                name="email_responsavel"
-                                value={userData?.email_responsavel || ''}
+                                name="instagram"
+                                value={userData?.instagram || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -244,7 +245,7 @@ function PerfilOng() {
                                 className='input-5'
                                 type="text"
                                 name="telefone_denuncia"
-                                value={userData?.telefone_denuncia || ''}
+                                value={userData?.email_contato || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -258,7 +259,7 @@ function PerfilOng() {
                                 className='input-6'
                                 type="text"
                                 name="estado_ong"
-                                value={userData?.estado_ong || ''}
+                                value={userData?.estado || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -272,7 +273,7 @@ function PerfilOng() {
                                 className='input-7'
                                 type="text"
                                 name="cidade_ong"
-                                value={userData?.cidade_ong || ''}
+                                value={userData?.cidade || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -286,7 +287,7 @@ function PerfilOng() {
                                 className='input-8'
                                 type="text"
                                 name="endereco_ong"
-                                value={userData?.endereco_ong || ''}
+                                value={userData?.endereco || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
@@ -297,20 +298,6 @@ function PerfilOng() {
 
                     </div>
                     <div className='colum-3'>
-                        <label className='descricao-inputs'>Descrição:</label>
-                        <div className="input-ongs-mostra-info">
-                            <input
-                                className='input-14'
-                                type="text"
-                                name="descricao"
-                                value={userData?.descricao_ong || ''}
-                                onChange={handleChange}
-                                disabled={!editMode}
-                            />
-                            {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
-                            }
-                        </div>
                         <label className='descricao-inputs'>Nome do responsável:</label>
                         <div className="input-ongs-mostra-info">
                             <input
@@ -367,10 +354,26 @@ function PerfilOng() {
                                 <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
+                        <label className='descricao-inputs'>Descrição:</label>
+                        <div className="input-ongs-mostra-info">
+                            <input
+                                className='input-14'
+                                id='desc-ong-perfil'
+                                type="text"
+                                name="descricao"
+                                value={userData?.descricao || ''}
+                                onChange={handleChange}
+                                disabled={!editMode}
+                            />
+                            {!editMode ?
+                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                            }
+                        </div>
                     </div>
 
                 </div>
                 <div className="botoes">
+                    <div className="botoes-perfil-ong">
                     {!editMode ?
                         <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
                             <div className="editar-dados">
@@ -386,6 +389,14 @@ function PerfilOng() {
                                 </div>
                             </button>
                         )}
+                        <button className="botao-perfil-excluir-ong" onClick={() => setOpenModalExclui(true)}>Excluir conta permanentemente</button>
+                        {/* <h4>Excluir conta permanentemente</h4> */}
+                    </div>
+                    <ModalExclusaoDeConta
+                        isExclui={openModalExclui}
+                        setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)}
+                        onDelete={handleDelete}
+                    />
                     {showSuccessPopup && (
                         <div className="success-popup-perfil">
                             <p>Dados salvos com sucesso!</p>

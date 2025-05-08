@@ -104,7 +104,7 @@ export const GlobalContextProvider = ({ children }) => {
                     setToken(data.token);
                     localStorage.setItem('token', data.token); 
                     setLogado(true);
-                    console.log("Usuário logado com sucesso:", user);
+                    // console.log("Usuário logado com sucesso:", user);
                 } else {
                     console.error("Erro: ID do usuário ou ONG não definido.");
                     return { error: "Erro interno: ID do usuário ou ONG não encontrado." };

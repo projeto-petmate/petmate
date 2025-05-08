@@ -10,7 +10,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
     const { ong } = useContext(OngContext);
 
     const telefone = ong?.telefone_contato || ong?.telefone;
-    const email = ong?.email_ong || ong?.email;
+    const email = ong?.email_contato || ong?.email;
     const endereco = ong?.endereco_ong || ong?.endereco;
 
     const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=55${telefone}&text=Olá!%20Estou%20interessado%20em%20${encodeURIComponent(ong.nome_ong || '')}` : "#";
@@ -33,7 +33,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                 </div>
                 <div className="info-ong">
                     <div className="img-ong">
-                        <img src={ong.foto_ong} alt="logo da ong" className='logo-ong' />
+                        <img src={ong.foto_perfil} alt="logo da ong" className='logo-ong' />
                     </div>
                     <div className="dados-ong">
                         <div className="contato-redes">
@@ -73,7 +73,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                         </div>
                         <div className="descricao-ong">
                             <h3>Descrição:</h3>
-                            <p>{ong.descricao_ong}</p>
+                            <p>{ong.descricao}</p>
                         </div>
                     </div>
                 </div>
