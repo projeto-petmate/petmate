@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     {path: "/adotar", element: <Adotar />},
     {path: "/contato", element: <Contato />},
     {path: "/cadastro", element: <Cadastro />},
-    {path: "/CadastroONG", element: <CadastroONG />},
+    {path: "/cadastro-ong", element: <CadastroONG />},
     {path: "/ongs", element: <Ongs />},
     {path: "/login", element: <Login />},
     {path: "/perfil", element: <Perfil />},

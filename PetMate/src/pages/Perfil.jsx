@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import './Perfil.css';
-import { FaCheck, FaUnlock, FaEdit, FaUserCircle, FaLock, FaTrash } from "react-icons/fa";
+import { FaCheck, FaUnlock, FaEdit, FaUserCircle, FaLock, FaTrash, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { BsDoorOpenFill } from "react-icons/bs";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
 import { TbMoodEdit } from 'react-icons/tb';
 import ModalConfirmFoto from '../components/ModalConfirmFoto';
+import ModalConfirmarEdit from '../components/ModalConfirmarEdit';
 
 function Perfil() {
     const { userLogado, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
@@ -24,6 +25,8 @@ function Perfil() {
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(userLogado?.imagem || null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
+    const [mostrarSenha, setMostrarSenha] = useState(false);
     const navigate = useNavigate();
 
     const handleRemovePhoto = () => {
@@ -76,6 +79,7 @@ function Perfil() {
             await updateUsuario(userData.id_usuario, userData);
             setEditMode(false);
             setShowSuccessPopup(true);
+            setOpenModalConfirmEdit(false)
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
@@ -105,6 +109,12 @@ function Perfil() {
     if (isLoading) {
         return <div className="loading">Carregando...</div>;
     }
+
+    
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
+
 
     return (
         <div>
@@ -180,7 +190,7 @@ function Perfil() {
                                             style={{ cursor: 'not-allowed' }} />
                                     </div>
                                 </div>
-                                <div className="input-nome">
+                                <div className="input-editavel">
                                     <p>Nome</p>
                                     <div className="input-edit">
                                         <input
@@ -197,30 +207,40 @@ function Perfil() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="input-nome">
+                                <div className="input-editavel">
+                                    <p>Senha</p>
+                                    <div className="input-edit">
+                                        <input
+                                            type={mostrarSenha ? "text" : "password"}
+                                            name="senha"
+                                            value={userData?.senha}
+                                            onChange={handleChange}
+                                            disabled={!editMode}
+                                            id='inpt-senha-perfil'
+                                        />
+                                        {!editMode ? (
+                                            <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
+                                        ) : (
+                                            <>
+                                                <button
+                                                    onClick={toggleMostrarSenha}
+                                                    className='icon-mostrar-senha-perfil-user'
+                                                    type="button"
+                                                >
+                                                    {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
+                                                </button>
+                                                <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                                <div className="input-editavel">
                                     <p>Telefone</p>
                                     <div className="input-edit">
                                         <input
                                             type="text"
                                             name="telefone"
                                             value={userData.telefone || ''}
-                                            onChange={handleChange}
-                                            disabled={!editMode}
-                                        />
-                                        {!editMode ? (
-                                            <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
-                                        ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="input-nome">
-                                    <p>Senha</p>
-                                    <div className="input-edit">
-                                        <input
-                                            type="password"
-                                            name="senha"
-                                            value={userData.senha || ''}
                                             onChange={handleChange}
                                             disabled={!editMode}
                                         />
@@ -246,7 +266,7 @@ function Perfil() {
                                             style={{ cursor: 'not-allowed' }} />
                                     </div>
                                 </div>
-                                <div className="input-nome">
+                                <div className="input-editavel">
                                     <p>UF</p>
                                     <div className="input-edit">
                                         <select
@@ -293,7 +313,7 @@ function Perfil() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="input-nome">
+                                <div className="input-editavel">
                                     <p>Cidade</p>
                                     <div className="input-edit">
                                         <input
@@ -310,7 +330,7 @@ function Perfil() {
                                         )}
                                     </div>
                                 </div>
-                                <div className="input-nome">
+                                <div className="input-editavel">
                                     <p>Bairro</p>
                                     <div className="input-edit">
                                         <input
@@ -335,23 +355,23 @@ function Perfil() {
                                 {!editMode ? (
                                     <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
                                         <div className="editar-dados">
-                                            Clique para editar
+                                            Editar dados
                                             <FaEdit className='icon-edit' />
                                         </div>
                                     </button>
                                 ) : (
-                                    <button className="botao-salvar-perfil" onClick={handleSave}>
+                                    <button className="botao-salvar-perfil" onClick={() => setOpenModalConfirmEdit(true)}>
                                         <div className="salvar-dados">
-                                            Salvar
+                                            Salvar dados
                                             <FaCheck className='icon-edit' />
                                         </div>
                                     </button>
                                 )}
-                                <h4>Editar dados do perfil</h4>
+                                {/* <h4>Editar dados do perfil</h4> */}
                             </div>
                             <div className="excluir-conta">
-                                <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir</button>
-                                <h4>Excluir conta permanentemente</h4>
+                                <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir conta</button>
+                                {/* <h4>Excluir conta permanentemente</h4> */}
                             </div>
                         </div>
                     </div>
@@ -365,6 +385,11 @@ function Perfil() {
                     <p>Dados salvos com sucesso!</p>
                 </div>
             )}
+            <ModalConfirmarEdit
+                isOpen={openModalConfirmEdit}
+                setEditConfirmOpen={setOpenModalConfirmEdit}
+                onConfirm={handleSave}
+            />
             <ModalExclusaoDeConta isExclui={openModalExclui} setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)} onDelete={handleDelete} />
             <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
             <ModalConfirmFoto

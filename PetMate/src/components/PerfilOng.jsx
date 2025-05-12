@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import CardPetPerfil from '../components/CardPetPerfil';
 import { FiLogOut } from "react-icons/fi";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
 import ModalLogout from '../components/ModalLogout';
@@ -16,6 +16,7 @@ import { FaCheck, FaUnlock } from "react-icons/fa";
 import { deleteOng, updateOng } from '../apiService';
 import { TbMoodEdit } from 'react-icons/tb';
 import ModalConfirmFoto from './ModalConfirmFoto';
+import ModalConfirmarEdit from './ModalConfirmarEdit';
 
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
@@ -29,7 +30,8 @@ function PerfilOng() {
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
-    
+    const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -84,9 +86,11 @@ function PerfilOng() {
             await updateOng(userData.id_ong, userData);
             setEditMode(false);
             setShowSuccessPopup(true);
+            setOpenModalConfirmEdit(false);
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
+
         } catch (error) {
             console.error("Erro ao atualizar dados da ONG:", error);
         }
@@ -101,6 +105,9 @@ function PerfilOng() {
         }
     };
 
+    const toggleMostrarSenha = () => {
+        setMostrarSenha(!mostrarSenha);
+    };
 
     return (
         <div>
@@ -184,15 +191,26 @@ function PerfilOng() {
                         <div className="input-ongs-mostra-info">
                             <input
                                 className='input-14'
-                                type="password"
+                                type={mostrarSenha ? "text" : "password"}
                                 name="senha"
                                 value={userData?.senha || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
                             />
-                            {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
-                            }
+                            {!editMode ? (
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} />
+                            ) : (
+                                <>
+                                    <button
+                                        onClick={toggleMostrarSenha}
+                                        className='icon-mostrar-senha-perfil-ong'
+                                        type="button"
+                                    >
+                                        {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
+                                    </button>
+                                    <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                </>
+                            )}
                         </div>
                         <label className='descricao-inputs'>Nome da ONG:</label>
                         <div className="input-ongs-mostra-info">
@@ -205,7 +223,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Instragram da ONG (opcional)</label>
@@ -219,7 +237,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
 
@@ -236,7 +254,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Email de Contato ONG:</label>
@@ -250,22 +268,53 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Estado:</label>
                         <div className="input-ongs-mostra-info">
-                            <input
-                                className='input-6'
-                                type="text"
-                                name="estado_ong"
+                            <select
+                                id="estado"
+                                name="uf"
+                                className="input-6"
                                 value={userData?.estado || ''}
                                 onChange={handleChange}
                                 disabled={!editMode}
-                            />
-                            {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
-                            }
+                            >
+                                <option value="" disabled>Selecione o estado</option>
+                                <option value="AC">Acre (AC)</option>
+                                <option value="AL">Alagoas (AL)</option>
+                                <option value="AP">Amapá (AP)</option>
+                                <option value="AM">Amazonas (AM)</option>
+                                <option value="BA">Bahia (BA)</option>
+                                <option value="CE">Ceará (CE)</option>
+                                <option value="DF">Distrito Federal (DF)</option>
+                                <option value="ES">Espírito Santo (ES)</option>
+                                <option value="GO">Goiás (GO)</option>
+                                <option value="MA">Maranhão (MA)</option>
+                                <option value="MT">Mato Grosso (MT)</option>
+                                <option value="MS">Mato Grosso do Sul (MS)</option>
+                                <option value="MG">Minas Gerais (MG)</option>
+                                <option value="PA">Pará (PA)</option>
+                                <option value="PB">Paraíba (PB)</option>
+                                <option value="PR">Paraná (PR)</option>
+                                <option value="PE">Pernambuco (PE)</option>
+                                <option value="PI">Piauí (PI)</option>
+                                <option value="RJ">Rio de Janeiro (RJ)</option>
+                                <option value="RN">Rio Grande do Norte (RN)</option>
+                                <option value="RS">Rio Grande do Sul (RS)</option>
+                                <option value="RO">Rondônia (RO)</option>
+                                <option value="RR">Roraima (RR)</option>
+                                <option value="SC">Santa Catarina (SC)</option>
+                                <option value="SP">São Paulo (SP)</option>
+                                <option value="SE">Sergipe (SE)</option>
+                                <option value="TO">Tocantins (TO)</option>
+                            </select>
+                            {!editMode ? (
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} />
+                            ) : (
+                                <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                            )}
                         </div>
                         <label className='descricao-inputs'>Cidade:</label>
                         <div className="input-ongs-mostra-info">
@@ -278,7 +327,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Endereço:</label>
@@ -292,7 +341,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
 
@@ -309,7 +358,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Telefone do responsável:</label>
@@ -323,7 +372,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>CPF do responsável:</label>
@@ -337,7 +386,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Data de nascimento:</label>
@@ -351,7 +400,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                         <label className='descricao-inputs'>Descrição:</label>
@@ -366,7 +415,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
                             }
                         </div>
                     </div>
@@ -374,24 +423,29 @@ function PerfilOng() {
                 </div>
                 <div className="botoes">
                     <div className="botoes-perfil-ong">
-                    {!editMode ?
-                        <button className='botao-editar-perfil' onClick={() => setEditMode(true)} >
-                            <div className="editar-dados">
-                                Editar Dados
-                                <FaEdit className='icon-edit' />
-                            </div>
-                        </button>
-                        : (
-                            <button className="botao-salvar-perfil" onClick={handleSave}>
+                        {!editMode ? (
+                            <button className='botao-editar-perfil-ong' onClick={() => setEditMode(true)}>
+                                <div className="editar-dados">
+                                    Editar Dados
+                                    <FaEdit className='icon-edit' />
+                                </div>
+                            </button>
+                        ) : (
+                            <button className="botao-salvar-perfil" onClick={() => setOpenModalConfirmEdit(true)}>
                                 <div className="salvar-dados">
                                     Salvar Dados
                                     <FaCheck className='icon-edit' />
                                 </div>
                             </button>
                         )}
-                        <button className="botao-perfil-excluir-ong" onClick={() => setOpenModalExclui(true)}>Excluir conta permanentemente</button>
+                        <button className="botao-perfil-excluir-ong" onClick={() => setOpenModalExclui(true)}>Excluir conta</button>
                         {/* <h4>Excluir conta permanentemente</h4> */}
                     </div>
+                    <ModalConfirmarEdit
+                        isOpen={openModalConfirmEdit}
+                        setEditConfirmOpen={setOpenModalConfirmEdit}
+                        onConfirm={handleSave}
+                    />
                     <ModalExclusaoDeConta
                         isExclui={openModalExclui}
                         setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)}

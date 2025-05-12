@@ -1,4 +1,4 @@
-.modal_conteiner_excluir_conta {
+.modal-confirmar-edit {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,7 +11,8 @@
     align-items: center;
     z-index: 1000;
 }
-.conteiner_modal_excluir_conta {
+
+.conteiner-modal-confirmar-edit {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,22 +25,28 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
 .meio-modal {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 20px;
 }
 
-.botoes-excluir-conta {
+.texto-confirmar-edit h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.botoes-confirmar-edit {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 10px;
 }
 
-.botao-modal-excluir-conta, .botao-modal-cancelar-excluir-conta {
+.botao-modal-confirmar-edit,
+.botao-cancelar-confirmar-edit {
     font-size: 1rem;
     border: none;
     cursor: pointer;
@@ -50,37 +57,22 @@
     transition: 0.3s ease;
 }
 
-.botao-modal-cancelar-excluir-conta{
+.botao-cancelar-confirmar-edit {
     background-color: #84644D;
     color: #EBE5E0;
 }
-.botao-modal-excluir-conta{
+
+.botao-modal-confirmar-edit {
     background-color: #EBE5E0;
     border: 1px solid #6b4f3a;
     color: #333;
 }
-.botao-modal-excluir-conta:hover {
+
+.botao-modal-confirmar-edit:hover {
     background-color: #b3aba5;
     transition: 0.3s;
 }
 
-.botao-modal-cancelar-excluir-conta:hover {
+.botao-cancelar-confirmar-edit:hover {
     background-color: #6e533f;
 }
-
-
-.texto_excluir_conta h1 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.texto_excluir_conta{
-    width: 110%;
-    margin-top: 60px;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #333;
-}
-

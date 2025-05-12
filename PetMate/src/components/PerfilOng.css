@@ -87,6 +87,15 @@
     border-radius: 5px 0px 0px 5px;
 }
 
+.input-ongs-mostra-info .input-6 {
+    padding: 5px;
+}
+.input-ongs-mostra-info .input-6:disabled {
+    border: solid 1px #84644D;
+    color: black;
+    border-right: #fffdfd;
+} 
+
 .icon-cadeado{
     width: 38px;
     height: 40px;
@@ -97,6 +106,7 @@
     border-left: none;
     border-radius: 5px;
     border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
 }
 
 .icon-cadeado-sem-edicao{
@@ -128,7 +138,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* margin-left: 30px; */
+    margin-left: 30px;
     margin-top: 17px;
     background-color: #84644D;
     color: #FBFBFB;
@@ -141,9 +151,35 @@
     font-weight: 600;
 }
 
+.botoes-perfil-ong {
+    background-color: #F6F4F1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    gap: 160px;
+    margin-top: 20px;
+
+}
+
+.botao-editar-perfil-ong {
+    height: 55px;
+    font-size: 20px;
+    background-color: #84644D;
+    border-radius: 12px;
+    border: none;
+    color: #F6F4F1;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    font-family: Roboto;
+    padding: 0px 25px 0px 25px;
+    cursor: pointer;
+}
+
 .botao-perfil-excluir-ong {
-    height: 50px;
-    min-width: 150px;
+    height: 55px;
+    min-width: 200px;
     background-color: #EBE5E0;
     border: 2px solid #84644D;
     border-radius: 10px;
@@ -154,23 +190,27 @@
     letter-spacing: 0.03em;
     padding: 0px 15px 0px 15px;
     cursor: pointer;
-    /* margin-top: 10px; */
 }
 
-.botoes-perfil-ong {
-    background-color: #F6F4F1;
+
+.mostrar-senha{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
-    /* width: 50%; */
-    border-radius: 10px;
-    border: solid 2px #84644D;
-    padding: 15px;
-    margin: auto;
-    gap: 10px;
+    position: relative;
+    
 }
 
-/* #desc-ong-perfil {
-    height: 100px;
-} */
+.icon-mostrar-senha-perfil-ong{
+    height: 40px;
+    width: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #AD947E;
+    border-left: none;
+    border-right: none;
+    font-size: 25px;
+    padding-right: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
