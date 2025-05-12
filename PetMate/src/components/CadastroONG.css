@@ -289,9 +289,6 @@
     color: #84644D;
 }
 
-
-
-
 @media (max-width: 1280px) {
     .conteiner-cad-ong {
         flex-direction: column;
@@ -301,12 +298,14 @@
         gap: 20px;
     }
 
+
     .conteiner-info-ong {
         width: 90%;
         height: auto;
         margin: 0;
         padding: 20px;
     }
+
 
     .texto-cadastro-ong {
         flex-direction: column;
@@ -315,22 +314,28 @@
         margin-bottom: 20px;
     }
 
+
     .texto-cadastro-ong h2 {
         font-size: 24px;
     }
 
+
     .texto-cadastro-ong-img img {
-        width: 80px;
-        height: auto;
+        width: 190px;
+        height: 7px;
+        margin-left: 80px;
     }
+
 
     .user-icon-container-ong {
         margin: 20px 0;
     }
 
+
     .user-icon {
         font-size: 80px;
     }
+
 
     .img-preview-ong img {
         width: 80px;
@@ -338,10 +343,12 @@
         border-radius: 50%;
     }
 
+
     .inputs-cad-ong {
         flex-direction: column;
         gap: 20px;
     }
+
 
     .coluna-1-inputs,
     .coluna-2-inputs,
@@ -349,12 +356,14 @@
         width: 100%;
     }
 
+
     .input-cad-ong {
         width: 100%;
         height: 40px;
         font-size: 14px;
         padding: 10px;
     }
+
 
     .select-estado {
         width: 100%;
@@ -363,6 +372,7 @@
         padding: 5px;
     }
 
+
     .conteiner-botao-cad-ong {
         display: flex;
         flex-direction: column;
@@ -370,11 +380,13 @@
         gap: 10px;
     }
 
+
     .botao-cad-ong {
         width: 100%;
         height: 45px;
         font-size: 16px;
     }
+
 
     .login-cad-ong {
         display: flex;
@@ -383,40 +395,83 @@
         font-size: 14px;
     }
 
+
     .img-lateral-ong {
         display: none;
     }
 }
+
 
 @media (max-width: 768px) {
     .conteiner-info-ong {
         padding: 10px;
     }
 
+
     .texto-cadastro-ong h2 {
         font-size: 20px;
+        margin-left: -70px;
     }
+
 
     .input-cad-ong {
         font-size: 12px;
         height: 35px;
     }
 
+
     .botao-cad-ong {
-        font-size: 14px;
+        font-size: 18px;
         height: 40px;
+        margin-top: 20px;
     }
+
 
     .login-cad-ong {
         font-size: 12px;
     }
 
+
     .user-icon {
         font-size: 60px;
     }
 
+
     .img-preview-ong img {
         width: 60px;
         height: 60px;
+    }
+
+
+    .logoMarrom-cad-ong{
+        width: 90px;
+        margin-top: -70px;
+        margin-left: 220px;
+    }
+
+
+    .user-icon-ong{
+        font-size: 60px;
+        margin-top: -50px;
+    }
+
+
+    .termos-ong p{
+        font-size: 16px;
+    }
+
+
+    .termos-ong a{
+        font-size: 15px;
+    }
+
+    #ongDescricao{
+        width: 100%;
+        height: 70px;
+        font-size: 14px;
+    }
+
+    .conteiner-botao-cad-ong p{
+        font-size: 16px;
     }
 }

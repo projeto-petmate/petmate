@@ -260,3 +260,88 @@
     background-color: rgb(217, 213, 213);
     transform: scale(1.05);
 }
+
+@media (max-width: 768px) {
+    .editar-ong-container {
+        width: 90vw;
+        height: auto;
+        padding: 15px;
+    }
+
+
+    .inputs-editar-ong {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+    .coluna-editar-ong {
+        width: 100%;
+    }
+
+
+    .edit-desc textarea {
+        width: 100%;
+        height: 80px;
+        font-size: 16px;
+    }
+
+
+    .botoes-editar-ong {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+    .botao-salvar-ong,
+    .botao-cancelar-ong {
+        width: 100%;
+        font-size: 16px;
+    }
+}
+
+
+/* Estilos para telas muito pequenas (exemplo: largura máxima de 480px) */
+@media (max-width: 480px) {
+    .editar-ong-container {
+        width: 100vw;
+        padding: 10px;
+    }
+
+
+    .inputs-editar-ong {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .edit-desc textarea {
+        height: 60px;
+        font-size: 14px;
+    }
+
+
+    .botoes-editar-ong {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+    .botao-cancelar-ong {
+        width: 100%;
+        height: 30px;
+        font-size: 14px;
+    }
+
+
+    .botao-edit-salvar {
+        width: 120%;
+        height: 35px;
+    }
+
+
+    .botao-edit-fechar{
+        width: 120%;
+        height: 35px;
+    }
+}

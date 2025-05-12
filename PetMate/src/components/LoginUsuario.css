@@ -361,9 +361,6 @@
     }
 
 
-
-
-
     .info-login {
         width: 90%;
         padding: 20px;
@@ -371,14 +368,20 @@
     }
 
 
-    .inputs-login{
-      height: 250px;  
+
+
+    .inputs-login {
+        height: 250px;
     }
 
 
-    .inpts-login input{
+
+
+    .inpts-login input {
         width: 115%;
     }
+
+
 
 
     #inputSenha {
@@ -386,9 +389,13 @@
     }
 
 
+
+
     .mostrar-senha {
         width: 115%;
     }
+
+
 
 
     .sem-cadastro {
@@ -398,12 +405,17 @@
     }
 
 
+
+
     .texto-login h2 {
         font-size: 32px;
     }
 
 
-    .texto-login p, .base-login button, .sem-cadastro a {
+
+
+    .texto-login p,
+    .sem-cadastro a {
         font-size: 18px;
     }
 
@@ -411,7 +423,5 @@
     .base-login button {
         margin-left: 40px;
         width: 115%;
-      }
-
-
+    }
 }

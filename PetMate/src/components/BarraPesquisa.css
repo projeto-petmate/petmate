@@ -55,3 +55,16 @@
 .lupaIcon:hover{
     color: #484848
 }
+
+@media (max-width: 768px) {
+    .pesquisa-container {
+        width: 100%;
+        padding: 10px;
+    }
+    .barraDePesquisa {
+        font-size: 14px;
+    }
+    .lupaIcon {
+        font-size: 20px;
+    }
+}

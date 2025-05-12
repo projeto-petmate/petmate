@@ -106,3 +106,119 @@
     justify-content: center;
     gap: 10px;
 }
+
+@media (max-width: 768px) {
+    .container-favoritos {
+        padding: 20px;
+        background-size: cover;
+    }
+
+
+    .titulo-favoritos h2 {
+        font-size: 28px;
+    }
+
+
+    .titulo-favoritos p {
+        font-size: 18px;
+    }
+
+
+    .sem-pets-fav {
+        font-size: 18px;
+        padding: 8px 16px;
+    }
+
+
+    .card-favoritos {
+        gap: 40px;
+    }
+
+
+    .pet-card-fav {
+        width: 100%;
+        height: auto;
+    }
+
+
+    .pet-image {
+        height: 200px;
+    }
+
+
+    .pet-info-card-fav h3 {
+        font-size: 18px;
+    }
+
+
+    .pet-info-card-fav p {
+        font-size: 16px;
+    }
+
+
+    .botoes-card-fav {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+
+/* Para telas menores que 480px (celulares pequenos) */
+@media (max-width: 480px) {
+    .titulo-favoritos h2 {
+        font-size: 29px;
+    }
+
+
+    .titulo-favoritos p {
+        font-size: 17px;
+    }
+
+
+    .titulo-favoritos{
+        align-items: center;
+    }
+
+
+    .sem-pets-fav {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+
+
+    .pet-image {
+        height: 150px;
+    }
+
+
+    .pet-info-card-fav h3 {
+        font-size: 16px;
+    }
+
+
+    .pet-info-card-fav p {
+        font-size: 14px;
+    }
+
+
+    .pet-info-card-fav{
+        padding: 0px;
+    }
+
+
+    .pet-card-fav{
+        width: 44%;
+        height: auto;
+    }
+
+
+    .card-favoritos{
+        gap: 20px;
+    }
+
+
+    .botoes-card-fav{
+        flex-direction: row;
+        gap: 10px;
+    }
+}

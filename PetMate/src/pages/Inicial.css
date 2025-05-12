@@ -64,7 +64,8 @@
     color: #84644D;
     transition: all 0.3s ease;
 }
-.botao-adotar:hover{
+
+.botao-adotar:hover {
     background-color: #DDD2C9;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
@@ -81,11 +82,13 @@
     color: #EBE5E0;
     transition: all 0.3s ease;
 }
-.botao-cadastrar:hover{
-    background-color:#755742 ;
+
+.botao-cadastrar:hover {
+    background-color: #755742;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
+
 .titulo-home {
     display: flex;
     flex-direction: column;
@@ -104,14 +107,15 @@
 .botao-swal-cancelar:hover {
     transition: 0.3s;
 }
+
 .info-cards {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 2rem 5%;
-  }
-  
-  .card-info {
+}
+
+.card-info {
     background-color: #DDD2C9;
     border: 1px solid #634833;
     border-radius: 12px;
@@ -121,33 +125,37 @@
     max-width: 530px;
     padding-top: 16px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .card-info img {
+}
+
+.card-info img {
     width: 150px;
     height: auto;
     margin-left: 5px;
     margin-top: auto;
-   
+
     object-fit: contain;
-  }
-  
-  .texto-info h3 {
+}
+
+.texto-info h3 {
     font-size: 1.5rem;
     color: #634833;
     margin-bottom: 0.5rem;
     font-weight: bold;
-  }
-  
-  .texto-info p {
+}
+
+.texto-info p {
     font-size: 0.95rem;
     color: #2e2217;
     line-height: 1.4;
-  }
+}
+
 @media (max-width: 1024px) {
     .texto-home h2 {
-        font-size: 50px; /* Reduz tamanho do título */
+        font-size: 50px;
+        /* Reduz tamanho do título */
     }
+
+
 
 
     .texto-home p {
@@ -156,9 +164,13 @@
     }
 
 
+
+
     .dog-home {
         height: 65vh;
     }
+
+
 
 
     .botoes-home button {
@@ -169,18 +181,22 @@
 }
 
 
-/* Para telas menores que 768px (smartphones grandes) */
 @media (max-width: 768px) {
     .meio-home {
-        flex-direction: column; /* Empilha os elementos verticalmente */
+        flex-direction: column;
+        /* Empilha os elementos verticalmente */
         align-items: center;
         min-width: 100%;
     }
 
 
+
+
     .banner-home {
         min-width: 100%;
     }
+
+
 
 
     .texto-home {
@@ -189,9 +205,13 @@
     }
 
 
+
+
     .texto-home h2 {
         font-size: 40px;
     }
+
+
 
 
     .texto-home p {
@@ -200,16 +220,24 @@
     }
 
 
+
+
     .dog-home {
         height: 50vh;
-        width: 80vw;
+        margin-left: 25vh;
+
+
     }
 
 
     .botoes-home {
         display: flex;
-        flex-direction: column; /* Empilha os botões */
         gap: 10px;
+    }
+
+
+    .card-info {
+        margin: 10px auto;
     }
 
 
@@ -224,12 +252,15 @@
 
 /* Para telas menores que 480px (celulares pequenos) */
 @media (max-width: 480px) {
-    .texto-home{
+    .texto-home {
         padding: 10px;
     }
+
     .texto-home h2 {
         font-size: 30px;
     }
+
+
 
 
     .texto-home p {
@@ -238,10 +269,14 @@
     }
 
 
+
+
     .dog-home {
         width: 90vw;
         margin-left: 10vw;
     }
+
+
 
 
     .botoes-home button {
@@ -251,7 +286,22 @@
     }
 
 
-    .botoes-home{
+    .card-info {
+        margin-top: 20px;
+    }
+
+
+    .texto-info h3 {
+        font-size: 1.2rem;
+    }
+
+
+    .texto-info p {
+        font-size: 0.8rem;
+    }
+
+
+    .botoes-home {
         display: flex;
         flex-direction: column;
         align-items: center;

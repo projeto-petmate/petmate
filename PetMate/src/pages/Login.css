@@ -364,6 +364,7 @@
       padding: 20px;
     }
 
+
     .img_cachorro{
         margin-left: -70px;
         max-height: 300px;
@@ -372,6 +373,7 @@
     .img_cachorro img {
         margin: 0;
     }
+
 
     .img-login {
       max-height: 440px;
@@ -383,6 +385,11 @@
         padding: 10px;
         margin-left: 300px;
     }
- 
-   
-  }
+
+
+    .sem-cadastro{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+   }
+

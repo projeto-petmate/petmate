@@ -139,7 +139,8 @@
 
 
 
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
+
 
     .toggle-filtro-btn {
         display: block;
@@ -187,11 +188,17 @@
     }
 
 
+
+
     .pet-card{
         width: 150px;
         height: 225px;
     }
 
 
+    #selectGenero{
+        width: 100%;
+    }
    
   }
+

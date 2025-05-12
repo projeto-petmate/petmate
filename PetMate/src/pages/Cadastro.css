@@ -287,16 +287,13 @@
     transform: scaleX(-1);
 }
 
-
-
-
-
 @media (max-width: 1280px) {
     .container-cadastro {
         flex-direction: column;
         gap: 0px;
         padding: 20px;
     }
+
 
     .container-img {
         display: flex;
@@ -306,6 +303,7 @@
         height: auto;
     }
 
+
     .img-cadastro {
         height: 200px;
         max-height: 80%;
@@ -313,13 +311,18 @@
         margin-left: -70px;
     }
 
+
     .info-cadastro {
         margin-right: 0;
         width: 90%;
         padding: 20px;
         margin-top: 0;
 
+
     }
+
+
+
 
 
 
@@ -328,12 +331,15 @@
         margin-right: 0;
     }
 
+
     .inputs-cadastro {
         flex-direction: column;
         height: auto;
         padding: 10px;
 
+
     }
+
 
     .inputs-column input {
         width: 270px;
@@ -342,24 +348,29 @@
         font-size: 14px;
     }
 
+
     .botao-termos-cadastro button {
         width: 100%;
         font-size: 20px;
     }
+
 
     .termos {
         flex-direction: column;
         align-items: flex-start;
     }
 
+
     .inputs-cadastro p {
         font-family: inter;
         font-size: 15px;
     }
 
+
     .icon-cadastro {
         font-size: 15px;
     }
+
 
     .texto-cadastro button {
         width: 9em;
@@ -373,11 +384,13 @@
         cursor: pointer;
     }
 
+
     .termos p {
         font-size: 12px;
         display: block;
         margin-block-start: -0em;
     }
+
 
     .termos a {
         font-size: 12px;
@@ -386,23 +399,28 @@
         color: #84644D;
     }
 
+
     .termos {
         font-family: roboto;
         display: flex;
         flex-direction: row;
 
+
         height: 70px;
         width: 110%;
     }
+
 
     .barra-img img {
         height: 2.5px;
         width: 70px;
     }
 
+
     .barra_cadastro {
         margin-top: 5px;
     }
+
 
     .texto-cadastro {
         display: flex;
@@ -415,11 +433,13 @@
         margin-bottom: 2em;
     }
 
+
     .erro-mensagem-user {
         color: rgb(219, 16, 16);
         text-align: center;
         font-size: 12px;
     }
+
 
     .botao-termos-cadastro button:hover {
         background-color: #725540;
@@ -428,6 +448,56 @@
         transition: all 0.5s ease;
     }
 
+
+}
+
+@media (max-width: 768px) {
+    .container-cadastro {
+        flex-direction: column;
+        gap: 0px;
+        padding: 20px;
+    }
+
+
+    .container-img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: auto;
+    }
+
+
+    .img-cadastro {
+        height: 200px;
+        max-height: 80%;
+        margin-top: 0;
+        margin-left: -70px;
+    }
+
+
+    .info-cadastro {
+        margin-right: 0;
+        width: 90%;
+        padding: 20px;
+        margin-top: 0;
+
+
+    }
+
+
+    .select-genero-user {
+        width: 330%;
+        height: 40px;
+        margin-left: -93px;
+    }
+
+
+    .select-estado-user {
+        width: 183%;
+        height: 40px;
+        margin-left: -59px;
+    }
 }
 
 .erro-termos {

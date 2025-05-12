@@ -36,3 +36,54 @@
   font-weight: 800;
   font-family: 'Raleway';
 }
+
+@media (max-width: 768px) {
+
+
+
+
+  .titulo-pesquisa-ong {
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 0px;
+    margin-bottom: 40px;
+  }
+
+
+
+
+  .titulo-ongs h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+
+
+
+  .titulo-ongs {
+    margin-left: 0;
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+
+
+  .ongs-container{
+    padding: 20px;
+  }
+
+
+  .titulo-pesquisa-ong {
+      gap: 10px;
+  }
+
+
+
+
+  .titulo-ongs h2 {
+      font-size: 24px;
+  }
+}

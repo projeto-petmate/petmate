@@ -394,43 +394,51 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
-        gap: 20px;
+        padding: 10px;
+        gap: 0px;
     }
+
 
     .info-perfil {
         width: 90%;
         padding: 20px;
     }
 
+
     .container-pets {
         width: 100%;
         margin-bottom: 20px;
     }
+
 
     .user-icon-container {
         width: 100%;
         margin-bottom: 20px;
     }
 
+
     .user-icon {
         font-size: 70px;
     }
+
 
     .img-preview-perfil img {
         width: 70px;
         height: 70px;
     }
 
+
     .inputs-perfil {
         flex-direction: column;
-        gap: 20px;
+        gap: 0px;
     }
+
 
     .inputs-perfil-1,
     .inputs-perfil-2 {
         width: 100%;
     }
+
 
     .input-edit input,
     .input-perma input {
@@ -439,10 +447,12 @@
         padding: 10px;
     }
 
+
     .botoes-perfil {
         flex-direction: column;
         gap: 20px;
     }
+
 
     .botao-editar-perfil,
     .botao-salvar-perfil,
@@ -453,25 +463,30 @@
     }
 }
 
+
 @media (max-width: 768px) {
     .info-perfil {
         padding: 10px;
     }
 
+
     .user-icon {
         font-size: 60px;
     }
+
 
     .img-preview-perfil img {
         width: 60px;
         height: 60px;
     }
 
+
     .input-edit input,
     .input-perma input {
         font-size: 12px;
         padding: 8px;
     }
+
 
     .botao-editar-perfil,
     .botao-salvar-perfil,
@@ -480,11 +495,72 @@
         padding: 8px;
     }
 
+
     .titulo-barra h2 {
         font-size: 18px;
     }
 
+
     .barra-perfil {
         width: 180px;
     }
+
+
+    .botao-sair-logout{
+        border-radius: 10px;
+        width: 40px;
+        height: 40px;
+        margin-top: 20px;
+        margin-left: -60px;
+    }
+
+
+    .icon-logout{
+        font-size: 30px;
+        margin-left: 0px;
+        margin-top: -10px;
+    }
+
+
+    .user-icon-perfil{
+        font-size: 70px;
+        margin:  20px;
+    }
+
+
+    .titulo-barra h4{
+        margin-top: -10px;
+    }
+
+
+    .input-edit input, .input-perma input{
+        font-size: 19px;
+    }
+
+
+    .titulo-barra h2{
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
+
+    .uf-perfil-user:disabled{
+        font-size: 18px;
+        width: 84%;
+    }
+
+
+    .editar-conta{
+        width: 100%;
+    }
+
+
+    .info-perfil{
+        border-radius: 20px;
+    }
+
+
+   
+
+
 }

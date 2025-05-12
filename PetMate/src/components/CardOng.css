@@ -100,3 +100,89 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+@media (max-width: 768px) {
+  .cardOng-container {
+    gap: 40px;
+  }
+
+
+  .ong-card {
+    width: 300px;
+    height: auto;
+  }
+
+
+  .ong-info-card h3 {
+    font-size: 18px;
+  }
+
+
+  .ong-info-card p {
+    font-size: 16px;
+  }
+
+
+  .botao-info-ong {
+    width: 150px;
+    font-size: 14px;
+  }
+
+
+  .sem-ONGs {
+    font-size: 20px;
+    padding: 10px;
+  }
+}
+
+
+/* Estilos para telas muito pequenas (exemplo: largura máxima de 480px) */
+@media (max-width: 480px) {
+  .cardOng-container {
+    gap: 20px;
+  }
+
+
+  .ong-card {
+    width: 140px;
+    height: 220px;
+  }
+
+
+  .ong-info-card h3 {
+    font-size: 11px;
+    margin-top: -2px;
+  }
+
+
+  .ong-info-card p {
+    font-size: 14px;
+  }
+
+
+  .ong-info-card{
+    font-size: 13px;
+    padding: 13px;
+    margin-top: 1px;
+  }
+
+
+  .botao-info-ong {
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+
+  .sem-ONGs {
+    font-size: 18px;
+    padding: 8px;
+  }
+
+
+  .ong-image{
+    width: 90%;
+    height: 100px;
+  }
+}

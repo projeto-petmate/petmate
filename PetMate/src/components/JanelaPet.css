@@ -309,3 +309,193 @@ strong {
     justify-content: center;
     gap: 10px;
 }
+
+@media (max-width: 768px) {
+    .conteiner_modal_pet {
+        width: 95vw;
+        padding: 15px;
+    }
+
+
+
+
+    .titulo-pet-modal h2 {
+        font-size: 24px;
+    }
+
+
+
+
+    .card-pet-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+
+
+
+    .img-modal-pet {
+        height: 200px;
+    }
+
+
+
+
+   
+    .info-container,
+    .info-doador-modal {
+        width: 90%;
+        font-size: 18px;
+    }
+
+
+
+
+    .descricao-pet{
+        width: 90%;
+        font-size: 18px;
+    }
+
+
+    .links-contato {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+
+
+
+    .icon_wpp,
+    .iconEmail,
+    .iconMap {
+        font-size: 40px;
+    }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .conteiner_modal_pet {
+        width: 100%;
+        padding: 10px;
+    }
+
+
+
+
+    .titulo-pet-modal h2 {
+        font-size: 20px;
+    }
+
+
+
+
+    .img-modal-pet {
+        height: 150px;
+    }
+
+
+
+
+    .detalhes-pet {
+        gap: 20px;
+    }
+
+
+    .info-container,
+    .info-doador-modal {
+        width: 90%;
+        font-size: 16px;
+        margin-left: -30px;
+        margin: 10px;
+    }
+
+
+
+
+    .descricao-pet{
+        width: 93%;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+
+    .links-contato {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+
+
+
+    .icon_wpp,
+    .iconEmail,
+    .iconMap {
+        font-size: 30px;
+    }
+
+
+    .detalhes-pet p, strong{
+        font-size: 17px;
+    }
+
+
+    .detalhes-pet h4{
+        font-size: 14px;
+    }
+
+
+    .descPet{
+        font-size: 16px;
+    }
+
+
+    .pet-tag{
+        font-size: 16px;
+    }
+
+
+    .info-title{
+        font-size: 21px;
+    }
+
+
+    .info-doador-modal p{
+        font-size: 17px;
+    }
+
+
+    .info-doador-modal h2{
+        font-size: 24px;
+        margin-left: -20px;
+    }
+
+
+    .info-doador-modal p{
+        font-size: 17px;
+        margin-left: -20px;
+    }
+
+
+    .titulo-pet-modal h2{
+        font-size: 28px;
+    }
+
+
+    .barra-pet-modal{
+        width: 50%;
+        height: 7px;
+        margin-left: -170px;
+        margin-top: -30px;
+    }
+
+
+    .botao-fechar-pet{
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        padding: 5px;
+        margin-top: 20px;
+    }
+}

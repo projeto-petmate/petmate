@@ -78,8 +78,164 @@
     margin-bottom: 2em;
 }
 
+@media (max-width: 1280px) {
+    .container-landing {
+        background-size: cover;
+        padding: 20px;
+    }
 
 
 
 
+    .base {
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: auto;
+    }
 
+
+
+
+    .fundo {
+        height: 800px;
+        margin-left: 0;
+    }
+
+
+
+
+    .base button {
+        font-size: 30px;
+        height: 75px;
+        width: 310px;
+    }
+
+
+
+
+    .texto {
+        margin-left: 0;
+        transform: scale(1);
+        text-align: center;
+        margin-top: 70px;
+    }
+
+
+
+
+    .texto p {
+        font-size: 30px;
+        width: 100%;
+    }
+
+
+
+
+    .texto h2 {
+        font-size: 50px;
+    }
+}
+
+
+
+
+@media (max-width: 768px) {
+    .base {
+        align-items: flex-start;
+    }
+
+
+
+
+    .texto p {
+        font-size: 20px;
+    }
+
+
+
+
+    .base button {
+        font-size: 18px;
+        height: 50px;
+        width: 200px;
+    }
+
+
+
+
+    .fundo {
+        height: 600px;
+        margin-left: 60px;
+    }
+}
+
+
+
+
+@media (max-width: 540px){
+    .base {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+
+
+    .fundo {
+        height: 500px;
+        margin-left: 0;
+    }
+
+
+
+
+    .texto p {
+        font-size: 18px;
+        width: 90%;
+    }
+
+
+
+
+    .base button {
+        font-size: 18px;
+        height: 50px;
+        width: 200px;
+    }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .texto h2 {
+        font-size: 24px;
+        margin-top: -40px;
+    }
+
+
+
+
+    .texto p {
+        font-size: 14px;
+    }
+
+
+
+
+    .base button {
+        font-size: 16px;
+        height: 40px;
+        width: 150px;
+    }
+
+
+
+
+    .fundo {
+        height: 350px;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+}

@@ -305,3 +305,119 @@
     color: #6b4f3a;
 
 }
+
+@media (max-width: 768px) {
+    .editar-pet-container {
+        width: 90vw;
+        height: auto;
+        padding: 15px;
+    }
+
+
+    .linha-edit {
+        gap: 20px;
+    }
+
+
+    .linha-edit input,
+    .linha-edit select {
+        width: 100%;
+    }
+
+
+    .edit-desc input {
+        width: 100%;
+        height: 80px;
+        font-size: 16px;
+    }
+
+
+    .tags-container-edit input {
+        width: 100%;
+    }
+
+
+    .botoes-edit-pet {
+        gap: 15px;
+    }
+
+
+    .botao-edit-salvar,
+    .botao-edit-fechar {
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+
+/* Estilos para telas muito pequenas (exemplo: largura máxima de 480px) */
+@media (max-width: 480px) {
+    .editar-pet-container {
+        width: 90vw;
+        padding: 10px;
+        max-height: 95%;
+    }
+
+
+    .editar-pet-container label{
+        font-size: 16px;
+    }
+
+
+    .editar-pet-container h2{
+        font-size: 24px;
+        margin-top: 30px;
+    }
+
+
+   
+    .linha-edit select {
+        width: 170%;
+        height: 30px;
+        font-size: 14px;
+        margin-left: -40px;
+    }
+
+
+    .linha-edit input{
+        width: 60%;
+        height: 30px;
+        font-size: 14px;
+    }
+
+
+    .linha-edit{
+        gap: 10px;
+    }
+
+
+    .edit-desc input {
+        height: 40px;
+        font-size: 14px;
+    }
+
+
+    .tags-container-edit input {
+        width: 100%;
+        font-size: 14px;
+    }
+
+
+    .tags-list-edit{
+        gap: 1px;
+        width: 100%;
+    }
+
+
+    .botoes-edit-pet {
+        gap: 10px;
+    }
+
+
+    .botao-edit-salvar,
+    .botao-edit-fechar {
+        width: 90%;
+        height: 40px;
+        font-size: 16px;
+    }
+}

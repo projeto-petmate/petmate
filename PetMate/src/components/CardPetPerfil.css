@@ -184,20 +184,22 @@ margin-right: auto;
 
 @media (max-width: 768px) {
   .card-pet-perfil-container {
-    padding: 20px;
     gap: 15px;
     max-height: unset;
     overflow-y: visible;
   }
 
+
   .pet-card-perfil {
-    width: 90%; 
+    width: 90%;
     height: auto;
   }
+
 
   .pet-image {
     height: 100px;
   }
+
 
   .botoes-pet-perfil {
     flex-direction: column;
@@ -205,14 +207,17 @@ margin-right: auto;
     gap: 10px;
   }
 
+
   .botao-editar {
     width: 100%;
   }
+
 
   .botao-excluir {
     font-size: 24px;
     margin-left: 0;
   }
+
 
   .success-popup-edit-pet {
     top: 20px;
@@ -221,12 +226,81 @@ margin-right: auto;
     padding: 8px 16px;
   }
 
+
   .sem-pets {
     font-size: 18px;
     padding: 8px 16px;
     max-width: 90%;
   }
 }
+
+
+@media (max-width: 480px) {
+  .card-pet-perfil-container {
+    padding: 0;
+    width: 44%;
+    gap: 10px;
+  }
+
+
+  .pet-card-perfil {
+    width: 90%;
+    min-height: 240px;
+  }
+
+
+  .pet-image {
+    height: 80px;
+  }
+
+
+  .botoes-pet-perfil {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 5px;
+  }
+
+
+  .botao-editar {
+    width: 80%;
+    height: 25px;
+    font-size: 11px;
+  }
+
+
+  .botao-excluir {
+    font-size: 25px;
+    margin-left: 0;
+  }
+
+
+  .pet-info{
+    padding: 0px;
+  }
+
+
+  .pet-info h3{
+    font-size: 17px;
+  }
+
+
+  .pet-info p{
+    font-size: 14px;
+  }
+
+
+  .botoes-pet-perfil{
+    flex-direction: row;
+    gap: 3px;
+  }
+
+
+  .botao-adotado{
+    font-size: 30px;
+    margin-right: 0px;
+  }
+}
+
 
 
 

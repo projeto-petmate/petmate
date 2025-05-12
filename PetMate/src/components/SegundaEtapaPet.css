@@ -298,3 +298,43 @@
     margin: 0;
 }
 
+@media (max-width: 1280px) {
+    .conteiner-modal-2 {
+        width: 90vw;
+        padding: 10px;
+    }
+
+
+    .tags-container {
+        width: 80vw;
+    }
+
+
+    #input-tag {
+        width: 80vw;
+    }
+
+
+    .tag-button {
+        width: 80vw;
+    }
+
+
+    .tags-list {
+        width: 80vw;
+    }
+
+
+    .tag-item {
+        width: 80vw;
+    }
+
+
+
+    .botao_modal_2 {
+        margin-left: 240px;
+        width: 40px;
+        height: 40px;
+        margin-top: -60px;
+    }
+}
