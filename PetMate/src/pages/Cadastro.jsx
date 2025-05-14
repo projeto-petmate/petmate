@@ -212,7 +212,7 @@ function Cadastro() {
                                     type="email"
                                     placeholder="Digite seu email"
                                     value={inptEmailCadastro}
-                                    onChange={(e) => setInptEmailCadastro(e.target.value)}
+                                    onChange={(e) => setInptEmailCadastro(e.target.value.toLowerCase())}
                                 />
                                 {erros.email && <p className="erro-input-user">{erros.email}</p>}
                             </div>

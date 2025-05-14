@@ -311,7 +311,7 @@ function CadastroONG() {
                 type="email"
                 placeholder="Digite o email da ONG"
                 value={ongEmail}
-                onChange={(e) => setOngEmail(e.target.value)}
+                onChange={(e) => setOngEmail(e.target.value.toLowerCase())}
               />
               {erros.email && <p className="erro-mensagem">{erros.email}</p>}
 
@@ -425,7 +425,7 @@ function CadastroONG() {
                 type="email"
                 placeholder="Digite o email de contato"
                 value={ongEmailContato}
-                onChange={(e) => setOngEmailContato(e.target.value)}
+                onChange={(e) => setOngEmailContato(e.target.value.toLowerCase())}
               />
               {erros.email_contato && <p className="erro-mensagem">{erros.email_contato}</p>}
               <label htmlFor="ongNomeResponsavel">
