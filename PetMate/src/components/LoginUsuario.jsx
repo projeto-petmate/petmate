@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
+import './LoginUsuario.css'
 
 function LoginUsuario() {
     const { Logar, mudarTipo } = useContext(GlobalContext);
@@ -32,8 +33,8 @@ function LoginUsuario() {
             if (response.ok) {
                 // console.log('Login bem-sucedido:', data);
                 setErro('');
-                Logar(data.user.email, data.user.senha, 'usuario'); 
-    
+                Logar(data.user.email, data.user.senha, 'usuario');
+
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -41,7 +42,7 @@ function LoginUsuario() {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-    
+
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
@@ -102,6 +103,9 @@ function LoginUsuario() {
             </div>
             <div className="base-login">
                 <button type="submit" onClick={handleLogin}>Login</button>
+                <div className="container-recuperar-senha">
+                    <Link to='/recuperar-senha'>Esqueci a senha</Link>
+                </div>
                 <div className="sem-cadastro">
                     <p>Ainda não se cadastrou? </p>
                     <Link to="/cadastro">Cadastre-se</Link>

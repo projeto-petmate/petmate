@@ -60,6 +60,19 @@ app.get('/usuarios/id/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
+app.get('/usuarios/email/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Usuário não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar usuário' });
+    }
+});
 
 app.get('/usuarios/verificar-email', async (req, res) => {
     const { email } = req.query;
@@ -559,6 +572,62 @@ app.delete('/comentarios/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao deletar comentário' });
     }
 });
+
+const enviarEmail = require('./emailService');
+
+app.post('/recuperar-senha', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        // Verifique se o e-mail existe no banco de dados
+        const user = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        if (user.rows.length === 0) {
+            return res.status(404).json({ message: 'E-mail não encontrado.' });
+        }
+
+        // Gere um código de verificação
+        const codigo = Math.floor(100000 + Math.random() * 900000).toString(); // Código de 6 dígitos
+
+        // Atualize o código de verificação no banco de dados
+        await pool.query('UPDATE usuarios SET codigo_verificacao = $1 WHERE email = $2', [codigo, email]);
+
+        // Envie o código por e-mail
+        await enviarEmail(email, 'Código de Verificação', `Seu código de verificação é: ${codigo}`);
+
+        res.status(200).json({ message: 'Código enviado para o e-mail.' });
+    } catch (error) {
+        console.error('Erro ao enviar código de verificação:', error);
+        res.status(500).json({ message: 'Erro ao enviar código de verificação.' });
+    }
+});
+app.post('/verificar-codigo', async (req, res) => {
+    const { email, codigo } = req.body;
+
+    const user = await pool.query('SELECT * FROM usuarios WHERE email = $1 AND codigo_verificacao = $2', [email, codigo]);
+    if (user.rows.length === 0) {
+        return res.status(400).json({ message: 'Código inválido.' });
+    }
+
+    res.status(200).json({ message: 'Código verificado com sucesso.' });
+});
+
+
+// const bcrypt = require('bcryptjs');
+app.post('/redefinir-senha', async (req, res) => {
+    const { email, novaSenha } = req.body;
+
+    try {
+        await pool.query('UPDATE usuarios SET senha = $1 WHERE email = $2', [novaSenha, email]);
+
+        res.status(200).json({ message: 'Senha redefinida com sucesso.' });
+        await pool.query('UPDATE usuarios SET codigo_verificacao = $1 WHERE email = $2', [null, email]);
+
+    } catch (error) {
+        console.error('Erro ao redefinir senha:', error);
+        res.status(500).json({ message: 'Erro ao redefinir senha.' });
+    }
+});
+
 
 
 const PORT = process.env.PORT || 3000;

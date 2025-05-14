@@ -31,8 +31,8 @@ function Ongs() {
         <div className="container-ongs">
           <CardOng termoPesquisa={termoPesquisa} />
         </div>
-        <LastPage />
       </div>
+      <LastPage />
       <Footer />
     </div>
   );

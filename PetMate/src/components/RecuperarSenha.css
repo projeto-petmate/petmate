@@ -1,0 +1,86 @@
+.recuperar-senha-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+    font-family: 'Nunito', sans-serif;
+}
+
+.recuperar-senha-page h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.recuperar-senha-page input {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.recuperar-senha-page input:focus {
+    border-color: #84644D;
+}
+
+.recuperar-senha-page button {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 15px;
+    background-color: #84644D;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recuperar-senha-page button:hover {
+    background-color: #6e533f;
+}
+
+.recuperar-senha-page button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.recuperar-senha-page .etapa-1,
+.recuperar-senha-page .etapa-2,
+.recuperar-senha-page .etapa-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recuperar-senha-page .etapa-1 input,
+.recuperar-senha-page .etapa-2 input,
+.recuperar-senha-page .etapa-3 input {
+    margin-bottom: 20px;
+}
+
+.recuperar-senha-page .botoes-redefinir-senha {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.recuperar-senha-page .botoes-redefinir-senha button {
+    flex: 1;
+}

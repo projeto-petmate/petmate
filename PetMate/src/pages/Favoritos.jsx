@@ -6,6 +6,7 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { PetContext } from '../contexts/PetContext';
 import JanelaPet from '../components/JanelaPet';
 import { getPets } from '../apiService';
+import LastPage from '../components/LastPage';
 
 function Favoritos() {
     const [pets, setPets] = useState([]);
@@ -74,6 +75,7 @@ function Favoritos() {
                     )}
                 </div>
             </div>
+            <LastPage />
             <Footer />
         </div>
     )

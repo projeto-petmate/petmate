@@ -10,6 +10,7 @@ import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2'
 import Footer from '../components/Footer';
 import { GlobalContext } from '../contexts/GlobalContext';
+import LastPage from '../components/LastPage';
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
@@ -21,6 +22,7 @@ function Feedback() {
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
     const { userLogado, logado } = useContext(GlobalContext);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    const vrfOng = userLogado?.id_ong ? true : false;
 
 
     useEffect(() => {
@@ -36,7 +38,7 @@ function Feedback() {
         fetchComentarios();
     }, [setComentarios]);
 
-   
+
 
     const handleDeleteComment = async () => {
         try {
@@ -44,12 +46,12 @@ function Feedback() {
             setComentarios(comentarios.filter(comentario => comentario.id_comentario !== commentToDelete.id_comentario));
             setOpenModalExcluirComentario(false);
             Swal.fire({
-                position: "mid",
+                position: "center",
                 icon: "success",
                 title: "Comentário apagado com sucesso!",
                 showConfirmButton: false,
                 timer: 1500
-              });
+            });
         } catch (error) {
             console.error('Erro ao deletar comentario', error);
         }
@@ -58,7 +60,7 @@ function Feedback() {
     const enviarComentario = async (e) => {
         const novoComentario = {
             texto: inptComentario,
-            id_usuario: userLogado.id_usuario,
+            id_usuario: vrfOng ? userLogado.id_ong : userLogado.id_usuario,
             data_criacao: new Date().toISOString(),
         };
 
@@ -69,12 +71,11 @@ function Feedback() {
                 setErros('');
                 setInptComentario('');
                 Swal.fire({
-                    position: "mid",
+                    position: "center",
                     icon: "success",
                     title: "Comentário enviado com sucesso!",
                     showConfirmButton: false,
-                    timer: 1500
-                  });
+                });
             } else {
                 Swal.fire({
                     icon: "error",
@@ -84,26 +85,26 @@ function Feedback() {
                            O comentário deve ter no mínimo 8 caracteres!
                         </p>
                     `,
-                    background: "#F6F4F1",  
-                    color: "#654833", 
+                    background: "#F6F4F1",
+                    // color: "#654833",
                     confirmButtonText: "Entendido",
-                    confirmButtonColor: "#84644D", 
+                    confirmButtonColor: "#84644D",
                     customClass: {
                         popup: "custom-swal-popup",
-                        title: "custom-swal-title", 
+                        title: "custom-swal-title",
                         confirmButton: "custom-swal-button",
                     },
                     showClass: {
-                        popup: "animate__animated animate__fadeInDown", 
+                        popup: "animate__animated animate__fadeInDown",
                     },
                     hideClass: {
-                        popup: "animate__animated animate__fadeOutUp", 
+                        popup: "animate__animated animate__fadeOutUp",
                     },
                 });
                 // setErros('Comentário deve ter no mínimo 8 caracteres.');
             }
         } catch (error) {
-            
+
             setErros({ geral: 'Erro ao enviar comentário. Tente novamente.' });
         }
     };
@@ -179,6 +180,7 @@ function Feedback() {
                 setComentarioDeleteOpen={setOpenModalExcluirComentario}
                 onDeleteComentario={handleDeleteComment}
             />
+            <LastPage />
             <Footer />
         </div>
 

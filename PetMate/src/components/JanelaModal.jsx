@@ -11,9 +11,7 @@ import { GlobalContext } from "../contexts/GlobalContext";
 
 export default function JanelaModal({ isOpen, setModalOpen }) {
   const { addPet, setPets, pets } = useContext(PetContext)
-  const navigate = useNavigate()
   const { userLogado } = useContext(GlobalContext); 
-  const vrfOng = userLogado?.id_ong ? true : false; 
   const [inptPetEspecie, setInptPetEspecie] = useState('')
   const [inptPetNome, setInptPetNome] = useState('')
   const [inptPetRaca, setInptPetRaca] = useState('')
@@ -26,6 +24,8 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   const [aceitarTermos, setAceitarTermos] = useState(false)
   const [erros, setErros] = useState({})
   const [etapa, setEtapa] = useState(1)
+  const vrfOng = userLogado?.id_ong ? true : false; 
+  const navigate = useNavigate()
 
   if (!isOpen) {
     return null
@@ -99,10 +99,6 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
       });
 
       setModalOpen(false);
-
-      // setTimeout(() => {
-        // window.location.reload();
-      // }, 2000);
     } catch (error) {
       console.error("Erro ao cadastrar pet:", error);
     }

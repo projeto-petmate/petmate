@@ -110,7 +110,7 @@ function Perfil() {
         return <div className="loading">Carregando...</div>;
     }
 
-    
+
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
     };
@@ -167,7 +167,11 @@ function Perfil() {
                                 {(imagemPreviewPerfil || userData?.imagem) && (
                                     <FaTrash
                                         className="icon-trash"
-                                        onClick={() => setIsModalOpen(true)}
+                                        onClick={() => {
+                                            if (editMode) {
+                                                setIsModalOpen(true);
+                                            }
+                                        }}
                                         style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
                                     />
                                 )}

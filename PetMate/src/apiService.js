@@ -15,9 +15,18 @@ export const getUsuarioById = async (id) => {
         console.error("Erro: ID do usuário não fornecido.");
         throw new Error("ID do usuário não fornecido.");
     }
-    const response = await api.get(`/usuarios/${id}`);
+    const response = await api.get(`/usuarios/id/${id}`);
     return response.data;
 };
+
+export const getUsuarioByEmail = async (email) => {
+    if (!email) {
+        console.error("Erro: Email do usuário não fornecido.");
+        throw new Error("Email do usuário não fornecido.");
+    }
+    const response = await api.get(`/usuarios/email/${email}`)
+    return response.data
+}
 
 
 export const verificarEmailUnico = async (email) => {
@@ -164,3 +173,34 @@ export const loginOng = async (email, senha) => {
     const response = await api.put('/loginOng/', {email, senha})
     return response.data;
 }
+
+//Recuperar senha
+export const enviarCodigoRecuperacao = async (email) => {
+    try {
+        const response = await api.post('/recuperar-senha', { email });
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao enviar código de recuperação:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const verificarCodigoRecuperacao = async (email, codigo) => {
+    try {
+        const response = await api.post('/verificar-codigo', { email, codigo });
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao verificar código de recuperação:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const redefinirSenha = async (email, novaSenha) => {
+    try {
+        const response = await api.post('/redefinir-senha', { email, novaSenha });
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao redefinir senha:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};

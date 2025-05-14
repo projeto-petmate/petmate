@@ -32,8 +32,8 @@ function LoginOng() {
             if (response.ok) {
                 console.log('Login bem-sucedido:', data);
                 setErro('');
-                Logar(data.user.email, data.user.senha, 'ong'); 
-    
+                Logar(data.user.email, data.user.senha, 'ong');
+
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -41,7 +41,7 @@ function LoginOng() {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-    
+
                 const lastPage = '/home';
                 setTimeout(() => {
                     navigate(lastPage);
@@ -102,6 +102,9 @@ function LoginOng() {
             </div>
             <div className="base-login">
                 <button type="submit" onClick={handleLoginOng}>Login</button>
+                <div className="container-recuperar-senha">
+                    <Link to='/recuperar-senha'>Esqueci a senha</Link>
+                </div>
                 <div className="sem-cadastro">
                     <p>Ainda não se cadastrou? </p>
                     <Link to="/cadastro">Cadastre-se</Link>

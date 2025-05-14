@@ -352,6 +352,15 @@
   label:last-child span {
     border-radius: 0 .475em .375em 0;
   }
+
+  .container-recuperar-senha {
+    padding-top: 5px;
+  }
+  .container-recuperar-senha a{
+    font-size: 1em;
+    color: #84644D;
+    text-decoration: none;
+  }
   
 
 

@@ -155,7 +155,10 @@ function PerfilOng() {
                         {(imagemPreviewPerfil || userData?.foto_perfil) && (
                             <FaTrash
                                 className="icon-trash"
-                                onClick={() => setIsModalConfirmOpen(true)}
+                                onClick={() => {   if (editMode) {
+                                    setIsModalConfirmOpen(true); 
+                                }
+                            }}
                                 style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
                             />
                         )}

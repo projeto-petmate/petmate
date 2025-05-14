@@ -13,8 +13,8 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
     const email = ong?.email_contato || ong?.email;
     const endereco = ong?.endereco_ong || ong?.endereco;
 
-    const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=55${telefone}&text=Olá!%20Estou%20interessado%20em%20${encodeURIComponent(ong.nome_ong || '')}` : "#";
-    const linkEmail = email ? `mailto:${email}?subject=Adoção+PetMate` : "#";
+    const linkWpp = telefone ? `https://wa.me/${telefone}` : "#";
+    const linkEmail = email ? `mailto:${email}?subject=` : "#";
     const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(endereco)}` : "#";
     const linkInstagram = ong?.instagram ? `https://instagram.com/${ong.instagram}` : "#";
 
@@ -23,8 +23,8 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
     }
 
     return (
-        <div className='fundo-janela-ong'>
-            <div className="container-janela-ong">
+        <div className='fundo-janela-ong' onClick={() => setOpenModalOng(false)}>
+            <div className="container-janela-ong" onClick={(e) => e.stopPropagation()}>
                 <div className="titulo-ong-modal">
                     <h2>{ong.nome_ong}</h2>
                     <button onClick={() => setOpenModalOng(false)} className='botao-fechar-ong'>
