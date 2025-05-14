@@ -60,6 +60,7 @@ app.get('/usuarios/id/:id', async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar usuário' });
     }
 });
+
 app.get('/usuarios/email/:email', async (req, res) => {
     const { email } = req.params;
     try {
@@ -615,7 +616,7 @@ app.post('/verificar-codigo', async (req, res) => {
 // const bcrypt = require('bcryptjs');
 app.post('/redefinir-senha', async (req, res) => {
     const { email, novaSenha } = req.body;
-
+    
     try {
         await pool.query('UPDATE usuarios SET senha = $1 WHERE email = $2', [novaSenha, email]);
 

@@ -60,6 +60,73 @@
 
 /**
  * @swagger
+ * /usuarios/email/{email}:
+ *   get:
+ *     summary: Busca um usuário pelo email
+ *     tags: [Usuários]
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Email do usuário
+ *     responses:
+ *       200:
+ *         description: Dados do usuário
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_usuario:
+ *                   type: integer
+ *                   description: ID do usuário
+ *                 nome:
+ *                   type: string
+ *                   description: Nome do usuário
+ *                 email:
+ *                   type: string
+ *                   description: Email do usuário
+ *                 genero:
+ *                   type: string
+ *                   description: Gênero do usuário
+ *                 uf:
+ *                   type: string
+ *                   description: Estado do usuário
+ *                 cidade:
+ *                   type: string
+ *                   description: Cidade do usuário
+ *                 bairro:
+ *                   type: string
+ *                   description: Bairro do usuário
+ *                 telefone:
+ *                   type: string
+ *                   description: Telefone do usuário
+ *                 cpf:
+ *                   type: string
+ *                   description: CPF do usuário
+ *                 favoritos:
+ *                   type: string
+ *                   description: Favoritos do usuário
+ *                 imagem:
+ *                   type: string
+ *                   description: URL da imagem do usuário
+ *                 tipo:
+ *                   type: string
+ *                   description: Tipo do usuário
+ *                 data_criacao:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Data de criação do usuário
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro ao buscar usuário pelo email
+ */
+
+/**
+ * @swagger
  * /usuarios:
  *   post:
  *     summary: Cria um novo usuário

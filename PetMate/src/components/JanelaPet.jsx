@@ -45,8 +45,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const tagsArray = pet.tags ? pet.tags.split(', ') : []
 
   return (
-    <div className='pet_modal_conteiner'>
-      <div className='conteiner_modal_pet'>
+    <div className='pet_modal_conteiner' onClick={() => setPetModalOpen(false)}>
+      <div className='conteiner_modal_pet' onClick={(e) => e.stopPropagation()}>
         <div className="titulo-pet-modal">
           <h2>{pet.nome}</h2>
           <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
