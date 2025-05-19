@@ -42,13 +42,14 @@
     color: #3d2b1e;
   }
   
-  .inputs-editar-user input {
+  .inputs-editar-user input, .inputs-editar-user select {
     height: 40px;
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 5px 10px;
     font-size: 16px;
     background-color: #EBE5E0;
+    outline: none;
   }
   
   .botoes-editar-user {

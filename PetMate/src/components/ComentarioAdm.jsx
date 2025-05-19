@@ -70,7 +70,7 @@ function ComentarioAdm() {
                     <p>Gerencie os comentários enviados pelos usuários.</p>
                 </div> */}
                 <div className="lista-comentarios-adm">
-                    {nomesComentarios.map((c) => (
+                    {comentarios.map((c) => (
                         <div key={c.id_comentario} className="comentario">
                             <div className="comentario-container">
                                 <div className="comentario-info">
@@ -80,7 +80,7 @@ function ComentarioAdm() {
                                         ) : (
                                             <FaUserCircle className="icon-comentario" />
                                         )}
-                                        <h3>{c.nomeUsuario}</h3>
+                                        <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="apagar-comentario">
                                         <IoTrashOutline

@@ -4,7 +4,7 @@ import "./Cadastro.css";
 import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard, FaCity, FaGlobeAmericas } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
-import { addUsuario, verificarCpfUnico, verificarEmailUnico } from '../apiService';
+import { addUsuario, getUserByEmail, verificarCpfUnico, verificarEmailUnico } from '../apiService';
 import { MdHolidayVillage } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { cpf } from 'cpf-cnpj-validator';
@@ -41,14 +41,20 @@ function Cadastro() {
         } else if (/[^a-zA-ZÀ-ÿ\s]/.test(inptNomeCadastro)) {
             novosErros.nome = 'O nome não pode conter caracteres especiais ou números.'
         }
+
         if (!inptEmailCadastro) {
             novosErros.email = 'O email é obrigatório.';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inptEmailCadastro)) {
             novosErros.email = 'O email não é válido.';
         } else {
-            const emailExiste = await verificarEmailUnico(inptEmailCadastro);
-            if (emailExiste) {
-                novosErros.email = 'Este email já está em uso.';
+            try {
+                const emailExiste = await getUserByEmail(inptEmailCadastro.toLowerCase());
+                if (emailExiste) {
+                    novosErros.email = `Este email já está em uso`;
+                }
+            } catch (error) {
+                console.error('Erro ao verificar email:', error);
+                novosErros.email = 'Erro ao verificar email. Tente novamente mais tarde.';
             }
         }
         if (!inptSenhaCadastro) {
@@ -95,9 +101,18 @@ function Cadastro() {
         if (!termosCadastro) {
             novosErros.termos = 'Você deve aceitar os termos e condições.';
         }
+        if (Object.keys(novosErros).length > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: Object.values(novosErros)[0], 
+                confirmButtonColor: '#84644D',
+            });
+            return false;
+        }
 
-        setErros(novosErros);
-        return Object.keys(novosErros).length === 0;
+        // setErros(novosErros);
+        // return Object.keys(novosErros).length === 0;
     };
 
 
@@ -152,8 +167,12 @@ function Cadastro() {
                 navigate("/login");
             }, 1500);
         } catch (error) {
-            console.error('Erro ao cadastrar usuário:', error);
-            setErros({ geral: 'Erro ao cadastrar usuário. Tente novamente mais tarde.' });
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao cadastrar usuário. Tente novamente mais tarde.',
+                confirmButtonColor: '#84644D',
+            });
         }
     };
 
@@ -172,7 +191,7 @@ function Cadastro() {
                         </div>
 
                         <div className="botoes-cad-login">
-                            <Link to="/CadastroONG">
+                            <Link to="/cadastro-ong">
                                 <button>Sou uma ONG</button>
                             </Link>
                             <Link to="/login">

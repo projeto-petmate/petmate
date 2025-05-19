@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './PerfilAdm.css';
 import { FaUsers } from "react-icons/fa";
 import { LuHandshake } from "react-icons/lu";
@@ -8,14 +8,21 @@ import { FaTools } from "react-icons/fa";
 import ComentarioAdm from '../components/ComentarioAdm';
 import PetsAdm from '../components/PetsAdm';
 import OngsAdm from '../components/OngsAdm';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import UsersAdm from '../components/UsersAdm';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function PerfilAdm() {
-  const [mostrarPet, setMostrarPet] = useState(false)
-  const [mostrarComentario, setMostrarComentario] = useState(false)
-  const [mostrarOng, setMostrarOng] = useState(false)
-  const [mostrarUsers, setMostrarUsers] = useState(false)
+  const [mostrar, setMostrar] = useState(0)
+  const { userLogado } = useContext(GlobalContext);
+  const navigate = useNavigate()
+
+  useEffect (() => {
+    if(userLogado.tipo !== 'admin'){
+      navigate('/home')
+    }
+  })
+
   return (
     <div className='body-adm'>
       <div className='NavbarAdm'>
@@ -36,22 +43,22 @@ function PerfilAdm() {
           <div className="links-geneciamento">
             <div className='icon-link1'>
               <FaUsers className='iconAdm1' />
-              <a className='linksAdm' onClick={() => { setMostrarComentario(false), setMostrarPet(false), setMostrarOng(false), setMostrarUsers(true) }}>Usuários</a>
+              <a className='linksAdm' onClick={() => { setMostrar(1)}}>Usuários</a>
             </div>
 
             <div className="icon-link2">
               <LuHandshake className='iconAdm2' />
-              <a className='linksAdm' onClick={() => { setMostrarComentario(false), setMostrarPet(false), setMostrarOng(true), setMostrarUsers(false) }}>ONGs</a>
+              <a className='linksAdm' onClick={() => { setMostrar(2)}}>ONGs</a>
             </div>
 
             <div className="icon-link3">
               <MdOutlinePets className='iconAdm3' />
-              <a className='linksAdm' onClick={() => { setMostrarComentario(false), setMostrarPet(true), setMostrarOng(false), setMostrarUsers(false) }}>Pets</a>
+              <a className='linksAdm' onClick={() => { setMostrar(3)}}>Pets</a>
             </div>
 
             <div className="icon-link4">
               <BsChatRightHeart className='iconAdm4' />
-              <a className='linksAdm' onClick={() => { setMostrarComentario(true), setMostrarPet(false), setMostrarOng(false), setMostrarUsers(false) }}>Comentários</a>
+              <a className='linksAdm' onClick={() => { setMostrar(4)}}>Comentários</a>
             </div>
           </div>
         </div>
@@ -64,12 +71,12 @@ function PerfilAdm() {
       {/* <div className='containeradm'> */}
       <div className="containeradm2">
         <div className="gerenciar-title">
-          {mostrarPet == false && mostrarOng == false && mostrarComentario == false && mostrarUsers == false ? (<p className='gerenciar-title2'>Selecione a área que deseja gerenciar!</p>) : (<p></p>)}
+          {mostrar == 0 ? (<p className='gerenciar-title2'>Selecione a área que deseja gerenciar!</p>) : (<p></p>)}
         </div>
-        {mostrarPet && <PetsAdm />}
-        {mostrarComentario && <ComentarioAdm />}
-        {mostrarOng && <OngsAdm />}
-        {mostrarUsers && <UsersAdm />}
+        {mostrar == 1 && <UsersAdm />}
+        {mostrar == 2 && <OngsAdm />}
+        {mostrar == 3 && <PetsAdm />}
+        {mostrar == 4 && <ComentarioAdm />}
       </div>
       {/* </div> */}
 

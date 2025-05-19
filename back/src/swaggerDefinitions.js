@@ -712,3 +712,134 @@
  *       404:
  *         description: Comentário não encontrado
  */
+
+
+/**
+ * @swagger
+ * /recuperar-senha:
+ *   post:
+ *     summary: Envia um código de verificação para o email fornecido
+ *     tags: [Usuários, ONGs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário ou ONG para o qual o código será enviado
+ *     responses:
+ *       200:
+ *         description: Código enviado para o email
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *       404:
+ *         description: Email não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *       500:
+ *         description: Erro ao enviar o código de verificação
+ */
+
+/**
+ * @swagger
+ * /verificar-codigo:
+ *   post:
+ *     summary: Verifica o código de verificação enviado para o email
+ *     tags: [Usuários, ONGs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário ou ONG
+ *               codigo:
+ *                 type: string
+ *                 description: Código de verificação enviado para o email
+ *     responses:
+ *       200:
+ *         description: Código verificado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *       404:
+ *         description: Email ou código inválido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *       500:
+ *         description: Erro ao verificar o código
+ */
+
+
+/**
+ * @swagger
+ * /redefinir-senha:
+ *   post:
+ *     summary: Redefine a senha de um usuário ou ONG
+ *     tags: [Usuários, ONGs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário ou ONG
+ *               novaSenha:
+ *                 type: string
+ *                 description: Nova senha a ser definida
+ *     responses:
+ *       200:
+ *         description: Senha redefinida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *       404:
+ *         description: Email não encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de erro
+ *       500:
+ *         description: Erro ao redefinir a senha
+ */

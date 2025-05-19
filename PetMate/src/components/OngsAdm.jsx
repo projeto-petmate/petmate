@@ -86,7 +86,7 @@ function OngsAdm() {
         {ongs.map((o) => (
           <div key={o.id_ong} className="ong-card">
             <img
-              src={o.foto_ong || '/images/default_ong_image.jpg'}
+              src={o.foto_perfil || '/images/default_ong_image.jpg'}
               alt={`Imagem da ONG ${o.nome_ong}`}
               className="ong-image"
             />

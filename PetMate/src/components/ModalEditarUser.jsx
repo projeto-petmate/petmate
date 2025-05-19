@@ -5,28 +5,24 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
     const [nome, setNome] = useState('');
-    const [sobrenome, setSobrenome] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [endereco, setEndereco] = useState('');
+    const [estado, setEstado] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [bairro, setBairro] = useState('');
 
-    const getSurname = (fullName) => {
-        return fullName.split(' ')[1];
-    };
 
-    
     useEffect(() => {
         if (userToEdit) {
             setEmail(userToEdit.email);
             setCpf(userToEdit.cpf);
             setNome(userToEdit.nome);
-            // setSobrenome(getSurname(nome));
             setTelefone(userToEdit.telefone);
-            setEndereco(userToEdit.endereco);
+            setEstado(userToEdit.uf);
+            setCidade(userToEdit.cidade);
+            setBairro(userToEdit.bairro);
         }
     }, [userToEdit]);
-    useEffect (() => {
-        setSobrenome(getSurname(nome))
-    })
+
     if (!isEditarUser) {
         return null;
     }
@@ -38,7 +34,9 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
             cpf,
             nome,
             telefone,
-            endereco,
+            uf: estado,
+            cidade,
+            bairro,
         };
         onEditUser(updatedUser);
         setUserEditOpen(false);
@@ -69,23 +67,57 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
                         value={nome}
                         onChange={(e) => setNome(e.target.value)}
                     />
-                    {/* <label>Sobrenome</label>
-                    <input
-                        type="text"
-                        value={sobrenome}
-                        onChange={(e) => setSobrenome(e.target.value)}
-                    /> */}
                     <label>Telefone</label>
                     <input
                         type="text"
                         value={telefone}
                         onChange={(e) => setTelefone(e.target.value)}
                     />
-                    <label>Endereço</label>
+                    <label>Estado</label>
+                    <select
+                        value={estado}
+                        onChange={(e) => setEstado(e.target.value)}
+                    >
+                        <option value="" disabled>Selecione o estado</option>
+                        <option value="AC">Acre (AC)</option>
+                        <option value="AL">Alagoas (AL)</option>
+                        <option value="AP">Amapá (AP)</option>
+                        <option value="AM">Amazonas (AM)</option>
+                        <option value="BA">Bahia (BA)</option>
+                        <option value="CE">Ceará (CE)</option>
+                        <option value="DF">Distrito Federal (DF)</option>
+                        <option value="ES">Espírito Santo (ES)</option>
+                        <option value="GO">Goiás (GO)</option>
+                        <option value="MA">Maranhão (MA)</option>
+                        <option value="MT">Mato Grosso (MT)</option>
+                        <option value="MS">Mato Grosso do Sul (MS)</option>
+                        <option value="MG">Minas Gerais (MG)</option>
+                        <option value="PA">Pará (PA)</option>
+                        <option value="PB">Paraíba (PB)</option>
+                        <option value="PR">Paraná (PR)</option>
+                        <option value="PE">Pernambuco (PE)</option>
+                        <option value="PI">Piauí (PI)</option>
+                        <option value="RJ">Rio de Janeiro (RJ)</option>
+                        <option value="RN">Rio Grande do Norte (RN)</option>
+                        <option value="RS">Rio Grande do Sul (RS)</option>
+                        <option value="RO">Rondônia (RO)</option>
+                        <option value="RR">Roraima (RR)</option>
+                        <option value="SC">Santa Catarina (SC)</option>
+                        <option value="SP">São Paulo (SP)</option>
+                        <option value="SE">Sergipe (SE)</option>
+                        <option value="TO">Tocantins (TO)</option>
+                    </select>
+                    <label>Cidade</label>
                     <input
                         type="text"
-                        value={endereco}
-                        onChange={(e) => setEndereco(e.target.value)}
+                        value={cidade}
+                        onChange={(e) => setCidade(e.target.value)}
+                    />
+                    <label>Bairro</label>
+                    <input
+                        type="text"
+                        value={bairro}
+                        onChange={(e) => setBairro(e.target.value)}
                     />
                 </div>
                 <div className="botoes-editar-user">

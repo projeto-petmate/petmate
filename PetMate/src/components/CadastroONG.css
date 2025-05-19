@@ -26,7 +26,7 @@
     width: 65vw;
     min-height: 900px;
     margin-left: 3%;
-    margin-top: 0.5%;
+    margin-top: 1%;
     border-radius: 10px;
     padding-left: 20px;
 }
@@ -36,7 +36,7 @@
     flex-direction: row;
     align-items: center;
     margin-left: 1%;
-    margin-bottom: -90px;
+    margin-bottom: -45px;
     /* border: solid; */
 }
 

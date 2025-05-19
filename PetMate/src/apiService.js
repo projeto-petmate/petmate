@@ -19,12 +19,21 @@ export const getUsuarioById = async (id) => {
     return response.data;
 };
 
-export const getUsuarioByEmail = async (email) => {
+export const getUserByEmail = async (email) => {
     if (!email) {
         console.error("Erro: Email do usuário não fornecido.");
         throw new Error("Email do usuário não fornecido.");
     }
-    const response = await api.get(`/usuarios/email/${email}`)
+    const response = await api.get(`/users/email/${email}`)
+    return response.data
+}
+
+export const getOngByEmail = async (email) => {
+    if (!email) {
+        console.error("Erro: Email da ONG não fornecido.");
+        throw new Error("Email da ONG não fornecido.");
+    }
+    const response = await api.get(`/ong/email/${email}`)
     return response.data
 }
 
@@ -46,6 +55,16 @@ export const verificarCpfUnico = async (cpf) => {
     } catch (error) {
         console.error('Erro ao verificar CPF:', error);
         return false;
+    }
+}
+
+export const verificarCpnjUnico = async (cnpj) => {
+    try {
+        const response = await api.get(`/ongs/verificar-cnpj?cnpj=${cnpj}`)
+        return response.data.existe;
+    } catch (error) {
+        console.error('Erro ao verificar CNPJ:', error)
+        return false
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./cadastroONG.css";
 import { useNavigate } from "react-router-dom";
-import { addOng } from '../apiService';
+import { addOng, getUserByEmail, verificarCpnjUnico } from '../apiService';
 import { FaInfoCircle, FaTrash, FaUserCircle } from "react-icons/fa";
 import { cpf, cnpj } from 'cpf-cnpj-validator';
 import Swal from 'sweetalert2';
@@ -26,7 +26,6 @@ function CadastroONG() {
   const [ongSenha, setOngSenha] = useState('');
   const [ongConfirmarSenha, setOngConfirmarSenha] = useState('');
   const [ongTelefone, setOngTelefone] = useState('');
-  const [ongTelefoneDenuncia, setOngTelefoneDenuncia] = useState('');
   const [ongCnpj, setOngCnpj] = useState('');
   const [ongNomeResponsavel, setOngNomeResponsavel] = useState('');
   const [ongCpfResponsavel, setOngCpfResponsavel] = useState('');
@@ -54,7 +53,7 @@ function CadastroONG() {
     return idade;
   };
 
-  const validarFormulario = () => {
+  const validarFormulario = async () => {
     const novosErros = {};
 
     // Validação do nome da ONG
@@ -69,6 +68,15 @@ function CadastroONG() {
       novosErros.email = 'O email é obrigatório.';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ongEmail)) {
       novosErros.email = 'O email não é válido.';
+    } else {
+      try {
+        const emailExiste = await getUserByEmail(ongEmail.toLowerCase());
+        if (emailExiste) {
+          novosErros.email = 'Este email já está em uso.';
+        }
+      } catch (error) {
+        console.error('Erro ao verificar email:', error);
+      }
     }
 
     // Validação da senha
@@ -96,6 +104,15 @@ function CadastroONG() {
       novosErros.cnpj = 'O CNPJ é obrigatório.';
     } else if (!cnpj.isValid(ongCnpj)) {
       novosErros.cnpj = 'O CNPJ é inválido.';
+    } else {
+      try {
+        const cnpjExiste = await verificarCpnjUnico(ongCnpj);
+        if (cnpjExiste) {
+          novosErros.cnpj = 'Este CNPJ já está em uso.';
+        }
+      } catch (error) {
+        console.error('Erro ao verificar CNPJ:', error);
+      }
     }
 
     // Validação do nome do responsável
@@ -153,15 +170,26 @@ function CadastroONG() {
       novosErros.foto_ong = 'A foto de perfil é obrigatória.';
     }
 
-    setErros(novosErros);
-    return Object.keys(novosErros).length === 0;
+    if (Object.keys(novosErros).length > 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: Object.values(novosErros)[0],
+        confirmButtonColor: '#84644D',
+      });
+      return false;
+    }
+
+    // setErros(novosErros);
+    // return Object.keys(novosErros).length === 0;
   };
 
   const cadastrarOng = async (e) => {
-    ''
+    
     e.preventDefault();
 
-    if (!validarFormulario()) return;
+    const formularioValido = await validarFormulario();
+    if (!formularioValido) return;
 
     const novaOng = {
       nome_ong: ongNome,

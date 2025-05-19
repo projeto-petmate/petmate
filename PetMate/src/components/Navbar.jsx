@@ -30,7 +30,7 @@ function Navbar() {
         }
         {userLogado.tipo == 'admin' &&
           <NavLink
-            to="/perfiladm"
+            to="https://app.powerbi.com/view?r=eyJrIjoiNmJmZGFlN2MtOGJhOS00MDVhLTgwZDYtYzkxODVjZjQ4YTQyIiwidCI6IjJjZjdkNGQ1LWJkMWItNDk1Ni1hY2Y4LTI5OTUzOTliMjE2OCJ9"
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
             onClick={() => setMenuAberto(false)}
           >

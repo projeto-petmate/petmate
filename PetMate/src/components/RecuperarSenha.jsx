@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './RecuperarSenha.css'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { enviarCodigoRecuperacao, verificarCodigoRecuperacao, redefinirSenha, getUsuarioByEmail } from '../apiService';
+import { enviarCodigoRecuperacao, verificarCodigoRecuperacao, redefinirSenha, getUserByEmail } from '../apiService';
 
 function RecuperarSenha() {
     const [etapa, setEtapa] = useState(1);
@@ -54,7 +54,7 @@ function RecuperarSenha() {
             await verificarCodigoRecuperacao(email, codigo);
             setEtapa(3);
         } catch (error) {
-            Swal.fire({
+            Swal.fire({ 
                 icon: 'error',
                 title: 'Erro',
                 text: error.response?.data?.message || 'Código inválido.',
@@ -65,7 +65,7 @@ function RecuperarSenha() {
 
     const handleRedefinirSenha = async () => {
         const erros = {};
-        const user = await getUsuarioByEmail(email)
+        const user = await getUserByEmail(email)
         
         if(user.senha === novaSenha) {
             erros.novaSenha = 'A nova senha deve ser diferente da senha atual.'
