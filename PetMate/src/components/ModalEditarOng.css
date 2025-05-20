@@ -28,7 +28,7 @@
     margin-top: 20px;
     padding-bottom: 30px;
     border-left: 25px solid #654833;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
 .editar-ong-container h2 {
@@ -230,12 +230,12 @@
 .botao-salvar-ong{
     background-color: #84644D;
     color: #EBE5E0;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 .botao-cancelar-ong{
     background-color: #EBE5E0;
     color: #3d2b1e;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .botao-salvar-ong,
@@ -249,15 +249,80 @@
     font-size: 18px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .botao-salvar-ong:hover{
-    background-color: #3d2b1e;
+    background-color: #72533e;
     color: white;
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 .botao-cancelar-ong:hover{
     background-color: rgb(217, 213, 213);
+    transform: scale(1.01);
+}
+
+.edit-imagem-ong {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    height: 50px;
+}
+
+.add-img-ong {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #3d2b1e;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #EBE5E0;
+    color: #3d2b1e;
+    transition: 0.3s;
+}
+
+.add-img-ong:hover {
+    transform: scale(1.05);
+}
+
+.imagem-preview-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.imagem-preview-ong {
+    max-width: 100px;
+    max-height: 80px;
+    border-radius: 10px;
+    border: 1px solid #3d2b1e;
+}
+
+.remove-img-btn {
+    background-color: #EBE5E0;
+    color: #3d2b1e;
+    border: 1px solid #3d2b1e;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    /* font-size: 12px; */
+    /* max-width: 100px; */
+    /* font-weight: bold; */
+    font-size: 40px;
+    color: #3d2b1e;
+    transition: 0.3s;
+}
+
+.remove-img-btn:hover {
+    background-color: #d9d5d5;
     transform: scale(1.05);
 }
 

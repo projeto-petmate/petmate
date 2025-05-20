@@ -96,10 +96,10 @@ function LoginUsuario() {
                                     {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
                             </div>
+                            {erro && <p className="erro-mensagem-login">{erro}</p>}
                         </div>
                     </div>
                 </div>
-                {erro && <p className="erro-mensagem-login">{erro}</p>}
             </div>
             <div className="base-login">
                 <button type="submit" onClick={handleLogin}>Login</button>

@@ -101,18 +101,18 @@ function Cadastro() {
         if (!termosCadastro) {
             novosErros.termos = 'Você deve aceitar os termos e condições.';
         }
-        if (Object.keys(novosErros).length > 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro',
-                text: Object.values(novosErros)[0], 
-                confirmButtonColor: '#84644D',
-            });
-            return false;
-        }
+        // if (Object.keys(novosErros).length > 0) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         title: 'Erro',
+        //         text: Object.values(novosErros)[0], 
+        //         confirmButtonColor: '#84644D',
+        //     });
+        //     return false;
+        // }
 
-        // setErros(novosErros);
-        // return Object.keys(novosErros).length === 0;
+        setErros(novosErros);
+        return Object.keys(novosErros).length === 0;
     };
 
 

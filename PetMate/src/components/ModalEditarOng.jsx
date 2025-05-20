@@ -1,42 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import './ModalEditarOng.css';
+import { FaTrash } from 'react-icons/fa';
 
 export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng, ongToEdit }) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [telefoneDenuncia, setTelefoneDenuncia] = useState('');
+    const [instagram, setInstagram] = useState('');
     const [cnpj, setCnpj] = useState('');
     const [nomeResponsavel, setNomeResponsavel] = useState('');
     const [cpfResponsavel, setCpfResponsavel] = useState('');
     const [dataNascimentoResponsavel, setDataNascimentoResponsavel] = useState('');
-    const [emailResponsavel, setEmailResponsavel] = useState('');
+    const [emailContato, setEmailContato] = useState('');
     const [telefoneResponsavel, setTelefoneResponsavel] = useState('');
     const [estado, setEstado] = useState('');
     const [cidade, setCidade] = useState('');
     const [endereco, setEndereco] = useState('');
     const [foto, setFoto] = useState('');
     const [imagemPreview, setImagemPreview] = useState(null);
-
+    const [etapa, setEtapa] = useState(1)
+    
     useEffect(() => {
         if (ongToEdit) {
             setNome(ongToEdit.nome_ong);
             setEmail(ongToEdit.email);
             setSenha(ongToEdit.senha || '');
             setTelefone(ongToEdit.telefone);
-            setTelefoneDenuncia(ongToEdit.telefone_denuncia || '');
+            setInstagram(ongToEdit.instagram || '');
             setCnpj(ongToEdit.cnpj);
             setNomeResponsavel(ongToEdit.nome_responsavel);
             setCpfResponsavel(ongToEdit.cpf_responsavel);
             setDataNascimentoResponsavel(ongToEdit.data_nascimento_responsavel);
-            setEmailResponsavel(ongToEdit.email_responsavel);
+            setEmailContato(ongToEdit.email_contato);
             setTelefoneResponsavel(ongToEdit.telefone_responsavel);
-            setEstado(ongToEdit.estado_ong);
-            setCidade(ongToEdit.cidade_ong);
-            setEndereco(ongToEdit.endereco_ong);
-            setFoto(ongToEdit.foto_ong);
-            setImagemPreview(ongToEdit.foto_ong);
+            setEstado(ongToEdit.estado);
+            setCidade(ongToEdit.cidade);
+            setEndereco(ongToEdit.endereco);
+            setFoto(ongToEdit.foto_perfil);
+            setImagemPreview(ongToEdit.foto_perfil);
         }
     }, [ongToEdit]);
 
@@ -51,7 +53,7 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
             email,
             senha,
             telefone,
-            telefone_denuncia: telefoneDenuncia,
+            instagram: instagram,
             cnpj,
             nome_responsavel: nomeResponsavel,
             cpf_responsavel: cpfResponsavel,
@@ -61,7 +63,7 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
             estado_ong: estado,
             cidade_ong: cidade,
             endereco_ong: endereco,
-            foto_ong: foto,
+            foto_perfil: foto,
         };
         onEditOng(updatedOng);
         setOngEditOpen(false);
@@ -74,13 +76,44 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
             setFoto(reader.result);
             setImagemPreview(reader.result);
         };
-        reader.readAsDataURL(file);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleRemovePhoto = () => {
+        setFoto('');
+        setImagemPreview(null);
     };
 
     return (
         <div className="editar-ong-background" onClick={() => setOngEditOpen(false)}>
             <div className="editar-ong-container" onClick={(e) => e.stopPropagation()}>
                 <h2>Editar ONG</h2>
+                    <label>Foto de Perfil</label>
+                <div className="edit-imagem-ong">
+                    <div className="add-img-ong" onClick={() => document.getElementById('file-upload-ong').click()}>
+                        Alterar Foto
+                    </div>
+                    <input
+                        id="file-upload-ong"
+                        type="file"
+                        onChange={handleImageChange}
+                        style={{ display: 'none' }}
+                    />
+                    {imagemPreview && (
+                        <div className="imagem-preview-container">
+                            <img
+                                src={imagemPreview}
+                                alt="Pré-visualização"
+                                className="imagem-preview-ong"
+                            />
+                            <FaTrash className="remove-img-btn" onClick={handleRemovePhoto}>
+                                Remover Foto
+                            </FaTrash>
+                        </div>
+                    )}
+                </div>
                 <div className="inputs-editar-ong">
                     <div className="coluna-editar-ong">
                         <label>Nome</label>
@@ -95,6 +128,18 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        <label>Email de Contato</label>
+                        <input
+                            type="email"
+                            value={emailContato}
+                            onChange={(e) => setEmailContato(e.target.value)}
+                        />
+                        <label>CNPJ</label>
+                        <input
+                            type="text"
+                            value={cnpj}
+                            onChange={(e) => setCnpj(e.target.value)}
+                        />
                         <label>Senha</label>
                         <input
                             type="text"
@@ -107,23 +152,11 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
                             value={telefone}
                             onChange={(e) => setTelefone(e.target.value)}
                         />
-                        <label>Telefone de Denúncia</label>
+                        <label>Instagram</label>
                         <input
                             type="text"
-                            value={telefoneDenuncia}
-                            onChange={(e) => setTelefoneDenuncia(e.target.value)}
-                        />
-                        <label>CNPJ</label>
-                        <input
-                            type="text"
-                            value={cnpj}
-                            onChange={(e) => setCnpj(e.target.value)}
-                        />
-                        <label>Endereço</label>
-                        <input
-                            type="text"
-                            value={endereco}
-                            onChange={(e) => setEndereco(e.target.value)}
+                            value={instagram}
+                            onChange={(e) => setInstagram(e.target.value)}
                         />
                     </div>
                     <div className="coluna-editar-ong">
@@ -145,12 +178,7 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
                             value={dataNascimentoResponsavel}
                             onChange={(e) => setDataNascimentoResponsavel(e.target.value)}
                         />
-                        <label>Email do Responsável</label>
-                        <input
-                            type="email"
-                            value={emailResponsavel}
-                            onChange={(e) => setEmailResponsavel(e.target.value)}
-                        />
+
                         <label>Telefone do Responsável</label>
                         <input
                             type="text"
@@ -197,7 +225,12 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
                             value={cidade}
                             onChange={(e) => setCidade(e.target.value)}
                         />
-
+                        <label>Endereço</label>
+                        <input
+                            type="text"
+                            value={endereco}
+                            onChange={(e) => setEndereco(e.target.value)}
+                        />
                     </div>
                 </div>
                 {/* <div className="edit-imagem-ong">

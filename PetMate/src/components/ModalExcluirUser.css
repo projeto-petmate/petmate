@@ -1,70 +1,77 @@
 .modal-excluir-user {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .container-excluir-user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    min-height: 40vh;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    width: 36vw;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-  }
-  
-  .botao-modal-excluir-user, .botao-modal-cancelar-user {
-    font-size: 18px;
-    font-weight: 600;
-    padding: 10px 20px;
-    margin-left: 10px;
-    margin-top: 20px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    height: 60px;
-    width: 150px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .botao-modal-cancelar-user {
-    background-color: #84644D;
-    color: #EBE5E0;
-  }
-  
-  .botao-modal-excluir-user {
-    background-color: #EBE5E0;
-    border: 1px solid #6b4f3a;
-    color: #333;
-  }
-  
-  .botao-modal-cancelar-user:hover {
-    background-color: #a67c5b;
-  }
-  
-  .texto-excluir-user h1 {
-    font-size: 30px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .texto-excluir-user p {
-    font-size: 22px;
-    text-align: center;
-    color: #333;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.container-excluir-user {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 20px;
+  width: 600px;
+  height: 300px;
+  max-width: 90%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.botoes-excluir-user {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.botao-modal-excluir-user, .botao-modal-cancelar-user {
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 50px;
+  width: 120px;
+  font-family: nunito;
+  transition: 0.3s ease;
+}
+
+.botao-modal-cancelar-user {
+  background-color: #84644D;
+  color: #EBE5E0;
+}
+
+.botao-modal-excluir-user {
+  background-color: #EBE5E0;
+  border: 1px solid #6b4f3a;
+  color: #333;
+}
+
+.botao-modal-excluir-user:hover {
+  background-color: #b3aba5;
+  transition: 0.3s;
+}
+
+.botao-modal-cancelar-user:hover {
+  background-color: #6e533f;
+}
+
+.texto-excluir-user h1 {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.texto-excluir-user p {
+  font-size: 22px;
+  text-align: center;
+  color: #333;
+}

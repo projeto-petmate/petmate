@@ -51,7 +51,7 @@ function Navbar() {
         >
           Adotar
         </NavLink>
-        {userLogado.id_usuario &&
+        {
           <NavLink
             to="/favoritos"
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}

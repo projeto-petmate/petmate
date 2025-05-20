@@ -13,7 +13,7 @@ export default function ModalExcluirUser({ isExcluirUser, setUserDeleteOpen, onD
           <h1>Deseja excluir este usuário?</h1>
           <p>Esta ação não pode ser desfeita.</p>
         </div>
-        <div className="Botao_Exclui">
+        <div className="botoes-excluir-user">
           <button className="botao-modal-excluir-user" onClick={onDeleteUser}>Confirmar</button>
           <button onClick={() => setUserDeleteOpen(false)} className="botao-modal-cancelar-user">Cancelar</button>
         </div>

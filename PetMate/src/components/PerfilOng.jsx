@@ -21,12 +21,9 @@ import ModalConfirmarEdit from './ModalConfirmarEdit';
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
     const [openModalExclui, setOpenModalExclui] = useState(false);
-    const { userLogado, PhoneInput, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
+    const { userLogado, Logout } = useContext(GlobalContext);
     const [userData, setUserData] = useState(null);
-    const [userPets, setUserPets] = useState([]);
-    const [openModal, setOpenCadModal] = useState(false);
     const [openModalLogout, setOpenModalLogout] = useState(false);
-    const [imagem, setImagem] = useState('');
     const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
@@ -76,6 +73,7 @@ function PerfilOng() {
         document.getElementById('file-upload').value = null;
         setIsModalConfirmOpen(false);
     };
+    
     const handleSave = async () => {
         try {
             if (!userData.id_ong) {

@@ -169,19 +169,24 @@ function CadastroONG() {
     if (!ongFoto) {
       novosErros.foto_ong = 'A foto de perfil é obrigatória.';
     }
-
-    if (Object.keys(novosErros).length > 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Erro',
-        text: Object.values(novosErros)[0],
-        confirmButtonColor: '#84644D',
-      });
-      return false;
+    
+    // Validação da descrição
+    if (!ongDescricao) {
+      novosErros.descricao = 'A descrição é obrigatória'
     }
 
-    // setErros(novosErros);
-    // return Object.keys(novosErros).length === 0;
+    // if (Object.keys(novosErros).length > 0) {
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Erro',
+    //     text: Object.values(novosErros)[0],
+    //     confirmButtonColor: '#84644D',
+    //   });
+    //   return false;
+    // }
+
+    setErros(novosErros);
+    return Object.keys(novosErros).length === 0;
   };
 
   const cadastrarOng = async (e) => {
@@ -290,7 +295,7 @@ function CadastroONG() {
             <p style={{ marginTop: '10px', marginBottom: '10px', fontSize: '17px' }}>
               Clique aqui e adicione a foto de perfil da ONG.
             </p>
-            {erros.foto_ong && <p className="erro-mensagem">{erros.foto_ong}</p>}
+            {erros.foto_ong && <p className="erro-mensagem-foto">{erros.foto_ong}</p>}
 
           </div>
 

@@ -7,10 +7,12 @@ import { PetContext } from '../contexts/PetContext';
 import JanelaPet from '../components/JanelaPet';
 import { getPets } from '../apiService';
 import LastPage from '../components/LastPage';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function Favoritos() {
     const [pets, setPets] = useState([]);
     const [openPetModal, setOpenPetModal] = useState(false);
+    const { logado } = useContext(GlobalContext)
     const { setPet, favoritos, toggleFavorito } = useContext(PetContext);
 
     useEffect(() => {
@@ -71,7 +73,11 @@ function Favoritos() {
                             </div>
                         ))
                     ) : (
-                        <p className="sem-pets-fav">Você ainda não favoritou nenhum pet.</p>
+                        !logado ? (
+                            <p className="sem-pets-fav">Você precisa entrar para favoritar pets.</p>
+                        ) : (
+                            <p className="sem-pets-fav">Você ainda não favoritou nenhum pet.</p>
+                        )
                     )}
                 </div>
             </div>
