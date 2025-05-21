@@ -223,7 +223,7 @@ strong {
     padding: 20px 0px 0px 20px;
     /* margin-top: 20px; */
     /* text-align: start; */
-    height: 300px;
+    min-height: 300px;
     width: 40vw;
     text-transform: initial;
 }
@@ -275,6 +275,8 @@ strong {
     color: black;
     font-size: 20px;
     font-weight: normal;
+    display: flex;
+    align-items: center;
 }
 
 .icon_wpp,
@@ -308,6 +310,30 @@ strong {
     align-items: center;
     justify-content: center;
     gap: 10px;
+}
+
+.titulo-pet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.texto-denunciar-pet {
+    display: flex;
+    flex-direction: row;
+    padding-right: 20px;
+    font-weight: bold;
+    gap: 5px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.texto-denunciar-pet:hover {
+    color: #ce483c;
+}
+
+.texto-denunciar-pet p{
+    margin-top: -2px;
 }
 
 @media (max-width: 768px) {

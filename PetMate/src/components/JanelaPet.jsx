@@ -5,6 +5,7 @@ import axios from 'axios'
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"
 import { MdOutlineEmail } from "react-icons/md"
 import { IoMdClose } from "react-icons/io"
+import { GoAlert } from 'react-icons/go'
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
@@ -48,8 +49,18 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
     <div className='pet_modal_conteiner' onClick={() => setPetModalOpen(false)}>
       <div className='conteiner_modal_pet' onClick={(e) => e.stopPropagation()}>
         <div className="titulo-pet-modal">
-          <h2>{pet.nome}</h2>
-          <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
+          <div className="titulo-nome-pet">
+            <h2>{pet.nome}</h2>
+          </div>
+          <div className="titulo-pet">
+            <div className="texto-denunciar-pet">
+              {<GoAlert />}
+              <p>
+                DENUNCIAR
+              </p>
+            </div>
+            <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
+          </div>
         </div>
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
         <div className="card-pet-container">
@@ -111,8 +122,20 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <p>Para adotar este pet, entre em contato com o anunciante:</p>
               {doador && (
                 <div className="info-doador">
-                  <p>Nome do anunciante: <div className="dados-doador"> {nome}</div></p>
-                  <p>Endereço: <div className="dados-doador"> {endereco}</div></p>
+                  <div className="dados-doador">
+                    <p>Nome do anunciante: <div className="dados-doador"> {nome}</div></p>
+                  </div>
+                  <div className="dados-doador">
+                    {/* <p>Endereço: <div className="dados-doador"> {endereco}</div></p> */}
+                  </div>
+                  <div className="dados-doador">
+                    <p>Estado: </p>
+                    <div className="dados-endereco">{doador.uf}</div>
+                  </div>
+                  <div className="dados-doador">
+                    <p>Cidade:</p>
+                    <div className="dados-endereco">{doador.cidade}</div>
+                  </div>
                   <div className="links-contato">
                     <a href={linkWpp}>
                       <FaWhatsapp className='icon_wpp' />
@@ -121,10 +144,11 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     <a href={linkEmail}>
                       <MdOutlineEmail className='iconEmail' />
                     </a>
-
                     <a href={linkMaps}>
                       <FaMapMarkerAlt className='iconMap' />
                     </a>
+
+                    <p>***Ajustar o CSS</p>
                   </div>
                 </div>
               )}

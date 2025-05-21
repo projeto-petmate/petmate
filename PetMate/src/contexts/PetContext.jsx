@@ -10,6 +10,7 @@ export const PetContextProvider = ({ children }) => {
     const [pet, setPet] = useState();
     const [favoritos, setFavoritos] = useState([]);
     const { userLogado, setUserLogado } = useContext(GlobalContext)
+    
     const addPet = async (novoPet) => {
         try {
             if (!userLogado) {
