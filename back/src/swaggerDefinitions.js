@@ -843,3 +843,92 @@
  *       500:
  *         description: Erro ao redefinir a senha
  */
+
+
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Realiza o login de um usuário
+ *     tags: [Usuários]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário
+ *               senha:
+ *                 type: string
+ *                 description: Senha do usuário
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *                 user:
+ *                   type: object
+ *                   description: Dados do usuário logado
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT para autenticação
+ *       400:
+ *         description: Email ou senha não fornecidos
+ *       401:
+ *         description: Credenciais inválidas
+ *       500:
+ *         description: Erro ao realizar login
+ */
+
+/**
+ * @swagger
+ * /loginOng:
+ *   post:
+ *     summary: Realiza o login de uma ONG
+ *     tags: [ONGs]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email da ONG
+ *               senha:
+ *                 type: string
+ *                 description: Senha da ONG
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *                 user:
+ *                   type: object
+ *                   description: Dados da ONG logada
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT para autenticação
+ *       400:
+ *         description: Email ou senha não fornecidos
+ *       401:
+ *         description: Credenciais inválidas
+ *       500:
+ *         description: Erro ao realizar login
+ */

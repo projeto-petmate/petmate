@@ -114,9 +114,9 @@
     
 }
 
-.inputs-login p{
+.texto-input-login{
     font-family: inter;
-    /* font-size: 18px; */
+    font-size: 18px;
 }
 
 .inpt-p{
@@ -280,7 +280,7 @@
 .erro-mensagem-login{
     color: rgb(196, 25, 25);
     text-align: center;
-    font-size: 10px;
+    font-size: 16px;
     margin-bottom: -5px;
     margin-top: 5px;
 }

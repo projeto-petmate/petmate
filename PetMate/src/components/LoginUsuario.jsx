@@ -4,9 +4,10 @@ import Swal from 'sweetalert2';
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import './LoginUsuario.css'
+import { loginUser } from '../apiService';
 
 function LoginUsuario() {
-    const { Logar, mudarTipo } = useContext(GlobalContext);
+    const { Logar } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState('');
@@ -22,19 +23,10 @@ function LoginUsuario() {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, senha }),
-            });
-            const data = await response.json();
-            if (response.ok) {
-                // console.log('Login bem-sucedido:', data);
+            const data = await loginUser(email, senha); 
+            if (data) {
                 setErro('');
-                Logar(data.user.email, data.user.senha, 'usuario');
-
+                Logar(data.user.email, data.user.senha, 'usuario'); 
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -46,13 +38,23 @@ function LoginUsuario() {
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
+                
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
             }
         } catch (error) {
-            console.error('Erro na requisição:', error);
-            setErro('Erro na requisição');
+            const errorMessage = error.response?.data?.error || 'Erro ao fazer login. Tente novamente.';
+            console.error('Erro no login:', errorMessage);
+    
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro no Login',
+                text: errorMessage,
+                confirmButtonColor: '#84644D',
+            });
+    
+            setErro(errorMessage); 
         }
     };
 
@@ -68,7 +70,7 @@ function LoginUsuario() {
                         <div className="inpt-p">
                             <div className="icon-input">
                                 <FaEnvelope className="icon-login" />
-                                <p>Email de Usuário:</p>
+                                <p className='texto-input-login'>Email de Usuário:</p>
                             </div>
                             <input
                                 type="text"

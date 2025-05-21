@@ -115,11 +115,11 @@
     /* border: solid; */
     
 }
-
-.inputs-login p{
+/* 
+.texto-input-login{
     font-family: inter;
     font-size: 18px;
-}
+} */
 
 .inpt-p{
     display: flex;

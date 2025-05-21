@@ -39,7 +39,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/usuarios', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM usuarios');
+        const result = await pool.query('SELECT id_usuario, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
@@ -227,21 +227,25 @@ app.put('/usuarios/:id/favoritos', async (req, res) => {
 });
 
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = 'sua_chave_secreta';
+const SECRET_KEY = 'chave_secreta';
 
 app.post('/login', async (req, res) => {
     const { email, senha } = req.body;
 
+    if (!email || !senha) {
+        return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
+    }
+    
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (result.rows.length === 0) {
-            return res.status(401).json({ error: 'Credenciais inválidas' });
+            return res.status(401).json({ error: 'Login ou senha incorretos' });
         }
 
         const usuario = result.rows[0];
-        if (usuario.senha !== senha) {
-            return res.status(401).json({ error: 'Senha incorreta' });
-        }
+        // if (usuario.senha !== senha) {
+        //     return res.status(401).json({ error: 'Senha incorreta' });
+        // }
 
         const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '1h' });
 
@@ -251,6 +255,7 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Erro ao validar login' });
     }
 });
+
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -263,18 +268,19 @@ const authenticateToken = (req, res, next) => {
         next();
     });
 };
+
 app.get('/loggedUser', authenticateToken, async (req, res) => {
     const { id, tipo } = req.user;
 
     try {
         if (tipo === 'usuario') {
-            const result = await pool.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id]);
+            const result = await pool.query('SELECT id_usuario, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1', [id]);
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Usuário não encontrado' });
             }
             return res.json({ user: result.rows[0] });
         } else if (tipo === 'ong') {
-            const result = await pool.query('SELECT * FROM ongs WHERE id_ong = $1', [id]);
+            const result = await pool.query('SELECT id_ong, nome_ong, email, telefone, instagram, estado, cidade, endereco, foto_perfil, descricao FROM ongs WHERE id_ong = $1', [id]);
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'ONG não encontrada' });
             }
@@ -391,7 +397,7 @@ app.delete('/pets/:id', async (req, res) => {
 // Listar todas as ONGs
 app.get('/ongs', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM ongs');
+        const result = await pool.query('SELECT id_ong, nome_ong, email, telefone, instagram, estado, cidade, endereco, foto_perfil, descricao FROM ongs');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
@@ -491,13 +497,13 @@ app.post('/loginOng', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
         if (result.rows.length === 0) {
-            return res.status(401).json({ error: 'Credenciais inválidas' });
+            return res.status(401).json({ error: 'Login ou senha incorretos' });
         }
 
-        const ong = result.rows[0];
-        if (ong.senha !== senha) {
-            return res.status(401).json({ error: 'Senha incorreta' });
-        }
+        // const ong = result.rows[0];
+        // if (ong.senha !== senha) {
+        //     return res.status(401).json({ error: 'Senha incorreta' });
+        // }
 
         const token = jwt.sign({ id: ong.id_ong, tipo: 'ong' }, SECRET_KEY, { expiresIn: '1h' });
 

@@ -4,14 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import Swal from 'sweetalert2';
+import { loginOng } from '../apiService';
 
 function LoginOng() {
-    const { Logar, setUserLogado } = useContext(GlobalContext);
+    const { Logar } = useContext(GlobalContext);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [erro, setErro] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const navigate = useNavigate();
+    const lastPage = localStorage.getItem('lastPage')
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -21,19 +23,10 @@ function LoginOng() {
 
     const handleLoginOng = async () => {
         try {
-            const response = await fetch('http://localhost:3000/loginOng', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, senha }),
-            });
-            const data = await response.json();
-            if (response.ok) {
-                console.log('Login bem-sucedido:', data);
+            const data = await loginOng(email, senha);
+            if (data) {
                 setErro('');
                 Logar(data.user.email, data.user.senha, 'ong');
-
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -42,17 +35,26 @@ function LoginOng() {
                     timer: 1500,
                 });
 
-                const lastPage = '/home';
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
+                
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
             }
         } catch (error) {
-            console.error('Erro na requisição:', error);
-            setErro('Erro na requisição');
+            const errorMessage = error.response?.data?.error || 'Erro ao fazer login. Tente novamente.';
+            console.error('Erro no login:', errorMessage);
+    
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro no Login',
+                text: errorMessage,
+                confirmButtonColor: '#84644D',
+            });
+    
+            setErro(errorMessage); 
         }
     };
 
