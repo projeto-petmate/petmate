@@ -4,7 +4,6 @@ import './JanelaModal.css'
 import { PetContext } from "../contexts/PetContext"
 import { useNavigate } from 'react-router-dom'
 import SegundaEtapaPet from './SegundaEtapaPet'
-import { IoMdClose } from "react-icons/io"
 import { CgCloseO } from "react-icons/cg"
 import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";

@@ -6,10 +6,13 @@ import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"
 import { MdOutlineEmail } from "react-icons/md"
 import { IoMdClose } from "react-icons/io"
 import { GoAlert } from 'react-icons/go'
+import ModalDenuncia from './ModalDenuncia'
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
+  const [denuncia, setDenuncia] = useState(false)
   const [doador, setDoador] = useState(null)
+  const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
 
   useEffect(() => {
     if (pet) {
@@ -53,7 +56,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             <h2>{pet.nome}</h2>
           </div>
           <div className="titulo-pet">
-            <div className="texto-denunciar-pet">
+            <div className="texto-denunciar-pet" onClick={() => setOpenModalDenuncia(true)}>
               {<GoAlert />}
               <p>
                 DENUNCIAR
@@ -121,20 +124,24 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <h2>Quer Adotar?</h2>
               <p>Para adotar este pet, entre em contato com o anunciante:</p>
               {doador && (
-                <div className="info-doador">
-                  <div className="dados-doador">
-                    <p>Nome do anunciante: <div className="dados-doador"> {nome}</div></p>
-                  </div>
-                  <div className="dados-doador">
-                    {/* <p>Endereço: <div className="dados-doador"> {endereco}</div></p> */}
-                  </div>
-                  <div className="dados-doador">
-                    <p>Estado: </p>
-                    <div className="dados-endereco">{doador.uf}</div>
-                  </div>
-                  <div className="dados-doador">
-                    <p>Cidade:</p>
-                    <div className="dados-endereco">{doador.cidade}</div>
+                <div className="info-doador-container">
+                  <div className="info-doador">
+                    <div className="dados-doador">
+                      <h4>Nome do anunciante: <div className="dados-doador"> {nome}</div></h4>
+                    </div>
+                    <div className="dados-doador">
+                      {/* <p>Endereço: <div className="dados-doador"> {endereco}</div></p> */}
+                    </div>
+                    <div className="dados-endereco">
+                      <div className='info-endereco'>
+                        <h4>Estado: </h4>
+                        <p>{doador.uf}</p>
+                      </div>
+                      <div className='info-endereco'>
+                        <h4>Cidade:</h4>
+                        <p>{doador.cidade}</p>
+                      </div>
+                    </div>
                   </div>
                   <div className="links-contato">
                     <a href={linkWpp}>
@@ -147,9 +154,9 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     <a href={linkMaps}>
                       <FaMapMarkerAlt className='iconMap' />
                     </a>
-
-                    <p>***Ajustar o CSS</p>
                   </div>
+                  <ModalDenuncia isOpen={openModalDenuncia}
+                    setIsOpen={setOpenModalDenuncia} />
                 </div>
               )}
             </div>

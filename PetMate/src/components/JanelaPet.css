@@ -256,14 +256,15 @@ strong {
     font-size: 20px;
 }
 
-.info-doador {
+.info-doador-container {
     display: flex;
     flex-direction: column;
     /* text-align: start; */
     justify-content: space-evenly;
+    /* border: solid; */
 }
 
-.info-doador p {
+.info-doador-container h4 {
     color: #654833;
     font-size: 24px;
     font-weight: bold;
@@ -271,12 +272,35 @@ strong {
     margin-bottom: 5px;
 }
 
+.info-doador {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+}
+
 .dados-doador {
     color: black;
     font-size: 20px;
     font-weight: normal;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    
+}
+
+.dados-endereco {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    /* border: solid; */
+}
+
+.info-endereco {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .icon_wpp,
