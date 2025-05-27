@@ -24,9 +24,14 @@ export const getUserByEmail = async (email) => {
         console.error("Erro: Email do usuário não fornecido.");
         throw new Error("Email do usuário não fornecido.");
     }
-    const response = await api.get(`/users/email/${email}`)
-    return response.data
-}
+    try {
+        const response = await api.get(`/users/email/${email}`);
+        return response.data.exists; 
+    } catch (error) {
+        console.error('Erro ao buscar usuário ou ONG:', error);
+        throw error; 
+    }
+};
 
 export const getOngByEmail = async (email) => {
     if (!email) {

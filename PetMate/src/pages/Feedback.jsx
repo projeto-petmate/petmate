@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar'
 import { deleteComentario, getComentarios } from '../apiService';
 import './Feedback.css'
 import { UserContext } from '../contexts/UserContext';
-import axios from 'axios';
 import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
@@ -14,7 +13,6 @@ import LastPage from '../components/LastPage';
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
-    const [nomesComentarios, setNomesComentarios] = useState([]);
     const [inptComentario, setInptComentario] = useState('');
     const { addComentario } = useContext(UserContext);
     const [erros, setErros] = useState('');

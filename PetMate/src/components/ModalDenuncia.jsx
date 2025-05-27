@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ModalDenuncia.css';
 import { CgClose } from 'react-icons/cg';
 
-function ModalDenuncia({ isOpen, setIsOpen, setOpenModalDenuncia }) {
+function ModalDenuncia({ isOpen, setIsOpen }) {
     if (!isOpen) {
         return null;
     }
@@ -18,24 +18,24 @@ function ModalDenuncia({ isOpen, setIsOpen, setOpenModalDenuncia }) {
                 </div>
 
                 <div className="container-tipo-denuncia">
-                    <h4>Tipo de Denúncia</h4>
+                    <h4 className='titulo-tipo-denuncia'>Tipo de Denúncia</h4>
                     <div className="inputs-tipo-denuncia">
-                        <div className="radio-denuncia">
+                        <label className="radio-denuncia">
                             <input type="radio" name='tipo-denuncia' />
-                            <p>Informações falsas</p>
-                        </div>
-                        <div className="radio-denuncia">
+                            <span className='span-denuncia'>Informações falsas</span>
+                        </label>
+                        <label className="radio-denuncia">
                             <input type="radio" name='tipo-denuncia' />
-                            <p>Práticas suspeitas</p>
-                        </div>
-                        <div className="radio-denuncia">
+                            <span className='span-denuncia'>Práticas suspeitas</span>
+                        </label>
+                        <label className="radio-denuncia">
                             <input type="radio" name='tipo-denuncia' />
-                            <p>Conteúdo ofensivo</p>
-                        </div>
-                        <div className="radio-denuncia">
+                            <span className='span-denuncia'>Conteúdo ofensivo</span>
+                        </label>
+                        <label className="radio-denuncia">
                             <input type="radio" name='tipo-denuncia' />
-                            <p>Outro</p>
-                        </div>
+                            <span className='span-denuncia'>Outro</span>
+                        </label>
                     </div>
                 </div>
 

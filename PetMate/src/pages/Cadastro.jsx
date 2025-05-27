@@ -50,13 +50,14 @@ function Cadastro() {
             try {
                 const emailExiste = await getUserByEmail(inptEmailCadastro.toLowerCase());
                 if (emailExiste) {
-                    novosErros.email = `Este email já está em uso`;
+                    novosErros.email = 'Este email já está em uso.';
                 }
             } catch (error) {
                 console.error('Erro ao verificar email:', error);
                 novosErros.email = 'Erro ao verificar email. Tente novamente mais tarde.';
             }
         }
+        
         if (!inptSenhaCadastro) {
             novosErros.senha = 'A senha é obrigatória.';
         }

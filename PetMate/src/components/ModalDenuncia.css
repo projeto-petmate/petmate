@@ -33,14 +33,71 @@
 
 .container-tipo-denuncia {
     min-height: 7rem;
+    margin-top: 2rem;
     /* border: solid; */
 }
 .inputs-tipo-denuncia {
     display: flex;
-    gap: 10px;
+    flex-direction: row;
+    align-items: center;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 }
+
+.inputs-tipo-denuncia input {
+    width: 13%;
+    height: 26px;
+}
+
+
+.inputs-tipo-denuncia input[type="radio"] {
+    width: 1px;
+}
+
+.inputs-tipo-denuncia input[type="radio"]:checked+span {
+    box-shadow: 0 0 0 0.0225em #6b4f3a;
+    background-color: #f3f3fc;
+    color: #6b4f3a;
+}
+.inputs-tipo-denuncia input[type="radio"]:checked+span {
+    animation: subirDescer 0.6s ease;
+}
+
+@keyframes subirDescer {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.span-denuncia {
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 0.375em 0.75em;
+    position: relative;
+    box-shadow: 0 0 0 0.0725em #EBE5E0;
+    letter-spacing: 0.05em;
+    color: #6b4f3a;
+    text-align: center;
+    border-radius: 0.5em; 
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+
+.span-denuncia {
+    border: 1px solid #ac927d; 
+}
+
+.span-denuncia {
+    border-radius: 0.5em !important; 
+}
+
 .radio-denuncia {
     display: flex;
     gap: 5px;
@@ -51,7 +108,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 3rem;
+    padding-top: 2rem;
 }
 
 .input-denuncia {
@@ -62,6 +119,7 @@
     outline: none;
     font-size: 16px;
     font-family: arial;
+    border-color: #ac927d;
 }
 
 .input-denuncia:focus {
@@ -72,8 +130,10 @@
 }
 
 .botao-enviar-denuncia {
-    height: 3.5rem;
+    height: 3rem;
     padding: 0.625rem;
+    padding-left: 15px;
+    padding-right: 15px;
     font-size: 1.125rem;
     font-family: Nunito;
     border-radius: 0.375rem;
@@ -88,3 +148,4 @@
 .botao-enviar-denuncia:hover {
     background-color: #654833;
 }
+

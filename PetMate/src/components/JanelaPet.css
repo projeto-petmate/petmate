@@ -208,13 +208,14 @@ strong {
 }
 
 .pet-tag{
-    font-size: 20px;
-    background-color: whitesmoke;
+    font-size: 1.2rem;
+    background-color: #f0efee;
     border: solid 1px #654833;
-    font-family: 'Nunito';
-    padding: 5px;
-    border-radius: 4px;
-
+    padding: 5px 10px 5px 10px;
+    border-radius: 6px;
+    color: #6b4f3a;
+    /* font-family: 'Nunito'; */
+    /* font-family: nunito; */
 }
 .info-doador-modal {
     background-color: #EBE5E0;
