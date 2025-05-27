@@ -46,14 +46,7 @@ function LoginUsuario() {
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Erro ao fazer login. Tente novamente.';
             console.error('Erro no login:', errorMessage);
-    
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro no Login',
-                text: errorMessage,
-                confirmButtonColor: '#84644D',
-            });
-    
+       
             setErro(errorMessage); 
         }
     };

@@ -15,7 +15,7 @@ import ModalConfirmFoto from '../components/ModalConfirmFoto';
 import ModalConfirmarEdit from '../components/ModalConfirmarEdit';
 
 function Perfil() {
-    const { userLogado, Logout, updateUsuario, deleteUsuario } = useContext(GlobalContext);
+    const { userLogado, Logout, updateUsuario, deleteUsuario, logado } = useContext(GlobalContext);
     const [editMode, setEditMode] = useState(false);
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +28,13 @@ function Perfil() {
     const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const navigate = useNavigate();
+
+  
+    useEffect (() => {
+      if(logado !== true){
+        navigate('/home')
+      }
+    })
 
     const handleRemovePhoto = () => {
         setImagemPreviewPerfil(null);

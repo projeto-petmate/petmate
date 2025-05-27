@@ -69,9 +69,9 @@ app.get('/users/email/:email', async (req, res) => {
             result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
         }
         if (result.rows.length === 0) {
-            return res.status(200).json({ exists: false });
+            return res.status(404).json({ error: 'Usuário ou ONG não encontrado' });
         }
-        res.status(200).json({ exists: true, data: result.rows[0] });
+        res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao buscar usuário ou ONG:', err.message);
         res.status(500).json({ error: 'Erro ao buscar usuário ou ONG' });
@@ -497,13 +497,13 @@ app.post('/loginOng', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
         if (result.rows.length === 0) {
-            return res.status(401).json({ error: 'Login ou senha incorretos' });
+            return res.status(401).json({ error: 'Email ou senha incorretos' });
         }
 
-        // const ong = result.rows[0];
-        // if (ong.senha !== senha) {
-        //     return res.status(401).json({ error: 'Senha incorreta' });
-        // }
+        const ong = result.rows[0];
+        if (ong.senha !== senha) {
+            return res.status(401).json({ error: 'Email ou senha incorretos' });
+        }
 
         const token = jwt.sign({ id: ong.id_ong, tipo: 'ong' }, SECRET_KEY, { expiresIn: '1h' });
 

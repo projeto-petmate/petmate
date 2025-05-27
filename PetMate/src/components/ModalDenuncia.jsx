@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ModalDenuncia.css';
 import { CgClose } from 'react-icons/cg';
 
-function ModalDenuncia({ isOpen, setIsOpen }) {
+function ModalDenuncia({ isOpen, setIsOpen, idObjeto }) {
     if (!isOpen) {
         return null;
     }
@@ -41,6 +41,7 @@ function ModalDenuncia({ isOpen, setIsOpen }) {
 
                 <div className="modal-denuncia-meio">
                     <h4>Descreva o motivo da denúncia:</h4>
+                    {/* <p>{idObjeto}</p> */}
                     <textarea placeholder="Digite sua denúncia aqui..." className='input-denuncia' value={mensagem} onChange={(e) => {setMensagem(e.target.value)}} />
                     <button className="botao-enviar-denuncia">Enviar Denúncia</button>
                 </div>

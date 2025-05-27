@@ -38,7 +38,7 @@ function LoginOng() {
                 setTimeout(() => {
                     navigate(lastPage);
                 }, 1500);
-                
+
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
@@ -46,15 +46,8 @@ function LoginOng() {
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Erro ao fazer login. Tente novamente.';
             console.error('Erro no login:', errorMessage);
-    
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro no Login',
-                text: errorMessage,
-                confirmButtonColor: '#84644D',
-            });
-    
-            setErro(errorMessage); 
+
+            setErro(errorMessage);
         }
     };
 
@@ -97,10 +90,10 @@ function LoginOng() {
                                     {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
                                 </button>
                             </div>
+                            {erro && <p className="erro-mensagem-login">{erro}</p>}
                         </div>
                     </div>
                 </div>
-                {erro && <p className="erro-mensagem-login">{erro}</p>}
             </div>
             <div className="base-login">
                 <button type="submit" onClick={handleLoginOng}>Login</button>

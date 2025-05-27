@@ -36,6 +36,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   if (!isOpen || !pet) {
     return null
   }
+
   const telefone = doador?.telefone_contato || doador?.telefone;
   const email = doador?.email_ong || doador?.email;
   const endereco = doador?.endereco_ong || doador?.endereco;
@@ -130,7 +131,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                       <h4>Nome do anunciante: <div className="dados-doador"> {nome}</div></h4>
                     </div>
                     <div className="dados-doador">
-                      {/* <p>Endereço: <div className="dados-doador"> {endereco}</div></p> */}
                     </div>
                     <div className="dados-endereco">
                       <div className='info-endereco'>
@@ -156,7 +156,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     </a>
                   </div>
                   <ModalDenuncia isOpen={openModalDenuncia}
-                    setIsOpen={setOpenModalDenuncia} />
+                    setIsOpen={setOpenModalDenuncia}
+                    idObjeto={pet.id_pet} />
                 </div>
               )}
             </div>

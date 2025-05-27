@@ -14,8 +14,8 @@ import { GlobalContext } from '../contexts/GlobalContext';
 
 function PerfilAdm() {
   const [mostrar, setMostrar] = useState(0)
-  const { userLogado } = useContext(GlobalContext);
   const navigate = useNavigate()
+  const { userLogado } = useContext(GlobalContext);
 
   useEffect (() => {
     if(userLogado.tipo !== 'admin'){
