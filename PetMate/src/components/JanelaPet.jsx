@@ -58,7 +58,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
           </div>
           <div className="titulo-pet">
             <div className="texto-denunciar-pet" onClick={() => setOpenModalDenuncia(true)}>
-              {<GoAlert />}
+              {<GoAlert className='icon-denuncia-pet' />}
               <p>
                 DENUNCIAR
               </p>
@@ -155,9 +155,11 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                       <FaMapMarkerAlt className='iconMap' />
                     </a>
                   </div>
-                  <ModalDenuncia isOpen={openModalDenuncia}
+                  <ModalDenuncia
+                    isOpen={openModalDenuncia}
                     setIsOpen={setOpenModalDenuncia}
-                    idObjeto={pet.id_pet} />
+                    idObjeto={pet.id_pet}
+                    tipo='pets' />
                 </div>
               )}
             </div>

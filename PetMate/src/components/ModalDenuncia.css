@@ -21,6 +21,13 @@
     padding: 30px;
 }
 
+.container-modal-denuncia h2, .container-modal-denuncia h4 {
+    color: #6b4f3a;
+    font-size: 24px;
+}
+.titulo-motivo-denuncia {
+    text-align: center;
+}
 .titulo-denuncia {
     display: flex;
     justify-content: space-between;
@@ -29,14 +36,15 @@
 .botao-fechar-modal {
     cursor: pointer;
     font-size: 30px;
+    color: #6b4f3a;
 }
 
-.container-tipo-denuncia {
+.container-motivo-denuncia {
     min-height: 7rem;
     margin-top: 2rem;
     /* border: solid; */
 }
-.inputs-tipo-denuncia {
+.inputs-motivo-denuncia {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -44,22 +52,22 @@
     margin-top: 1rem;
 }
 
-.inputs-tipo-denuncia input {
+.inputs-motivo-denuncia input {
     width: 13%;
     height: 26px;
 }
 
 
-.inputs-tipo-denuncia input[type="radio"] {
+.inputs-motivo-denuncia input[type="radio"] {
     width: 1px;
 }
 
-.inputs-tipo-denuncia input[type="radio"]:checked+span {
+.inputs-motivo-denuncia input[type="radio"]:checked+span {
     box-shadow: 0 0 0 0.0225em #6b4f3a;
     background-color: #f3f3fc;
     color: #6b4f3a;
 }
-.inputs-tipo-denuncia input[type="radio"]:checked+span {
+.inputs-motivo-denuncia input[type="radio"]:checked+span {
     animation: subirDescer 0.6s ease;
 }
 
@@ -68,7 +76,7 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-5px);
+        transform: translateY(-3px);
     }
     100% {
         transform: translateY(0);
@@ -115,6 +123,7 @@
     height: 8rem;
     width: 40rem;
     border-radius: 0.75rem;
+    margin-top: 5px;
     padding: 0.9375rem;
     outline: none;
     font-size: 16px;

@@ -11,7 +11,7 @@ import Feedback from "../pages/Feedback";
 import Ongs from "../pages/Ongs";
 import PerfilAdm from "../pages/PerfilAdm";
 import Favoritos from "../pages/Favoritos";
-import RecuperarSenha from "../components/RecuperarSenha";
+import RecuperarSenha from "../pages/RecuperarSenha";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},

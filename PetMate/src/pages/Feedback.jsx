@@ -10,6 +10,8 @@ import Swal from 'sweetalert2'
 import Footer from '../components/Footer';
 import { GlobalContext } from '../contexts/GlobalContext';
 import LastPage from '../components/LastPage';
+import { GoAlert } from 'react-icons/go';
+import ModalDenuncia from '../components/ModalDenuncia';
 
 function Feedback() {
     const { comentarios, setComentarios } = useContext(UserContext);
@@ -21,6 +23,7 @@ function Feedback() {
     const { userLogado, logado } = useContext(GlobalContext);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const vrfOng = userLogado?.id_ong ? true : false;
+    const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
 
 
     useEffect(() => {
@@ -73,6 +76,8 @@ function Feedback() {
                     icon: "success",
                     title: "Comentário enviado com sucesso!",
                     showConfirmButton: false,
+                    timer: 1500
+
                 });
             } else {
                 Swal.fire({
@@ -146,23 +151,40 @@ function Feedback() {
                                         )}
                                         <h3>{c.nome_user}</h3>
                                     </div>
-                                    <div className="apagar-comentario">
-                                        {userLogado && userLogado.id_usuario === c.id_usuario ? (
-                                            <IoTrashOutline
-                                                onClick={() => {
-                                                    setCommentToDelete(c);
-                                                    setOpenModalExcluirComentario(true);
-                                                }}
-                                                className="botao-excluir-comentario"
-                                            />
+                                    <div className="container-denunciar-comentario">
+                                        {userLogado && userLogado.id_usuario !== c.id_usuario ? (
+                                            <div className="texto-denunciar-comentario" onClick={() => setOpenModalDenuncia(true)}>
+                                                <GoAlert className='icon-denuncia-comentario' />
+                                                <p>
+                                                    DENUNCIAR
+                                                </p>
+                                            </div>
                                         ) : (
                                             ''
                                         )}
+                                        <div className="apagar-comentario">
+                                            {userLogado && userLogado.id_usuario === c.id_usuario ? (
+                                                <IoTrashOutline
+                                                    onClick={() => {
+                                                        setCommentToDelete(c);
+                                                        setOpenModalExcluirComentario(true);
+                                                    }}
+                                                    className="botao-excluir-comentario"
+                                                />
+                                            ) : (
+                                                ''
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="comentario-texto">
                                     <p>{c.texto}</p>
                                 </div>
+                                <ModalDenuncia
+                                    isOpen={openModalDenuncia}
+                                    setIsOpen={setOpenModalDenuncia}
+                                    idObjeto={c.id_comentario}
+                                    tipo='comentarios' />
                             </div>
                         </div>
                     ))}

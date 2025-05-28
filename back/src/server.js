@@ -39,7 +39,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/usuarios', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id_usuario, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
+        const result = await pool.query('SELECT id_usuario, cpf, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
@@ -741,6 +741,94 @@ app.post('/redefinir-senha', async (req, res) => {
 });
 
 
+//Rotas para denúncias
+// Listar todas as denúncias
+app.get('/denuncias', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, status, data_criacao
+            FROM denuncias
+        `);
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Erro ao buscar denúncias:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar denúncias' });
+    }
+});
+
+// Buscar uma denúncia por ID
+app.get('/denuncias/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query(`
+            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, status, data_criacao
+            FROM denuncias WHERE id_denuncia = $1
+        `, [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Denúncia não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao buscar denúncia:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar denúncia' });
+    }
+});
+
+// Criar uma nova denúncia
+app.post('/denuncias', async (req, res) => {
+    const { mensagem, motivo, tipo_objeto, id_objeto } = req.body;
+
+    if (!motivo || !tipo_objeto || !id_objeto) {
+        return res.status(400).json({ error: 'Motivo, tipo do objeto e ID do objeto são obrigatórios.' });
+    }
+
+    try {
+        const result = await pool.query(`
+            INSERT INTO denuncias (mensagem, motivo, tipo_objeto, id_objeto)
+            VALUES ($1, $2, $3, $4) RETURNING *
+        `, [mensagem, motivo, tipo_objeto, id_objeto]);
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao criar denúncia:', err.message);
+        res.status(500).json({ error: 'Erro ao criar denúncia' });
+    }
+});
+
+// Atualizar uma denúncia por ID
+app.put('/denuncias/:id', async (req, res) => {
+    const { id } = req.params;
+    const { mensagem, status } = req.body;
+
+    try {
+        const result = await pool.query(`
+            UPDATE denuncias
+            SET mensagem = $1, status = $2
+            WHERE id_denuncia = $3 RETURNING *
+        `, [mensagem, status, id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Denúncia não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar denúncia:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar denúncia' });
+    }
+});
+
+// Deletar uma denúncia por ID
+app.delete('/denuncias/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM denuncias WHERE id_denuncia = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Denúncia não encontrada' });
+        }
+        res.json({ message: 'Denúncia deletada com sucesso', denuncia: result.rows[0] });
+    } catch (err) {
+        console.error('Erro ao deletar denúncia:', err.message);
+        res.status(500).json({ error: 'Erro ao deletar denúncia' });
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

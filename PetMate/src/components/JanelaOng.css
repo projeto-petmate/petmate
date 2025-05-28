@@ -196,6 +196,41 @@
     transition: color 0.3s ease;
 }
 
+.container-denunciar-ong {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto-denunciar-ong {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 20px;
+    font-weight: bold;
+    gap: 5px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    color: #654833;
+}
+
+.icon-denuncia-ong{
+    font-size: 23px;
+}
+
+.texto-denunciar-ong p{
+    font-size: 18px;
+    font-family: 'Nunito';
+    font-weight: bold;
+    margin-top: 3px;
+    transition: background-color 0.3s ease;
+}
+
+.texto-denunciar-ong:hover {
+    color: #ce483c;
+    transition: color 0.3s ease;
+}
+
 @media (max-width: 768px) {
     .container-janela-ong {
         width: 95%;

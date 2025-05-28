@@ -48,7 +48,6 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    
     align-items: center;
     justify-content: center;
     gap: 50px;
@@ -82,10 +81,12 @@
     align-items: center;
     gap: 10px;
 }
+
 .icon-comentario{
     color: #F5F5F5;
     font-size: 50px;
 }
+
 .icon-comentario {
     width: 40px;
     height: 40px;
@@ -204,6 +205,38 @@
 .comentario {
     display: flex;
     justify-content: center;
+}
+
+
+.texto-denunciar-comentario {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: bold;
+    gap: 5px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+    color: #F5F5F5;
+    /* margin-right: -23rem; */
+    /* padding-right: 20px; */
+    /* width: fit-content; */
+}
+
+.icon-denuncia-comentario{
+    font-size: 18px;
+}
+
+.texto-denunciar-comentario p{
+    font-size: 16px;
+    font-family: 'Nunito';
+    font-weight: bold;
+    margin-top: 3px;
+    transition: background-color 0.3s ease;
+}
+
+.texto-denunciar-comentario:hover {
+    color: #ce483c;
+    transition: color 0.3s ease;
 }
 
 @media (max-width: 1024px) {

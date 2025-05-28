@@ -228,3 +228,55 @@ export const redefinirSenha = async (email, novaSenha) => {
         throw error;
     }
 };
+
+
+export const listarDenuncias = async () => {
+    try {
+        const response = await api.get('/denuncias');
+        return response.data; 
+    } catch (error) {
+        console.error('Erro ao listar denúncias:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const buscarDenunciaPorId = async (id) => {
+    try {
+        const response = await api.get(`/denuncias/${id}`);
+        return response.data; 
+    } catch (error) {
+        console.error('Erro ao buscar denúncia:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const criarDenuncia = async (denuncia) => {
+    try {
+        const response = await api.post('/denuncias', denuncia);
+        return response.data; 
+    } catch (error) {
+        console.error('Erro ao criar denúncia:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+
+export const atualizarDenuncia = async (id, denuncia) => {
+    try {
+        const response = await api.put(`/denuncias/${id}`, denuncia);
+        return response.data; 
+    } catch (error) {
+        console.error('Erro ao atualizar denúncia:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const deletarDenuncia = async (id) => {
+    try {
+        const response = await api.delete(`/denuncias/${id}`);
+        return response.data; 
+    } catch (error) {
+        console.error('Erro ao deletar denúncia:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};

@@ -343,32 +343,43 @@ strong {
     align-items: center;
 }
 
+
+/* Denúncia */
 .texto-denunciar-pet {
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding-right: 20px;
     font-weight: bold;
     gap: 5px;
     transition: 0.2s ease-in-out;
     cursor: pointer;
+    color: #654833;
+}
+
+.icon-denuncia-pet{
+    font-size: 25px;
+}
+
+.texto-denunciar-pet p{
+    font-size: 20px;
+    font-family: 'Nunito';
+    font-weight: bold;
+    margin-top: 3px;
+    transition: background-color 0.3s ease;
 }
 
 .texto-denunciar-pet:hover {
     color: #ce483c;
+    transition: color 0.3s ease;
 }
 
-.texto-denunciar-pet p{
-    margin-top: -2px;
-}
 
 @media (max-width: 768px) {
     .conteiner_modal_pet {
         width: 95vw;
         padding: 15px;
     }
-
-
-
 
     .titulo-pet-modal h2 {
         font-size: 24px;
