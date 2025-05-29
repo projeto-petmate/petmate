@@ -1,0 +1,87 @@
+.modal-status-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-status-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.modal-status-container h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.modal-status-container p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.status-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.status-btn {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.status-btn.pendente {
+    background-color: #f3f3fc;
+    color: #84644D;
+}
+
+.status-btn.analise {
+    background-color: #ffe5b4;
+    color: #84644D;
+}
+
+.status-btn.resolvido {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-btn:hover {
+    opacity: 0.9;
+}
+
+.status-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.close-modal-btn {
+    background-color: #84644D;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-modal-btn:hover {
+    background-color: #6e533f;
+}

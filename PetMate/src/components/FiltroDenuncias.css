@@ -1,0 +1,74 @@
+.container-filtro-denuncias {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+    font-family: Nunito;
+}
+
+.container-select-denuncia {
+    padding: 5px;
+}
+
+.select-denuncia {
+    border: 1px solid #84644D;
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-family: Nunito;
+    color: #484848;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    outline: none;
+    text-align: center;
+    height: 3rem;
+    width: 20rem;
+
+}
+
+.select-denuncia:hover {
+    outline: none;
+
+}
+
+.select-denuncia:focus {
+    background-color: #f8f5f1;
+    border-color: #6B4A2E;
+    outline: none;
+}
+
+.label-select-denuncia {
+    font-size: 1.2rem;
+    padding-right: 5px;
+}
+
+.limpar-filtros-denuncia {
+    background-color: #9C7A5E;
+    color: white;
+    font-size: 1rem;
+    padding: 0 15px;
+    height: 40px;
+    cursor: pointer;
+    font-family: nunito;
+    border: none;
+    border-radius: 6px;
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+
+.limpar-filtros-denuncia:hover {
+    background-color: #7c634e;
+
+}
+
+
+.label-select-denuncia {
+    color: #484848;
+    font-size: 20px;
+    font-family: Raleway;
+    font-weight: 500;
+    text-align: center;
+}
+

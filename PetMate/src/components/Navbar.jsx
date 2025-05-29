@@ -74,6 +74,13 @@ function Navbar() {
         >
           Feedback
         </NavLink>
+        <NavLink
+          to="/denuncias"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          onClick={() => setMenuAberto(false)}
+        >
+          Denúncias
+        </NavLink>
       </div>
 
       <div className="perfil-nav">

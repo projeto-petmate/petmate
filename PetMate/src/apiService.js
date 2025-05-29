@@ -230,7 +230,7 @@ export const redefinirSenha = async (email, novaSenha) => {
 };
 
 
-export const listarDenuncias = async () => {
+export const getDenuncias = async () => {
     try {
         const response = await api.get('/denuncias');
         return response.data; 
@@ -240,7 +240,7 @@ export const listarDenuncias = async () => {
     }
 };
 
-export const buscarDenunciaPorId = async (id) => {
+export const getDenunciaById = async (id) => {
     try {
         const response = await api.get(`/denuncias/${id}`);
         return response.data; 
@@ -250,7 +250,7 @@ export const buscarDenunciaPorId = async (id) => {
     }
 };
 
-export const criarDenuncia = async (denuncia) => {
+export const addDenuncia = async (denuncia) => {
     try {
         const response = await api.post('/denuncias', denuncia);
         return response.data; 
@@ -261,7 +261,7 @@ export const criarDenuncia = async (denuncia) => {
 };
 
 
-export const atualizarDenuncia = async (id, denuncia) => {
+export const updateDenuncia = async (id, denuncia) => {
     try {
         const response = await api.put(`/denuncias/${id}`, denuncia);
         return response.data; 
@@ -271,7 +271,7 @@ export const atualizarDenuncia = async (id, denuncia) => {
     }
 };
 
-export const deletarDenuncia = async (id) => {
+export const deleteDenuncia = async (id) => {
     try {
         const response = await api.delete(`/denuncias/${id}`);
         return response.data; 

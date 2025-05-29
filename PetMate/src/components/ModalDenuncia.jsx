@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './ModalDenuncia.css';
 import { CgClose } from 'react-icons/cg';
-import { criarDenuncia } from '../apiService';
+import { addDenuncia } from '../apiService';
 import Swal from 'sweetalert2';
 import { GlobalContext } from '../contexts/GlobalContext';
 
@@ -57,7 +57,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
             id_denunciante: id_user,
         }
         try {
-            const data = await criarDenuncia(novaDenuncia)
+            const data = await addDenuncia(novaDenuncia)
             if (data) {
                 Swal.fire({
                     position: "center",

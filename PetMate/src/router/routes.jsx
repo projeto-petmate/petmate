@@ -12,6 +12,7 @@ import Ongs from "../pages/Ongs";
 import PerfilAdm from "../pages/PerfilAdm";
 import Favoritos from "../pages/Favoritos";
 import RecuperarSenha from "../pages/RecuperarSenha";
+import Denuncias from "../pages/Denuncias";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     {path: "/perfiladm", element: <PerfilAdm />},
     {path: "/favoritos", element: <Favoritos />},
     {path: "/recuperar-senha", element: <RecuperarSenha />},
+    {path: "/denuncias", element: <Denuncias />},
 
 ])
 
