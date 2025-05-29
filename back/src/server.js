@@ -746,7 +746,7 @@ app.post('/redefinir-senha', async (req, res) => {
 app.get('/denuncias', async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, status, data_criacao
+            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, status, data_criacao
             FROM denuncias
         `);
         res.json(result.rows);
@@ -761,7 +761,7 @@ app.get('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query(`
-            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, status, data_criacao
+            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, status, data_criacao
             FROM denuncias WHERE id_denuncia = $1
         `, [id]);
         if (result.rows.length === 0) {
@@ -776,17 +776,17 @@ app.get('/denuncias/:id', async (req, res) => {
 
 // Criar uma nova denúncia
 app.post('/denuncias', async (req, res) => {
-    const { mensagem, motivo, tipo_objeto, id_objeto } = req.body;
+    const { mensagem, motivo, tipo_objeto, id_objeto, id_denunciante } = req.body;
 
-    if (!motivo || !tipo_objeto || !id_objeto) {
+    if (!motivo || !tipo_objeto || !id_objeto ) {
         return res.status(400).json({ error: 'Motivo, tipo do objeto e ID do objeto são obrigatórios.' });
     }
 
     try {
         const result = await pool.query(`
-            INSERT INTO denuncias (mensagem, motivo, tipo_objeto, id_objeto)
-            VALUES ($1, $2, $3, $4) RETURNING *
-        `, [mensagem, motivo, tipo_objeto, id_objeto]);
+            INSERT INTO denuncias (mensagem, motivo, tipo_objeto, id_objeto, id_denunciante)
+            VALUES ($1, $2, $3, $4, $5) RETURNING *
+        `, [mensagem, motivo, tipo_objeto, id_objeto, id_denunciante]);
         res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar denúncia:', err.message);

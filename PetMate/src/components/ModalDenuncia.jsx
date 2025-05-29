@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './ModalDenuncia.css';
 import { CgClose } from 'react-icons/cg';
 import { criarDenuncia } from '../apiService';
 import Swal from 'sweetalert2';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 
 function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
@@ -13,7 +14,8 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
     const [mensagem, setMensagem] = useState('')
     const [motivo, setMotivo] = useState('')
     const [erros, setErros] = useState({});
-
+    const { userLogado } = useContext(GlobalContext)
+    let id_user = userLogado.id_usuario
     const validarDenuncia = async () => {
         const novosErros = {};
 
@@ -52,6 +54,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
             motivo: motivo,
             tipo_objeto: tipo,
             id_objeto: idObjeto,
+            id_denunciante: id_user,
         }
         try {
             const data = await criarDenuncia(novaDenuncia)

@@ -7,12 +7,14 @@ import { MdOutlineEmail } from "react-icons/md"
 import { IoMdClose } from "react-icons/io"
 import { GoAlert } from 'react-icons/go'
 import ModalDenuncia from './ModalDenuncia'
+import { GlobalContext } from '../contexts/GlobalContext'
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
   const [denuncia, setDenuncia] = useState(false)
   const [doador, setDoador] = useState(null)
-  const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
+  const { openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext)
+  // const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
 
   useEffect(() => {
     if (pet) {
@@ -57,7 +59,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             <h2>{pet.nome}</h2>
           </div>
           <div className="titulo-pet">
-            <div className="texto-denunciar-pet" onClick={() => setOpenModalDenuncia(true)}>
+            <div className="texto-denunciar-pet" onClick={openDenuncia}>
               {<GoAlert className='icon-denuncia-pet' />}
               <p>
                 DENUNCIAR

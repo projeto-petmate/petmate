@@ -932,3 +932,254 @@
  *       500:
  *         description: Erro ao realizar login
  */
+
+
+/**
+ * @swagger
+ * tags:
+ *   - name: Denúncias
+ *     description: Endpoints relacionados às denúncias
+ */
+
+/**
+ * @swagger
+ * /denuncias:
+ *   get:
+ *     summary: Lista todas as denúncias
+ *     tags: [Denúncias]
+ *     responses:
+ *       200:
+ *         description: Lista de denúncias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id_denuncia:
+ *                     type: integer
+ *                     description: ID da denúncia
+ *                   mensagem:
+ *                     type: string
+ *                     description: Mensagem da denúncia
+ *                   motivo:
+ *                     type: string
+ *                     description: Motivo da denúncia
+ *                   tipo_objeto:
+ *                     type: string
+ *                     description: Tipo do objeto denunciado (pet, ong, comentario)
+ *                   id_objeto:
+ *                     type: integer
+ *                     description: ID do objeto denunciado
+ *                   status:
+ *                     type: string
+ *                     description: Status da denúncia (pendente, em análise, resolvido)
+ *                   data_criacao:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Data de criação da denúncia
+ */
+
+/**
+ * @swagger
+ * /denuncias/{id}:
+ *   get:
+ *     summary: Busca uma denúncia pelo ID
+ *     tags: [Denúncias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da denúncia
+ *     responses:
+ *       200:
+ *         description: Dados da denúncia
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_denuncia:
+ *                   type: integer
+ *                   description: ID da denúncia
+ *                 mensagem:
+ *                   type: string
+ *                   description: Mensagem da denúncia
+ *                 motivo:
+ *                   type: string
+ *                   description: Motivo da denúncia
+ *                 tipo_objeto:
+ *                   type: string
+ *                   description: Tipo do objeto denunciado (pet, ong, comentario)
+ *                 id_objeto:
+ *                   type: integer
+ *                   description: ID do objeto denunciado
+ *                 status:
+ *                   type: string
+ *                   description: Status da denúncia (pendente, em análise, resolvido)
+ *                 data_criacao:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Data de criação da denúncia
+ *       404:
+ *         description: Denúncia não encontrada
+ */
+
+/**
+ * @swagger
+ * /denuncias:
+ *   post:
+ *     summary: Cria uma nova denúncia
+ *     tags: [Denúncias]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mensagem:
+ *                 type: string
+ *                 description: Mensagem da denúncia
+ *               motivo:
+ *                 type: string
+ *                 description: Motivo da denúncia
+ *               tipo_objeto:
+ *                 type: string
+ *                 description: Tipo do objeto denunciado (pet, ong, comentario)
+ *               id_objeto:
+ *                 type: integer
+ *                 description: ID do objeto denunciado
+ *     responses:
+ *       201:
+ *         description: Denúncia criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_denuncia:
+ *                   type: integer
+ *                   description: ID da denúncia
+ *                 mensagem:
+ *                   type: string
+ *                   description: Mensagem da denúncia
+ *                 motivo:
+ *                   type: string
+ *                   description: Motivo da denúncia
+ *                 tipo_objeto:
+ *                   type: string
+ *                   description: Tipo do objeto denunciado (pet, ong, comentario)
+ *                 id_objeto:
+ *                   type: integer
+ *                   description: ID do objeto denunciado
+ *                 status:
+ *                   type: string
+ *                   description: Status da denúncia (pendente, em análise, resolvido)
+ *                 data_criacao:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Data de criação da denúncia
+ *       400:
+ *         description: Campos obrigatórios não fornecidos
+ *       500:
+ *         description: Erro ao criar denúncia
+ */
+
+/**
+ * @swagger
+ * /denuncias/{id}:
+ *   put:
+ *     summary: Atualiza uma denúncia pelo ID
+ *     tags: [Denúncias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da denúncia
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               mensagem:
+ *                 type: string
+ *                 description: Mensagem atualizada da denúncia
+ *               status:
+ *                 type: string
+ *                 description: Status atualizado da denúncia (pendente, em análise, resolvido)
+ *     responses:
+ *       200:
+ *         description: Denúncia atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_denuncia:
+ *                   type: integer
+ *                   description: ID da denúncia
+ *                 mensagem:
+ *                   type: string
+ *                   description: Mensagem atualizada da denúncia
+ *                 motivo:
+ *                   type: string
+ *                   description: Motivo da denúncia
+ *                 tipo_objeto:
+ *                   type: string
+ *                   description: Tipo do objeto denunciado (pet, ong, comentario)
+ *                 id_objeto:
+ *                   type: integer
+ *                   description: ID do objeto denunciado
+ *                 status:
+ *                   type: string
+ *                   description: Status atualizado da denúncia (pendente, em análise, resolvido)
+ *                 data_criacao:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Data de criação da denúncia
+ *       404:
+ *         description: Denúncia não encontrada
+ *       500:
+ *         description: Erro ao atualizar denúncia
+ */
+
+/**
+ * @swagger
+ * /denuncias/{id}:
+ *   delete:
+ *     summary: Deleta uma denúncia pelo ID
+ *     tags: [Denúncias]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da denúncia
+ *     responses:
+ *       200:
+ *         description: Denúncia deletada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensagem de sucesso
+ *                 denuncia:
+ *                   type: object
+ *                   description: Dados da denúncia deletada
+ *       404:
+ *         description: Denúncia não encontrada
+ *       500:
+ *         description: Erro ao deletar denúncia
+ */

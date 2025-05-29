@@ -23,7 +23,7 @@ function Feedback() {
     const { userLogado, logado } = useContext(GlobalContext);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const vrfOng = userLogado?.id_ong ? true : false;
-    const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
+    const { openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext)
 
 
     useEffect(() => {
@@ -153,7 +153,7 @@ function Feedback() {
                                     </div>
                                     <div className="container-denunciar-comentario">
                                         {userLogado && userLogado.id_usuario !== c.id_usuario ? (
-                                            <div className="texto-denunciar-comentario" onClick={() => setOpenModalDenuncia(true)}>
+                                            <div className="texto-denunciar-comentario" onClick={openDenuncia}>
                                                 <GoAlert className='icon-denuncia-comentario' />
                                                 <p>
                                                     DENUNCIAR
