@@ -27,11 +27,16 @@ function CardDenuncia() {
             <div className="container-card-denuncia">
                 {denunciasFiltradas.map((d) => (
                     <div key={d.id_denuncia} className='card-denuncia'>
-                        <h2>Denúncia #{d.id_denuncia}</h2>
-                        <h3>Status: {d.status}</h3>
-                        <p>Motivo: {d.motivo}</p>
-                        <p>Mensagem: {d.mensagem}</p>
-                        <button onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
+                        <h2 className='numero-da-denuncia'>Denúncia #{d.id_denuncia}</h2>
+                        <p className='mensagem-card'>Mensagem: </p>
+                        <p className='texto-mensagem'>
+                        {d.mensagem}
+                        </p>
+                        <div className="motivo-status">
+                        <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
+                        <h3 className='status-denuncia'>Status: {d.status}</h3>
+                        </div>
+                        <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
                             Atualizar status
                         </button>
                     </div>
