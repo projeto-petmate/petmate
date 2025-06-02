@@ -39,7 +39,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/usuarios', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id_usuario, cpf, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
+        const result = await pool.query('SELECT id_usuario, cpf, nome, senha, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
@@ -274,7 +274,7 @@ app.get('/loggedUser', authenticateToken, async (req, res) => {
 
     try {
         if (tipo === 'usuario') {
-            const result = await pool.query('SELECT id_usuario, nome, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1', [id]);
+            const result = await pool.query('SELECT id_usuario, nome, email, genero, cpf, senha, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1', [id]);
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Usuário não encontrado' });
             }
@@ -397,7 +397,7 @@ app.delete('/pets/:id', async (req, res) => {
 // Listar todas as ONGs
 app.get('/ongs', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id_ong, nome_ong, email, telefone, instagram, estado, cidade, endereco, foto_perfil, descricao FROM ongs');
+        const result = await pool.query('SELECT * FROM ongs');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);

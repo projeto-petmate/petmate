@@ -9,7 +9,7 @@ export default function ModalStatus({ isOpen, setIsOpen, idDenuncia, onStatusUpd
             setLoading(true);
             await onStatusUpdate(idDenuncia, { status });
             setLoading(false);
-            setIsOpen(false); // Fecha o modal após atualizar
+            setIsOpen(false); 
         } catch (error) {
             console.error('Erro ao atualizar status:', error);
             setLoading(false);

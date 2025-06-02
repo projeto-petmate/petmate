@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ModalEditarUser.css';
+import Swal from 'sweetalert2';
 
 export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditUser, userToEdit }) {
     const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
     const [estado, setEstado] = useState('');
     const [cidade, setCidade] = useState('');
     const [bairro, setBairro] = useState('');
+    const [senha, setSenha] = useState('');
 
 
     useEffect(() => {
@@ -20,6 +22,7 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
             setEstado(userToEdit.uf);
             setCidade(userToEdit.cidade);
             setBairro(userToEdit.bairro);
+            setSenha(userToEdit.senha);
         }
     }, [userToEdit]);
 
@@ -37,9 +40,20 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
             uf: estado,
             cidade,
             bairro,
+            senha,
         };
         onEditUser(updatedUser);
-        setUserEditOpen(false);
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Usuário atualizado com sucesso!",
+            showConfirmButton: false,
+            timer: 1000,
+        });
+
+        setTimeout(() => {
+            setUserEditOpen(false);
+        }, 1500);
     };
 
     return (
@@ -72,6 +86,12 @@ export default function ModalEditarUser({ isEditarUser, setUserEditOpen, onEditU
                         type="text"
                         value={telefone}
                         onChange={(e) => setTelefone(e.target.value)}
+                    /> 
+                    <label>Senha</label>
+                    <input
+                        type="text"
+                        value={senha}
+                        onChange={(e) => setSenha(e.target.value)}
                     />
                     <label>Estado</label>
                     <select

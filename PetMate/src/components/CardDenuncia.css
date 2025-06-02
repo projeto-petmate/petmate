@@ -8,6 +8,7 @@
     margin-left: 3%;
     border-radius: 20px;
     background-color: #84644D;
+    gap: 10px;
 }
 
 
@@ -23,16 +24,17 @@
     overflow: hidden;
     transition: transform 0.2s;
     background-color: #fff;
-    border: 18px solid #654833;
+    border: 8px solid #654833;
     transition: transform 0.2s, box-shadow 0.2s;
+    padding: 10px;
 }
 
-.motivo-status{
+.info-denuncia{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 2px;
 }
 
 .mensagem-card{
@@ -41,23 +43,19 @@
     color: #654833;
 }
 
-.status-denuncia{
+.status-denuncia, .motivo-denuncia, .user-denuncia{
     font-size: 20px;
     font-weight: 700;
     color: #654833;
 }
 
-.motivo-denuncia{
-    font-size: 20px;
-    font-weight: 700;
-    color: #654833;
-}
 
 .texto-mensagem{
+    display: flex;
     font-size: 19px;
     padding: 10px;
     border-radius: 6px;
-    font-weight: 900;
+    font-weight: 600;
     color: #000000;
 }
 
@@ -65,14 +63,32 @@
     color: #654833;
 }
 
+.botoes-denuncia {
+    display: flex;
+    gap: 10px;
+}
+
 .botao-status-denuncia{
-    width: 70%;
+    width: 20rem;
     height: 50px;
     border-radius: 10px;
     background-color: #84644D;
     color: #fff;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.botao-info-denuncia {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #84644D;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;

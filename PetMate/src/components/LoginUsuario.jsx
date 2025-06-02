@@ -35,8 +35,15 @@ function LoginUsuario() {
                     timer: 1500,
                 });
 
+                let pagina
+                if (lastPage) {
+                    pagina = lastPage
+                } else {
+                    pagina = '/home'
+                }
+                
                 setTimeout(() => {
-                    navigate(lastPage);
+                    navigate(pagina);
                 }, 1500);
                 
             } else {

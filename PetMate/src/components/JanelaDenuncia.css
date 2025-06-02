@@ -1,0 +1,88 @@
+.denuncia_modal_conteiner {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.conteiner_modal_denuncia {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90vw;
+    overflow-y: auto;
+    max-height: 90vh;
+    border-left: #654833 25px solid;
+    align-items: center;
+    padding: 20px;
+}
+
+.titulo-denuncia-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.titulo-denuncia-modal h2 {
+    font-size: 32px;
+    color: #654833;
+}
+
+.botao-fechar-denuncia {
+    background-color: #654833;
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closeIcon {
+    color: white;
+    font-size: 30px;
+}
+
+.barra-denuncia-modal {
+    width: 100%;
+    height: 3px;
+    margin-bottom: 20px;
+}
+
+.conteudo-denuncia {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-denuncia {
+    background-color: #EBE5E0;
+    border: #654833 solid 2px;
+    border-radius: 8px;
+    padding: 20px;
+    text-transform: initial;
+    font-size: 20px;
+}
+
+.mensagem-denuncia {
+    background-color: #EBE5E0;
+    border: #654833 solid 2px;
+    border-radius: 8px;
+    padding: 20px;
+    text-transform: initial;
+    font-size: 20px;
+}
+
+.info-title {
+    color: #654833;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

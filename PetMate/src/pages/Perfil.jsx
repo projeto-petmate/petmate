@@ -143,7 +143,7 @@ function Perfil() {
                                 </button>
                             </div>
                         </div>
-                        <div className="user-icon-container">
+                        {/* <div className="user-icon-container">
                             <div className="add-img">
                                 <input
                                     id="file-upload"
@@ -183,8 +183,8 @@ function Perfil() {
                                     />
                                 )}
                             </div>
-                            {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
-                        </div>
+                            {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>} */}
+                        {/* </div> */}
                         <div className="inputs-perfil">
                             <div className="inputs-perfil-1">
                                 <div className="input-perma">

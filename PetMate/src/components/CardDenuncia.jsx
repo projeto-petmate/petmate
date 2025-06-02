@@ -3,11 +3,14 @@ import './CardDenuncia.css'
 import { updateDenuncia } from '../apiService';
 import ModalStatus from './ModalStatus';
 import { GlobalContext } from '../contexts/GlobalContext';
+import JanelaDenuncia from './JanelaDenuncia';
 
 function CardDenuncia() {
     const { filtrarDenuncias, setDenuncias, filtrosDenuncias } = useContext(GlobalContext);
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isJanelaOpen, setIsJanelaOpen] = useState(false)
     const [selectedDenunciaId, setSelectedDenunciaId] = useState(null)
+    const [selectedDenuncia, setSelectedDenuncia] = useState(null)
 
     const denunciasFiltradas = filtrarDenuncias()
 
@@ -28,17 +31,23 @@ function CardDenuncia() {
                 {denunciasFiltradas.map((d) => (
                     <div key={d.id_denuncia} className='card-denuncia'>
                         <h2 className='numero-da-denuncia'>Denúncia #{d.id_denuncia}</h2>
-                        <p className='mensagem-card'>Mensagem: </p>
-                        <p className='texto-mensagem'>
-                        {d.mensagem}
-                        </p>
-                        <div className="motivo-status">
-                        <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
-                        <h3 className='status-denuncia'>Status: {d.status}</h3>
+                        {/* <p className='mensagem-card'>Mensagem: </p> */}
+                        <div className='texto-mensagem'>
+                            {/* {d.mensagem} */}
                         </div>
-                        <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
-                            Atualizar status
-                        </button>
+                        <div className="info-denuncia">
+                            <p className='user-denuncia'>ID do denunciante: {d.id_denunciante}</p>
+                            <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
+                            <h3 className='status-denuncia'>Status: {d.status}</h3>
+                        </div>
+                        <div className="botoes-denuncia">
+                            <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
+                                Atualizar status
+                            </button>
+                            <button className='botao-info-denuncia' onClick={() => {setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
+                                Info
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -47,7 +56,12 @@ function CardDenuncia() {
                 setIsOpen={setIsModalOpen}
                 idDenuncia={selectedDenunciaId}
                 onStatusUpdate={handleStatusUpdate}
-                />
+            />
+            <JanelaDenuncia
+                isOpen={isJanelaOpen}
+                setDenunciaModalOpen={setIsJanelaOpen}
+                d={selectedDenuncia}
+            />
         </div>
     )
 }

@@ -17,6 +17,7 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
     const [estado, setEstado] = useState('');
     const [cidade, setCidade] = useState('');
     const [endereco, setEndereco] = useState('');
+    const [descricao, setDescricao] = useState('');
     const [foto, setFoto] = useState('');
     const [imagemPreview, setImagemPreview] = useState(null);
     const [etapa, setEtapa] = useState(1)
@@ -39,6 +40,9 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
             setEndereco(ongToEdit.endereco);
             setFoto(ongToEdit.foto_perfil);
             setImagemPreview(ongToEdit.foto_perfil);
+            setDescricao(ongToEdit.descricao || '');
+            // setTipo(ongToEdit.tipo || '');
+            // setCodigoVerificacao(ongToEdit.codigo_verificacao || '');
         }
     }, [ongToEdit]);
 
@@ -58,7 +62,6 @@ export default function ModalEditarOng({ isEditarOng, setOngEditOpen, onEditOng,
             nome_responsavel: nomeResponsavel,
             cpf_responsavel: cpfResponsavel,
             data_nascimento_responsavel: dataNascimentoResponsavel,
-            email_responsavel: emailResponsavel,
             telefone_responsavel: telefoneResponsavel,
             estado_ong: estado,
             cidade_ong: cidade,
