@@ -8,7 +8,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2';
 
-function ComentarioAdm() {
+function ComentarioAdm({idComentario}) {
     const { comentarios, setComentarios } = useContext(UserContext);
     const [nomesComentarios, setNomesComentarios] = useState([]);
     const [commentToDelete, setCommentToDelete] = useState(null);
@@ -61,6 +61,7 @@ function ComentarioAdm() {
             console.error('Erro ao deletar comentário', error);
         }
     };
+    const comentariosFiltrados = idComentario ? comentarios.filter((c) => c.id_comentario === idComentario) : comentarios;
 
     return (
         <div>
@@ -70,7 +71,7 @@ function ComentarioAdm() {
                     <p>Gerencie os comentários enviados pelos usuários.</p>
                 </div> */}
                 <div className="lista-comentarios-adm">
-                    {comentarios.map((c) => (
+                    {comentariosFiltrados.map((c) => (
                         <div key={c.id_comentario} className="comentario">
                             <div className="comentario-container">
                                 <div className="comentario-info">

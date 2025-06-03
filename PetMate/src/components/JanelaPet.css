@@ -1,4 +1,4 @@
-.pet_modal_conteiner {
+.pet_modal_container {
     position: fixed;
     inset: 0;
     backdrop-filter: blur(2px);
@@ -9,7 +9,7 @@
     z-index: 1000;
 }
 
-.conteiner_modal_pet {
+.container_modal_pet {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -376,7 +376,7 @@ strong {
 
 
 @media (max-width: 768px) {
-    .conteiner_modal_pet {
+    .container_modal_pet {
         width: 95vw;
         padding: 15px;
     }
@@ -438,7 +438,7 @@ strong {
 
 
 @media (max-width: 480px) {
-    .conteiner_modal_pet {
+    .container_modal_pet {
         width: 100%;
         padding: 10px;
     }

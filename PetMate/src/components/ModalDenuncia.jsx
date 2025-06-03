@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './ModalDenuncia.css';
-import { CgClose } from 'react-icons/cg';
+import { CgClose, CgCloseO } from 'react-icons/cg';
 import { addDenuncia } from '../apiService';
 import Swal from 'sweetalert2';
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -81,7 +81,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
             <div className="container-modal-denuncia">
                 <div className="titulo-denuncia">
                     <h2>Denunciar</h2>
-                    <CgClose className="botao-fechar-modal" onClick={() => setIsOpen(false)} />
+                    <CgCloseO className="botao-fechar-modal" onClick={() => setIsOpen(false)} />
                 </div>
 
                 <div className="container-motivo-denuncia">

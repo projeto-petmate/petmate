@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import JanelaModal from "../components/JanelaModal";
+import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import CardContainer from "../components/CardContainer";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -31,11 +31,11 @@ function Adotar() {
           </div>
           <div>
             {logado && 
-              <button className='botao-modal' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
+              <button className='botao-modal-anunciar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
             }
           </div>
         </div>
-        <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
+        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
         <div className="pets-container">
           <CardContainer />
         </div>

@@ -61,6 +61,7 @@ function CardDenuncia() {
                 isOpen={isJanelaOpen}
                 setDenunciaModalOpen={setIsJanelaOpen}
                 d={selectedDenuncia}
+                onStatusUpdate={updateDenuncia}
             />
         </div>
     )

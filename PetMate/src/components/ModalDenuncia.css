@@ -35,8 +35,14 @@
 
 .botao-fechar-modal {
     cursor: pointer;
-    font-size: 30px;
+    font-size: 2.5rem;
+    color: #84644D;
+    transition: 0.3s ease;
+}
+
+.botao-fechar-modal:hover {
     color: #6b4f3a;
+    transform: scale(1.05);
 }
 
 .container-motivo-denuncia {

@@ -52,8 +52,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const tagsArray = pet.tags ? pet.tags.split(', ') : []
 
   return (
-    <div className='pet_modal_conteiner' onClick={() => setPetModalOpen(false)}>
-      <div className='conteiner_modal_pet' onClick={(e) => e.stopPropagation()}>
+    <div className='pet_modal_container' onClick={() => setPetModalOpen(false)}>
+      <div className='container_modal_pet' onClick={(e) => e.stopPropagation()}>
         <div className="titulo-pet-modal">
           <div className="titulo-nome-pet">
             <h2>{pet.nome}</h2>

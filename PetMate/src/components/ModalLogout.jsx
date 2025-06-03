@@ -9,7 +9,7 @@ export default function ModalLogout({ isLogout, setLogoutOpen, onLogout }) {
     return (
         <div>
             <div className='modal-logout'>
-                <div className='conteiner-modal-logout'>
+                <div className='container-modal-logout'>
                     <div className="meio-modal">
                         <div className="texto_logout">
                             <h1>Tem certeza que deseja sair?</h1> 

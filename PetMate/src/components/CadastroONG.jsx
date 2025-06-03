@@ -251,8 +251,8 @@ function CadastroONG() {
   };
 
   return (
-    <div className="conteiner-cad-ong">
-      <div className="conteiner-info-ong">
+    <div className="container-cad-ong">
+      <div className="container-info-ong">
         <div className="top-cad-ong">
           <div className="texto-cadastro-ong">
             <div className="texto-cadastro-ong-img">
@@ -650,7 +650,7 @@ function CadastroONG() {
               <a href="">Política de Privacidade</a>.
             </p>
           </div>
-          <div className="conteiner-botao-cad-ong">
+          <div className="container-botao-cad-ong">
             <button type="submit" className="botao-cad-ong">Cadastrar</button>
             <div className='login-cad-ong'>
               <p>Já possui conta?</p> <a href="/login"><p>Login</p></a>

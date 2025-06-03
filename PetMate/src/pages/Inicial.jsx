@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Footer from '../components/Footer';
-import JanelaModal from '../components/JanelaModal';
+import ModalAnunciarPet from '../components/ModalAnunciarPet';
 import Navbar from '../components/Navbar';
 import { Link, useNavigate } from "react-router-dom";
 import './Inicial.css';
@@ -97,7 +97,7 @@ function Inicial() {
           </div>
         </div>
         
-        <JanelaModal isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)} />
+        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)} />
         <LastPage />
       </div>
       <Footer />

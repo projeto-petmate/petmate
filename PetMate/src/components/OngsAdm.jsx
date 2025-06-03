@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import ModalExcluirOng from './ModalExcluirOng';
 import ModalEditarOng from './ModalEditarOng';
 
-function OngsAdm() {
+function OngsAdm({idOng}) {
   const [ongs, setOngs] = useState([]);
   const { ong, setOng } = useContext(OngContext);
   const [openModalOng, setOpenModalOng] = useState(false);
@@ -78,12 +78,13 @@ function OngsAdm() {
       });
     }
   };
+  const ongsFiltradas = idOng ? ongs.filter((o) => o.id_ong === idOng) : ongs;
 
   return (
     <div>
       <JanelaOng isOpen={openModalOng} setOpenModalOng={setOpenModalOng} />
       <div className="cardOng-container">
-        {ongs.map((o) => (
+        {ongsFiltradas.map((o) => (
           <div key={o.id_ong} className="ong-card">
             <img
               src={o.foto_perfil || '/images/default_ong_image.jpg'}

@@ -8,8 +8,8 @@ export default function ModalExclusaoDeConta({ isExclui, setContaExcluiOpen, onD
 
     return (
         <div>
-            <div className='modal_conteiner_excluir_conta'>
-                <div className='conteiner_modal_excluir_conta'>
+            <div className='modal_container_excluir_conta'>
+                <div className='container_modal_excluir_conta'>
                     <div className="meio-modal">
                         <div className="texto_excluir_conta">
                             <h1>Deseja excluir sua conta e todos seus anúncios?</h1> 

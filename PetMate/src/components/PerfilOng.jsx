@@ -109,7 +109,7 @@ function PerfilOng() {
 
     return (
         <div>
-            <div className='conteiner-config-conta-ong'>
+            <div className='container-config-conta-ong'>
                 <div className="texto-e-botao">
                     <div className="texto-e-img-barra">
                         <h2 className='config-conta-ong-titulo'>Configurações de conta da ONG</h2>

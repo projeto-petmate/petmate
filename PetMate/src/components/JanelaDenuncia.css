@@ -1,4 +1,4 @@
-.denuncia_modal_conteiner {
+.denuncia-modal-container {
     position: fixed;
     inset: 0;
     backdrop-filter: blur(2px);
@@ -9,25 +9,43 @@
     z-index: 1000;
 }
 
-.conteiner_modal_denuncia {
+.container-janela-denuncia {
     background-color: #fff;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 90vw;
+    height: 90%;
+    min-height: 80vh;
     overflow-y: auto;
-    max-height: 90vh;
+    /* max-height: 90vh; */
     border-left: #654833 25px solid;
     align-items: center;
+    /* display: flex; */
+    /* flex-direction: row; */
     padding: 20px;
+}
+
+.meio-container-denuncia {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+    /* border: solid; */
+    /* align-items: stretch; */
 }
 
 .titulo-denuncia-modal {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     margin-bottom: 10px;
+    gap: 5px;
 }
 
 .titulo-denuncia-modal h2 {
@@ -35,19 +53,28 @@
     color: #654833;
 }
 
-.botao-fechar-denuncia {
-    background-color: #654833;
-    color: white;
+.titulo-fechar-denuncia {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.icon-fechar-denuncia {
+    /* background-color: #654833; */
+    color: #84644D;
     border: none;
+    font-size: 4.5rem;
     border-radius: 100px;
     padding: 10px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-.closeIcon {
-    color: white;
-    font-size: 30px;
+.icon-fechar-denuncia:hover {
+    color: #6b4f3a;
+    transform: scale(1.05);
 }
 
 .barra-denuncia-modal {
@@ -56,19 +83,24 @@
     margin-bottom: 20px;
 }
 
+
+/* Personalização do card do objeto */
+.card-objeto {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+/* Parte da direita, dados da denúncia */
 .conteudo-denuncia {
     display: flex;
     flex-direction: column;
+    width: 50%;
+    /* border: solid; */
     gap: 20px;
-}
-
-.info-denuncia {
-    background-color: #EBE5E0;
-    border: #654833 solid 2px;
-    border-radius: 8px;
-    padding: 20px;
-    text-transform: initial;
-    font-size: 20px;
+    min-height: 100%;
+    margin: auto;
 }
 
 .mensagem-denuncia {
@@ -78,11 +110,101 @@
     padding: 20px;
     text-transform: initial;
     font-size: 20px;
+    /* min-height: 30vh; */
 }
 
-.info-title {
+.mensagem-title {
     color: #654833;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
+.info-denuncia {
+    background-color: #EBE5E0;
+    border: #654833 solid 2px;
+    border-radius: 8px;
+    padding: 20px;
+    text-transform: initial;
+    font-size: 20px;
+    /* min-height: 30vh; */
+}
+
+.titulo-status-janela-denuncia {
+    text-align: center;
+    color: #84644D;
+    font-size: 1.7rem;
+}
+
+.status-janela-denuncia {
+    min-height: 7rem;
+    margin-top: 2rem;
+    /* border: solid; */
+}
+
+.inputs-status-janela-denuncia {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 10px;
+}
+
+.inputs-status-janela-denuncia input {
+    width: 15%;
+    /* height: 2rem; */
+}
+
+
+.inputs-status-janela-denuncia input[type="radio"] {
+    width: 1px;
+}
+
+.inputs-status-janela-denuncia input[type="radio"]:checked+span {
+    box-shadow: 0 0 0 0.0225em #6b4f3a;
+    background-color: #f3f3fc;
+    color: #6b4f3a;
+}
+#status-pendente:checked+span {
+    background-color: #f3f3fc;
+}
+#status-analise:checked+span {
+    background-color: #ffe5b4;
+}
+#status-resolvido:checked+span {
+    background-color: #d4edda;
+}
+.inputs-status-janela-denuncia input[type="radio"]:checked+span {
+    animation: subirDescer 0.6s ease;
+}
+
+.span-janela-denuncia {
+    display: block;
+    cursor: pointer;
+    background-color: #fff;
+    padding: 0.375em 0.75em;
+    position: relative;
+    box-shadow: 0 0 0 0.0725em #EBE5E0;
+    letter-spacing: 0.05em;
+    color: #6b4f3a;
+    text-align: center;
+    border-radius: 0.5em; 
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+
+.span-janela-denuncia {
+    border: 1px solid #ac927d; 
+}
+
+.span-janela-denuncia {
+    border-radius: 0.5em !important; 
+}
+
+.radio-janela-denuncia {
+    display: flex;
+    gap: 5px;
+}
+

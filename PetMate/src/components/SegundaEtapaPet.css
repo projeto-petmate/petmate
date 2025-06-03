@@ -1,4 +1,4 @@
-.conteiner-modal-2 {
+.container-modal-2 {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -7,7 +7,6 @@
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 65vw;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     min-height: 90vh;
     padding: 20px;
     border-left: 25px solid #654833;
@@ -15,9 +14,22 @@
     margin-top: 20px;
 }
 
-.conteiner-modal-2 input,
-.conteiner-modal-2 textarea,
-.conteiner-modal-2 select {
+.modal_anunciar_segunda_etapa {
+    position: fixed;
+    min-height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* backdrop-filter: blur(2px); */
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.container-modal-2 input,
+.container-modal-2 textarea,
+.container-modal-2 select {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
@@ -26,9 +38,9 @@
     font-size: 16px;
 }
 
-.conteiner-modal-2 input:focus,
-.conteiner-modal-2 textarea:focus,
-.conteiner-modal-2 select:focus {
+.container-modal-2 input:focus,
+.container-modal-2 textarea:focus,
+.container-modal-2 select:focus {
     border-color: #84644D;
     outline: none;
 }
@@ -299,7 +311,7 @@
 }
 
 @media (max-width: 1280px) {
-    .conteiner-modal-2 {
+    .container-modal-2 {
         width: 90vw;
         padding: 10px;
     }

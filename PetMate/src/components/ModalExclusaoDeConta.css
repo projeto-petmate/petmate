@@ -1,4 +1,4 @@
-.modal_conteiner_excluir_conta {
+.modal_container_excluir_conta {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,7 +11,7 @@
     align-items: center;
     z-index: 1000;
 }
-.conteiner_modal_excluir_conta {
+.container_modal_excluir_conta {
     display: flex;
     flex-direction: column;
     align-items: center;

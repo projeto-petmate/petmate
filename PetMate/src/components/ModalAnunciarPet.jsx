@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import './Navbar.css'
-import './JanelaModal.css'
+import './ModalAnunciarPet.css'
 import { PetContext } from "../contexts/PetContext"
 import { useNavigate } from 'react-router-dom'
 import SegundaEtapaPet from './SegundaEtapaPet'
@@ -8,7 +8,7 @@ import { CgCloseO } from "react-icons/cg"
 import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";
 
-export default function JanelaModal({ isOpen, setModalOpen }) {
+export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const { addPet, setPets, pets } = useContext(PetContext)
   const { userLogado } = useContext(GlobalContext); 
   const [inptPetEspecie, setInptPetEspecie] = useState('')
@@ -104,8 +104,8 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
   };
 
   return (
-    <div className='modal_conteiner' onClick={() => setModalOpen(false)}>
-      <div className='conteiner_modal' onClick={(e) => e.stopPropagation()}>
+    <div className='modal_anunciar_container' onClick={() => setModalOpen(false)}>
+      <div className='container_modal' onClick={(e) => e.stopPropagation()}>
         {etapa === 1 ? (
           <form className="cad-pet-container" onSubmit={(e) => { e.preventDefault(); setEtapa(2) }}>
             <div className="titulo-cad-pet">
@@ -113,7 +113,7 @@ export default function JanelaModal({ isOpen, setModalOpen }) {
                 <h2>Criar anúncio para Pet</h2>
                 <img src="/images/barra_marrom.png" className='barra-pet' />
               </div>
-              <CgCloseO onClick={() => setModalOpen(false)} className='botao_modal_2' />
+              <CgCloseO onClick={() => setModalOpen(false)} className='botao-modal-2' />
             </div>
             <div className="inputs-pet">
               <div className="inpts-pet-1">

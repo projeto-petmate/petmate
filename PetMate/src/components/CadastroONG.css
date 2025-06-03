@@ -10,7 +10,7 @@
     width: fit-content;
 }
 
-.conteiner-cad-ong {
+.container-cad-ong {
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 120px);
@@ -18,7 +18,7 @@
     /* background-image: url(/images/fundo_patas.svg); */
 }
 
-.conteiner-info-ong {
+.container-info-ong {
     display: flex;
     flex-direction: column;
     background-color: #F6F4F1;
@@ -114,7 +114,7 @@
     font-family: inter;
 }
 
-.conteiner-botao-cad-ong {
+.container-botao-cad-ong {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -199,7 +199,7 @@
     background-color: #735b4b;
 }
 
-.conteiner-botao-cad-ong p {
+.container-botao-cad-ong p {
     margin-top: 2%;
 }
 
@@ -299,7 +299,7 @@
 }
 
 @media (max-width: 1280px) {
-    .conteiner-cad-ong {
+    .container-cad-ong {
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -308,7 +308,7 @@
     }
 
 
-    .conteiner-info-ong {
+    .container-info-ong {
         width: 90%;
         height: auto;
         margin: 0;
@@ -382,7 +382,7 @@
     }
 
 
-    .conteiner-botao-cad-ong {
+    .container-botao-cad-ong {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -412,7 +412,7 @@
 
 
 @media (max-width: 768px) {
-    .conteiner-info-ong {
+    .container-info-ong {
         padding: 10px;
     }
 
@@ -480,7 +480,7 @@
         font-size: 14px;
     }
 
-    .conteiner-botao-cad-ong p{
+    .container-botao-cad-ong p{
         font-size: 16px;
     }
 }

@@ -1,4 +1,4 @@
-.conteiner_modal {
+.container_modal {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -6,7 +6,7 @@
     min-height: 90vh;
     background-color: #FFFFFF;
     border-radius: 10px;
-    width: 65vw;
+    max-width: 65vw;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-left: 25px solid #654833;
@@ -16,7 +16,7 @@
     overflow: hidden;
 }
 
-.modal_conteiner {
+.modal_anunciar_container {
     position: fixed;
     min-height: 100vh;
     top: 0;
@@ -24,7 +24,7 @@
     left: 0;
     right: 0;
     backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     z-index: 1000;
     overflow-y: auto;
 }
@@ -34,17 +34,39 @@
     width: 380px;
 }
 
-.conteiner_modal label,
-.conteiner_modal input,
-.conteiner_modal select {
+.botao-modal-2 {
+    font-size: 3rem;
+}
+.botao-modal-2 {
+    background-color: #FFFFFF;
+    color: #84644D;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 200px;
+    font-size: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.botao-modal-2:hover {
+    color: #6b4f3a;
+    transform: scale(1.05);
+}
+
+.container_modal label,
+.container_modal input,
+.container_modal select {
     font-family: 'Nunito', sans-serif;
     font-size: 20px;
     font-weight: bold;
     color: #3d2b1e;
 }
 
-.conteiner_modal input,
-.conteiner_modal select {
+.container_modal input,
+.container_modal select {
     text-align: center;
     height: 50px;
     width: 400px;
@@ -56,14 +78,14 @@
     margin-bottom: 10px;
 }
 
-.conteiner_modal input:focus,
-.conteiner_modal textarea:focus,
-.conteiner_modal select:focus {
+.container_modal input:focus,
+.container_modal textarea:focus,
+.container_modal select:focus {
     border-color: #84644D;
     outline: none;
 }
 
-.botao_modal {
+.botao-modal {
     background-color: #84644D;
     color: #FFFFFF;
     margin-bottom: 10px;
@@ -299,7 +321,7 @@
   }
 
   @media (max-width: 768px) {
-    .conteiner_modal {
+    .container_modal {
         width: 90vw;
         padding: 15px;
     }
@@ -307,15 +329,15 @@
 
 
 
-    .modal_conteiner {
+    .modal_anunciar_container {
         padding: 10px;
     }
 
 
 
 
-    .conteiner_modal input,
-    .conteiner_modal select {
+    .container_modal input,
+    .container_modal select {
         width: 100%;
         font-size: 16px;
     }
@@ -323,7 +345,7 @@
 
 
 
-    .botao_modal {
+    .botao-modal {
         width: 40px;
         height: 40px;
         font-size: 24px;
@@ -368,7 +390,7 @@
 
 /* Para telas menores que 480px (celulares pequenos) */
 @media (max-width: 480px) {
-    .conteiner_modal {
+    .container_modal {
         width: 85vw;
         padding: 10px;
     }
@@ -408,8 +430,8 @@
 
 
 
-    .conteiner_modal input,
-    .conteiner_modal select {
+    .container_modal input,
+    .container_modal select {
         font-size: 14px;
         height: 40px;
         width: 150%;
@@ -419,7 +441,7 @@
 
 
 
-    .botao_modal {
+    .botao-modal {
         width: 35px;
         height: 35px;
         font-size: 20px;
@@ -450,7 +472,7 @@
     }
 
 
-    .conteiner_modal label, .conteiner_modal input, .conteiner_modal select{
+    .container_modal label, .container_modal input, .container_modal select{
         font-size: 16px;
         margin-left: -40px;
     }

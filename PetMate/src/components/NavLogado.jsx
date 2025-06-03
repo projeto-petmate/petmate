@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import './Navbar.css';
 import { FaUserCircle } from "react-icons/fa";
-import JanelaModal from "../components/JanelaModal";
+import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import { GlobalContext } from '../contexts/GlobalContext';
 
 function NavLogado() {
@@ -36,7 +36,7 @@ function NavLogado() {
               <FaUserCircle className="profile" />
             )}
           </Link>
-          <JanelaModal isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
+          <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
         </>
       
     </div>

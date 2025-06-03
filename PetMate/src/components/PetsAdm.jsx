@@ -8,7 +8,7 @@ import { IoTrash, IoTrashOutline } from "react-icons/io5";
 import JanelaPet from './JanelaPet';
 import { PetContext } from '../contexts/PetContext';
 
-function PetsAdm() {
+function PetsAdm({idPet}) {
     const [allPets, setAllPets] = useState([]);
     const [openModalExcluirPet, setOpenModalExcluirPet] = useState(false);
     const [openModalEditarPet, setOpenModalEditarPet] = useState(false);
@@ -33,6 +33,7 @@ function PetsAdm() {
 
         fetchAllPets();
     }, []);
+
 
     const handleDelete = async () => {
         try {
@@ -62,12 +63,13 @@ function PetsAdm() {
         }
     };
 
-    const ordemPets = [...allPets].sort((a, b) => a.id_pet - b.id_pet);
+    // const ordemPets = [...allPets].sort((a, b) => a.id_pet - b.id_pet);
+    const petsFiltrados = idPet ? allPets.filter((pet) => pet.id_pet === idPet) : allPets;
 
     return (
         <div className="card-pet-perfil-container">
-            {allPets.length > 0 ? (
-                ordemPets.reverse().map((pet) => (
+              {petsFiltrados.length > 0 ? (
+                petsFiltrados.map((pet) => (
                     <div key={pet.id_pet} className="pet-card-perfil">
                         <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                         <div className="pet-info">
@@ -80,14 +82,14 @@ function PetsAdm() {
                                     setPet(pet);
                                     setOpenPetModal(true);
                                 }}>Informações</button>
-                                <FaEdit className="botao-editar-pet" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}/>
+                                <FaEdit className="botao-editar-pet" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }} />
                                 <IoTrash className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                             </div>
                         </div>
                     </div>
                 ))
             ) : (
-                <p className='sem-pets'>Nenhum pet cadastrado.</p>
+                <p className='sem-pets'>Nenhum pet encontrado.</p>
             )}
             {
                 showSuccessPopup && (

@@ -89,8 +89,8 @@ function SegundaEtapaPet({
 
     return (
         <div>
-            <div className="modal_conteiner" onClick={() => setModalOpen(false)}>
-                <div className="conteiner-modal-2" onClick={(e) => e.stopPropagation()}>
+            <div className="modal_anunciar_segunda_etapa" onClick={() => setModalOpen(false)}>
+                <div className="container-modal-2" onClick={(e) => e.stopPropagation()}>
                     <div className="titulo-cad-pet">
                         <div className="titulo-barra-pet">
                             <h2>Adicionar características do pet</h2>

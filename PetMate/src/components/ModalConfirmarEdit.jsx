@@ -8,7 +8,7 @@ export default function ModalConfirmarEdit({ isOpen, setEditConfirmOpen, onConfi
 
     return (
         <div className='modal-confirmar-edit'>
-            <div className='conteiner-modal-confirmar-edit'>
+            <div className='container-modal-confirmar-edit'>
                 <div className="meio-modal">
                     <div className="texto-confirmar-edit">
                         <h1>Deseja atualizar os dados do perfil?</h1>
