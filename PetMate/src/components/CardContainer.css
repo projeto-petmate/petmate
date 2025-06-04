@@ -184,29 +184,41 @@
   margin-top: 20px;
   gap: 10px;
   flex-wrap: wrap;
+  padding-top: 50px;
 }
 
 .pagination button {
+  display: flex; /* alinha ícone e texto lado a lado */
+  align-items: center; /* centraliza verticalmente */
+  gap: 3px; /* espaço entre ícone e texto */
   padding: 8px 16px;
   font-size: 16px;
-  background-color: #eee;
+  font-weight: bold;
+  color: #654833;
+  background-color: #fff;
   border: none;
   border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: background-color 0.3s;
+
 }
 
 .pagination button:hover:not(:disabled) {
-  background-color: #ddd;
+  background-color: #eee;
 }
 
 .pagination button.active {
   background-color: #654833;
-  color: white;
+  color: #fff;
   font-weight: bold;
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  background-color: #fff;
+  color: rgba(8, 8, 8, 0.5);
+}
+
+.icon-setaPag{
+  font-size: 20px;
 }

@@ -4,6 +4,8 @@ import JanelaPet from './JanelaPet';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { PetContext } from '../contexts/PetContext';
+import { FaArrowRight } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function CardContainer() {
   const [openPetModal, setOpenPetModal] = useState(false);
@@ -35,7 +37,7 @@ function CardContainer() {
     : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
 
   // PAGINAÇÃO LOCAL
-  const petsPerPage = 4;
+  const petsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(ordemPets.length / petsPerPage);
 
@@ -96,6 +98,7 @@ function CardContainer() {
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
+          <FaArrowLeft className='icon-setaPag'/>
           Anterior
         </button>
 
@@ -114,6 +117,7 @@ function CardContainer() {
           disabled={currentPage === totalPages}
         >
           Próxima
+          <FaArrowRight className='icon-setaPag'/>
         </button>
       </div>
     </div>
