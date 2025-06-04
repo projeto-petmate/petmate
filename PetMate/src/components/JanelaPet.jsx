@@ -13,7 +13,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
   const [denuncia, setDenuncia] = useState(false)
   const [doador, setDoador] = useState(null)
-  const { openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext)
+  const { openDenuncia, openModalDenuncia, setOpenModalDenuncia, logado } = useContext(GlobalContext)
   // const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
 
   useEffect(() => {
@@ -59,12 +59,14 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             <h2>{pet.nome}</h2>
           </div>
           <div className="titulo-pet">
-            <div className="texto-denunciar-pet" onClick={openDenuncia}>
-              {<GoAlert className='icon-denuncia-pet' />}
-              <p>
-                DENUNCIAR
-              </p>
-            </div>
+            {logado &&
+              <div className="texto-denunciar-pet" onClick={openDenuncia}>
+                {<GoAlert className='icon-denuncia-pet' />}
+                <p>
+                  DENUNCIAR
+                </p>
+              </div>
+            }
             <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
           </div>
         </div>

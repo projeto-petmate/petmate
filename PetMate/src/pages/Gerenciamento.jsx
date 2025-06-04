@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import './PerfilAdm.css';
+import './Gerenciamento.css';
 import { FaUsers } from "react-icons/fa";
 import { LuHandshake } from "react-icons/lu";
 import { MdOutlinePets } from "react-icons/md";
@@ -12,7 +12,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import UsersAdm from '../components/UsersAdm';
 import { GlobalContext } from '../contexts/GlobalContext';
 
-function PerfilAdm() {
+function Gerenciamento() {
   const [mostrar, setMostrar] = useState(0)
   const navigate = useNavigate()
   const { userLogado } = useContext(GlobalContext);
@@ -84,4 +84,4 @@ function PerfilAdm() {
   )
 }
 
-export default PerfilAdm
+export default Gerenciamento

@@ -20,10 +20,9 @@ function Feedback() {
     const [erros, setErros] = useState('');
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
-    const { userLogado, logado } = useContext(GlobalContext);
+    const { userLogado, logado, openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const vrfOng = userLogado?.id_ong ? true : false;
-    const { openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext)
 
 
     useEffect(() => {
@@ -152,7 +151,7 @@ function Feedback() {
                                         <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="container-denunciar-comentario">
-                                        {userLogado && userLogado.id_usuario !== c.id_usuario ? (
+                                        {logado && userLogado &&  userLogado.id_usuario !== c.id_usuario ? (
                                             <div className="texto-denunciar-comentario" onClick={openDenuncia}>
                                                 <GoAlert className='icon-denuncia-comentario' />
                                                 <p>

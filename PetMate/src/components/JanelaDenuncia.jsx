@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import './JanelaDenuncia.css';
 import { IoMdClose } from 'react-icons/io';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getDenunciaById } from '../apiService';
+import { getDenunciaById, updateDenuncia } from '../apiService';
 import PetsAdm from '../components/PetsAdm';
 import ComentarioAdm from '../components/ComentarioAdm';
 import OngsAdm from '../components/OngsAdm';
 import { CgCloseO } from 'react-icons/cg';
 
-export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d }) {
+export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStatusUpdate }) {
   const [denuncia, setDenuncia] = useState([])
+  const [loading, setLoading] = useState(false);
+  const { setDenuncias } = useContext(GlobalContext)
 
   useEffect(() => {
     const fetchDenuncia = async () => {
@@ -25,6 +27,9 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d }) {
 
     fetchDenuncia();
   }, [d]);
+
+  
+
   if (!isOpen || !d) {
     return null;
   }
@@ -32,7 +37,16 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d }) {
   const handleUpdateStatus = async (status) => {
     try {
       setLoading(true);
-      await onStatusUpdate(denuncia, { status });
+      const updatedDenuncia = await updateDenuncia(denuncia.id_denuncia, { status });
+      setDenuncia({ ...denuncia, status: updatedDenuncia.status }); // Atualiza o estado local
+
+      setDenuncias((prevDenuncias) =>
+        prevDenuncias.map((d) =>
+          d.id_denuncia === updatedDenuncia.id_denuncia ? updatedDenuncia : d
+        )
+      );
+
+      setLoading(false);
     } catch (error) {
       console.error('Erro ao atualizar status:', error);
       setLoading(false);
@@ -75,15 +89,15 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d }) {
               <h4 className='titulo-status-janela-denuncia'>Status da Denúncia</h4>
               <div className="inputs-status-janela-denuncia">
                 <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-pendente' name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('pendente') }} />
+                  <input type="radio" id='status-pendente' checked={denuncia.status === 'pendente'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('pendente') }} disabled={loading} />
                   <span className='span-janela-denuncia'>Pendente</span>
                 </label>
                 <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-analise' name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('em análise') }} />
+                  <input type="radio" id='status-analise' checked={denuncia.status === 'em análise'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('em análise') }} disabled={loading} />
                   <span className='span-janela-denuncia'>Em análise</span>
                 </label>
                 <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-resolvido' name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('resolvido') }} />
+                  <input type="radio" id='status-resolvido' checked={denuncia.status === 'resolvido'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('resolvido') }} disabled={loading} />
                   <span className='span-janela-denuncia'>Resolvido</span>
                 </label>
               </div>

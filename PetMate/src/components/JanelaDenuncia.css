@@ -2,7 +2,7 @@
     position: fixed;
     inset: 0;
     backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +27,22 @@
     padding: 20px;
 }
 
+
+.denuncia-modal-container {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .meio-container-denuncia {
     display: flex;
     flex-direction: row;
@@ -49,9 +65,13 @@
 }
 
 .titulo-denuncia-modal h2 {
-    font-size: 32px;
-    color: #654833;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6b4f3a;
+    text-align: center;
+    margin-bottom: 10px;
 }
+
 
 .titulo-fechar-denuncia {
     display: flex;
@@ -62,7 +82,6 @@
 }
 
 .icon-fechar-denuncia {
-    /* background-color: #654833; */
     color: #84644D;
     border: none;
     font-size: 4.5rem;
@@ -120,14 +139,33 @@
     margin-bottom: 10px;
 }
 
+.conteudo-denuncia {
+    padding: 20px;
+    /* background-color: #f9f9f9; */
+    border-radius: 10px;
+    /* border: none; */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mensagem-denuncia, .info-denuncia {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mensagem-title, .info-title {
+    font-size: 1.5rem;
+    color: #654833;
+    margin-bottom: 10px;
+}
+
 .info-denuncia {
-    background-color: #EBE5E0;
-    border: #654833 solid 2px;
     border-radius: 8px;
     padding: 20px;
     text-transform: initial;
-    font-size: 20px;
-    /* min-height: 30vh; */
+    font-size: 1.3rem;
 }
 
 .titulo-status-janela-denuncia {
@@ -208,3 +246,31 @@
     gap: 5px;
 }
 
+
+
+@media (max-width: 768px) {
+    .container-janela-denuncia {
+        width: 95vw;
+        height: 95%;
+        padding: 15px;
+    }
+
+    .meio-container-denuncia {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-objeto, .conteudo-denuncia {
+        width: 100%;
+    }
+
+    .inputs-status-janela-denuncia {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .span-janela-denuncia {
+        font-size: 1rem;
+        padding: 0.5em 1em;
+    }
+}

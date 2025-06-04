@@ -1,11 +1,11 @@
-.body-adm{
+.body-adm {
     background-color: #AD947E;
     min-height: 100vh;
 }
 
 
 /* Navbar Normal */
-.NavbarAdm{
+.NavbarAdm {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,35 +16,42 @@
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
 }
+
 .nav-side {
     flex: 1;
     display: flex;
     align-items: center;
 }
+
 .nav-center {
     flex: 2;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .nav-imgAdm {
     width: 120px;
 }
+
 .nav-imgAdm:hover {
     cursor: pointer;
 }
-.painelAdministrativo{
+
+.painelAdministrativo {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 35px;
     color: #FBFBFB;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 0.3mm;
     font-weight: bold;
     margin: 0;
 }
-.iconAdmTools{
+
+.iconAdmTools {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
@@ -53,11 +60,12 @@
 
 
 /* Segunda Navbar (com links) */
-.NavbarAdm-links{
+.NavbarAdm-links {
     display: flex;
     justify-content: center;
 }
-.NavbarAdm-links2{
+
+.NavbarAdm-links2 {
     display: flex;
     width: 70%;
     align-items: center;
@@ -69,56 +77,66 @@
     border-bottom-right-radius: 40px;
     margin-bottom: 40px;
 }
-.links-geneciamento{
+
+.links-geneciamento {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 150px;
     min-width: 100vw;
 }
-.linksAdm{
+
+.linksAdm {
     color: #654833;
     text-decoration: none;
     font-family: 'nunito', sans-serif;
     font-weight: bold;
     transition: color 0.5s;
 }
-.iconAdm1{
+
+.iconAdm1 {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
 }
-.iconAdm2{
+
+.iconAdm2 {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
 }
-.iconAdm3{
+
+.iconAdm3 {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
 }
-.iconAdm4{
+
+.iconAdm4 {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
 }
-.icon-link1:hover{
+
+.icon-link1:hover {
     transform: scale(1.05);
     transition: 0.2s;
     cursor: pointer;
 }
-.icon-link2:hover{
+
+.icon-link2:hover {
     transform: scale(1.05);
     transition: 0.2s;
     cursor: pointer;
 }
-.icon-link3:hover{
+
+.icon-link3:hover {
     transform: scale(1.05);
     transition: 0.2s;
     cursor: pointer;
 }
-.icon-link4:hover{
+
+.icon-link4:hover {
     transform: scale(1.05);
     transition: 0.2s;
     cursor: pointer;
@@ -126,7 +144,7 @@
 
 
 /* Título (gerenciamento) */
-.h2Adm{
+.h2Adm {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,29 +158,31 @@
 
 
 /* Container onde o ADM poderá gerenciar */
-.containeradm{
+.containeradm {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.containeradm2{
+
+.containeradm2 {
     min-width: 60%;
     min-height: 500px;
     background-color: #D4C6B5;
     padding: 20px;
 }
-.gerenciar-title2{
+
+.gerenciar-title2 {
     font-size: 24px;
-  font-weight: bold;
-  color: #84644D;
-  text-align: center;
-  margin-top: 200px;
-  padding: 10px 20px;
-  background-color: #F6F4F1;
-  border: 2px solid #AD947E;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 470px;
-  margin-left: auto;
-  margin-right: auto;
+    font-weight: bold;
+    color: #84644D;
+    text-align: center;
+    margin-top: 200px;
+    padding: 10px 20px;
+    background-color: #F6F4F1;
+    border: 2px solid #AD947E;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 470px;
+    margin-left: auto;
+    margin-right: auto;
 }

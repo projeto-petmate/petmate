@@ -25,6 +25,7 @@ function Cadastro() {
         termosCadastro, setTermosCadastro,
         addUser
     } = useContext(UserContext);
+
     const [inptConfirmarSenha, setInptConfirmarSenha] = useState()
 
     const [erros, setErros] = useState({});
@@ -167,6 +168,7 @@ function Cadastro() {
             setTimeout(() => {
                 navigate("/login");
             }, 1500);
+
         } catch (error) {
             Swal.fire({
                 icon: 'error',

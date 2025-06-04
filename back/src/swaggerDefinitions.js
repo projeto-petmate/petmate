@@ -60,7 +60,7 @@
 
 /**
  * @swagger
- * /usuarios/email/{email}:
+ * /users/email/{email}:
  *   get:
  *     summary: Busca um usuário pelo email
  *     tags: [Usuários]

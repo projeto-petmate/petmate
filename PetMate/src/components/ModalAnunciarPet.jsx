@@ -104,8 +104,8 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   };
 
   return (
-    <div className='modal_anunciar_container' onClick={() => setModalOpen(false)}>
-      <div className='container_modal' onClick={(e) => e.stopPropagation()}>
+    <div className='modal-anunciar-fundo'>
+      <div className='container-modal-anunciar'>
         {etapa === 1 ? (
           <form className="cad-pet-container" onSubmit={(e) => { e.preventDefault(); setEtapa(2) }}>
             <div className="titulo-cad-pet">

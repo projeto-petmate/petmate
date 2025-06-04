@@ -11,7 +11,7 @@ import { GlobalContext } from '../contexts/GlobalContext';
 
 export default function JanelaOng({ isOpen, setOpenModalOng }) {
     const { ong } = useContext(OngContext);
-    const { openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext)
+    const { openDenuncia, openModalDenuncia, setOpenModalDenuncia, logado } = useContext(GlobalContext)
     const telefone = ong?.telefone_contato || ong?.telefone;
     const email = ong?.email_contato || ong?.email;
     const endereco = ong?.endereco_ong || ong?.endereco;
@@ -31,16 +31,17 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                 <div className="titulo-ong-modal">
                     <h2>{ong.nome_ong}</h2>
                     <div className="container-denunciar-ong">
-                    <div className="texto-denunciar-ong" onClick={openDenuncia}>
-                        
-                        {<GoAlert className='icon-denunciar-ong' />}
-                        <p>
-                            DENUNCIAR
-                        </p>
-                    </div>
-                    <button onClick={() => setOpenModalOng(false)} className='botao-fechar-ong'>
-                        <IoMdClose className='closeIcon' />
-                    </button>
+                        {logado &&
+                            <div className="texto-denunciar-ong" onClick={openDenuncia}>
+                                {<GoAlert className='icon-denunciar-ong' />}
+                                <p>
+                                    DENUNCIAR
+                                </p>
+                            </div>
+                        }
+                        <button onClick={() => setOpenModalOng(false)} className='botao-fechar-ong'>
+                            <IoMdClose className='closeIcon' />
+                        </button>
                     </div>
                 </div>
 
@@ -89,10 +90,10 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                             <p>{ong.descricao}</p>
                         </div>
                         <ModalDenuncia
-                           isOpen={openModalDenuncia}
-                           setIsOpen={setOpenModalDenuncia}
-                           idObjeto={ong.id_ong}
-                           tipo={'ongs'} />
+                            isOpen={openModalDenuncia}
+                            setIsOpen={setOpenModalDenuncia}
+                            idObjeto={ong.id_ong}
+                            tipo={'ongs'} />
                     </div>
                 </div>
             </div>

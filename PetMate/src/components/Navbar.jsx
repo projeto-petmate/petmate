@@ -21,7 +21,7 @@ function Navbar() {
       <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
         {userLogado.tipo == 'admin' &&
           <NavLink
-            to="/perfiladm"
+            to="/gerenciamento"
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
             onClick={() => setMenuAberto(false)}
           >
@@ -74,13 +74,15 @@ function Navbar() {
         >
           Feedback
         </NavLink>
-        <NavLink
-          to="/denuncias"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-          onClick={() => setMenuAberto(false)}
-        >
-          Denúncias
-        </NavLink>
+        {userLogado.tipo == 'admin' &&
+          <NavLink
+            to="/denuncias"
+            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            onClick={() => setMenuAberto(false)}
+          >
+            Denúncias
+          </NavLink>
+        }
       </div>
 
       <div className="perfil-nav">

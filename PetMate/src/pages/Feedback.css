@@ -143,8 +143,8 @@
     border-radius: 12px;
     /* border: 1px solid #654833; */
     border: none;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 0px 10px 0px 20px;
     outline: none;
     font-size: 18px;
     transition: 0.3s ease;

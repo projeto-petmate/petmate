@@ -1,27 +1,38 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './CardDenuncia.css'
-import { updateDenuncia } from '../apiService';
-import ModalStatus from './ModalStatus';
+import { deleteDenuncia, updateDenuncia } from '../apiService';
 import { GlobalContext } from '../contexts/GlobalContext';
 import JanelaDenuncia from './JanelaDenuncia';
+import { IoTrash } from 'react-icons/io5';
 
 function CardDenuncia() {
-    const { filtrarDenuncias, setDenuncias, filtrosDenuncias } = useContext(GlobalContext);
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const { filtrarDenuncias, setDenuncias } = useContext(GlobalContext);
     const [isJanelaOpen, setIsJanelaOpen] = useState(false)
-    const [selectedDenunciaId, setSelectedDenunciaId] = useState(null)
     const [selectedDenuncia, setSelectedDenuncia] = useState(null)
+    // const [isModalOpen, setIsModalOpen] = useState(false)
+    // const [selectedDenunciaId, setSelectedDenunciaId] = useState(null)
 
-    const denunciasFiltradas = filtrarDenuncias()
+    const denunciasFiltradas = filtrarDenuncias().sort((a, b) => b.id_denuncia - a.id_denuncia)
 
-    const handleStatusUpdate = async (id, updatedData) => {
+    // const handleStatusUpdate = async (id, updatedData) => {
+    //     try {
+    //         const updatedDenuncia = await updateDenuncia(id, updatedData);
+    //         setDenuncias((prevDenuncias) =>
+    //             prevDenuncias.map((d) => (d.id_denuncia === id ? updatedDenuncia : d))
+    //         );
+    //     } catch (error) {
+    //         console.error('Erro ao atualizar status da denúncia:', error);
+    //     }
+    // };
+
+
+    const deletarDenuncia = async (id) => {
         try {
-            const updatedDenuncia = await updateDenuncia(id, updatedData);
-            setDenuncias((prevDenuncias) =>
-                prevDenuncias.map((d) => (d.id_denuncia === id ? updatedDenuncia : d))
-            );
+            await deleteDenuncia(id);
+            setDenuncias((prevDenuncias) => prevDenuncias.filter((d) => d.id_denuncia !== id));
+            setSelectedDenuncia(null);
         } catch (error) {
-            console.error('Erro ao atualizar status da denúncia:', error);
+            console.error('Erro ao deletar denúncia:', error);
         }
     };
 
@@ -41,22 +52,23 @@ function CardDenuncia() {
                             <h3 className='status-denuncia'>Status: {d.status}</h3>
                         </div>
                         <div className="botoes-denuncia">
-                            <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
+                            {/* <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
                                 Atualizar status
+                            </button> */}
+                            <button className='botao-info-denuncia' onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
+                                Informações
                             </button>
-                            <button className='botao-info-denuncia' onClick={() => {setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
-                                Info
-                            </button>
+                            <IoTrash className="botao-excluir-denuncia" onClick={() => deletarDenuncia(d.id_denuncia)} />
                         </div>
                     </div>
                 ))}
             </div>
-            <ModalStatus
+            {/* <ModalStatus
                 isOpen={isModalOpen}
                 setIsOpen={setIsModalOpen}
                 idDenuncia={selectedDenunciaId}
                 onStatusUpdate={handleStatusUpdate}
-            />
+            /> */}
             <JanelaDenuncia
                 isOpen={isJanelaOpen}
                 setDenunciaModalOpen={setIsJanelaOpen}

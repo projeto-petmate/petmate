@@ -9,7 +9,7 @@ import Inicial from "../pages/Inicial";
 import Perfil from "../pages/Perfil";
 import Feedback from "../pages/Feedback";
 import Ongs from "../pages/Ongs";
-import PerfilAdm from "../pages/PerfilAdm";
+import Gerenciamento from "../pages/Gerenciamento";
 import Favoritos from "../pages/Favoritos";
 import RecuperarSenha from "../pages/RecuperarSenha";
 import Denuncias from "../pages/Denuncias";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     {path: "/login", element: <Login />},
     {path: "/perfil", element: <Perfil />},
     {path: "/feedback", element: <Feedback />},
-    {path: "/perfiladm", element: <PerfilAdm />},
+    {path: "/gerenciamento", element: <Gerenciamento />},
     {path: "/favoritos", element: <Favoritos />},
     {path: "/recuperar-senha", element: <RecuperarSenha />},
     {path: "/denuncias", element: <Denuncias />},

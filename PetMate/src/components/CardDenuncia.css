@@ -7,8 +7,8 @@
     width: 93%;
     margin-left: 3%;
     border-radius: 20px;
-    background-color: #84644D;
-    gap: 10px;
+    /* background-color: #84644D; */
+    gap: 20px;
 }
 
 
@@ -17,14 +17,13 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width:30%;
+    width: 30%;
     height: 325px;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     transition: transform 0.2s;
     background-color: #fff;
-    border: 8px solid #654833;
     transition: transform 0.2s, box-shadow 0.2s;
     padding: 10px;
 }
@@ -55,6 +54,7 @@
     font-size: 19px;
     padding: 10px;
     border-radius: 6px;
+    margin-bottom: -8%;
     font-weight: 600;
     color: #000000;
 }
@@ -65,10 +65,13 @@
 
 .botoes-denuncia {
     display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
 }
 
-.botao-status-denuncia{
+/* .botao-status-denuncia{
     width: 20rem;
     height: 50px;
     border-radius: 10px;
@@ -79,11 +82,12 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-}
+} */
 
 .botao-info-denuncia {
-    width: 100%;
-    height: 50px;
+    width: 80%;
+    height: 3rem;
+    /* padding: 0px 15px 0px 15px; */
     border-radius: 10px;
     background-color: #84644D;
     color: #fff;
@@ -92,4 +96,10 @@
     border: none;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
+}
+
+.botao-excluir-denuncia {
+    font-size: 2.5rem;
+    color: #84644D;
+    cursor: pointer;
 }
