@@ -4,11 +4,13 @@ import { deleteDenuncia, updateDenuncia } from '../apiService';
 import { GlobalContext } from '../contexts/GlobalContext';
 import JanelaDenuncia from './JanelaDenuncia';
 import { IoTrash } from 'react-icons/io5';
+import ModalExcluirDenuncia from './ModalExcluirDenuncia';
 
 function CardDenuncia() {
     const { filtrarDenuncias, setDenuncias } = useContext(GlobalContext);
     const [isJanelaOpen, setIsJanelaOpen] = useState(false)
     const [selectedDenuncia, setSelectedDenuncia] = useState(null)
+    const [isExcluirDenuncia, setIsExcluirDenuncia] = useState(false);
     // const [isModalOpen, setIsModalOpen] = useState(false)
     // const [selectedDenunciaId, setSelectedDenunciaId] = useState(null)
 
@@ -26,11 +28,12 @@ function CardDenuncia() {
     // };
 
 
-    const deletarDenuncia = async (id) => {
+    const deletarDenuncia = async () => {
         try {
-            await deleteDenuncia(id);
-            setDenuncias((prevDenuncias) => prevDenuncias.filter((d) => d.id_denuncia !== id));
+            await deleteDenuncia(selectedDenuncia);
+            setDenuncias((prevDenuncias) => prevDenuncias.filter((d) => d.id_denuncia !== selectedDenuncia));
             setSelectedDenuncia(null);
+            setIsExcluirDenuncia(false); 
         } catch (error) {
             console.error('Erro ao deletar denúncia:', error);
         }
@@ -58,7 +61,7 @@ function CardDenuncia() {
                             <button className='botao-info-denuncia' onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
                                 Informações
                             </button>
-                            <IoTrash className="botao-excluir-denuncia" onClick={() => deletarDenuncia(d.id_denuncia)} />
+                            <IoTrash className="botao-excluir-denuncia" onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsExcluirDenuncia(true); }} />
                         </div>
                     </div>
                 ))}
@@ -74,6 +77,11 @@ function CardDenuncia() {
                 setDenunciaModalOpen={setIsJanelaOpen}
                 d={selectedDenuncia}
                 onStatusUpdate={updateDenuncia}
+            />
+            <ModalExcluirDenuncia
+                isExcluirDenuncia={isExcluirDenuncia}
+                setDenunciaDeleteOpen={setIsExcluirDenuncia}
+                onDeleteDenuncia={deletarDenuncia}
             />
         </div>
     )

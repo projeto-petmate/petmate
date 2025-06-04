@@ -11,7 +11,7 @@ import ModalPetAdotado from './ModalPetAdotado';
 import { PetContext } from '../contexts/PetContext';
 
 function CardPetPerfil() {
-    
+
     const { userLogado } = useContext(GlobalContext);
     const { togglePetAdotado } = useContext(PetContext)
     const [userPets, setUserPets] = useState([]);
@@ -25,6 +25,8 @@ function CardPetPerfil() {
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
     const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container-poucos-pets' : 'card-pet-perfil-container';
     const isOng = userLogado?.tipo === "ong";
+    const [currentPage, setCurrentPage] = useState(1);
+    const petsPerPage = 2;
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -75,13 +77,13 @@ function CardPetPerfil() {
     const handleMarcar = async (idPet) => {
         try {
             await togglePetAdotado(idPet);
-    
+
             setUserPets((prevUserPets) =>
                 prevUserPets.map((pet) =>
                     pet.id_pet === idPet ? { ...pet, disponivel: !pet.disponivel } : pet
                 )
             );
-    
+
             setOpenModalPetAdotado(false);
             setShowSuccessPopup(true);
             setTimeout(() => {
@@ -94,32 +96,44 @@ function CardPetPerfil() {
 
     const ordemPerfil = [...userPets].sort((a, b) => a.id_pet - b.id_pet);
 
+    // Lógica de paginação
+    const totalPages = Math.ceil(userPets.length / petsPerPage);
+    const startIndex = (currentPage - 1) * petsPerPage;
+    const endIndex = startIndex + petsPerPage;
+    const paginatedPets = ordemPerfil.slice(startIndex, endIndex);
+
     return (
         <div className={containerClass}>
-            {userPets.length > 0 ? (
-                ordemPerfil.reverse().map((pet) => (
-                    <div key={pet.id_pet} className="pet-card-perfil">
-                        <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
-                        <div className="pet-info">
-                            <h3>{pet.nome}</h3>
-                            <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
-                            <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
-                            <p>{pet.porte} | {pet.genero}</p>
-                            {pet.disponivel == false &&
-                            <div className="faixa-adotado">
-                                <p>ADOTADO</p>
-                            </div>
-                            }
-                            <div className="botoes-pet-perfil">
-                                <FaShieldDog className='botao-adotado' onClick={() => { setPetAdotado(pet); setOpenModalPetAdotado(true) }} />
-                                <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
-                                <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
-                            </div>
-                        </div>
-                    </div>
-                ))
+            <div className="pets-perfil">
 
-            ) : (<p className='sem-pets'>Você não anunciou nenhum pet.</p>)}
+                {paginatedPets.length > 0 ? (
+                    paginatedPets.reverse().map((pet) => (
+                        <div key={pet.id_pet} className="pet-card-perfil">
+                            <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
+                            <div className="pet-info">
+                                <h3>{pet.nome}</h3>
+                                <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>
+                                <p><strong className='texto-card'>Idade:</strong> {pet.idade}</p>
+                                <p>{pet.porte} | {pet.genero}</p>
+                                {pet.disponivel == false &&
+                                    <div className="faixa-adotado">
+                                        <p>ADOTADO</p>
+                                    </div>
+                                }
+                                <div className="botoes-pet-perfil">
+                                    <FaShieldDog className='botao-adotado' onClick={() => { setPetAdotado(pet); setOpenModalPetAdotado(true) }} />
+                                    <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
+                                    <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    ))
+
+                ) : (<p className='sem-pets'>Você não anunciou nenhum pet.</p>)}
+            </div>
+
             {
                 showSuccessPopup && (
                     <div className="success-popup-edit-pet">
@@ -151,6 +165,33 @@ function CardPetPerfil() {
                 setPetDeleteOpen={setOpenModalExcluirPet}
                 onDeletePet={handleDelete}
             />
+            {paginatedPets.length > 0 &&
+                <div className="pagination">
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                    >
+                        Anterior
+                    </button>
+
+                    {[...Array(totalPages)].map((_, i) => (
+                        <button
+                            key={i}
+                            className={currentPage === i + 1 ? 'active' : ''}
+                            onClick={() => setCurrentPage(i + 1)}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                    >
+                        Próxima
+                    </button>
+                </div>
+            }
         </div >
     );
 }
