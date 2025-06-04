@@ -1,60 +1,58 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { PetContext } from '../contexts/PetContext';
-import { getPets } from '../apiService';
+import React, { useContext, useState } from 'react';
 import './CardContainer.css';
 import JanelaPet from './JanelaPet';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
+import { PetContext } from '../contexts/PetContext';
 
 function CardContainer() {
   const [openPetModal, setOpenPetModal] = useState(false);
-  const { filter, filterOn, pets, setPets, setPet, favoritos, toggleFavorito } = useContext(PetContext);
+  const { setPet, favoritos, toggleFavorito, filter, filterOn, pets } = useContext(PetContext);
   const { userLogado } = useContext(GlobalContext);
-  const vrfUser = userLogado?.id_usuario ? true : false;
-
-
-  useEffect(() => {
-    const fetchPets = async () => {
-      try {
-        const data = await getPets();
-        setPets(data);
-      } catch (error) {
-        console.error("Erro ao buscar pets:", error);
-      }
-    };
-
-    fetchPets();
-  }, []);
+  const vrfUser = !!userLogado?.id_usuario;
 
   const handleToggleFavorito = (id_pet) => {
-    toggleFavorito(id_pet); 
+    toggleFavorito(id_pet);
   };
 
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
   const filteredPets = filterOn
-  ? pets.filter(pet => (
-      pet.disponivel &&
-      (filter.especie ? pet.especie === filter.especie : true) &&
-      (filter.porte ? pet.porte === filter.porte : true) &&
-      (filter.genero ? pet.genero === filter.genero : true)
-    ))
-  : pets.filter(pet => pet.disponivel); 
+    ? pets.filter(pet => (
+        pet.disponivel &&
+        (filter.especie ? pet.especie === filter.especie : true) &&
+        (filter.porte ? pet.porte === filter.porte : true) &&
+        (filter.genero ? pet.genero === filter.genero : true)
+      ))
+    : pets.filter(pet => pet.disponivel);
 
-const displayedPets = filter.favoritos
-  ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
-  : filteredPets;
+  const displayedPets = filter.favoritos
+    ? filteredPets.filter(pet => safeFavoritos.includes(pet.id_pet))
+    : filteredPets;
 
-const ordemPets = filter.ordem === 'recentes'
-  ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
-  : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
+  const ordemPets = filter.ordem === 'recentes'
+    ? [...displayedPets].sort((a, b) => b.id_pet - a.id_pet)
+    : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
+
+  // PAGINAÇÃO LOCAL
+  const petsPerPage = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(ordemPets.length / petsPerPage);
+
+  const startIndex = (currentPage - 1) * petsPerPage;
+  const endIndex = startIndex + petsPerPage;
+  const paginatedPets = ordemPets.slice(startIndex, endIndex);
 
   return (
     <div>
       <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
-      {filter.favoritos && displayedPets.length === 0 && <p className='sem-pets-fav'>Você ainda não favoritou nenhum pet.</p>}
+
+      {filter.favoritos && displayedPets.length === 0 && (
+        <p className='sem-pets-fav'>Você ainda não favoritou nenhum pet.</p>
+      )}
+
       <div className="card-container">
-        {ordemPets.map((p) => (
+        {paginatedPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
               src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
@@ -72,19 +70,51 @@ const ordemPets = filter.ordem === 'recentes'
               <button className="botao-info-pet" onClick={() => {
                 setPet(p);
                 setOpenPetModal(true);
-              }}>Mais informações</button>
-              {vrfUser == true &&
+              }}>
+                Mais informações
+              </button>
+
+              {vrfUser && (
                 <button
                   alt="Favoritar"
                   className="favorito-icon"
-                  onClick={() => handleToggleFavorito(p.id_pet)}>
-                  {safeFavoritos.includes(p.id_pet) ?
-                    <FaStar className='estrela-preenchida' /> : <FaRegStar className='estrela-vazia' />}
+                  onClick={() => handleToggleFavorito(p.id_pet)}
+                >
+                  {safeFavoritos.includes(p.id_pet)
+                    ? <FaStar className='estrela-preenchida' />
+                    : <FaRegStar className='estrela-vazia' />}
                 </button>
-              }
+              )}
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Paginação visual */}
+      <div className="pagination">
+        <button 
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Anterior
+        </button>
+
+        {[...Array(totalPages)].map((_, i) => (
+          <button 
+            key={i}
+            className={currentPage === i + 1 ? 'active' : ''}
+            onClick={() => setCurrentPage(i + 1)}
+          >
+            {i + 1}
+          </button>
+        ))}
+
+        <button 
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Próxima
+        </button>
       </div>
     </div>
   );
