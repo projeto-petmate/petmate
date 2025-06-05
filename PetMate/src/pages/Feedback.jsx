@@ -183,7 +183,7 @@ function Feedback() {
                                     isOpen={openModalDenuncia}
                                     setIsOpen={setOpenModalDenuncia}
                                     idObjeto={c.id_comentario}
-                                    tipo='comentarios' />
+                                    tipo='comentario' />
                             </div>
                         </div>
                     ))}

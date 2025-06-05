@@ -92,7 +92,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                             isOpen={openModalDenuncia}
                             setIsOpen={setOpenModalDenuncia}
                             idObjeto={ong.id_ong}
-                            tipo={'ongs'} />
+                            tipo={'ong'} />
                     </div>
                 </div>
             </div>

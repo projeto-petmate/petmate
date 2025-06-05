@@ -69,9 +69,9 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStat
         </div>
         <div className="meio-container-denuncia">
           <div className="card-objeto">
-            {denuncia.tipo_objeto === 'pets' && <PetsAdm idPet={denuncia.id_objeto} />}
-            {denuncia.tipo_objeto === 'ongs' && <OngsAdm idOng={denuncia.id_objeto} />}
-            {denuncia.tipo_objeto === 'comentarios' && <ComentarioAdm idComentario={denuncia.id_objeto} />}
+            {denuncia.tipo_objeto === 'pet' && <PetsAdm idPet={denuncia.id_objeto} />}
+            {denuncia.tipo_objeto === 'ong' && <OngsAdm idOng={denuncia.id_objeto} />}
+            {denuncia.tipo_objeto === 'comentario' && <ComentarioAdm idComentario={denuncia.id_objeto} />}
           </div>
           <div className="conteudo-denuncia">
             <div className="mensagem-denuncia">

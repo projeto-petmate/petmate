@@ -165,7 +165,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     isOpen={openModalDenuncia}
                     setIsOpen={setOpenModalDenuncia}
                     idObjeto={pet.id_pet}
-                    tipo='pets' />
+                    tipo='pet' />
                 </div>
               )}
             </div>
