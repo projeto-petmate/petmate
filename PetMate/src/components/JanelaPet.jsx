@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io"
 import { GoAlert } from 'react-icons/go'
 import ModalDenuncia from './ModalDenuncia'
 import { GlobalContext } from '../contexts/GlobalContext'
+import { CgCloseO } from 'react-icons/cg';
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext)
@@ -67,7 +68,8 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 </p>
               </div>
             }
-            <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button>
+            <CgCloseO onClick={() => setPetModalOpen(false)} className="icon-fechar-denuncia"></CgCloseO>
+            {/* <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button> */}
           </div>
         </div>
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />

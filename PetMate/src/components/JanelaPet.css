@@ -2,7 +2,7 @@
     position: fixed;
     inset: 0;
     backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.2);
+    /* background-color: rgba(0, 0, 0, 0.2); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,6 +18,7 @@
     border-left: #654833 25px solid;
     align-items: center;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .container_modal_pet {
@@ -45,11 +46,14 @@
 }
 
 .titulo-pet-modal h2 {
-    font-size: 32px;
-    color: #654833;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #6b4f3a;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.botao-fechar-pet {
+/* .botao-fechar-pet {
     background-color: #654833;
     color: white;
     border: none;
@@ -57,12 +61,25 @@
     padding: 10px;
     cursor: pointer;
     transition: 0.3s;
+} */
+.icon-fechar-denuncia {
+    color: #84644D;
+    border: none;
+    font-size: 4.5rem;
+    border-radius: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.icon-fechar-denuncia:hover {
+    color: #6b4f3a;
+    transform: scale(1.05);
 }
 
-.closeIcon {
+/* .closeIcon {
     color: white;
     font-size: 30px;
-}
+} */
 
 .card-pet-container {
     display: flex;
@@ -141,7 +158,7 @@
 
 .detalhes-pet p,
 strong {
-    color: #654833;
+    color: #84644D;
     font-size: 20px;
     font-weight: bold;
 }
@@ -165,6 +182,10 @@ strong {
     width: 37vw;
     text-transform: initial;
     font-size: 24px;
+
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .descPet{
@@ -183,7 +204,7 @@ strong {
     width: 100%;
 }
 .desc-title-2 {
-    color: #654833;
+    color: #84644D;
     font-size: 24px;
     font-weight: bold;
     margin: auto;
@@ -210,6 +231,10 @@ strong {
     text-align: center;
     padding: 15px;
     width: 40vw;
+
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     
 }
 .pet-tag-container{
@@ -240,6 +265,10 @@ strong {
     min-height: 300px;
     width: 40vw;
     text-transform: initial;
+
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .info-condicoes-pet{
@@ -279,7 +308,7 @@ strong {
 }
 
 .info-doador-container h4 {
-    color: #654833;
+    color: #84644D;
     font-size: 24px;
     font-weight: bold;
     margin-top: 4px;
@@ -319,13 +348,13 @@ strong {
 
 .icon_wpp,
 .iconEmail {
-    color: #654833;
+    color: #84644D;
     font-size: 50px;
     transition: 0.3s;
 }
 
 .iconMap {
-    color: #654833;
+    color: #84644D;
     font-size: 40px;
     transition: 0.3s;
 }
