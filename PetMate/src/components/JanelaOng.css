@@ -16,7 +16,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-    min-width: 60%; 
+    min-width: 60%;
     max-width: 500px;
     min-height: 70%;
     display: flex;
@@ -25,20 +25,68 @@
     border-left: #654833 25px solid;
     transition: 0.3s ease;
 }
+
 .container-janela-ong {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.15s ease-out;
 }
 
 @keyframes fadeIn {
-    from {
+    0% {
         opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
         transform: scale(0.9);
     }
-    to {
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
         opacity: 1;
         transform: scale(1);
     }
 }
+
 .titulo-ong-modal {
     display: flex;
     justify-content: space-between;
@@ -48,17 +96,19 @@
 }
 
 .botao-fechar-ong {
-    background-color: #654833;
-    color: white;
+    /* background-color: #654833; */
+    color: #654833;
     border: none;
     border-radius: 50%;
     padding: 10px;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 3.3rem;
 }
 
 .botao-fechar-ong:hover {
-    background-color: #84644D;
+    color: #6b4f3a;
+    transform: scale(1.05);
 }
 
 .img-ong {
@@ -69,7 +119,7 @@
 }
 
 .logo-ong {
-    width: 12em; 
+    width: 12em;
     height: 12em;
     object-fit: cover;
     border-radius: 8px;
@@ -81,8 +131,9 @@
 }
 
 .dados-ong {
-    background-color: #EBE5E0;
-    border: 2px solid #654833;
+    background-color: #f9f9f9;
+    /* border: 2px solid #654833; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     padding: 15px;
     margin-top: 5em;
@@ -100,16 +151,19 @@
 .redesSociais-ong {
     margin-right: 150px;
 }
-.redesSociais-ong p{
+
+.redesSociais-ong p {
     margin-top: 7px;
     transform: translateX(-8px)
-    
 }
-.redesSociais-ong strong, .iconeInsta{
+
+.redesSociais-ong strong,
+.iconeInsta {
     margin-top: 7px;
 }
 
-.contato-ong, .redesSociais-ong {
+.contato-ong,
+.redesSociais-ong {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -120,7 +174,8 @@
     color: #654833;
     font-size: 30px;
 }
-.redesSociais-ong h3{
+
+.redesSociais-ong h3 {
     color: #654833;
     font-size: 30px;
 }
@@ -177,7 +232,8 @@
 }
 
 /* Animações de hover nos links */
-.ctt-ong a, .redesSociais-ong a {
+.ctt-ong a,
+.redesSociais-ong a {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -210,6 +266,7 @@
 
 .container-denunciar-ong {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -226,11 +283,11 @@
     color: #654833;
 }
 
-.icon-denuncia-ong{
+.icon-denuncia-ong {
     font-size: 23px;
 }
 
-.texto-denunciar-ong p{
+.texto-denunciar-ong p {
     font-size: 18px;
     font-family: 'Nunito';
     font-weight: bold;
@@ -284,25 +341,26 @@
     }
 
 
-    .contato-ong, .redesSociais-ong {
+    .contato-ong,
+    .redesSociais-ong {
         margin-left: -50px;
         gap: 10px;
     }
 
 
-     .redesSociais-ong h3{
+    .redesSociais-ong h3 {
         margin-top: -10px;
         font-size: 1.2em;
         gap: 20px;
     }
 
 
-    .contato-ong h3{
+    .contato-ong h3 {
         font-size: 1.2em;
     }
 
 
-    .dados-ong p{
+    .dados-ong p {
         font-size: 0.8em;
         margin-left: 10px;
     }
@@ -313,23 +371,25 @@
     }
 
 
-    .dados-ong strong{
+    .dados-ong strong {
         font-size: 12px;
     }
 
 
-    .iconeInsta{
+    .iconeInsta {
         margin-left: 20px;
     }
-   
-    .botao-fechar-ong{
+
+    .botao-fechar-ong {
         font-size: 20px;
         width: 40px;
         height: 40px;
         padding: 5px;
     }
 
-    .icone-wpp-ong, .icone-email-ong, .icone-mapa-ong{
+    .icone-wpp-ong,
+    .icone-email-ong,
+    .icone-mapa-ong {
         font-size: 20px;
     }
 }
@@ -357,7 +417,7 @@
         gap: 8px;
     }
 
-    .dados-ong p{
+    .dados-ong p {
         font-size: 12px;
     }
 
@@ -373,16 +433,16 @@
         font-size: 0.9em;
     }
 
-    .iconeInsta{
+    .iconeInsta {
         font-size: 20px;
     }
 
-    .ctt-ong{
+    .ctt-ong {
         flex-direction: column;
         align-items: center;
     }
 
-    .redesSociais-ong a{
+    .redesSociais-ong a {
         flex-direction: column;
         align-items: center;
         gap: 0px;

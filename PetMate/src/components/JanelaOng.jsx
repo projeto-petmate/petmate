@@ -8,6 +8,7 @@ import { FaInstagram, FaMapMarkedAlt } from "react-icons/fa";
 import { GoAlert } from 'react-icons/go';
 import ModalDenuncia from './ModalDenuncia';
 import { GlobalContext } from '../contexts/GlobalContext';
+import { CgCloseO } from 'react-icons/cg';
 
 export default function JanelaOng({ isOpen, setOpenModalOng }) {
     const { ong } = useContext(OngContext);
@@ -39,9 +40,7 @@ export default function JanelaOng({ isOpen, setOpenModalOng }) {
                                 </p>
                             </div>
                         }
-                        <button onClick={() => setOpenModalOng(false)} className='botao-fechar-ong'>
-                            <IoMdClose className='closeIcon' />
-                        </button>
+                            <CgCloseO onClick={() => setOpenModalOng(false)} className='botao-fechar-ong' />
                     </div>
                 </div>
 
