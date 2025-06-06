@@ -19,7 +19,7 @@
     "lottie-react": "^2.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.4.0",
+    "react-icons": "^5.5.0",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-input-mask-next": "^3.0.0-alpha.12",
     "react-router-dom": "^6.26.2",

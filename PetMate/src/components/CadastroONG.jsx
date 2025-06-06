@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./cadastroONG.css";
+import "./CadastroONG.css";
 import { useNavigate } from "react-router-dom";
 import { addOng, getUserByEmail, verificarCpnjUnico } from '../apiService';
 import { FaInfoCircle, FaTrash, FaUserCircle } from "react-icons/fa";

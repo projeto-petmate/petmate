@@ -47,9 +47,9 @@ function FiltroDenuncias() {
                         onChange={handleFilterChange}
                     >
                         <option value="">Todas</option>
-                        <option value="pets">Pets</option>
-                        <option value="ongs">ONGs</option>
-                        <option value="comentarios">Feedbacks</option>
+                        <option value="pet">Pets</option>
+                        <option value="ong">ONGs</option>
+                        <option value="comentario">Feedbacks</option>
                     </select>
                 </div>
                 <button className='limpar-filtros-denuncia' onClick={limparFiltros}>Limpar Filtros</button>
