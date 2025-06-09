@@ -5,7 +5,7 @@
 
 
 /* Navbar Normal */
-.NavbarAdm {
+.navbar-adm {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -13,8 +13,8 @@
     padding: 10px;
     height: 120px;
     background-color: #84644D;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    /* border-bottom-left-radius: 40px; */
+    /* border-bottom-right-radius: 40px; */
 }
 
 .nav-side {
@@ -30,15 +30,15 @@
     align-items: center;
 }
 
-.nav-imgAdm {
+.nav-img {
     width: 120px;
 }
 
-.nav-imgAdm:hover {
+.nav-img:hover {
     cursor: pointer;
 }
 
-.painelAdministrativo {
+.painel-administrativo {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,7 +51,7 @@
     margin: 0;
 }
 
-.iconAdmTools {
+.icon-adm-tools {
     color: #543A28;
     font-size: 30px;
     margin-right: 10px;
@@ -60,33 +60,35 @@
 
 
 /* Segunda Navbar (com links) */
-.NavbarAdm-links {
+.navbar-adm-links {
     display: flex;
     justify-content: center;
 }
 
-.NavbarAdm-links2 {
+.navbar-adm-links2 {
     display: flex;
-    width: 70%;
+    min-width: 70%;
     align-items: center;
     justify-content: center;
     padding: 10px;
     height: 110px;
     background-color: #FBFBFB;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    /* border-bottom-left-radius: 40px; */
+    /* border-bottom-right-radius: 40px; */
+    border-radius: 40px;
     margin-bottom: 40px;
 }
 
-.links-geneciamento {
+.links-gerenciamento {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     gap: 150px;
-    min-width: 100vw;
+    /* min-width: 100vw; */
 }
 
-.linksAdm {
+.links-adm {
     color: #654833;
     text-decoration: none;
     font-family: 'nunito', sans-serif;
@@ -94,48 +96,19 @@
     transition: color 0.5s;
 }
 
-.iconAdm1 {
+.icon-link1,
+.icon-link2,
+.icon-link3,
+.icon-link4 {
     color: #543A28;
     font-size: 30px;
-    margin-right: 10px;
+    display: flex;
+    justify-content: center;
 }
 
-.iconAdm2 {
-    color: #543A28;
-    font-size: 30px;
-    margin-right: 10px;
-}
-
-.iconAdm3 {
-    color: #543A28;
-    font-size: 30px;
-    margin-right: 10px;
-}
-
-.iconAdm4 {
-    color: #543A28;
-    font-size: 30px;
-    margin-right: 10px;
-}
-
-.icon-link1:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-.icon-link2:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
-    cursor: pointer;
-}
-
-.icon-link3:hover {
-    transform: scale(1.05);
-    transition: 0.2s;
-    cursor: pointer;
-}
-
+.icon-link1:hover,
+.icon-link2:hover,
+.icon-link3:hover,
 .icon-link4:hover {
     transform: scale(1.05);
     transition: 0.2s;
@@ -144,7 +117,7 @@
 
 
 /* Título (gerenciamento) */
-.h2Adm {
+.h2-adm {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -158,16 +131,17 @@
 
 
 /* Container onde o ADM poderá gerenciar */
-.containeradm {
+.container-adm {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.containeradm2 {
+.container-adm2 {
     min-width: 60%;
-    min-height: 500px;
-    background-color: #D4C6B5;
+    /* height: 63vh; */
+    background-color: #FBFBFB;
+    background-image: url(/images/fundo_patas.svg);
     padding: 20px;
 }
 

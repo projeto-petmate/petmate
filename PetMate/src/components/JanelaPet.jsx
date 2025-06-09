@@ -150,14 +150,14 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                     </div>
                   </div>
                   <div className="links-contato">
-                    <a href={linkWpp}>
+                    <a href={linkWpp} target='_blank'>
                       <FaWhatsapp className='icon_wpp' />
                     </a>
 
-                    <a href={linkEmail}>
+                    <a href={linkEmail} target='_blank'>
                       <MdOutlineEmail className='iconEmail' />
                     </a>
-                    <a href={linkMaps}>
+                    <a href={linkMaps} target='_blank'>
                       <FaMapMarkerAlt className='iconMap' />
                     </a>
                   </div>
