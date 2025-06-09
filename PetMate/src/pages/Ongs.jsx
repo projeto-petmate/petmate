@@ -19,7 +19,7 @@ function Ongs() {
       <Navbar />
       <ScrollToTop />
       <div className="banner-ong">
-        <img src="./images/banner-ong.svg" alt="" />
+        <img src="./images/banner-ong.svg" loading='lazy' alt="" />
       </div>
       <div className="ongs-container">
         <div className="titulo-pesquisa-ong">

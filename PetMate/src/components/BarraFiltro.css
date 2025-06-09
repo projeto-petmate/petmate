@@ -75,20 +75,20 @@
 }
 .botao-fav-off{
     background-color: #EBE5E0;
-    color: #d6b82f;
+    color: #84644D;
     font-size: 20px;
     padding: 0 20px;
     height: 40px;
     cursor: pointer;
     font-family: nunito;
-    border: #d6b82f 2px solid;
+    border: #84644D 2px solid;
     border-radius: 8px;
     transition: 0.5s ease;
 
 }
 
 .botao-fav-on{
-    background-color: #e6ce64;
+    background-color: #84644D;
     color: white;
     font-size: 20px;
     padding: 0 20px;
@@ -101,7 +101,7 @@
 
 }
 .botao-fav-on:hover{
-    background-color: #d3bc58;
+    background-color: #6B4A2E;
 }
 
 #selectGenero {

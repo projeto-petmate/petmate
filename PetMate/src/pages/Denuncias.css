@@ -1,6 +1,6 @@
 .container-denuncias {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 120px);
+    min-height: calc(100vh - 120px);
     background-image: url('/images/fundo_patas.svg');
 }

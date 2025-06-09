@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import './CardContainer.css';
+import './CardPet.css';
 import JanelaPet from './JanelaPet';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
@@ -7,7 +7,7 @@ import { PetContext } from '../contexts/PetContext';
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa6";
 
-function CardContainer() {
+function CardPet() {
   const [openPetModal, setOpenPetModal] = useState(false);
   const { setPet, favoritos, toggleFavorito, filter, filterOn, pets } = useContext(PetContext);
   const { userLogado } = useContext(GlobalContext);
@@ -21,11 +21,11 @@ function CardContainer() {
 
   const filteredPets = filterOn
     ? pets.filter(pet => (
-        pet.disponivel &&
-        (filter.especie ? pet.especie === filter.especie : true) &&
-        (filter.porte ? pet.porte === filter.porte : true) &&
-        (filter.genero ? pet.genero === filter.genero : true)
-      ))
+      pet.disponivel &&
+      (filter.especie ? pet.especie === filter.especie : true) &&
+      (filter.porte ? pet.porte === filter.porte : true) &&
+      (filter.genero ? pet.genero === filter.genero : true)
+    ))
     : pets.filter(pet => pet.disponivel);
 
   const displayedPets = filter.favoritos
@@ -53,7 +53,7 @@ function CardContainer() {
         <p className='sem-pets-fav'>Você ainda não favoritou nenhum pet.</p>
       )}
 
-      <div className="card-container">
+      <div className="card-pet-container">
         {paginatedPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
@@ -92,36 +92,38 @@ function CardContainer() {
         ))}
       </div>
 
-      {/* Paginação visual */}
-      <div className="pagination">
-        <button 
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-        >
-          <FaArrowLeft className='icon-setaPag'/>
-          Anterior
-        </button>
-
-        {[...Array(totalPages)].map((_, i) => (
-          <button 
-            key={i}
-            className={currentPage === i + 1 ? 'active' : ''}
-            onClick={() => setCurrentPage(i + 1)}
+      {paginatedPets.length > 0 &&
+      /* Paginação visual */
+        < div className="paginacao-pets">
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
           >
-            {i + 1}
+            <FaArrowLeft className='icon-seta-pag' />
+            Anterior
           </button>
-        ))}
 
-        <button 
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-        >
-          Próxima
-          <FaArrowRight className='icon-setaPag'/>
-        </button>
-      </div>
-    </div>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? 'active' : ''}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Próxima
+            <FaArrowRight className='icon-seta-pag' />
+          </button>
+        </div>
+      }
+    </div >
   );
 }
 
-export default CardContainer;
+export default CardPet;

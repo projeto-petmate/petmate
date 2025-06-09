@@ -116,7 +116,7 @@ function Feedback() {
             <Navbar />
             <div className="feedback-container">
                 <div className="banner-container">
-                    <img src="./images/banner-feedback.svg" alt="banner-feedback" className='banner-feedback' />
+                    <img src="./images/banner-feedback.svg" loading='lazy' alt="banner-feedback" className='banner-feedback' />
                 </div>
                 <div className="titulo-feedback">
                     <h2>Feedbacks</h2>

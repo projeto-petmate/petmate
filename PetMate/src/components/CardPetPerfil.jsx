@@ -4,7 +4,7 @@ import { getPets, deletePet, updatePet } from '../apiService';
 import ModalExcluirPet from './ModalExcluirPet';
 import './CardPetPerfil.css';
 import ModalEditarPet from './ModalEditarPet';
-import { FaRegEdit } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaRegEdit } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import { FaShieldDog } from 'react-icons/fa6';
 import ModalPetAdotado from './ModalPetAdotado';
@@ -165,12 +165,13 @@ function CardPetPerfil() {
                 setPetDeleteOpen={setOpenModalExcluirPet}
                 onDeletePet={handleDelete}
             />
-            {paginatedPets.length > 0 &&
-                <div className="pagination">
+            {paginatedPets.length >= 1 &&
+                <div className="paginacao-pets-perfil">
                     <button
                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                         disabled={currentPage === 1}
                     >
+                        <FaArrowLeft className='icon-seta-pag' />
                         Anterior
                     </button>
 
@@ -189,6 +190,7 @@ function CardPetPerfil() {
                         disabled={currentPage === totalPages}
                     >
                         Próxima
+                        <FaArrowRight className='icon-seta-pag' />
                     </button>
                 </div>
             }

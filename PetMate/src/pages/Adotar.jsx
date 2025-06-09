@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ModalAnunciarPet from "../components/ModalAnunciarPet";
-import CardContainer from "../components/CardContainer";
+import CardPet from "../components/CardPet";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -13,26 +13,13 @@ function Adotar() {
   const [openModal, setOpenCadModal] = useState(false);
   const { logado } = useContext(GlobalContext);
 
-  useEffect(() => {
-  const img = document.querySelector(".banner-image");
-  const highResSrc = img.getAttribute("data-src");
-
-  const fullImage = new Image();
-  fullImage.src = highResSrc;
-  fullImage.onload = () => {
-    img.src = highResSrc;
-    img.classList.add("loaded");
-  };
-}, []);
-
-
   return (
     <div>
       <Navbar />
       <ScrollToTop />
       <div className="banner-contato">
         <img
-          src="/images/banner-adotar-2025-blur.svg"
+          src="/images/banner-adotar.svg"
           data-src="/images/banner-adotar-2025.svg"
           alt="Banner Adotar"
           className="banner-image"
@@ -53,7 +40,7 @@ function Adotar() {
         </div>
         <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
         <div className="pets-container">
-          <CardContainer />
+          <CardPet />
         </div>
         <LastPage />
       </div>

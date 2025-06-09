@@ -247,7 +247,7 @@ app.post('/login', async (req, res) => {
         //     return res.status(401).json({ error: 'Senha incorreta' });
         // }
 
-        const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '7d' });
 
         res.json({ message: 'Login bem-sucedido', user: usuario, token });
     } catch (err) {
@@ -505,7 +505,7 @@ app.post('/loginOng', async (req, res) => {
             return res.status(401).json({ error: 'Email ou senha incorretos' });
         }
 
-        const token = jwt.sign({ id: ong.id_ong, tipo: 'ong' }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: ong.id_ong, tipo: 'ong' }, SECRET_KEY, { expiresIn: '7d' });
 
         res.json({ message: 'Login bem-sucedido', user: ong, token });
 

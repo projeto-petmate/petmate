@@ -42,10 +42,10 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
 
   const telefone = doador?.telefone_contato || doador?.telefone;
   const email = doador?.email_ong || doador?.email;
-  const endereco = doador?.endereco_ong || doador?.endereco;
+  const endereco = doador?.bairro || doador?.bairro;
   const nome = doador?.nome_ong || doador?.nome
 
-  const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1!%20Estou%20interessado%20em%20${pet.nome}.` : "#";
+  const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Estou%20interessado%20no%20pet%20${pet.nome}.` : "#";
   const linkEmail = email ? `mailto:${email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
   const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${endereco}` : "#";
 

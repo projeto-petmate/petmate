@@ -8,19 +8,22 @@ const Carrossel = () => {
     const navigate = useNavigate();
 
     const banners = [
-        { img: '/images/banner-home-2025.svg', link: '/home' },
-        { img: '/images/banner-adotar-2025.svg', link: '/adotar' },
+        { img: '/images/banner-adotar.svg', link: '/adotar' },
         { img: '/images/banner-feedback.svg', link: '/feedback' },
         { img: '/images/banner-ong.svg', link: '/ongs' },
-        { img: '/images/banner-Favoritos.svg', link: '/favoritos' },
-    ];
+        { img: '/images/banner-favoritos.svg', link: '/favoritos' },
+
+    ].map(banner => ({ ...banner, loading: 'lazy' }));
 
     const [index, setIndex] = useState(0);
-
+    const [intervalId, setIntervalId] = useState(null);
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % banners.length);
         }, 5000);
+
+        setIntervalId(interval);
 
         return () => clearInterval(interval);
     }, [banners.length]);
@@ -31,10 +34,22 @@ const Carrossel = () => {
 
     const handlePrev = () => {
         setIndex((prev) => (prev - 1 + banners.length) % banners.length);
+        resetTimer();
     };
 
     const handleNext = () => {
         setIndex((prev) => (prev + 1) % banners.length);
+        resetTimer();
+    };
+
+    const resetTimer = () => {
+        if (intervalId) {
+            clearInterval(intervalId);
+        }
+        const newInterval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % banners.length);
+        }, 5000);
+        setIntervalId(newInterval);
     };
 
     return (

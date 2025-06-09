@@ -24,11 +24,12 @@ function NavLogado() {
   return (
     <div className='nav-logado'>
 
-        <>
-          <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
-          <p className="boas-vindas">
-            {userLogado && `Olá, ${userName}!`}
-          </p>
+      <>
+        <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
+        <p className="boas-vindas">
+          {userLogado && `Olá, ${userName}!`}
+        </p>
+        <div className="user-icon-container-nav">
           <Link to="/perfil">
             {userIcon ? (
               <img src={userIcon} alt="User Icon" className="nav-profile" />
@@ -36,9 +37,11 @@ function NavLogado() {
               <FaUserCircle className="profile" />
             )}
           </Link>
-          <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
-        </>
-      
+          <span className="texto-perfil">Ir para o perfil</span>
+        </div>
+        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
+      </>
+
     </div>
   );
 }

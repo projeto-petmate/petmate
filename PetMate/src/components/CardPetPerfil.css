@@ -13,6 +13,7 @@
 
 .card-pet-perfil-container-poucos-pets {
   display: flex;
+  flex-direction: column;
   align-items: center;
   min-height: calc(100vh - 120px);
   justify-content: center;
@@ -164,14 +165,14 @@ margin-right: auto;
   cursor: pointer;
 }
 
-.pagination {
+.paginacao-pets-perfil {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   gap: 10px;
 }
 
-.pagination button {
+.paginacao-pets-perfil button {
   padding: 8px 16px;
   font-size: 16px;
   font-weight: bold;
@@ -184,19 +185,22 @@ margin-right: auto;
   transition: background-color 0.3s;
 }
 
-.pagination button:hover:not(:disabled) {
+/* .paginacao-pets-perfil button:hover:not(:disabled) {
   background-color: #eee;
-}
+} */
 
-.pagination button.active {
+.paginacao-pets-perfil button.active {
   background-color: #654833;
   color: #fff;
   font-weight: bold;
 }
 
-.pagination button:disabled {
+.paginacao-pets-perfil button:disabled {
   background-color: #fff;
   color: rgba(8, 8, 8, 0.5);
+}
+.icon-seta-pag{
+  font-size: 20px;
 }
 
 .pets-perfil {

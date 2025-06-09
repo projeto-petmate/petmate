@@ -4,17 +4,19 @@
     flex-direction: column;
     align-items: center;
     background-image: url(/images/fundo_patas.svg);
+    padding-bottom: 1rem;
 }
 
 .banner-favoritos {
     height: 100%;
     display: flex;
     min-width: 100vw;
-  }
-  
-  .banner-favoritos img{
+}
+
+.banner-favoritos img {
     width: 100%;
-  }
+}
+
 .titulo-favoritos {
     padding: 20px;
     margin: 0;
@@ -107,6 +109,53 @@
     gap: 10px;
 }
 
+/* Paginação */
+.paginacao-favoritos {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 50px;
+  }
+  
+  .paginacao-favoritos button {
+    display: flex; 
+    align-items: center; 
+    gap: 3px; 
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #654833;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+  }
+  
+  /* .paginacao-favoritos button:hover:not(:disabled) {
+    background-color: #eee;
+  } */
+  
+  .paginacao-favoritos button.active {
+    background-color: #654833;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .paginacao-favoritos button:disabled {
+    background-color: #fff;
+    color: rgba(8, 8, 8, 0.5);
+  }
+  
+  .icon-seta-pag{
+    font-size: 20px;
+  }
+
+/* Responsividade */
 @media (max-width: 768px) {
     .container-favoritos {
         padding: 20px;
@@ -175,7 +224,7 @@
     }
 
 
-    .titulo-favoritos{
+    .titulo-favoritos {
         align-items: center;
     }
 
@@ -201,23 +250,23 @@
     }
 
 
-    .pet-info-card-fav{
+    .pet-info-card-fav {
         padding: 0px;
     }
 
 
-    .pet-card-fav{
+    .pet-card-fav {
         width: 44%;
         height: auto;
     }
 
 
-    .card-favoritos{
+    .card-favoritos {
         gap: 20px;
     }
 
 
-    .botoes-card-fav{
+    .botoes-card-fav {
         flex-direction: row;
         gap: 10px;
     }

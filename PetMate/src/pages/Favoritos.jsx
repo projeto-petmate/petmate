@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import './Favoritos.css'
-import { FaRegStar, FaStar } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaRegStar, FaStar } from "react-icons/fa";
 import { PetContext } from '../contexts/PetContext';
 import JanelaPet from '../components/JanelaPet';
 import { getPets } from '../apiService';
@@ -29,13 +29,21 @@ function Favoritos() {
     }, []);
 
     const petsfavoritos = pets.filter(pet => favoritos.includes(pet.id_pet));
+    // PAGINAÇÃO LOCAL
+    const petsPerPage = 8;
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(petsfavoritos.length / petsPerPage);
+
+    const startIndex = (currentPage - 1) * petsPerPage;
+    const endIndex = startIndex + petsPerPage;
+    const paginatedPets = petsfavoritos.slice(startIndex, endIndex)
 
     return (
         <div>
             <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
             <Navbar />
             <div className="banner-favoritos">
-                <img src="/images/banner-Favoritos.svg" alt="" />
+                <img src="/images/banner-favoritos.svg" loading='lazy' alt="" />
             </div>
             <div className='container-favoritos'>
                 <div className="titulo-favoritos">
@@ -43,8 +51,8 @@ function Favoritos() {
                     <p>Seus pets favoritos aparecerão aqui!</p>
                 </div>
                 <div className="card-favoritos">
-                {petsfavoritos.length > 0 ? (
-                        petsfavoritos.map((p) => (
+                    {paginatedPets.length > 0 ? (
+                        paginatedPets.map((p) => (
                             <div key={p.id_pet} className="pet-card-fav">
                                 <img
                                     src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
@@ -80,6 +88,36 @@ function Favoritos() {
                         )
                     )}
                 </div>
+                {paginatedPets.length > 0 &&
+                    /* Paginação visual */
+                    < div className="paginacao-favoritos">
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                        >
+                            <FaArrowLeft className='icon-seta-pag' />
+                            Anterior
+                        </button>
+
+                        {[...Array(totalPages)].map((_, i) => (
+                            <button
+                                key={i}
+                                className={currentPage === i + 1 ? 'active' : ''}
+                                onClick={() => setCurrentPage(i + 1)}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                        >
+                            Próxima
+                            <FaArrowRight className='icon-seta-pag' />
+                        </button>
+                    </div>
+                }
             </div>
             <LastPage />
             <Footer />

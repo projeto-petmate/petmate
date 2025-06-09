@@ -4,7 +4,7 @@
 }
 
 
-.card-container {
+.card-pet-container {
   display: flex;
   flex-wrap: wrap;
   gap: 80px;
@@ -97,12 +97,58 @@
 .estrela-preenchida,
 .estrela-vazia {
   font-size: 34px;
-  color: #e8c41c;
+  color: #84644D;
 
 
 }
 
+/* Paginação */
+.paginacao-pets {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 50px;
+}
 
+.paginacao-pets button {
+  display: flex; 
+  align-items: center; 
+  gap: 3px; 
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #654833;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+}
+
+/* .paginacao-pets button:hover:not(:disabled) {
+  background-color: #eee;
+} */
+
+.paginacao-pets button.active {
+  background-color: #654833;
+  color: #fff;
+  font-weight: bold;
+}
+
+.paginacao-pets button:disabled {
+  background-color: #fff;
+  color: rgba(8, 8, 8, 0.5);
+}
+
+.icon-seta-pag{
+  font-size: 20px;
+}
+
+/* Responsividade */
 @media (max-width: 768px) {
 
 
@@ -177,48 +223,3 @@
 
 }
 
-/* Paginação */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-  flex-wrap: wrap;
-  padding-top: 50px;
-}
-
-.pagination button {
-  display: flex; /* alinha ícone e texto lado a lado */
-  align-items: center; /* centraliza verticalmente */
-  gap: 3px; /* espaço entre ícone e texto */
-  padding: 8px 16px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #654833;
-  background-color: #fff;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-}
-
-.pagination button:hover:not(:disabled) {
-  background-color: #eee;
-}
-
-.pagination button.active {
-  background-color: #654833;
-  color: #fff;
-  font-weight: bold;
-}
-
-.pagination button:disabled {
-  background-color: #fff;
-  color: rgba(8, 8, 8, 0.5);
-}
-
-.icon-setaPag{
-  font-size: 20px;
-}
