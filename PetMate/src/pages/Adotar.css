@@ -55,6 +55,18 @@
   margin-right: 100px;
 }
 
+.banner-contato img {
+  width: 100%;
+  height: auto;
+  /* filter: blur(8px); */
+  transition: filter 0.5s ease;
+}
+
+.banner-contato img.loaded {
+  filter: blur(0);
+}
+
+
 @media (max-width: 1024px ) {
   .titulo-adotar {
     margin-left: 20px;

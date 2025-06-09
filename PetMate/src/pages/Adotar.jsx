@@ -13,6 +13,17 @@ function Adotar() {
   const [openModal, setOpenCadModal] = useState(false);
   const { logado } = useContext(GlobalContext);
 
+  useEffect(() => {
+  const img = document.querySelector(".banner-image");
+  const highResSrc = img.getAttribute("data-src");
+
+  const fullImage = new Image();
+  fullImage.src = highResSrc;
+  fullImage.onload = () => {
+    img.src = highResSrc;
+    img.classList.add("loaded");
+  };
+}, []);
 
 
   return (
@@ -20,7 +31,12 @@ function Adotar() {
       <Navbar />
       <ScrollToTop />
       <div className="banner-contato">
-        <img src="/images/banner-adotar-2025.svg" alt="" />
+        <img
+          src="/images/banner-adotar-2025-blur.svg"
+          data-src="/images/banner-adotar-2025.svg"
+          alt="Banner Adotar"
+          className="banner-image"
+        />
       </div>
       <BarraFiltro />
       <div className="adotar-container">
@@ -30,7 +46,7 @@ function Adotar() {
             <p>Transforme a vida de um pet e ganhe um amigo para sempre!</p>
           </div>
           <div>
-            {logado && 
+            {logado &&
               <button className='botao-modal-anunciar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
             }
           </div>
