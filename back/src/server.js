@@ -69,9 +69,9 @@ app.get('/users/email/:email', async (req, res) => {
             result = await pool.query('SELECT * FROM ongs WHERE email = $1', [email]);
         }
         if (result.rows.length === 0) {
-            return res.json({ exists: false }); 
+            return res.json({ exists: false });
         }
-        res.json({ exists: true }); 
+        res.json({ exists: true });
     } catch (err) {
         console.error('Erro ao buscar usuário ou ONG:', err.message);
         res.status(500).json({ error: 'Erro ao buscar usuário ou ONG' });
@@ -235,7 +235,7 @@ app.post('/login', async (req, res) => {
     if (!email || !senha) {
         return res.status(400).json({ error: 'Email e senha são obrigatórios.' });
     }
-    
+
     try {
         const result = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email]);
         if (result.rows.length === 0) {
@@ -518,94 +518,128 @@ app.post('/loginOng', async (req, res) => {
 
 
 // CRUD para Comentários
-
 // Listar todos os comentários
 app.get('/comentarios', async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT 
-                comentarios.id_comentario,
-                comentarios.texto,
-                comentarios.id_usuario,
-                usuarios.nome AS nome_user,
-                usuarios.imagem AS foto_user
-            FROM comentarios
-            JOIN usuarios ON comentarios.id_usuario = usuarios.id_usuario
+            SELECT c.id_comentario, c.texto, c.data_criacao, c.foto_user, c.nome_user, 
+                   c.id_ong, c.id_usuario, 
+                   CASE 
+                       WHEN c.id_ong IS NOT NULL THEN 'ong'
+                       WHEN c.id_usuario IS NOT NULL THEN 'usuario'
+                   END AS tipo
+            FROM comentarios c
         `);
         res.json(result.rows);
     } catch (err) {
-        console.error('Erro ao buscar comentários:', err.message);
-        res.status(500).json({ error: 'Erro ao buscar comentários' });
+        console.error('Erro ao listar comentários:', err.message);
+        res.status(500).json({ error: 'Erro ao listar comentários' });
     }
 });
 
 // Buscar um comentário por ID
 app.get('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
+
     try {
-        const result = await pool.query('SELECT * FROM comentarios WHERE id_comentario = $1', [id]);
+        const result = await pool.query(`
+            SELECT c.id_comentario, c.texto, c.data_criacao, c.foto_user, c.nome_user, 
+                   c.id_ong, c.id_usuario, 
+                   CASE 
+                       WHEN c.id_ong IS NOT NULL THEN 'ong'
+                       WHEN c.id_usuario IS NOT NULL THEN 'usuario'
+                   END AS tipo
+            FROM comentarios c
+            WHERE c.id_comentario = $1
+        `, [id]);
+
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Comentário não encontrado' });
         }
         res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao buscar comentário:', err.message);
         res.status(500).json({ error: 'Erro ao buscar comentário' });
     }
 });
 
-// Criar um novo comentário
 app.post('/comentarios', async (req, res) => {
-    const { texto, id_usuario } = req.body;
+    const { texto, id_usuario, id_ong } = req.body;
+
+    if (!texto || (!id_usuario && !id_ong)) {
+        return res.status(400).json({ error: 'Texto e ID de usuário ou ONG são obrigatórios.' });
+    }
 
     try {
-        const userResult = await pool.query('SELECT nome, imagem FROM usuarios WHERE id_usuario = $1', [id_usuario]);
-        if (userResult.rows.length === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
+        let nome_user = '';
+        let foto_user = null;
+
+        if (id_usuario) {
+            const userResult = await pool.query('SELECT nome FROM usuarios WHERE id_usuario = $1', [id_usuario]);
+            if (userResult.rows.length === 0) {
+                return res.status(404).json({ error: 'Usuário não encontrado' });
+            }
+            nome_user = userResult.rows[0].nome;
+        } else if (id_ong) {
+            const ongResult = await pool.query('SELECT nome_ong, foto_perfil FROM ongs WHERE id_ong = $1', [id_ong]);
+            if (ongResult.rows.length === 0) {
+                return res.status(404).json({ error: 'ONG não encontrada' });
+            }
+            nome_user = ongResult.rows[0].nome_ong;
+            foto_user = ongResult.rows[0].foto_perfil;
         }
 
-        const { nome, imagem } = userResult.rows[0];
-
-        const result = await pool.query(
-            'INSERT INTO comentarios (texto, id_usuario, nome_user, foto_user) VALUES ($1, $2, $3, $4) RETURNING *',
-            [texto, id_usuario, nome, imagem]
-        );
+        const result = await pool.query(`
+            INSERT INTO comentarios (texto, foto_user, nome_user, id_ong, id_usuario) 
+            VALUES ($1, $2, $3, $4, $5) 
+            RETURNING *
+        `, [texto, foto_user, nome_user, id_ong || null, id_usuario || null]);
 
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error('Erro ao adicionar comentário:', err.message);
-        res.status(500).json({ error: 'Erro ao adicionar comentário' });
+        console.error('Erro ao criar comentário:', err.message);
+        res.status(500).json({ error: 'Erro ao criar comentário' });
     }
 });
 
-// Atualizar um comentário por ID
+// Atualizar um comentário
 app.put('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { texto, foto_user, nome_user } = req.body;
+    const { texto } = req.body;
+
+    if (!texto) {
+        return res.status(400).json({ error: 'Texto é obrigatório.' });
+    }
+
     try {
-        const result = await pool.query(
-            'UPDATE comentarios SET texto = $1, foto_user = $2, nome_user = $3 WHERE id_comentario = $4 RETURNING *',
-            [texto, foto_user, nome_user, id]
-        );
+        const result = await pool.query(`
+            UPDATE comentarios 
+            SET texto = $1 
+            WHERE id_comentario = $2 
+            RETURNING *
+        `, [texto, id]);
+
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Comentário não encontrado' });
         }
         res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
+        console.error('Erro ao atualizar comentário:', err.message);
         res.status(500).json({ error: 'Erro ao atualizar comentário' });
     }
 });
 
-// Deletar um comentário por ID
+// Deletar um comentário
 app.delete('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
+
     try {
         const result = await pool.query('DELETE FROM comentarios WHERE id_comentario = $1 RETURNING *', [id]);
+
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Comentário não encontrado' });
         }
-        res.json({ message: 'Comentário deletado com sucesso' });
+        res.json({ message: 'Comentário deletado com sucesso', comentario: result.rows[0] });
     } catch (err) {
         console.error('Erro ao deletar comentário:', err.message);
         res.status(500).json({ error: 'Erro ao deletar comentário' });
@@ -714,7 +748,7 @@ app.post('/redefinir-senha', async (req, res) => {
         tabela = 'usuarios'
     }
 
-    //Define qual query usar baseado no conteúdo da varável
+    //Define qual query usar baseado no conteúdo da variável
     if (tabela === 'usuarios') {
         try {
             await pool.query('UPDATE usuarios SET senha = $1 WHERE email = $2', [novaSenha, email]);
@@ -746,72 +780,105 @@ app.post('/redefinir-senha', async (req, res) => {
 app.get('/denuncias', async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, status, data_criacao
-            FROM denuncias
+            SELECT d.id_denuncia, d.mensagem, d.motivo, d.tipo_objeto, d.id_objeto, d.status, d.data_criacao,
+                   d.id_denunciante, d.id_ong_denunciante, d.tipo_denunciante
+            FROM denuncias d
         `);
         res.json(result.rows);
     } catch (err) {
-        console.error('Erro ao buscar denúncias:', err.message);
-        res.status(500).json({ error: 'Erro ao buscar denúncias' });
+        console.error('Erro ao listar denúncias:', err.message);
+        res.status(500).json({ error: 'Erro ao listar denúncias.' });
     }
 });
 
 // Buscar uma denúncia por ID
 app.get('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
+
     try {
         const result = await pool.query(`
-            SELECT id_denuncia, mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, status, data_criacao
-            FROM denuncias WHERE id_denuncia = $1
+            SELECT d.id_denuncia, d.mensagem, d.motivo, d.tipo_objeto, d.id_objeto, d.status, d.data_criacao,
+                   d.id_denunciante, d.id_ong_denunciante, d.tipo_denunciante
+            FROM denuncias d
+            WHERE d.id_denuncia = $1
         `, [id]);
+
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Denúncia não encontrada' });
+            return res.status(404).json({ error: 'Denúncia não encontrada.' });
         }
+
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao buscar denúncia:', err.message);
-        res.status(500).json({ error: 'Erro ao buscar denúncia' });
+        res.status(500).json({ error: 'Erro ao buscar denúncia.' });
     }
 });
 
 // Criar uma nova denúncia
 app.post('/denuncias', async (req, res) => {
-    const { mensagem, motivo, tipo_objeto, id_objeto, id_denunciante } = req.body;
+    const { mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, id_ong_denunciante, tipo_denunciante } = req.body;
 
-    if (!motivo || !tipo_objeto || !id_objeto ) {
-        return res.status(400).json({ error: 'Motivo, tipo do objeto e ID do objeto são obrigatórios.' });
+    // Validação: Campos obrigatórios
+    if (!motivo || !tipo_objeto || !id_objeto || !tipo_denunciante) {
+        return res.status(400).json({ error: 'Motivo, tipo do objeto, ID do objeto e tipo do denunciante são obrigatórios.' });
+    }
+
+    // Validação: Apenas um tipo de denunciante deve ser fornecido
+    if (
+        (tipo_denunciante === 'usuario' && (!id_denunciante || id_ong_denunciante)) ||
+        (tipo_denunciante === 'ong' && (!id_ong_denunciante || id_denunciante))
+    ) {
+        return res.status(400).json({ error: 'Forneça apenas o ID correspondente ao tipo do denunciante.' });
     }
 
     try {
         const result = await pool.query(`
-            INSERT INTO denuncias (mensagem, motivo, tipo_objeto, id_objeto, id_denunciante)
-            VALUES ($1, $2, $3, $4, $5) RETURNING *
-        `, [mensagem, motivo, tipo_objeto, id_objeto, id_denunciante]);
+            INSERT INTO denuncias (mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, id_ong_denunciante, tipo_denunciante) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7) 
+            RETURNING *
+        `, [
+            mensagem,
+            motivo,
+            tipo_objeto,
+            id_objeto,
+            id_denunciante || null,
+            id_ong_denunciante || null,
+            tipo_denunciante
+        ]);
+
         res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao criar denúncia:', err.message);
-        res.status(500).json({ error: 'Erro ao criar denúncia' });
+        res.status(500).json({ error: 'Erro ao criar denúncia.' });
     }
 });
 
 // Atualizar uma denúncia por ID
 app.put('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
-    const { mensagem, status } = req.body;
+    const { status } = req.body;
+
+    // Validação: O status deve ser válido
+    if (!['pendente', 'em análise', 'resolvido'].includes(status)) {
+        return res.status(400).json({ error: 'Status inválido. Use "pendente", "em análise" ou "resolvido".' });
+    }
 
     try {
         const result = await pool.query(`
-            UPDATE denuncias
-            SET mensagem = $1, status = $2
-            WHERE id_denuncia = $3 RETURNING *
-        `, [mensagem, status, id]);
+            UPDATE denuncias 
+            SET status = $1 
+            WHERE id_denuncia = $2 
+            RETURNING *
+        `, [status, id]);
+
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Denúncia não encontrada' });
+            return res.status(404).json({ error: 'Denúncia não encontrada.' });
         }
+
         res.json(result.rows[0]);
     } catch (err) {
         console.error('Erro ao atualizar denúncia:', err.message);
-        res.status(500).json({ error: 'Erro ao atualizar denúncia' });
+        res.status(500).json({ error: 'Erro ao atualizar denúncia.' });
     }
 });
 

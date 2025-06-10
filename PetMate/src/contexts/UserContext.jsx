@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 import axios from 'axios';
+import { addComentario, addUsuario, getComentarios } from "../apiService";
 
 export const UserContext = createContext()
 
@@ -24,7 +25,7 @@ export const UserContextProvider = ({ children }) => {
 
     const addUser = async (novoUser) => {
         try {
-            const response = await axios.post("http://localhost:3000/usuarios", novoUser);
+            const response = await addUsuario(novoUser);
             
             setUsers([...users, response.data]);
             
@@ -35,27 +36,27 @@ export const UserContextProvider = ({ children }) => {
         }
     }
 
-    const addComentario = async (novoComentario) => {
-        try {
-            if (!userLogado || !userLogado.id_usuario) {
-                throw new Error("Usuário não está logado ou ID do usuário não encontrado");
-            }
-    
-            const comentarioData = {
-                ...novoComentario,
-                id_usuario: userLogado.id_usuario, 
-            };
-    
-            const response = await axios.post("http://localhost:3000/comentarios", comentarioData);
-            setComentarios((prevComentarios) => [...prevComentarios, response.data]); 
-        } catch (error) {
-            console.error("Erro ao adicionar comentário:", error);
+const adicionarComentario = async (novoComentario) => {
+    try {
+        if (!userLogado) {
+            throw new Error("Usuário não está logado ou ID do usuário não encontrado");
         }
-    };
 
+        const comentarioData = {
+            ...novoComentario,
+            id_usuario: userLogado.tipo === 'user' ? userLogado.id_usuario : novoComentario.id_usuario,
+            id_ong: userLogado.tipo === 'ong' ? userLogado.id_ong : novoComentario.id_ong,
+        };
+
+        const response = await addComentario(comentarioData);
+        setComentarios((prevComentarios) => [...prevComentarios, response]);
+    } catch (error) {
+        console.error("Erro ao adicionar comentário:", error);
+    }
+};
     const fetchComentarios = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/comentarios");
+            const response = await getComentarios();
             setComentarios(response.data);
         } catch (error) {
             console.error("Erro ao buscar comentarios:", error);
@@ -80,7 +81,7 @@ export const UserContextProvider = ({ children }) => {
             inptGeneroUser, setInptGeneroUser,
             termosCadastro, setTermosCadastro,
             users, setUsers, addUser,
-            comentarios, setComentarios, addComentario,
+            comentarios, setComentarios, adicionarComentario,
             fetchComentarios
         }}>
             {children}

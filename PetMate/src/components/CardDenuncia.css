@@ -103,3 +103,33 @@
     color: #84644D;
     cursor: pointer;
 }
+
+.status-denuncia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.status-pendente {
+    color: #6c757d; 
+    background-color: #f3f3fc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-analise {
+    color: #856404; 
+    background-color: #ffe5b4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-resolvido {
+    color: #155724; 
+    background-color: #d4edda;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}

@@ -195,10 +195,10 @@ function Cadastro() {
 
                         <div className="botoes-cad-login">
                             <Link to="/cadastro-ong">
-                                <button>Sou uma ONG</button>
+                                <button type="button">Sou uma ONG</button>
                             </Link>
                             <Link to="/login">
-                                <button>Login</button>
+                                <button type="button">Login</button>
                             </Link>
                         </div>
                     </div>

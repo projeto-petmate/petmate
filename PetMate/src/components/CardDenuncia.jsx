@@ -33,7 +33,7 @@ function CardDenuncia() {
             await deleteDenuncia(selectedDenuncia);
             setDenuncias((prevDenuncias) => prevDenuncias.filter((d) => d.id_denuncia !== selectedDenuncia));
             setSelectedDenuncia(null);
-            setIsExcluirDenuncia(false); 
+            setIsExcluirDenuncia(false);
         } catch (error) {
             console.error('Erro ao deletar denúncia:', error);
         }
@@ -50,9 +50,24 @@ function CardDenuncia() {
                             {/* {d.mensagem} */}
                         </div>
                         <div className="info-denuncia">
-                            <p className='user-denuncia'>ID do denunciante: {d.id_denunciante}</p>
+                            <p className="user-denuncia">
+                                Denunciante:{" "}
+                                {d.tipo_denunciante === "usuario"
+                                    ? `Usuário (ID: ${d.id_denunciante})`
+                                    : `ONG (ID: ${d.id_ong_denunciante})`}
+                            </p>
                             <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
-                            <h3 className='status-denuncia'>Status: {d.status}</h3>
+                            <p className='motivo-denuncia'>Tipo: {d.tipo_objeto}</p>
+                            <div className="status-denuncia">
+                                <p       className={
+                                    d.status === 'pendente'
+                                        ? 'status-pendente'
+                                        : d.status === 'em análise'
+                                            ? 'status-analise'
+                                            : 'status-resolvido'
+                                }>
+                                    {d.status}</p>
+                            </div>
                         </div>
                         <div className="botoes-denuncia">
                             {/* <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>

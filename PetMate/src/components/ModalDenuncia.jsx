@@ -43,38 +43,40 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
         return Object.keys(novosErros).length === 0;
     }
     const enviarDenuncia = async () => {
-
         const denunciaValida = await validarDenuncia();
-        if (!denunciaValida) {
-            return;
-        }
-
-        const novaDenuncia = {
-            mensagem: mensagem,
-            motivo: motivo,
+    
+        if (!denunciaValida) return;
+    
+        const denuncia = {
+            mensagem,
+            motivo,
             tipo_objeto: tipo,
             id_objeto: idObjeto,
-            id_denunciante: id_user,
-        }
+            tipo_denunciante: userLogado.tipo === 'ong' ? 'ong' : 'usuario',
+            id_denunciante: userLogado.tipo === 'user' ? userLogado.id_usuario : null,
+            id_ong_denunciante: userLogado.tipo === 'ong' ? userLogado.id_ong : null,
+        };
+    
         try {
-            const data = await addDenuncia(novaDenuncia)
-            if (data) {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Denuncia enviada com sucesso!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                setTimeout(() => {
-                    setIsOpen(false)
-                }, 1500)
-            }
+            await addDenuncia(denuncia);
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Denúncia enviada com sucesso!',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+            setIsOpen(false);
         } catch (error) {
-            const mensagemErro = error.response?.data?.error || 'Erro ao enviar denúncia. Tente novamente.'
-            console.error(mensagemErro)
+            console.error('Erro ao enviar denúncia:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Não foi possível enviar a denúncia.',
+                confirmButtonColor: '#84644D',
+            });
         }
-    }
+    };
 
     return (
         <div className="modal-denuncia-fundo">

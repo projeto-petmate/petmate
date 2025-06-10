@@ -14,9 +14,9 @@ import { GoAlert } from 'react-icons/go';
 import ModalDenuncia from '../components/ModalDenuncia';
 
 function Feedback() {
-    const { comentarios, setComentarios } = useContext(UserContext);
+    const { comentarios, adicionarComentario, setComentarios } = useContext(UserContext);
     const [inptComentario, setInptComentario] = useState('');
-    const { addComentario } = useContext(UserContext);
+    // const { addComentario } = useContext(UserContext);
     const [erros, setErros] = useState('');
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
@@ -24,14 +24,23 @@ function Feedback() {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const vrfOng = userLogado?.id_ong ? true : false;
 
+    // const [openModalDenuncia, setOpenModalDenuncia] = useState(false);
+    const [idComentarioDenunciado, setIdComentarioDenunciado] = useState(null); // Estado para armazenar o ID do comentário denunciado
+    
+    const abrirModalDenuncia = (id_comentario) => {
+        setIdComentarioDenunciado(id_comentario); // Define o ID do comentário denunciado
+        setOpenModalDenuncia(true); // Abre o modal
+    };
 
     useEffect(() => {
         const fetchComentarios = async () => {
             try {
-                const data = await getComentarios();
-                setComentarios(data);
+                const response = await getComentarios(); 
+                // console.log('Comentários recebidos:', response);
+                setComentarios(response || []);
             } catch (error) {
-                console.error("Erro ao buscar comentarios:", error);
+                console.error('Erro ao buscar comentários:', error);
+                setComentarios([]); 
             }
         };
 
@@ -60,13 +69,14 @@ function Feedback() {
     const enviarComentario = async (e) => {
         const novoComentario = {
             texto: inptComentario,
-            id_usuario: vrfOng ? userLogado.id_ong : userLogado.id_usuario,
+            id_usuario: vrfOng ? null : userLogado.id_usuario, 
+            id_ong: vrfOng ? userLogado.id_ong : null,
             data_criacao: new Date().toISOString(),
         };
-
+    
         try {
             if (inptComentario.length > 8) {
-                await addComentario(novoComentario);
+                await adicionarComentario(novoComentario);
                 console.log('Comentário cadastrado:', novoComentario);
                 setErros('');
                 setInptComentario('');
@@ -76,7 +86,6 @@ function Feedback() {
                     title: "Comentário enviado com sucesso!",
                     showConfirmButton: false,
                     timer: 1500
-
                 });
             } else {
                 Swal.fire({
@@ -88,7 +97,6 @@ function Feedback() {
                         </p>
                     `,
                     background: "#F6F4F1",
-                    // color: "#654833",
                     confirmButtonText: "Entendido",
                     confirmButtonColor: "#84644D",
                     customClass: {
@@ -103,10 +111,8 @@ function Feedback() {
                         popup: "animate__animated animate__fadeOutUp",
                     },
                 });
-                // setErros('Comentário deve ter no mínimo 8 caracteres.');
             }
         } catch (error) {
-
             setErros({ geral: 'Erro ao enviar comentário. Tente novamente.' });
         }
     };
@@ -144,7 +150,7 @@ function Feedback() {
                                 <div className="comentario-info">
                                     <div className="comentario-nome">
                                         {c.foto_user ? (
-                                            <img src={c.foto_user} alt="Foto do Usuário" className="icon-comentario" />
+                                            <img src={c?.foto_user} alt="Foto do Usuário" className="icon-comentario" />
                                         ) : (
                                             <FaUserCircle className="icon-comentario" />
                                         )}
@@ -152,7 +158,7 @@ function Feedback() {
                                     </div>
                                     <div className="container-denunciar-comentario">
                                         {logado && userLogado &&  userLogado.id_usuario !== c.id_usuario ? (
-                                            <div className="texto-denunciar-comentario" onClick={openDenuncia}>
+                                            <div className="texto-denunciar-comentario" onClick={() => {abrirModalDenuncia(c.id_comentario)}}>
                                                 <GoAlert className='icon-denuncia-comentario' />
                                                 <p>
                                                     DENUNCIAR
@@ -182,17 +188,17 @@ function Feedback() {
                                 <ModalDenuncia
                                     isOpen={openModalDenuncia}
                                     setIsOpen={setOpenModalDenuncia}
-                                    idObjeto={c.id_comentario}
+                                    idObjeto={idComentarioDenunciado}
                                     tipo='comentario' />
                             </div>
                         </div>
                     ))}
                 </div>
-                {showSuccessPopup && (
+                {/* {showSuccessPopup && (
                     <div className="success-popup-perfil">
                         <p>Comentário enviado com sucesso!</p>
                     </div>
-                )}
+                )} */}
             </div>
             <ModalExcluirComentario
                 isExcluirComentario={openModalExcluirComentario}

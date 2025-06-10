@@ -28,7 +28,7 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStat
     fetchDenuncia();
   }, [d]);
 
-  
+
 
   if (!isOpen || !d) {
     return null;
@@ -38,7 +38,7 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStat
     try {
       setLoading(true);
       const updatedDenuncia = await updateDenuncia(denuncia.id_denuncia, { status });
-      setDenuncia({ ...denuncia, status: updatedDenuncia.status }); // Atualiza o estado local
+      setDenuncia({ ...denuncia, status: updatedDenuncia.status });
 
       setDenuncias((prevDenuncias) =>
         prevDenuncias.map((d) =>
@@ -80,7 +80,12 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStat
             </div>
             <div className="info-denuncia">
               <h3 className="info-title">Informações da Denúncia</h3>
-              <p><strong>ID do denunciante:</strong> {denuncia.id_denunciante}</p>
+              <p><strong>
+                Denunciante:{" "}</strong>
+                {denuncia.tipo_denunciante === "usuario"
+                  ? `Usuário (ID: ${denuncia.id_denunciante})`
+                  : `ONG (ID: ${denuncia.id_ong_denunciante})`}
+              </p>
               <p><strong>ID do objeto:</strong> {denuncia.id_objeto}</p>
               <p><strong>Motivo:</strong> {denuncia.motivo}</p>
               <p><strong>Status:</strong> {denuncia.status}</p>
