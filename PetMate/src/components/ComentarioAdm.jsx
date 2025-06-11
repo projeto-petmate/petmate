@@ -7,8 +7,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2';
+import { GlobalContext } from '../contexts/GlobalContext';
+
 
 function ComentarioAdm({idComentario}) {
+    const { isAdmin } = useContext(GlobalContext);
     const { comentarios, setComentarios } = useContext(UserContext);
     const [nomesComentarios, setNomesComentarios] = useState([]);
     const [commentToDelete, setCommentToDelete] = useState(null);
@@ -84,6 +87,7 @@ function ComentarioAdm({idComentario}) {
                                         <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="apagar-comentario">
+                                        { isAdmin &&
                                         <IoTrashOutline
                                             onClick={() => {
                                                 setCommentToDelete(c);
@@ -91,6 +95,7 @@ function ComentarioAdm({idComentario}) {
                                             }}
                                             className="botao-excluir-comentario"
                                         />
+                                        }
                                     </div>
                                 </div>
                                 <div className="comentario-texto">

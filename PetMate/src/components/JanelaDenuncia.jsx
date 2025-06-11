@@ -11,7 +11,8 @@ import { CgCloseO } from 'react-icons/cg';
 export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStatusUpdate }) {
   const [denuncia, setDenuncia] = useState([])
   const [loading, setLoading] = useState(false);
-  const { setDenuncias } = useContext(GlobalContext)
+  const { setDenuncias, isAdmin } = useContext(GlobalContext)
+
 
   useEffect(() => {
     const fetchDenuncia = async () => {
@@ -78,35 +79,39 @@ export default function JanelaDenuncia({ isOpen, setDenunciaModalOpen, d, onStat
               <h3 className="mensagem-title">Mensagem</h3>
               <p>{denuncia.mensagem || 'Nenhuma mensagem fornecida.'}</p>
             </div>
-            <div className="info-denuncia">
-              <h3 className="info-title">Informações da Denúncia</h3>
-              <p><strong>
-                Denunciante:{" "}</strong>
-                {denuncia.tipo_denunciante === "usuario"
-                  ? `Usuário (ID: ${denuncia.id_denunciante})`
-                  : `ONG (ID: ${denuncia.id_ong_denunciante})`}
-              </p>
-              <p><strong>ID do objeto:</strong> {denuncia.id_objeto}</p>
-              <p><strong>Motivo:</strong> {denuncia.motivo}</p>
-              <p><strong>Status:</strong> {denuncia.status}</p>
-            </div>
-            <div className="status-janela-denuncia">
-              <h4 className='titulo-status-janela-denuncia'>Status da Denúncia</h4>
-              <div className="inputs-status-janela-denuncia">
-                <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-pendente' checked={denuncia.status === 'pendente'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('pendente') }} disabled={loading} />
-                  <span className='span-janela-denuncia'>Pendente</span>
-                </label>
-                <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-analise' checked={denuncia.status === 'em análise'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('em análise') }} disabled={loading} />
-                  <span className='span-janela-denuncia'>Em análise</span>
-                </label>
-                <label className="radio-janela-denuncia">
-                  <input type="radio" id='status-resolvido' checked={denuncia.status === 'resolvido'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('resolvido') }} disabled={loading} />
-                  <span className='span-janela-denuncia'>Resolvido</span>
-                </label>
-              </div>
-            </div>
+            {isAdmin && (
+              <>
+                <div className="info-denuncia">
+                  <h3 className="info-title">Informações da Denúncia</h3>
+                  <p><strong>
+                    Denunciante:{" "}</strong>
+                    {denuncia.tipo_denunciante === "usuario"
+                      ? `Usuário (ID: ${denuncia.id_denunciante})`
+                      : `ONG (ID: ${denuncia.id_ong_denunciante})`}
+                  </p>
+                  <p><strong>ID do objeto:</strong> {denuncia.id_objeto}</p>
+                  <p><strong>Motivo:</strong> {denuncia.motivo}</p>
+                  <p><strong>Status:</strong> {denuncia.status}</p>
+                </div>
+                <div className="status-janela-denuncia">
+                  <h4 className='titulo-status-janela-denuncia'>Status da Denúncia</h4>
+                  <div className="inputs-status-janela-denuncia">
+                    <label className="radio-janela-denuncia">
+                      <input type="radio" id='status-pendente' checked={denuncia.status === 'pendente'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('pendente') }} disabled={loading} />
+                      <span className='span-janela-denuncia'>Pendente</span>
+                    </label>
+                    <label className="radio-janela-denuncia">
+                      <input type="radio" id='status-analise' checked={denuncia.status === 'em análise'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('em análise') }} disabled={loading} />
+                      <span className='span-janela-denuncia'>Em análise</span>
+                    </label>
+                    <label className="radio-janela-denuncia">
+                      <input type="radio" id='status-resolvido' checked={denuncia.status === 'resolvido'} name='status-janela-denuncia' onChange={(e) => { handleUpdateStatus('resolvido') }} disabled={loading} />
+                      <span className='span-janela-denuncia'>Resolvido</span>
+                    </label>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

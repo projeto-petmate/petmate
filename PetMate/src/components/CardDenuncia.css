@@ -98,6 +98,12 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.texto-denuncia{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
 .botao-excluir-denuncia {
     font-size: 2.5rem;
     color: #84644D;

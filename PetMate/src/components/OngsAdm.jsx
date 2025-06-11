@@ -8,6 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import ModalExcluirOng from './ModalExcluirOng';
 import ModalEditarOng from './ModalEditarOng';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 function OngsAdm({idOng}) {
   const [ongs, setOngs] = useState([]);
@@ -17,6 +18,7 @@ function OngsAdm({idOng}) {
   const [ongToEdit, setOngToEdit] = useState(null);
   const [openModalExcluirOng, setOpenModalExcluirOng] = useState(false);
   const [openModalEditarOng, setOpenModalEditarOng] = useState(false);
+  const { isAdmin } = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchOngs = async () => {
@@ -105,22 +107,27 @@ function OngsAdm({idOng}) {
               >
                 Mais Informações
               </button>
+                { isAdmin &&
+
               <FaEdit
-                className="botao-editar-ong"
-                onClick={() => {
-                  setOngToEdit(o);
-                  setOpenModalEditarOng(true);
-                }}
-                title="Editar ONG"
+              className="botao-editar-ong"
+              onClick={() => {
+                setOngToEdit(o);
+                setOpenModalEditarOng(true);
+              }}
+              title="Editar ONG"
               />
+            }
+            { isAdmin &&
               <IoTrash
-                className="botao-excluir-ong"
-                onClick={() => {
-                  setOngToDelete(o);
-                  setOpenModalExcluirOng(true);
-                }}
-                title="Apagar ONG"
+              className="botao-excluir-ong"
+              onClick={() => {
+                setOngToDelete(o);
+                setOpenModalExcluirOng(true);
+              }}
+              title="Apagar ONG"
               />
+            }
             </div>
           </div>
         ))}

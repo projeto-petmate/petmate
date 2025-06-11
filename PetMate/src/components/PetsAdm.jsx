@@ -7,8 +7,9 @@ import { FaEdit, FaRegEdit } from "react-icons/fa";
 import { IoTrash, IoTrashOutline } from "react-icons/io5";
 import JanelaPet from './JanelaPet';
 import { PetContext } from '../contexts/PetContext';
+import { GlobalContext } from '../contexts/GlobalContext';
 
-function PetsAdm({idPet}) {
+function PetsAdm({ idPet }) {
     const [allPets, setAllPets] = useState([]);
     const [openModalExcluirPet, setOpenModalExcluirPet] = useState(false);
     const [openModalEditarPet, setOpenModalEditarPet] = useState(false);
@@ -18,7 +19,7 @@ function PetsAdm({idPet}) {
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
     const [openPetModal, setOpenPetModal] = useState(false);
     const { setPet } = useContext(PetContext);
-
+    const { isAdmin } = useContext(GlobalContext);
 
 
     useEffect(() => {
@@ -68,7 +69,7 @@ function PetsAdm({idPet}) {
 
     return (
         <div className="card-pet-perfil-container">
-              {petsFiltrados.length > 0 ? (
+            {petsFiltrados.length > 0 ? (
                 petsFiltrados.map((pet) => (
                     <div key={pet.id_pet} className="pet-card-perfil">
                         <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
@@ -82,8 +83,12 @@ function PetsAdm({idPet}) {
                                     setPet(pet);
                                     setOpenPetModal(true);
                                 }}>Informações</button>
-                                <FaEdit className="botao-editar-pet" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }} />
-                                <IoTrash className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+                                {isAdmin &&
+                                    <FaEdit className="botao-editar-pet" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }} />
+                                }
+                                {isAdmin &&
+                                    <IoTrash className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+                                }
                             </div>
                         </div>
                     </div>

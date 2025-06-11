@@ -244,8 +244,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    gap: 160px;
     margin-top: 20px;
+    gap: 14%;
 
   }
 
@@ -266,7 +266,7 @@
 }
 
 .botao-editar-perfil {
-    width: 240px;
+    width: 230px;
     height: 55px;
     font-size: 20px;
     background-color: #84644D;
@@ -282,6 +282,7 @@
 
 }
 
+
 .botao-excluir-perfil {
     height: 50px;
     min-width: 150px;
@@ -295,6 +296,26 @@
     letter-spacing: 0.03em;
     padding: 0px 25px 0px 25px;
     /* margin-top: 10px; */
+}
+.conteiner-minha-denuncias{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.botao-minhas-denuncias {
+    height: 50px;
+    background-color: #EBE5E0;
+    border: 2px solid #84644D;
+    border-radius: 10px;
+    color: #84644D;
+    font-size: 20px;
+    font-family: 'Nunito';
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0px 25px 0px 25px
 }
 
 

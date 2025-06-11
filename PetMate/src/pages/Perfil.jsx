@@ -13,6 +13,9 @@ import { getPets } from '../apiService';
 import { TbMoodEdit } from 'react-icons/tb';
 import ModalConfirmFoto from '../components/ModalConfirmFoto';
 import ModalConfirmarEdit from '../components/ModalConfirmarEdit';
+import { GoAlert } from 'react-icons/go'
+import ModalMinhasDenuncias from '../components/ModalMinhasDenuncias';
+import { getDenuncias } from '../apiService';
 
 function Perfil() {
     const { userLogado, Logout, updateUsuario, deleteUsuario, logado } = useContext(GlobalContext);
@@ -27,8 +30,25 @@ function Perfil() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
     const [mostrarSenha, setMostrarSenha] = useState(false);
+    const [openModalDenuncias, setOpenModalDenuncias] = useState(false);
+    const [userDenuncias, setUserDenuncias] = useState([]);
     const navigate = useNavigate();
 
+
+     useEffect(() => {
+        const fetchDenuncias = async () => {
+            try {
+                const denuncias = await getDenuncias();
+                const minhasDenuncias = denuncias.filter(d => d.id_usuario === userLogado.id);
+                setUserDenuncias(minhasDenuncias);
+            } catch (error) {
+                console.error("Erro ao buscar denúncias:", error);
+            }
+        };
+        if (userLogado?.id) {
+            fetchDenuncias();
+        }
+    }, [userLogado]);
   
     useEffect (() => {
       if(logado !== true){
@@ -380,6 +400,13 @@ function Perfil() {
                                 )}
                                 {/* <h4>Editar dados do perfil</h4> */}
                             </div>
+                              <div className="conteiner-minha-denuncias">
+                                <button
+                                    className='botao-minhas-denuncias'
+                                    onClick={() => setOpenModalDenuncias(true)}>
+                                    Minhas denuncias <GoAlert/>
+                                </button>
+                            </div>
                             <div className="excluir-conta">
                                 <button className="botao-excluir-perfil" onClick={() => setOpenModalExclui(true)}>Excluir conta</button>
                                 {/* <h4>Excluir conta permanentemente</h4> */}
@@ -407,6 +434,11 @@ function Perfil() {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={handleRemovePhoto}
+            />
+            <ModalMinhasDenuncias
+                denuncias={userDenuncias}
+                isOpen={openModalDenuncias}
+                onClose={() => setOpenModalDenuncias(false)}
             />
         </div>
     );

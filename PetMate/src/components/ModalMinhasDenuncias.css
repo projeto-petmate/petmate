@@ -1,0 +1,39 @@
+.modal-overlay {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.03);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+.conteiner-modal-minhas-denuncias {
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  min-width: 150vh;
+  overflow-y: auto;
+  position: relative;
+}
+.close-modal-btn {
+  width: 10%;
+  height: 5%;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #c00;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+}

@@ -202,6 +202,11 @@ export const GlobalContextProvider = ({ children }) => {
         return denunciasFiltradas;
     };
 
+    let isAdmin = false;
+    if (userLogado.tipo === 'admin') {
+        isAdmin = true;
+    }
+
     return (
         <GlobalContext.Provider
             value={{
@@ -221,6 +226,8 @@ export const GlobalContextProvider = ({ children }) => {
                 filtrosDenuncias,
                 setFiltrosDenuncias,
                 filtrarDenuncias,
+                isAdmin,
+                
             }}
         >
             {children}

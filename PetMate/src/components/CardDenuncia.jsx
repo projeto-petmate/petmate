@@ -7,7 +7,7 @@ import { IoTrash } from 'react-icons/io5';
 import ModalExcluirDenuncia from './ModalExcluirDenuncia';
 
 function CardDenuncia() {
-    const { filtrarDenuncias, setDenuncias } = useContext(GlobalContext);
+    const { filtrarDenuncias, setDenuncias, isAdmin } = useContext(GlobalContext);
     const [isJanelaOpen, setIsJanelaOpen] = useState(false)
     const [selectedDenuncia, setSelectedDenuncia] = useState(null)
     const [isExcluirDenuncia, setIsExcluirDenuncia] = useState(false);
@@ -44,22 +44,30 @@ function CardDenuncia() {
             <div className="container-card-denuncia">
                 {denunciasFiltradas.map((d) => (
                     <div key={d.id_denuncia} className='card-denuncia'>
-                        <h2 className='numero-da-denuncia'>Denúncia #{d.id_denuncia}</h2>
-                        {/* <p className='mensagem-card'>Mensagem: </p> */}
+                        <div className='texto-denuncia'>
+                            <h2 className='numero-da-denuncia'>Denúncia</h2>
+                            { isAdmin &&
+                            <h2 className='numero-da-denuncia'> # {d.id_denuncia}</h2>
+                            }
+                        </div>             
                         <div className='texto-mensagem'>
                             {/* {d.mensagem} */}
                         </div>
                         <div className="info-denuncia">
-                            <p className="user-denuncia">
-                                Denunciante:{" "}
-                                {d.tipo_denunciante === "usuario"
-                                    ? `Usuário (ID: ${d.id_denunciante})`
-                                    : `ONG (ID: ${d.id_ong_denunciante})`}
-                            </p>
+                            {isAdmin &&
+                                <p className="user-denuncia">
+                                    Denunciante:{" "}
+                                    {d.tipo_denunciante === "usuario"
+                                        ? `Usuário (ID: ${d.id_denunciante})`
+                                        : `ONG (ID: ${d.id_ong_denunciante})`}
+                                </p>
+                            }
+                            {isAdmin &&
+                                <p className='motivo-denuncia'>Tipo: {d.tipo_objeto}</p>
+                            }
                             <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
-                            <p className='motivo-denuncia'>Tipo: {d.tipo_objeto}</p>
                             <div className="status-denuncia">
-                                <p       className={
+                                <p className={
                                     d.status === 'pendente'
                                         ? 'status-pendente'
                                         : d.status === 'em análise'
@@ -76,7 +84,9 @@ function CardDenuncia() {
                             <button className='botao-info-denuncia' onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
                                 Informações
                             </button>
-                            <IoTrash className="botao-excluir-denuncia" onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsExcluirDenuncia(true); }} />
+                            {isAdmin &&
+                                <IoTrash className="botao-excluir-denuncia" onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsExcluirDenuncia(true); }} />
+                            }
                         </div>
                     </div>
                 ))}
