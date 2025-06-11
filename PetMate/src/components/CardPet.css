@@ -147,6 +147,12 @@
 .icon-seta-pag{
   font-size: 20px;
 }
+.pet-info-adm {
+  
+}
+.data-pet {
+  display: flex;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {

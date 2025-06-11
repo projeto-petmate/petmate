@@ -62,34 +62,34 @@ function SegundaEtapaPet({
                         Algum campo obrigatório não foi preenchido!
                     </p>
                 `,
-                background: "#F6F4F1",  
-                color: "#654833", 
+                background: "#F6F4F1",
+                color: "#654833",
                 confirmButtonText: "Entendido",
-                confirmButtonColor: "#84644D", 
+                confirmButtonColor: "#84644D",
                 customClass: {
                     popup: "custom-swal-popup",
-                    title: "custom-swal-title", 
+                    title: "custom-swal-title",
                     confirmButton: "custom-swal-button",
                 },
                 showClass: {
-                    popup: "animate__animated animate__fadeInDown", 
+                    popup: "animate__animated animate__fadeInDown",
                 },
                 hideClass: {
-                    popup: "animate__animated animate__fadeOutUp", 
+                    popup: "animate__animated animate__fadeOutUp",
                 },
             });
             return;
         }
         const condicoesAtualizadas = radioCondicoes === 'sim' ? inptCondicoes : 'Nenhuma';
         enviarPet(tags, condicoesAtualizadas);
-        
+
     };
 
 
 
     return (
         <div>
-            <div className="modal_anunciar_segunda_etapa" onClick={() => setModalOpen(false)}>
+            <div className="modal-anunciar-segunda-etapa" onClick={() => setModalOpen(false)}>
                 <div className="container-modal-2" onClick={(e) => e.stopPropagation()}>
                     <div className="titulo-cad-pet">
                         <div className="titulo-barra-pet">
@@ -97,68 +97,71 @@ function SegundaEtapaPet({
                             <img src="/images/barra_marrom.png" className='barra-pet' />
                         </div>
                         <div className="botoes-cad-pet">
-                            <IoArrowBackCircle onClick={() => { setEtapa(1) }} className='botao_modal_voltar' />
-                            <CgCloseO onClick={() => setModalOpen(false)} className='botao_modal_2' />
+                            <IoArrowBackCircle onClick={() => { setEtapa(1) }} className='botao-modal-voltar' />
+                            <CgCloseO onClick={() => setModalOpen(false)} className='botao-modal-2' />
                         </div>
                     </div>
+                    <div className="container-meio-segunda-etapa">
 
-                    <div className="condicoes-container">
-                        <div className="condicoes-pet">
-                            <div className='condicoes-texto'>
-                                <p>
-                                    O pet possui alguma condição especial?
-                                </p>
-                            </div>
-                            <div className="radio-condicoes">
-                                <label htmlFor="radioPetNao">Não</label>
-                                <input type="radio" id='radioPetNao' name='radio-pet'
-                                    value={radioCondicoes}
-                                    onChange={() => setRadioCondicoes('não')} />
-                            </div>
-                            <div className="radio-condicoes">
-                                <label htmlFor="radioPetSim">Sim</label>
-                                <input type="radio" id='radioPetSim' name='radio-pet'
-                                    value={radioCondicoes}
-                                    onChange={() => setRadioCondicoes('sim')} />
-                            </div>
-                        </div>
-                        <div className="input-condicao">
-                            {radioCondicoes === 'sim' &&
-                                <label htmlFor="input-condicao">Descreva a condição especial do pet:
-                                    <input type="text" name="" id="input-condicao"
-                                        value={inptCondicoes}
-                                        onChange={(e) => setInptCondicoes(e.target.value)} />
-                                </label>
-                            }
-                        </div>
-                    </div>
 
-                    <div className="tags-container">
-                        <div className="tag-button">
-                            <div className="label-input-tag">
-                                <label htmlFor="input-tag">{'Características'}</label>
-                                <div className="tag-button">
-                                    <input
-                                        type="text"
-                                        className='input-tag-cad'
-                                        value={tagInput}
-                                        onChange={(e) => setTagInput(e.target.value)}
-                                        id='input-tag'
-                                        placeholder="Ex: Vacinado, Castrado, Brincalhão"
-                                    />
-                                    <button type="button" onClick={handleAddTag} className='add-tag'>+</button>
+                        <div className="condicoes-container">
+                            <div className="condicoes-pet">
+                                <div className='condicoes-texto'>
+                                    <p>
+                                        O pet possui alguma condição especial?
+                                    </p>
+                                </div>
+                                <div className="radio-condicoes">
+                                    <label htmlFor="radio-pet-nao">Não</label>
+                                    <input type="radio" id='radio-pet-nao' name='radio-pet'
+                                        value={radioCondicoes}
+                                        onChange={() => setRadioCondicoes('não')} />
+                                </div>
+                                <div className="radio-condicoes">
+                                    <label htmlFor="radio-pet-sim">Sim</label>
+                                    <input type="radio" id='radio-pet-sim' name='radio-pet'
+                                        value={radioCondicoes}
+                                        onChange={() => setRadioCondicoes('sim')} />
                                 </div>
                             </div>
+                            <div className="input-condicao">
+                                {radioCondicoes === 'sim' &&
+                                    <label htmlFor="input-condicao">Descreva a condição especial do pet:
+                                        <input type="text" name="" id="input-condicao"
+                                            value={inptCondicoes}
+                                            onChange={(e) => setInptCondicoes(e.target.value)} />
+                                    </label>
+                                }
+                            </div>
                         </div>
-                        <div className="tags-list">
-                            {tags.map((tag, index) => (
-                                <div key={index} className="tag-item">
-                                    <div className="texto-tag">
-                                        {tag}
+
+                        <div className="tags-container">
+                            <div className="tag-button">
+                                <div className="container-input-tag">
+                                    <label htmlFor="input-tag">{'Características'}</label>
+                                    <div className="tag-button">
+                                        <input
+                                            type="text"
+                                            className='input-tag-cad'
+                                            value={tagInput}
+                                            onChange={(e) => setTagInput(e.target.value)}
+                                            id='input-tag'
+                                            placeholder="Ex: Vacinado, Castrado, Brincalhão"
+                                        />
+                                        <button type="button" onClick={handleAddTag} className='add-tag'>+</button>
                                     </div>
-                                    <button type="button" onClick={() => handleRemoveTag(index)} className='remove-tag'>x</button>
                                 </div>
-                            ))}
+                            </div>
+                            <div className="tags-list">
+                                {tags.map((tag, index) => (
+                                    <div key={index} className="tag-item">
+                                        <div className="texto-tag">
+                                            {tag}
+                                        </div>
+                                        <button type="button" onClick={() => handleRemoveTag(index)} className='remove-tag'>x</button>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
 

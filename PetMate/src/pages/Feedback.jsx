@@ -25,11 +25,16 @@ function Feedback() {
     const vrfOng = userLogado?.id_ong ? true : false;
 
     // const [openModalDenuncia, setOpenModalDenuncia] = useState(false);
-    const [idComentarioDenunciado, setIdComentarioDenunciado] = useState(null); // Estado para armazenar o ID do comentário denunciado
+    const [idComentarioDenunciado, setIdComentarioDenunciado] = useState(null);
     
     const abrirModalDenuncia = (id_comentario) => {
-        setIdComentarioDenunciado(id_comentario); // Define o ID do comentário denunciado
-        setOpenModalDenuncia(true); // Abre o modal
+        setIdComentarioDenunciado(id_comentario);
+        setOpenModalDenuncia(true); 
+    };
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+           enviarComentario;
+        }
     };
 
     useEffect(() => {
@@ -75,7 +80,7 @@ function Feedback() {
         };
     
         try {
-            if (inptComentario.length > 8) {
+            if (inptComentario.length >= 8) {
                 await adicionarComentario(novoComentario);
                 console.log('Comentário cadastrado:', novoComentario);
                 setErros('');
@@ -116,6 +121,11 @@ function Feedback() {
             setErros({ geral: 'Erro ao enviar comentário. Tente novamente.' });
         }
     };
+    function capitalizeFirstLetter(text) {
+        if (!text) return '';
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+    
 
     return (
         <div>
@@ -183,7 +193,7 @@ function Feedback() {
                                     </div>
                                 </div>
                                 <div className="comentario-texto">
-                                    <p>{c.texto}</p>
+                                    <p>{capitalizeFirstLetter(c.texto)}</p>
                                 </div>
                                 <ModalDenuncia
                                     isOpen={openModalDenuncia}
