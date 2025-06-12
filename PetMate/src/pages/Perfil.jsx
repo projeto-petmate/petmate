@@ -32,23 +32,8 @@ function Perfil() {
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [openModalDenuncias, setOpenModalDenuncias] = useState(false);
     const [userDenuncias, setUserDenuncias] = useState([]);
+
     const navigate = useNavigate();
-
-
-     useEffect(() => {
-        const fetchDenuncias = async () => {
-            try {
-                const denuncias = await getDenuncias();
-                const minhasDenuncias = denuncias.filter(d => d.id_usuario === userLogado.id);
-                setUserDenuncias(minhasDenuncias);
-            } catch (error) {
-                console.error("Erro ao buscar denúncias:", error);
-            }
-        };
-        if (userLogado?.id) {
-            fetchDenuncias();
-        }
-    }, [userLogado]);
   
     useEffect (() => {
       if(logado !== true){
@@ -163,48 +148,6 @@ function Perfil() {
                                 </button>
                             </div>
                         </div>
-                        {/* <div className="user-icon-container">
-                            <div className="add-img">
-                                <input
-                                    id="file-upload"
-                                    type="file"
-                                    onChange={handleImageChange}
-                                    style={{ display: 'none' }}
-                                    disabled={!editMode}
-                                />
-                            </div>
-                            {imagemPreviewPerfil || userData?.imagem ? (
-                                <div
-                                    className="img-preview-perfil"
-                                    onClick={() => editMode && document.getElementById('file-upload').click()}
-                                >
-                                    <img
-                                        src={imagemPreviewPerfil || userData?.imagem}
-                                        alt="Pré-visualização"
-                                        className="imagem-preview-perfil"
-                                    />
-                                </div>
-                            ) : (
-                                <TbMoodEdit
-                                    className="user-icon-perfil"
-                                    onClick={() => editMode && document.getElementById('file-upload').click()}
-                                />
-                            )}
-                            <div className="icon-trash-container">
-                                {(imagemPreviewPerfil || userData?.imagem) && (
-                                    <FaTrash
-                                        className="icon-trash"
-                                        onClick={() => {
-                                            if (editMode) {
-                                                setIsModalOpen(true);
-                                            }
-                                        }}
-                                        style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
-                                    />
-                                )}
-                            </div>
-                            {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>} */}
-                        {/* </div> */}
                         <div className="inputs-perfil">
                             <div className="inputs-perfil-1">
                                 <div className="input-perma">
@@ -436,7 +379,6 @@ function Perfil() {
                 onConfirm={handleRemovePhoto}
             />
             <ModalMinhasDenuncias
-                denuncias={userDenuncias}
                 isOpen={openModalDenuncias}
                 onClose={() => setOpenModalDenuncias(false)}
             />

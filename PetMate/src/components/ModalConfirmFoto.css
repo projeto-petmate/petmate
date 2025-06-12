@@ -18,12 +18,69 @@
     justify-content: center;
     align-items: center;
     background: #ffffff;
-    /* padding: 30px;  */
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     width: 500px;
     height: 240px;
+    animation: fadeIn 0.15s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .modal-content h3 {
@@ -61,6 +118,7 @@
     border: 1px solid #6b4f3a;
     color: #333;
 }
+
 .modal-button.confirm:hover {
     background-color: #b3aba5;
     transition: 0.3s;

@@ -1,4 +1,4 @@
-.modal-excluir-comentario{
+.modal-excluir-comentario {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -11,7 +11,8 @@
     align-items: center;
     z-index: 1000;
 }
-.container-excluir-comentario{
+
+.container-excluir-comentario {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,25 +25,85 @@
     padding: 20px;
     padding-left: 50px;
     padding-right: 50px;
+    animation: fadeIn 0.15s;
 }
 
-.texto-excluir-comentario{
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.texto-excluir-comentario {
     margin-top: 3rem;
 }
+
 .texto-excluir-comentario h1 {
     font-size: 30px;
     color: #333;
     margin-bottom: 20px;
 }
 
-.texto-excluir-comentario p{
+.texto-excluir-comentario p {
     font-size: 22px;
     text-align: center;
     color: #333;
 }
 
 
-.botao-modal-excluir-comentario, .botao-modal-cancelar-comentario {
+.botao-modal-excluir-comentario,
+.botao-modal-cancelar-comentario {
     font-size: 18px;
     font-weight: 600;
     padding: 10px 20px;
@@ -77,13 +138,12 @@
     background-color: #6e533f;
 }
 
-.botoes-excluir-comentario{
+.botoes-excluir-comentario {
     margin-top: 20px;
     margin-right: 20px;
     padding: 10px;
 }
 
-.botoes-excluir-comentario button{
+.botoes-excluir-comentario button {
     padding: 10px;
 }
-

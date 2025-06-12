@@ -1,4 +1,4 @@
-.feedback-container{
+.feedback-container {
     background-image: url(/images/fundo_patas.svg);
     min-height: calc(100vh - 120px);
     display: flex;
@@ -7,20 +7,20 @@
     gap: 20px;
 }
 
-.banner-container{
+.banner-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.banner-feedback{
+.banner-feedback {
     width: 100%;
     height: 100%;
     /* object-fit: fill; */
 }
 
-.titulo-feedback{
+.titulo-feedback {
     padding: 20px;
     margin: 0;
     display: flex;
@@ -29,7 +29,7 @@
     justify-content: flex-start;
 }
 
-.titulo-feedback h2{
+.titulo-feedback h2 {
     font-size: 40px;
     color: #654833;
     margin-bottom: 10px;
@@ -39,12 +39,12 @@
 
 }
 
-.titulo-feedback p{
+.titulo-feedback p {
     font-size: 24px;
     font-weight: 600;
 }
 
-.lista-comentarios{
+.lista-comentarios {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -55,14 +55,14 @@
     margin-bottom: 50px;
 }
 
-.comentario-container{
+.comentario-container {
     min-width: 800px;
     max-width: 800px;
-    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
     border-radius: 0px 0px 10px 10px;
 }
 
-.comentario-info{
+.comentario-info {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -75,14 +75,14 @@
     justify-content: space-between;
 }
 
-.comentario-nome{
+.comentario-nome {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
 }
 
-.icon-comentario{
+.icon-comentario {
     color: #F5F5F5;
     font-size: 50px;
 }
@@ -90,20 +90,21 @@
 .icon-comentario {
     width: 40px;
     height: 40px;
-    border-radius: 50%; 
-    object-fit: cover; 
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .foto-comentario {
     background-color: #EBE5E0;
     border-radius: 100%;
-    min-height:60px;
-    max-height:60px;
-    min-width:60px;
-    max-width:60px;
+    min-height: 60px;
+    max-height: 60px;
+    min-width: 60px;
+    max-width: 60px;
     object-fit: cover;
 }
-.comentario-texto{
+
+.comentario-texto {
     background-color: #F5F5F5;
     padding: 30px;
     border-radius: 0px 0px 10px 10px;
@@ -111,7 +112,7 @@
     font-size: 20px;
 }
 
-.add-feedback-container{
+.add-feedback-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,23 +121,24 @@
     width: fit-content;
 }
 
-.add-feedback-titulo{
+.add-feedback-titulo {
     width: 100%;
     display: flex;
 }
-.add-feedback-titulo p{
+
+.add-feedback-titulo p {
     text-align: start;
     font-size: 24px;
     font-weight: 600;
 }
 
-.add-feedback{
+.add-feedback {
     display: flex;
     gap: 20px;
     align-items: center;
 }
 
-.inpt-feedback{
+.inpt-feedback {
     width: 500px;
     height: 80px;
     border-radius: 12px;
@@ -149,11 +151,11 @@
     transition: 0.3s ease;
 }
 
-.inpt-feedback:focus{
+.inpt-feedback:focus {
     background-color: #eceaea;
 }
 
-.botao-add-feedback{
+.botao-add-feedback {
     width: 100px;
     height: 50px;
     border-radius: 6px;
@@ -166,18 +168,18 @@
     cursor: pointer;
 }
 
-.botao-add-feedback:hover{
+.botao-add-feedback:hover {
     background-color: #725744;
 }
 
-.erro-comentario{
+.erro-comentario {
     color: red;
     font-size: 20px;
     font-weight: 600;
     margin-top: 15px;
 }
 
-.botao-excluir-comentario{
+.botao-excluir-comentario {
     color: #F5F5F5;
     border: none;
     font-size: 30px;
@@ -193,12 +195,12 @@
     align-items: center;
     padding: 10px;
     font-size: 16px;
-    line-height: 1.5; 
+    line-height: 1.5;
     height: auto;
     min-height: 70px;
     max-width: 100%;
-    overflow-wrap: break-word; 
-    white-space: normal; 
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 .comentario {
@@ -221,11 +223,11 @@
     /* width: fit-content; */
 }
 
-.icon-denuncia-comentario{
+.icon-denuncia-comentario {
     font-size: 18px;
 }
 
-.texto-denunciar-comentario p{
+.texto-denunciar-comentario p {
     font-size: 16px;
     font-family: 'Nunito';
     font-weight: bold;
@@ -237,6 +239,55 @@
     color: #ce483c;
     transition: color 0.3s ease;
 }
+
+
+/* Paginação */
+.paginacao-comentarios {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 20px; */
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 50px;
+}
+
+.paginacao-comentarios button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #654833;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+/* .paginacao-comentarios button:hover:not(:disabled) {
+    background-color: #eee;
+  } */
+
+  .paginacao-comentarios button.active {
+    background-color: #654833;
+    color: #fff;
+    font-weight: bold;
+}
+
+.paginacao-comentarios button:disabled {
+    background-color: #fff;
+    color: rgba(8, 8, 8, 0.5);
+}
+
+.icon-seta-pag {
+    font-size: 20px;
+}
+
+
 
 @media (max-width: 1024px) {
     .titulo-feedback h2 {
@@ -266,9 +317,11 @@
         width: 35px;
         height: 35px;
     }
+
     .lista-comentarios {
         width: 90%;
     }
+
     .comentario-container {
         display: flex;
         flex-direction: column;
@@ -276,6 +329,7 @@
         min-width: 70%;
         max-width: 90%;
     }
+
     .comentario-info {
         height: auto;
         font-size: 20px;
@@ -319,10 +373,11 @@
 /* Responsividade */
 @media (max-width: 1280px) {
     .inpt-feedback {
-        width: 100%; 
-        height: 70px; 
-        font-size: 16px; 
+        width: 100%;
+        height: 70px;
+        font-size: 16px;
     }
+
     .botao-add-feedback {
         height: 60%;
     }
@@ -333,17 +388,19 @@
         margin-top: 5px;
         margin-bottom: -10px;
     }
+
     .add-feedback-titulo p {
         font-size: 1.2em;
-        
+
     }
+
     .inpt-feedback {
-        width: 100%; 
-        height: 60px; 
-        font-size: 14px; 
+        width: 100%;
+        height: 60px;
+        font-size: 14px;
     }
+
     .botao-add-feedback {
         height: 60%;
     }
 }
-

@@ -144,7 +144,8 @@
     display: flex;
     width: 50%;
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
+    padding-bottom: 5rem;
 }
 
 /* Parte da direita, dados da denúncia */

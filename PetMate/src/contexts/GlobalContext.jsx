@@ -4,6 +4,7 @@ import { getUsuarioById, getOngById, updateUsuario as apiUpdateUsuario, deleteUs
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
+    const API_BASE_URL = 'http://localhost:3000';
     const [logado, setLogado] = useState(false);
     const [userLogado, setUserLogado] = useState({
         id: null,
@@ -27,6 +28,7 @@ export const GlobalContextProvider = ({ children }) => {
         status: '',
         tabela: '',
     });
+    const [isAdmin, setIsAdmin] = useState(false);
 
 
     useEffect(() => {
@@ -37,12 +39,13 @@ export const GlobalContextProvider = ({ children }) => {
             setToken(storedToken);
 
             try {
-                const response = await fetch('http://localhost:3000/loggedUser', {
+                const response = await fetch(`${API_BASE_URL}/loggedUser`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${storedToken}`,
                     },
                 });
+
                 if (response.ok) {
                     const data = await response.json();
                     const user = data.user;
@@ -50,13 +53,13 @@ export const GlobalContextProvider = ({ children }) => {
                     if (user.id_usuario || user.id_ong) {
                         setUserLogado(user);
                         setLogado(true);
-                        // console.log("Usuário logado carregado:", user);
                     } else {
                         console.error("Erro: ID do usuário ou ONG não definido.");
                         setLogado(false);
                     }
                 } else {
-                    setLogado(false);
+                    console.error("Token inválido ou expirado.");
+                    Logout(); // Remove o token inválido
                 }
             } catch (error) {
                 console.error("Erro ao buscar usuário logado:", error);
@@ -71,16 +74,17 @@ export const GlobalContextProvider = ({ children }) => {
         if (logado) {
             setOpenModalDenuncia(true)
         } else {
-            window.location.href = '/login'
+            navigate('/login')
         }
     }
 
     const fetchUsuarios = async () => {
+        if (!userLogado?.id) {
+            console.error("Erro: ID do usuário não definido.");
+            return;
+        }
+
         try {
-            if (!userLogado?.id) {
-                console.error("Erro: ID do usuário não definido.");
-                return;
-            }
             const data = await getUsuarioById(userLogado.id);
             setUsuarios(data);
         } catch (error) {
@@ -89,17 +93,19 @@ export const GlobalContextProvider = ({ children }) => {
     };
 
     const fetchOngs = async () => {
+        if (!userLogado?.id) {
+            console.error("Erro: ID da ONG não definido.");
+            return;
+        }
+
         try {
-            if (!userLogado?.id) {
-                console.error("Erro: ID da ONG não definido.");
-                return;
-            }
             const data = await getOngById(userLogado.id);
             setOngs(data);
         } catch (error) {
             console.error("Erro ao buscar ONGs:", error);
         }
     };
+
     const Logar = async (email, senha, tipo) => {
         try {
             const endpoint = tipo === 'ong' ? '/loginOng' : '/login';
@@ -149,6 +155,7 @@ export const GlobalContextProvider = ({ children }) => {
             imagem: '',
             tipo: '',
         });
+        setIsAdmin(false)
         setToken(null);
         localStorage.removeItem('token');
     };
@@ -190,22 +197,21 @@ export const GlobalContextProvider = ({ children }) => {
     }, []);
     const filtrarDenuncias = () => {
         let denunciasFiltradas = [...denuncias];
-    
+
         if (filtrosDenuncias.status) {
             denunciasFiltradas = denunciasFiltradas.filter((d) => d.status === filtrosDenuncias.status);
         }
-    
+
         if (filtrosDenuncias.tabela) {
             denunciasFiltradas = denunciasFiltradas.filter((d) => d.tipo_objeto === filtrosDenuncias.tabela);
         }
-    
+
         return denunciasFiltradas;
     };
 
-    let isAdmin = false;
-    if (userLogado.tipo === 'admin') {
-        isAdmin = true;
-    }
+    useEffect(() => {
+        setIsAdmin(userLogado.tipo === 'admin');
+    }, [userLogado]);
 
     return (
         <GlobalContext.Provider
@@ -227,7 +233,7 @@ export const GlobalContextProvider = ({ children }) => {
                 setFiltrosDenuncias,
                 filtrarDenuncias,
                 isAdmin,
-                
+
             }}
         >
             {children}

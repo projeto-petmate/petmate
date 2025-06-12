@@ -8,7 +8,7 @@ import NavDeslogado from "./NavDeslogado";
 
 function Navbar() {
   const [menuAberto, setMenuAberto] = useState(false);
-  const { logado, userLogado } = useContext(GlobalContext);
+  const { logado, isAdmin } = useContext(GlobalContext);
 
   return (
     <nav className="navbar-container">
@@ -19,7 +19,7 @@ function Navbar() {
       </div>
 
       <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
-        {userLogado.tipo == 'admin' &&
+        {isAdmin &&
           <NavLink
             to="/gerenciamento"
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
@@ -28,7 +28,7 @@ function Navbar() {
             Gerenciamento
           </NavLink>
         }
-        {userLogado.tipo == 'admin' &&
+        {isAdmin &&
           <NavLink
             to="https://app.powerbi.com/view?r=eyJrIjoiNmJmZGFlN2MtOGJhOS00MDVhLTgwZDYtYzkxODVjZjQ4YTQyIiwidCI6IjJjZjdkNGQ1LWJkMWItNDk1Ni1hY2Y4LTI5OTUzOTliMjE2OCJ9"
             target='_blank'
@@ -75,7 +75,7 @@ function Navbar() {
         >
           Feedback
         </NavLink>
-        {userLogado.tipo == 'admin' &&
+        {isAdmin &&
           <NavLink
             to="/denuncias"
             className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}

@@ -10,9 +10,7 @@ function CardOng({ termoPesquisa }) {
   const { ong, setOng } = useContext(OngContext);
   const [openModalOng, setOpenModalOng] = useState(false);
 
-  // Paginação
-  const ongsPerPage = 3;
-  const [currentPage, setCurrentPage] = useState(1);
+
 
   useEffect(() => {
     const fetchOngs = async () => {
@@ -30,6 +28,10 @@ function CardOng({ termoPesquisa }) {
   const ongsFiltradas = ongs.filter((o) =>
     o.nome_ong.toLowerCase().startsWith(termoPesquisa.toLowerCase())
   );
+
+  // Paginação
+  const ongsPerPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(ongsFiltradas.length / ongsPerPage);
   const startIndex = (currentPage - 1) * ongsPerPage;
@@ -73,7 +75,7 @@ function CardOng({ termoPesquisa }) {
 
       {/* Paginação visual */}
       {ongsFiltradas.length > 0 && (
-        <div className="pagination">
+        <div className="paginacao-ongs">
           <button
             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}

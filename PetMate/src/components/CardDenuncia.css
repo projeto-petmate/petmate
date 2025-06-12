@@ -1,5 +1,10 @@
 .container-card-denuncia {
     display: flex;
+    flex-direction: column;
+}
+
+.cards-denuncia {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -10,7 +15,6 @@
     /* background-color: #84644D; */
     gap: 20px;
 }
-
 
 .card-denuncia {
     display: flex;
@@ -28,7 +32,7 @@
     padding: 10px;
 }
 
-.info-denuncia{
+.info-denuncia {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,20 +40,22 @@
     gap: 2px;
 }
 
-.mensagem-card{
+.mensagem-card {
     font-size: 24px;
     font-weight: 700;
     color: #654833;
 }
 
-.status-denuncia, .motivo-denuncia, .user-denuncia{
+.status-denuncia,
+.motivo-denuncia,
+.user-denuncia {
     font-size: 20px;
     font-weight: 700;
     color: #654833;
 }
 
 
-.texto-mensagem{
+.texto-mensagem {
     display: flex;
     font-size: 19px;
     padding: 10px;
@@ -59,7 +65,7 @@
     color: #000000;
 }
 
-.numero-da-denuncia{
+.numero-da-denuncia {
     color: #654833;
 }
 
@@ -71,23 +77,9 @@
     gap: 10px;
 }
 
-/* .botao-status-denuncia{
-    width: 20rem;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #84644D;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-} */
-
 .botao-info-denuncia {
     width: 80%;
     height: 3rem;
-    /* padding: 0px 15px 0px 15px; */
     border-radius: 10px;
     background-color: #84644D;
     color: #fff;
@@ -98,7 +90,7 @@
     transition: background-color 0.3s, transform 0.2s;
 }
 
-.texto-denuncia{
+.texto-denuncia {
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -118,7 +110,7 @@
 }
 
 .status-pendente {
-    color: #6c757d; 
+    color: #6c757d;
     background-color: #f3f3fc;
     padding: 5px 10px;
     border-radius: 5px;
@@ -126,7 +118,7 @@
 }
 
 .status-analise {
-    color: #856404; 
+    color: #856404;
     background-color: #ffe5b4;
     padding: 5px 10px;
     border-radius: 5px;
@@ -134,9 +126,55 @@
 }
 
 .status-resolvido {
-    color: #155724; 
+    color: #155724;
     background-color: #d4edda;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
+}
+
+
+/* Paginação */
+.paginacao-denuncias {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 25px;
+}
+
+.paginacao-denuncias button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #654833;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+}
+
+/* .paginacao-denuncias button:hover:not(:disabled) {
+    background-color: #eee;
+  } */
+
+.paginacao-denuncias button.active {
+    background-color: #654833;
+    color: #fff;
+    font-weight: bold;
+}
+
+.paginacao-denuncias button:disabled {
+    background-color: #fff;
+    color: rgba(8, 8, 8, 0.5);
+}
+
+.icon-seta-pag {
+    font-size: 20px;
 }

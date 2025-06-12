@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 import { deleteComentario, getComentarios } from '../apiService';
 import './Feedback.css'
 import { UserContext } from '../contexts/UserContext';
-import { FaUserCircle } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';
 import Swal from 'sweetalert2'
@@ -16,36 +16,27 @@ import ModalDenuncia from '../components/ModalDenuncia';
 function Feedback() {
     const { comentarios, adicionarComentario, setComentarios } = useContext(UserContext);
     const [inptComentario, setInptComentario] = useState('');
-    // const { addComentario } = useContext(UserContext);
     const [erros, setErros] = useState('');
     const [commentToDelete, setCommentToDelete] = useState(null);
     const [openModalExcluirComentario, setOpenModalExcluirComentario] = useState(false);
     const { userLogado, logado, openDenuncia, openModalDenuncia, setOpenModalDenuncia } = useContext(GlobalContext);
-    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const vrfOng = userLogado?.id_ong ? true : false;
-
-    // const [openModalDenuncia, setOpenModalDenuncia] = useState(false);
     const [idComentarioDenunciado, setIdComentarioDenunciado] = useState(null);
-    
+
     const abrirModalDenuncia = (id_comentario) => {
         setIdComentarioDenunciado(id_comentario);
-        setOpenModalDenuncia(true); 
-    };
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {
-           enviarComentario;
-        }
+        setOpenModalDenuncia(true);
     };
 
     useEffect(() => {
         const fetchComentarios = async () => {
             try {
-                const response = await getComentarios(); 
+                const response = await getComentarios();
                 // console.log('Comentários recebidos:', response);
                 setComentarios(response || []);
             } catch (error) {
                 console.error('Erro ao buscar comentários:', error);
-                setComentarios([]); 
+                setComentarios([]);
             }
         };
 
@@ -74,11 +65,11 @@ function Feedback() {
     const enviarComentario = async (e) => {
         const novoComentario = {
             texto: inptComentario,
-            id_usuario: vrfOng ? null : userLogado.id_usuario, 
+            id_usuario: vrfOng ? null : userLogado.id_usuario,
             id_ong: vrfOng ? userLogado.id_ong : null,
             data_criacao: new Date().toISOString(),
         };
-    
+
         try {
             if (inptComentario.length >= 8) {
                 await adicionarComentario(novoComentario);
@@ -125,7 +116,17 @@ function Feedback() {
         if (!text) return '';
         return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
-    
+
+    // PAGINAÇÃO LOCAL
+    const commentsPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(comentarios.length / commentsPerPage);
+
+    const startIndex = (currentPage - 1) * commentsPerPage;
+    const endIndex = startIndex + commentsPerPage;
+    const paginatedComments = comentarios.slice(startIndex, endIndex);
+
+
 
     return (
         <div>
@@ -154,7 +155,7 @@ function Feedback() {
                     : ''}
 
                 <div className="lista-comentarios">
-                    {comentarios.map((c) => (
+                    {paginatedComments.map((c) => (
                         <div key={c.id_comentario} className="comentario">
                             <div className="comentario-container">
                                 <div className="comentario-info">
@@ -167,8 +168,8 @@ function Feedback() {
                                         <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="container-denunciar-comentario">
-                                        {logado && userLogado &&  userLogado.id_usuario !== c.id_usuario ? (
-                                            <div className="texto-denunciar-comentario" onClick={() => {abrirModalDenuncia(c.id_comentario)}}>
+                                        {logado && userLogado && userLogado.id_usuario !== c.id_usuario ? (
+                                            <div className="texto-denunciar-comentario" onClick={() => { abrirModalDenuncia(c.id_comentario) }}>
                                                 <GoAlert className='icon-denuncia-comentario' />
                                                 <p>
                                                     DENUNCIAR
@@ -204,11 +205,6 @@ function Feedback() {
                         </div>
                     ))}
                 </div>
-                {/* {showSuccessPopup && (
-                    <div className="success-popup-perfil">
-                        <p>Comentário enviado com sucesso!</p>
-                    </div>
-                )} */}
             </div>
             <ModalExcluirComentario
                 isExcluirComentario={openModalExcluirComentario}
@@ -216,6 +212,36 @@ function Feedback() {
                 onDeleteComentario={handleDeleteComment}
             />
             <LastPage />
+            {/* Paginação visual */}
+            {paginatedComments.length > 0 && (
+                <div className="paginacao-comentarios">
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                        disabled={currentPage === 1}
+                    >
+                        <FaArrowLeft className="icon-seta-pag" />
+                        Anterior
+                    </button>
+
+                    {[...Array(totalPages)].map((_, i) => (
+                        <button
+                            key={i}
+                            className={currentPage === i + 1 ? 'active' : ''}
+                            onClick={() => setCurrentPage(i + 1)}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                        disabled={currentPage === totalPages}
+                    >
+                        Próxima
+                        <FaArrowRight className="icon-seta-pag" />
+                    </button>
+                </div>
+            )}
             <Footer />
         </div>
 

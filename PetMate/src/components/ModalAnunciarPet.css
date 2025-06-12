@@ -7,9 +7,7 @@
     right: 0;
     z-index: 1000;
     overflow-y: auto;
-    /* background-color: rgba(0, 0, 0, 0.2); */
     backdrop-filter: blur(2px);
-
 }
 
 .container-modal-anunciar {
@@ -27,9 +25,6 @@
     margin-top: 20px;
     padding-bottom: 40px;
     overflow: hidden;
-}
-
-.container-modal-anunciar {
     animation: fadeIn 0.15s ease-out;
 }
 
@@ -125,7 +120,6 @@
     padding: 5px;
     background-color: #F9F9F9;
     outline: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border: 1px solid #ccc;
     margin-bottom: 10px;
 }
@@ -136,6 +130,11 @@
     border-color: #84644D;
     /* background-color: aliceblue; */
     outline: none;
+}
+
+.linha-inpt input,
+.linha-inpt select {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .botao-modal {

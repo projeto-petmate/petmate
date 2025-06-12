@@ -189,16 +189,17 @@
 
 
 /* Paginação */
-.pagination {
+.paginacao-ongs {
   display: flex;
   justify-content: center;
   margin-top: 20px;
   gap: 10px;
   flex-wrap: wrap;
-  padding-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 25px;
 }
 
-.pagination button {
+.paginacao-ongs button {
   display: flex;
   align-items: center;
   gap: 3px;
@@ -214,17 +215,17 @@
   transition: background-color 0.3s;
 }
 
-.pagination button:hover:not(:disabled) {
+.paginacao-ongs button:hover:not(:disabled) {
   background-color: #eee;
 }
 
-.pagination button.active {
+.paginacao-ongs button.active {
   background-color: #654833;
   color: #fff;
   font-weight: bold;
 }
 
-.pagination button:disabled {
+.paginacao-ongs button:disabled {
   background-color: #fff;
   color: rgba(8, 8, 8, 0.5);
 }

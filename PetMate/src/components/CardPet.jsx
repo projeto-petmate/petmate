@@ -37,7 +37,7 @@ function CardPet() {
     : [...displayedPets].sort((a, b) => a.id_pet - b.id_pet);
 
   // PAGINAÇÃO LOCAL
-  const petsPerPage = 8;
+  const petsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(ordemPets.length / petsPerPage);
 

@@ -1,18 +1,18 @@
-.editar-pet-background{
+.editar-pet-background {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
 }
 
-.editar-pet-container{
+.editar-pet-container {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -21,19 +21,74 @@
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 65vw;
-    /* max-width: 600px; */
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    /* border: 1px solid #3d2b1e; */
     justify-content: center;
     margin-top: 20px;
     padding-bottom: 30px;
-    border-left: 25px solid #654833 ;
+    border-left: 25px solid #654833;
     overflow-y: auto;
-
+    animation: fadeIn 0.15s;
 }
 
-.editar-pet-container h2{
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.editar-pet-container h2 {
     font-size: 30px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
@@ -41,44 +96,46 @@
     margin-bottom: 20px;
 }
 
-.editar-pet-container label{
+.editar-pet-container label {
     font-size: 20px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
     color: #3d2b1e;
 }
 
-.linha-edit{
+.linha-edit {
     display: flex;
     flex-direction: row;
     gap: 140px;
 }
+
 .editar-pet-container-1,
-.editar-pet-container-2{
+.editar-pet-container-2 {
     display: flex;
     flex-direction: column;
 }
 
-.botoes-edit-pet{
+.botoes-edit-pet {
     display: flex;
     flex-direction: row;
     gap: 50px;
     margin-top: 20px;
 }
 
-.botao-edit-salvar{
+.botao-edit-salvar {
     background-color: #84644D;
     color: #EBE5E0;
     transition: 0.3s;
 }
-.botao-edit-fechar{
+
+.botao-edit-fechar {
     background-color: #EBE5E0;
     color: #3d2b1e;
     transition: 0.3s;
 }
 
 .botao-edit-salvar,
-.botao-edit-fechar{
+.botao-edit-fechar {
     padding: 5px;
     border: none;
     border-radius: 5px;
@@ -90,18 +147,19 @@
     font-weight: bold;
 }
 
-.botao-edit-salvar:hover{
+.botao-edit-salvar:hover {
     background-color: #3d2b1e;
     color: white;
     transform: scale(1.05);
 }
-.botao-edit-fechar:hover{
+
+.botao-edit-fechar:hover {
     background-color: rgb(217, 213, 213);
     transform: scale(1.05);
 }
 
 .linha-edit input,
-.linha-edit select{
+.linha-edit select {
     text-align: center;
     height: 50px;
     width: 400px;
@@ -116,19 +174,19 @@
     border: 1px solid #3d2b1e;
 }
 
-.coluna-edit{
+.coluna-edit {
     display: flex;
     flex-direction: column;
 }
 
-.edit-desc{
+.edit-desc {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
 }
 
-.edit-desc input{
+.edit-desc input {
     width: 940px;
     height: 100px;
     border-radius: 8px;
@@ -156,7 +214,8 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.add-img-pet{
+
+.add-img-pet {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -230,18 +289,18 @@
     }
 
 
-    .editar-pet-container label{
+    .editar-pet-container label {
         font-size: 16px;
     }
 
 
-    .editar-pet-container h2{
+    .editar-pet-container h2 {
         font-size: 24px;
         margin-top: 30px;
     }
 
 
-   
+
     .linha-edit select {
         width: 170%;
         height: 30px;
@@ -250,14 +309,14 @@
     }
 
 
-    .linha-edit input{
+    .linha-edit input {
         width: 60%;
         height: 30px;
         font-size: 14px;
     }
 
 
-    .linha-edit{
+    .linha-edit {
         gap: 10px;
     }
 
@@ -274,7 +333,7 @@
     }
 
 
-    .tags-list-edit{
+    .tags-list-edit {
         gap: 1px;
         width: 100%;
     }

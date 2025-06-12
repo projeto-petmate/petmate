@@ -24,6 +24,64 @@
     max-width: 90%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    animation: fadeIn 0.15s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .botoes-excluir-ong {
@@ -33,7 +91,8 @@
     gap: 10px;
 }
 
-.botao-modal-excluir-ong, .botao-modal-cancelar-ong {
+.botao-modal-excluir-ong,
+.botao-modal-cancelar-ong {
     font-size: 1rem;
     border: none;
     cursor: pointer;
@@ -44,15 +103,17 @@
     transition: 0.3s ease;
 }
 
-.botao-modal-cancelar-ong{
+.botao-modal-cancelar-ong {
     background-color: #84644D;
     color: #EBE5E0;
 }
-.botao-modal-excluir-ong{
+
+.botao-modal-excluir-ong {
     background-color: #EBE5E0;
     border: 1px solid #6b4f3a;
     color: #333;
 }
+
 .botao-modal-excluir-ong:hover {
     background-color: #b3aba5;
     transition: 0.3s;
@@ -62,13 +123,13 @@
     background-color: #6e533f;
 }
 
-.botoes-excluir-ong{
+.botoes-excluir-ong {
     margin-top: 20px;
     margin-right: 20px;
     padding: 10px;
 }
 
-.botoes-excluir-ong button{
+.botoes-excluir-ong button {
     padding: 10px;
 }
 
@@ -78,10 +139,9 @@
     margin-bottom: 20px;
 }
 
-.texto-excluir-ong p{
+.texto-excluir-ong p {
     /* margin-top: 80px;  */
     font-size: 22px;
     text-align: center;
     color: #333;
 }
-

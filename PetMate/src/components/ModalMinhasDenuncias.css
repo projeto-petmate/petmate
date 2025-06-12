@@ -6,16 +6,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(0, 0, 0, 0.2);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.conteiner-modal-minhas-denuncias {
+.container-minhas-denuncias {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background: #fff;
   padding: 24px;
   border-radius: 8px;
@@ -26,8 +26,9 @@
   min-width: 150vh;
   overflow-y: auto;
   position: relative;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.15s ease-in-out;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  border-left: 2rem solid #654833;
 }
 
 @keyframes fadeIn {
@@ -85,6 +86,23 @@
       opacity: 1;
       transform: scale(1);
   }
+}
+
+.titulo-minhas-denuncias {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.txt-minhas-denuncias {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #654833;
+}
+
+.barra-denuncias {
+    height: 10px;
+    width: 103%;
 }
 
 .close-modal-btn {
