@@ -29,6 +29,7 @@ function Favoritos() {
     }, []);
 
     const petsfavoritos = pets.filter(pet => favoritos.includes(pet.id_pet));
+    
     // PAGINAÇÃO LOCAL
     const petsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +44,7 @@ function Favoritos() {
             <JanelaPet isOpen={openPetModal} setPetModalOpen={() => setOpenPetModal(!openPetModal)} />
             <Navbar />
             <div className="banner-favoritos">
-                <img src="/images/banner-favoritos.svg" loading='lazy' alt="" />
+                <img src="/images/banner-fav.svg" loading='lazy' alt="" />
             </div>
             <div className='container-favoritos'>
                 <div className="titulo-favoritos">

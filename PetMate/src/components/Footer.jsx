@@ -14,7 +14,7 @@ function Footer() {
           <img className='logo-footer' src="/images/petmate.svg" alt="logo_petmate" />
           <div className="links-footer">
               <p>Termos de Uso</p>
-              <Link to="/contato" className='sobre-nos'>
+              <Link to="/contato" className='sobre-nos' target='_blank'>
                 <p>Sobre nós</p>
               </Link>
               <p>Política de Privacidade</p>

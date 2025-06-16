@@ -35,9 +35,9 @@ export const GlobalContextProvider = ({ children }) => {
         const fetchLoggedUser = async () => {
             const storedToken = localStorage.getItem('token');
             if (!storedToken) return;
-
+    
             setToken(storedToken);
-
+    
             try {
                 const response = await fetch(`${API_BASE_URL}/loggedUser`, {
                     method: 'GET',
@@ -45,14 +45,21 @@ export const GlobalContextProvider = ({ children }) => {
                         Authorization: `Bearer ${storedToken}`,
                     },
                 });
-
+    
                 if (response.ok) {
                     const data = await response.json();
                     const user = data.user;
-
+    
                     if (user.id_usuario || user.id_ong) {
                         setUserLogado(user);
                         setLogado(true);
+    
+                        // Verifica se o usuário é administrador
+                        if (user.tipo === 'admin') {
+                            setIsAdmin(true);
+                        } else {
+                            setIsAdmin(false);
+                        }
                     } else {
                         console.error("Erro: ID do usuário ou ONG não definido.");
                         setLogado(false);
@@ -66,7 +73,7 @@ export const GlobalContextProvider = ({ children }) => {
                 setLogado(false);
             }
         };
-
+    
         fetchLoggedUser();
     }, []);
 

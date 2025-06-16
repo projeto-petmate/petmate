@@ -13,7 +13,7 @@ import Carrossel from '../components/Carrossel';
 function Inicial() {
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate()
-  const { logado } = useContext(GlobalContext)
+  const { logado, userLogado } = useContext(GlobalContext)
 
   const ModalLogin = async () => {
     Swal.fire({
