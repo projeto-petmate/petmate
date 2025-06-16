@@ -11,7 +11,7 @@ const Carrossel = () => {
         { img: '/images/banner-adotar.svg', link: '/adotar' },
         { img: '/images/banner-feedback.svg', link: '/feedback' },
         { img: '/images/banner-ong.svg', link: '/ongs' },
-        { img: '/images/banner-favoritos.svg', link: '/favoritos' },
+        { img: '/images/banner-fav.svg', link: '/favoritos' },
 
     ].map(banner => ({ ...banner, loading: 'lazy' }));
 

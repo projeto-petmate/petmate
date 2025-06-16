@@ -40,7 +40,9 @@
 
 .container-modal-2 input:focus,
 .container-modal-2 textarea:focus,
-.container-modal-2 select:focus {
+.container-modal-2 select:focus,
+#input-tag:focus
+ {
     border-color: #84644D;
     /* outline: none; */
 }
@@ -114,9 +116,9 @@
     font-size: 18px;
     text-align: center;
     font-family: 'Nunito', sans-serif;
-    background-color: #EBE5E0;
-    /* outline: none; */
     border: 1px solid #3d2b1e;
+    /* background-color: #EBE5E0; */
+    /* outline: none; */
 
 }
 

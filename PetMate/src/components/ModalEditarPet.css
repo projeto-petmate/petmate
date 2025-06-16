@@ -145,17 +145,18 @@
     font-size: 20px;
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
+    transition: 0.3s ease;
 }
 
 .botao-edit-salvar:hover {
     background-color: #3d2b1e;
     color: white;
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 .botao-edit-fechar:hover {
     background-color: rgb(217, 213, 213);
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 .linha-edit input,
@@ -169,9 +170,25 @@
     font-family: 'Nunito', sans-serif;
     font-weight: bold;
     margin-bottom: 10px;
-    background-color: #EBE5E0;
-    outline: none;
-    border: 1px solid #3d2b1e;
+    border: 1px solid #ccc;
+    background-color: #F9F9F9;
+    /* background-color: #EBE5E0; */
+    /* border: 1px solid #3d2b1e; */
+    /* outline: none; */
+}
+
+.linha-edit input:focus,
+.linha-edit select:focus,
+.edit-desc input:focus,
+.input-tag-edit:focus {
+    border-color: #84644D;
+    outline: none; 
+}
+
+
+.texto-tag-edit {
+    background-color: #F9F9F9;
+    border: 1px solid #ccc;
 }
 
 .coluna-edit {
@@ -197,9 +214,11 @@
     font-weight: bold;
     margin-bottom: 10px;
     text-wrap: wrap;
-    background-color: #EBE5E0;
+    background-color: #F9F9F9;
+    border: 1px solid #ccc;
     outline: none;
-    border: 1px solid #3d2b1e;
+    /* background-color: #EBE5E0; */
+    /* border: 1px solid #3d2b1e;  */
 
 }
 
@@ -235,6 +254,20 @@
     transition: 0.3s;
 }
 
+.tags-container-edit input {
+    height: 50px;
+    width: 450px;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    border: 1px solid #ccc;
+    background-color: #F9F9F9;
+    /* background-color: #EBE5E0; */
+    /* border: 1px solid #3d2b1e; */
+    /* outline: none; */
+}
 
 @media (max-width: 768px) {
     .editar-pet-container {
@@ -280,7 +313,6 @@
 }
 
 
-/* Estilos para telas muito pequenas (exemplo: largura máxima de 480px) */
 @media (max-width: 480px) {
     .editar-pet-container {
         width: 90vw;

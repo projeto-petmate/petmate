@@ -118,8 +118,8 @@
     width: 400px;
     border-radius: 8px;
     padding: 5px;
+    /* outline: none; */
     background-color: #F9F9F9;
-    outline: none;
     border: 1px solid #ccc;
     margin-bottom: 10px;
 }

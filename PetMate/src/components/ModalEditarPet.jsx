@@ -3,7 +3,7 @@ import './ModalEditarPet.css';
 import { PetContext } from '../contexts/PetContext';
 
 function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
-    const { pet, setPet } = useContext(PetContext);
+    const { pet, setPet, setPets, pets } = useContext(PetContext);
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
     const [raca, setRaca] = useState('');
@@ -73,6 +73,9 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         };
         onEditPet(updatedPet);
         setPetEditOpen(false);
+        setPets((prevPets) =>
+            prevPets.map((pet) => (pet.id_pet === updatedPet.id_pet ? updatedPet : pet))
+        );
         // window.location.reload();
     };
 
@@ -189,7 +192,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                             type="text"
                             value={tagInputEdit}
                             onChange={(e) => setTagInputEdit(e.target.value)}
-                            name='input-tag-edit'
+                            className='input-tag-edit'
                             placeholder="Ex: Vacinado, Castrado, Brincalhão"
                         />
                         <button type="button" onClick={handleAddTag} className='add-tag-edit'>+</button>

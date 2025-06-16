@@ -128,6 +128,7 @@ function SegundaEtapaPet({
                                 {radioCondicoes === 'sim' &&
                                     <label htmlFor="input-condicao">Descreva a condição especial do pet:
                                         <input type="text" name="" id="input-condicao"
+                                            placeholder='Ex: Depende de remédios'
                                             value={inptCondicoes}
                                             onChange={(e) => setInptCondicoes(e.target.value)} />
                                     </label>

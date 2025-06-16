@@ -43,7 +43,7 @@ function Navbar() {
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
           onClick={() => setMenuAberto(false)}
         >
-          Home
+          Início
         </NavLink>
         <NavLink
           to="/adotar"
