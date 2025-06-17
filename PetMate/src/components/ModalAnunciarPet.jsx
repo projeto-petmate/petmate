@@ -18,8 +18,8 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const [inptPetPorte, setInptPetPorte] = useState('')
   const [inptPetGenero, setInptPetGenero] = useState('')
   const [inptPetDescricao, setInptPetDescricao] = useState('')
-  const [inptPetImagem, setInptPetImagem] = useState('')
-  const [imagemPreview, setImagemPreview] = useState(null)
+  const [inptPetImagens, setInptPetImagens] = useState([]); // Array para armazenar URLs das imagens
+  const [imagemPreview, setImagemPreview] = useState([]); // Array para armazenar pré-visualizações
   const [aceitarTermos, setAceitarTermos] = useState(false)
   const [erros, setErros] = useState({})
   const [etapa, setEtapa] = useState(1)
@@ -51,22 +51,39 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   }
 
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      setInptPetImagem(reader.result)
-      setImagemPreview(reader.result)
-    }
-    reader.readAsDataURL(file)
-  }
+  const handleImageChange = async (e) => {
+    const files = Array.from(e.target.files); // Converte FileList para array
+    const previews = [];
+    const urls = [];
   
+    for (const file of files) {
+      const formData = new FormData();
+      formData.append('file', file);
+  
+      try {
+        // Faz o upload para o Cloudinary
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        const data = await response.json();
+        urls.push(data.url); // Salva o URL retornado pelo Cloudinary
+        previews.push(URL.createObjectURL(file)); // Salva a pré-visualização local
+      } catch (error) {
+        console.error('Erro ao fazer upload:', error);
+      }
+    }
+  
+    setInptPetImagens(urls); // Atualiza o estado com os URLs das imagens
+    setImagemPreview(previews); // Atualiza o estado com as pré-visualizações
+  };
   const enviarPet = async (tags = [], condicoes = '') => {
     if (!userLogado) {
       console.error("Erro: Usuário não está logado.");
       return;
     }
-
+  
     const novoPet = {
       especie: inptPetEspecie,
       nome: inptPetNome,
@@ -75,20 +92,19 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
       porte: inptPetPorte,
       genero: inptPetGenero,
       descricao: inptPetDescricao,
-      imagem: inptPetImagem,
+      imagens: inptPetImagens.join(','), // Concatena os URLs das imagens
       tags: tags.join(', '),
       condicoes: condicoes,
-      id_usuario: vrfOng ? null : userLogado.id_usuario, 
+      id_usuario: vrfOng ? null : userLogado.id_usuario,
       id_ong: vrfOng ? userLogado.id_ong : null,
       disponivel: true,
       data_criacao: new Date().toISOString(),
     };
-
+  
     try {
       const response = await addPet(novoPet);
       console.log('Pet cadastrado:', response);
-
-     
+  
       Swal.fire({
         position: "center",
         icon: "success",
@@ -96,7 +112,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
         showConfirmButton: false,
         timer: 2000,
       });
-
+  
       setModalOpen(false);
     } catch (error) {
       console.error("Erro ao cadastrar pet:", error);
@@ -203,6 +219,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
                 <input
                   id="file-upload"
                   type="file"
+                  multiple
                   onChange={handleImageChange}
                   style={{ display: 'none' }}
                 />

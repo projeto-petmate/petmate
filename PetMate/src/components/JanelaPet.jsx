@@ -1,21 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react'
-import './JanelaPet.css'
-import { PetContext } from "../contexts/PetContext"
-import axios from 'axios'
-import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa"
-import { MdOutlineEmail } from "react-icons/md"
-import { IoMdClose } from "react-icons/io"
-import { GoAlert } from 'react-icons/go'
-import ModalDenuncia from './ModalDenuncia'
-import { GlobalContext } from '../contexts/GlobalContext'
+import React, { useContext, useState, useEffect } from 'react';
+import './JanelaPet.css';
+import Slider from 'react-slick'; // Importa React Slick
+import { PetContext } from "../contexts/PetContext";
+import axios from 'axios';
+import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
+import { GoAlert } from 'react-icons/go';
+import ModalDenuncia from './ModalDenuncia';
+import { GlobalContext } from '../contexts/GlobalContext';
 import { CgCloseO } from 'react-icons/cg';
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
-  const { pet } = useContext(PetContext)
-  const [denuncia, setDenuncia] = useState(false)
-  const [doador, setDoador] = useState(null)
-  const { openDenuncia, openModalDenuncia, setOpenModalDenuncia, logado } = useContext(GlobalContext)
-  // const [openModalDenuncia, setOpenModalDenuncia] = useState(false)
+  const { pet } = useContext(PetContext);
+  const [denuncia, setDenuncia] = useState(false);
+  const [doador, setDoador] = useState(null);
+  const { openDenuncia, openModalDenuncia, setOpenModalDenuncia, logado } = useContext(GlobalContext);
 
   useEffect(() => {
     if (pet) {
@@ -23,34 +23,43 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         try {
           let response;
           if (pet.id_usuario) {
-            response = await axios.get(`http://localhost:3000/usuarios/id/${pet.id_usuario}`)
+            response = await axios.get(`http://localhost:3000/usuarios/id/${pet.id_usuario}`);
           } else if (pet.id_ong) {
-            response = await axios.get(`http://localhost:3000/ongs/${pet.id_ong}`)
+            response = await axios.get(`http://localhost:3000/ongs/${pet.id_ong}`);
           }
-          setDoador(response.data)
+          setDoador(response.data);
         } catch (error) {
-          console.error('Erro ao buscar informações do doador/ONG:', error)
+          console.error('Erro ao buscar informações do doador/ONG:', error);
         }
-      }
-      fetchDoador()
+      };
+      fetchDoador();
     }
-  }, [pet])
+  }, [pet]);
 
   if (!isOpen || !pet) {
-    return null
+    return null;
   }
 
   const telefone = doador?.telefone_contato || doador?.telefone;
   const email = doador?.email_ong || doador?.email;
   const endereco = doador?.bairro || doador?.bairro;
-  const nome = doador?.nome_ong || doador?.nome
+  const nome = doador?.nome_ong || doador?.nome;
 
   const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Estou%20interessado%20no%20pet%20${pet.nome}.` : "#";
   const linkEmail = email ? `mailto:${email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
   const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${endereco}` : "#";
 
+  const tagsArray = pet.tags ? pet.tags.split(', ') : [];
+  const imagensArray = pet.imagens ? pet.imagens.split(',') : []; // Divide os links das imagens em um array
 
-  const tagsArray = pet.tags ? pet.tags.split(', ') : []
+  // Configuração do carrossel
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   return (
     <div className='pet_modal_container' onClick={() => setPetModalOpen(false)}>
@@ -69,19 +78,24 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               </div>
             }
             <CgCloseO onClick={() => setPetModalOpen(false)} className="icon-fechar-denuncia"></CgCloseO>
-            {/* <button onClick={() => setPetModalOpen(false)} className='botao-fechar-pet'>{<IoMdClose className='closeIcon' />}</button> */}
           </div>
         </div>
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
         <div className="card-pet-container">
           <div className="modal-pet-1">
-
             <div className="img-modal">
-              <img
-                src={pet.imagem ? pet.imagem : "/images/default_pet_image.jpg"}
-                alt={`Imagem de ${pet.nome}`}
-                className="pet-image-modal"
-              />
+              {/* Carrossel de imagens */}
+              <Slider {...sliderSettings}>
+                {imagensArray.map((imagem, index) => (
+                  <div key={index}>
+                    <img
+                      src={imagem || "/images/default_pet_image.jpg"}
+                      alt={`Imagem de ${pet.nome}`}
+                      className="pet-image-modal"
+                    />
+                  </div>
+                ))}
+              </Slider>
             </div>
 
             <div className="descricao-pet">
@@ -173,5 +187,5 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

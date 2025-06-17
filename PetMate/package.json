@@ -24,8 +24,10 @@
     "react-input-mask-next": "^3.0.0-alpha.12",
     "react-router-dom": "^6.26.2",
     "react-select": "^5.10.0",
+    "react-slick": "^0.30.3",
     "react-spinners": "^0.15.0",
     "router-context": "file:",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.6.13"
   },
   "devDependencies": {

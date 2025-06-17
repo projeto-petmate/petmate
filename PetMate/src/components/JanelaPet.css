@@ -1,3 +1,6 @@
+/* @import "~slick-carousel/slick/slick.css"; */
+/* @import "~slick-carousel/slick/slick-theme.css"; */
+
 .pet_modal_container {
     position: fixed;
     inset: 0;
