@@ -43,54 +43,63 @@ function CardDenuncia({ filtrarPorUsuario = false }) {
             <div className="container-card-denuncia">
                 <div className="cards-denuncia">
 
-                    {paginatedDenuncias.map((d) => (
-                        <div key={d.id_denuncia} className='card-denuncia'>
-                            <div className='texto-denuncia'>
-                                <h2 className='numero-da-denuncia'>Denúncia</h2>
-                                {isAdmin &&
-                                    <h2 className='numero-da-denuncia'> # {d.id_denuncia}</h2>
-                                }
-                            </div>
-                            <div className='texto-mensagem'>
-                                {/* {d.mensagem} */}
-                            </div>
-                            <div className="info-denuncia">
-                                {isAdmin &&
-                                    <p className="user-denuncia">
-                                        Denunciante:{" "}
-                                        {d.tipo_denunciante === "usuario"
-                                            ? `Usuário (ID: ${d.id_denunciante})`
-                                            : `ONG (ID: ${d.id_ong_denunciante})`}
-                                    </p>
-                                }
-                                {isAdmin &&
-                                    <p className='motivo-denuncia'>Tipo: {d.tipo_objeto}</p>
-                                }
-                                <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
-                                <div className="status-denuncia">
-                                    <p className={
-                                        d.status === 'pendente'
-                                            ? 'status-pendente'
-                                            : d.status === 'em análise'
-                                                ? 'status-analise'
-                                                : 'status-resolvido'
-                                    }>
-                                        {d.status}</p>
+                    {paginatedDenuncias.length > 0 ? (
+                        paginatedDenuncias.map((d) => (
+
+                            <div key={d.id_denuncia} className='card-denuncia'>
+                                <div className='texto-denuncia'>
+                                    <h2 className='numero-da-denuncia'>Denúncia</h2>
+                                    {isAdmin &&
+                                        <h2 className='numero-da-denuncia'> # {d.id_denuncia}</h2>
+                                    }
+                                </div>
+                                <div className='texto-mensagem'>
+                                    {/* {d.mensagem} */}
+                                </div>
+                                <div className="info-denuncia">
+                                    {isAdmin &&
+                                        <p className="user-denuncia">
+                                            Denunciante:{" "}
+                                            {d.tipo_denunciante === "usuario"
+                                                ? `Usuário (ID: ${d.id_denunciante})`
+                                                : `ONG (ID: ${d.id_ong_denunciante})`}
+                                        </p>
+                                    }
+                                    {isAdmin &&
+                                        <p className='motivo-denuncia'>Tipo: {d.tipo_objeto}</p>
+                                    }
+                                    <p className='motivo-denuncia'>Motivo: {d.motivo}</p>
+                                    <div className="status-denuncia">
+                                        <p className={
+                                            d.status === 'pendente'
+                                                ? 'status-pendente'
+                                                : d.status === 'em análise'
+                                                    ? 'status-analise'
+                                                    : 'status-resolvido'
+                                        }>
+                                            {d.status}</p>
+                                    </div>
+                                </div>
+                                <div className="botoes-denuncia">
+                                    {/* <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
+                                                Atualizar status
+                                                </button> */}
+                                    <button className='botao-info-denuncia' onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
+                                        Informações
+                                    </button>
+                                    {isAdmin &&
+                                        <IoTrash className="botao-excluir-denuncia" onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsExcluirDenuncia(true); }} />
+                                    }
                                 </div>
                             </div>
-                            <div className="botoes-denuncia">
-                                {/* <button className='botao-status-denuncia' onClick={() => { setSelectedDenunciaId(d.id_denuncia); setIsModalOpen(true) }}>
-                                Atualizar status
-                                </button> */}
-                                <button className='botao-info-denuncia' onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsJanelaOpen(true) }}>
-                                    Informações
-                                </button>
-                                {isAdmin &&
-                                    <IoTrash className="botao-excluir-denuncia" onClick={() => { setSelectedDenuncia(d.id_denuncia); setIsExcluirDenuncia(true); }} />
-                                }
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        filtrarPorUsuario ? (
+                            <p className='sem-denuncias'>Você não possui nenhuma denúncia.</p>
+                        ) : (
+                            <p className='sem-denuncias'>Nenhuma denúncia foi realizada.</p>
+                        )
+                    )}
                 </div>
                 {/* Paginação visual */}
                 {paginatedDenuncias.length > 0 && (

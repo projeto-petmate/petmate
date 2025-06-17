@@ -30,7 +30,6 @@ export const GlobalContextProvider = ({ children }) => {
     });
     const [isAdmin, setIsAdmin] = useState(false);
 
-
     useEffect(() => {
         const fetchLoggedUser = async () => {
             const storedToken = localStorage.getItem('token');

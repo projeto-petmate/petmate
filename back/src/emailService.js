@@ -26,6 +26,7 @@ const enviarEmail = async (destinatario, assunto, mensagem) => {
     } catch (error) {
         console.error('Erro ao enviar e-mail:', error);
         throw error;
+        
     }
 };
 

@@ -17,6 +17,8 @@ import { deleteOng, updateOng } from '../apiService';
 import { TbMoodEdit } from 'react-icons/tb';
 import ModalConfirmFoto from './ModalConfirmFoto';
 import ModalConfirmarEdit from './ModalConfirmarEdit';
+import { GoAlert } from 'react-icons/go';
+import ModalMinhasDenuncias from './ModalMinhasDenuncias';
 
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
@@ -29,6 +31,7 @@ function PerfilOng() {
     const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
+    const [openModalDenuncias, setOpenModalDenuncias] = useState(false);
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -149,20 +152,20 @@ function PerfilOng() {
                             onClick={() => editMode && document.getElementById('file-upload').click()}
                         />
                     )}
-                    { editMode &&
+                    {editMode &&
                         <div className="icon-trash-container">
-                        {(imagemPreviewPerfil || userData?.foto_perfil) && (
-                            <FaTrash
-                            className="icon-trash"
-                            onClick={() => {
-                                if (editMode) {
-                                    setIsModalConfirmOpen(true);
-                                }
-                            }}
-                            style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
-                            />
-                        )}
-                    </div>
+                            {(imagemPreviewPerfil || userData?.foto_perfil) && (
+                                <FaTrash
+                                    className="icon-trash"
+                                    onClick={() => {
+                                        if (editMode) {
+                                            setIsModalConfirmOpen(true);
+                                        }
+                                    }}
+                                    style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
+                                />
+                            )}
+                        </div>
                     }
 
                     {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil ou na lixeira para excluir ela</p>}
@@ -443,7 +446,16 @@ function PerfilOng() {
                                 </div>
                             </button>
                         )}
-                        <button className="botao-perfil-excluir-ong" onClick={() => setOpenModalExclui(true)}>Excluir conta</button>
+                        <div className="conteiner-minha-denuncias">
+                            <button
+                                className='botao-minhas-denuncias-ong'
+                                onClick={() => setOpenModalDenuncias(true)}>
+                                Minhas denuncias <GoAlert />
+                            </button>
+                        </div>
+                        <div className="excluir-conta">
+                            <button className="botao-perfil-excluir-ong" onClick={() => setOpenModalExclui(true)}>Excluir conta</button>
+                        </div>
                         {/* <h4>Excluir conta permanentemente</h4> */}
                     </div>
                     <ModalConfirmarEdit
@@ -455,6 +467,10 @@ function PerfilOng() {
                         isExclui={openModalExclui}
                         setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)}
                         onDelete={handleDelete}
+                    />
+                    <ModalMinhasDenuncias
+                        isOpen={openModalDenuncias}
+                        onClose={() => setOpenModalDenuncias(false)}
                     />
                     {showSuccessPopup && (
                         <div className="success-popup-perfil">

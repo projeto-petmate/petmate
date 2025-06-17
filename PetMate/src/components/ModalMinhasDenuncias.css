@@ -20,6 +20,7 @@
   padding: 24px;
   border-radius: 8px;
   max-width: 600px;
+  min-height: 50%;
   width: 100%;
   height: auto;
   max-height: 90vh;
@@ -118,3 +119,8 @@
   padding: 4px 12px;
   cursor: pointer;
 }
+
+
+/* .cards-minhas-denuncias {
+    min-height: 30vh;
+} */

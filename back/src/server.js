@@ -147,7 +147,7 @@ app.get('/ongs/verificar-cnpj', async (req, res) => {
     }
 });
 
-// Rotas para usuários
+//Rotas para usuários
 app.post('/usuarios', async (req, res) => {
     const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
 
@@ -243,9 +243,9 @@ app.post('/login', async (req, res) => {
         }
 
         const usuario = result.rows[0];
-        // if (usuario.senha !== senha) {
-        //     return res.status(401).json({ error: 'Senha incorreta' });
-        // }
+        //if (usuario.senha !== senha) {
+        //    return res.status(401).json({ error: 'Senha incorreta' });
+        //}
 
         const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '7d' });
 
@@ -274,17 +274,25 @@ app.get('/loggedUser', authenticateToken, async (req, res) => {
 
     try {
         if (tipo === 'usuario') {
-            const result = await pool.query('SELECT id_usuario, nome, email, genero, cpf, senha, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1', [id]);
+            const result = await pool.query(
+                'SELECT id_usuario, nome, email, genero, cpf, senha, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1',
+                [id]
+            );
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Usuário não encontrado' });
             }
-            return res.json({ user: result.rows[0] });
+            const user = { ...result.rows[0], tipo: result.rows[0].tipo }
+            return res.json({ user });
         } else if (tipo === 'ong') {
-            const result = await pool.query('SELECT id_ong, nome_ong, email, telefone, instagram, estado, cidade, endereco, foto_perfil, descricao FROM ongs WHERE id_ong = $1', [id]);
+            const result = await pool.query(
+                'SELECT * FROM ongs WHERE id_ong = $1',
+                [id]
+            );
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'ONG não encontrada' });
             }
-            return res.json({ user: result.rows[0] });
+            const user = { ...result.rows[0], tipo: 'ong' };
+            return res.json({ user });
         }
     } catch (error) {
         console.error('Erro ao buscar usuário logado:', error.message);
@@ -292,7 +300,7 @@ app.get('/loggedUser', authenticateToken, async (req, res) => {
     }
 });
 
-// CRUD para pets
+//CRUD para pets
 app.get('/pets', async (req, res) => {
     const { id_usuario, id_ong } = req.query;
 
@@ -391,10 +399,10 @@ app.delete('/pets/:id', async (req, res) => {
     }
 });
 
-// CRUD para ONGs
+//CRUD para ONGs
 
 
-// Listar todas as ONGs
+//Listar todas as ONGs
 app.get('/ongs', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM ongs');
@@ -406,7 +414,7 @@ app.get('/ongs', async (req, res) => {
 });
 
 
-// Buscar uma ONG por ID
+//Buscar uma ONG por ID
 app.get('/ongs/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -486,7 +494,7 @@ app.delete('/ongs/:id', async (req, res) => {
     }
 });
 
-// Login de ONG
+//Login de ONG
 app.post('/loginOng', async (req, res) => {
     const { email, senha } = req.body;
 
@@ -517,8 +525,8 @@ app.post('/loginOng', async (req, res) => {
 
 
 
-// CRUD para Comentários
-// Listar todos os comentários
+//CRUD para Comentários
+//Listar todos os comentários
 app.get('/comentarios', async (req, res) => {
     try {
         const result = await pool.query(`
@@ -537,7 +545,7 @@ app.get('/comentarios', async (req, res) => {
     }
 });
 
-// Buscar um comentário por ID
+//Buscar um comentário por ID
 app.get('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -602,7 +610,7 @@ app.post('/comentarios', async (req, res) => {
     }
 });
 
-// Atualizar um comentário
+//Atualizar um comentário
 app.put('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
     const { texto } = req.body;
@@ -629,7 +637,7 @@ app.put('/comentarios/:id', async (req, res) => {
     }
 });
 
-// Deletar um comentário
+//Deletar um comentário
 app.delete('/comentarios/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -670,17 +678,17 @@ app.post('/recuperar-senha', async (req, res) => {
             tabela = 'usuarios'
         }
 
-        // Gere um código de verificação
-        const codigo = Math.floor(100000 + Math.random() * 900000).toString(); // Código de 6 dígitos
+        //Gera um código de verificação
+        const codigo = Math.floor(100000 + Math.random() * 900000).toString(); //Código de 6 dígitos
 
-        // Atualize o código de verificação no banco de dados
+        //Atualiza o código de verificação no banco de dados
         if (tabela === 'usuarios') {
             await pool.query('UPDATE usuarios SET codigo_verificacao = $1 WHERE email = $2', [codigo, email]);
         } else if (tabela === 'ongs') {
             await pool.query('UPDATE ongs SET codigo_verificacao = $1 WHERE email = $2', [codigo, email]);
         }
 
-        // Envie o código por e-mail
+        //Envia o código por e-mail
         await enviarEmail(email, 'Código de Verificação', `Seu código de verificação é: ${codigo}`);
 
         res.status(200).json({ message: 'Código enviado para o e-mail.' });
@@ -776,7 +784,7 @@ app.post('/redefinir-senha', async (req, res) => {
 
 
 //Rotas para denúncias
-// Listar todas as denúncias
+//Listar todas as denúncias
 app.get('/denuncias', async (req, res) => {
     try {
         const result = await pool.query(`
@@ -791,7 +799,7 @@ app.get('/denuncias', async (req, res) => {
     }
 });
 
-// Buscar uma denúncia por ID
+//Buscar uma denúncia por ID
 app.get('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
 
@@ -814,16 +822,16 @@ app.get('/denuncias/:id', async (req, res) => {
     }
 });
 
-// Criar uma nova denúncia
+//Criar uma nova denúncia
 app.post('/denuncias', async (req, res) => {
     const { mensagem, motivo, tipo_objeto, id_objeto, id_denunciante, id_ong_denunciante, tipo_denunciante } = req.body;
 
-    // Validação: Campos obrigatórios
+    //Validação: Campos obrigatórios
     if (!motivo || !tipo_objeto || !id_objeto || !tipo_denunciante) {
         return res.status(400).json({ error: 'Motivo, tipo do objeto, ID do objeto e tipo do denunciante são obrigatórios.' });
     }
 
-    // Validação: Apenas um tipo de denunciante deve ser fornecido
+    //Validação: Apenas um tipo de denunciante deve ser fornecido
     if (
         (tipo_denunciante === 'usuario' && (!id_denunciante || id_ong_denunciante)) ||
         (tipo_denunciante === 'ong' && (!id_ong_denunciante || id_denunciante))
@@ -853,12 +861,12 @@ app.post('/denuncias', async (req, res) => {
     }
 });
 
-// Atualizar uma denúncia por ID
+//Atualizar uma denúncia por ID
 app.put('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    // Validação: O status deve ser válido
+    //Validação: O status deve ser válido
     if (!['pendente', 'em análise', 'resolvido'].includes(status)) {
         return res.status(400).json({ error: 'Status inválido. Use "pendente", "em análise" ou "resolvido".' });
     }
@@ -882,7 +890,7 @@ app.put('/denuncias/:id', async (req, res) => {
     }
 });
 
-// Deletar uma denúncia por ID
+//Deletar uma denúncia por ID
 app.delete('/denuncias/:id', async (req, res) => {
     const { id } = req.params;
     try {

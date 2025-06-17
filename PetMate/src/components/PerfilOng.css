@@ -235,3 +235,18 @@
     justify-content: center;
     cursor: pointer;
 }
+
+
+.botao-minhas-denuncias-ong {
+    height: 50px;
+    background-color: #EBE5E0;
+    border: 2px solid #84644D;
+    border-radius: 10px;
+    color: #84644D;
+    font-size: 20px;
+    font-family: 'Nunito';
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 0px 25px 0px 25px;
+    cursor: pointer;
+}
