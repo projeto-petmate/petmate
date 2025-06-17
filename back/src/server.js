@@ -3,6 +3,9 @@ const app = express();
 const cors = require('cors');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
+const multer = require('multer'); // Middleware para lidar com uploads de arquivos
+const cloudinary = require('./cloudinaryConfig'); // Importa a configuração do Cloudinary
+const upload = multer({ storage: multer.memoryStorage() }); // Configura o multer para armazenar arquivos na memória
 
 const pool = new Pool({
     user: 'postgres',
@@ -340,7 +343,7 @@ app.get('/pets/:id', async (req, res) => {
 
 
 app.post('/pets', async (req, res) => {
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagens, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
 
     if (!id_usuario && !id_ong) {
         return res.status(400).json({ error: 'É necessário informar id_usuario ou id_ong' });
@@ -352,9 +355,9 @@ app.post('/pets', async (req, res) => {
 
     try {
         const result = await pool.query(
-            `INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong) 
+            `INSERT INTO pets (nome, idade, raca, descricao, porte, genero, imagens, especie, tags, condicoes, disponivel, id_usuario, id_ong) 
              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null]
+            [nome, idade, raca, descricao, porte, genero, imagens, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
@@ -365,15 +368,15 @@ app.post('/pets', async (req, res) => {
 
 app.put('/pets/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
+    const { nome, idade, raca, descricao, porte, genero, imagens, especie, tags, condicoes, disponivel, id_usuario, id_ong } = req.body;
 
     try {
         const result = await pool.query(
             `UPDATE pets SET 
-                nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagem = $7, 
+                nome = $1, idade = $2, raca = $3, descricao = $4, porte = $5, genero = $6, imagens = $7, 
                 especie = $8, tags = $9, condicoes = $10, disponivel = $11, id_usuario = $12, id_ong = $13 
             WHERE id_pet = $14 RETURNING *`,
-            [nome, idade, raca, descricao, porte, genero, imagem, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null, id]
+            [nome, idade, raca, descricao, porte, genero, imagens, especie, tags, condicoes, disponivel, id_usuario || null, id_ong || null, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Pet não encontrado' });
@@ -902,6 +905,36 @@ app.delete('/denuncias/:id', async (req, res) => {
     } catch (err) {
         console.error('Erro ao deletar denúncia:', err.message);
         res.status(500).json({ error: 'Erro ao deletar denúncia' });
+    }
+});
+
+
+
+//Teste API Imagens
+app.post('/upload', upload.single('file'), async (req, res) => {
+    try {
+        const file = req.file;
+
+        if (!file) {
+            return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
+        }
+
+        // Faz o upload para o Cloudinary
+        const result = await cloudinary.uploader.upload_stream(
+            { folder: 'pets' }, // Opcional: define uma pasta no Cloudinary
+            (error, uploadResult) => {
+                if (error) {
+                    console.error('Erro ao fazer upload:', error);
+                    return res.status(500).json({ error: 'Erro ao fazer upload.' });
+                }
+                res.status(200).json({ url: uploadResult.secure_url });
+            }
+        );
+
+        result.end(file.buffer); // Envia o buffer do arquivo para o Cloudinary
+    } catch (error) {
+        console.error('Erro ao fazer upload:', error.message);
+        res.status(500).json({ error: 'Erro ao fazer upload.' });
     }
 });
 
