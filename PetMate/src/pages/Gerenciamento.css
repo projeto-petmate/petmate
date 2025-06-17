@@ -138,7 +138,10 @@
 }
 
 .container-adm2 {
-    min-width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20rem;
     /* height: 63vh; */
     background-color: #FBFBFB;
     background-image: url(/images/fundo_patas.svg);
