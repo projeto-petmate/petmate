@@ -152,7 +152,7 @@ function PerfilOng() {
                             onClick={() => editMode && document.getElementById('file-upload').click()}
                         />
                     )}
-                    {editMode &&
+                    {/* {editMode &&
                         <div className="icon-trash-container">
                             {(imagemPreviewPerfil || userData?.foto_perfil) && (
                                 <FaTrash
@@ -166,9 +166,9 @@ function PerfilOng() {
                                 />
                             )}
                         </div>
-                    }
+                    } */}
 
-                    {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil ou na lixeira para excluir ela</p>}
+                    {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
 
                 </div>
                 <div className="inputs-infom-ong">
