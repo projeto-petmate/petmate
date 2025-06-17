@@ -26,6 +26,12 @@
     /* border: solid; */
 }
 
+.texto-dados-perfil{
+    font-size: 26px;
+    font-weight: 700;
+    color: #6e5440;
+}
+
 .texto-e-img-barra{
     /* border: solid; */
     width: 70%;
@@ -48,6 +54,7 @@
     flex-direction: row;
     justify-content: center;
     gap: 5%;
+    margin-top: 3%;
     /* border: solid; */
 }
 
@@ -164,6 +171,20 @@
 }
 
 .botao-editar-perfil-ong {
+    height: 55px;
+    font-size: 20px;
+    background-color: #84644D;
+    border-radius: 12px;
+    border: none;
+    color: #F6F4F1;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    font-family: Roboto;
+    padding: 0px 25px 0px 25px;
+    cursor: pointer;
+}
+
+.botao-salvar-dados{
     height: 55px;
     font-size: 20px;
     background-color: #84644D;

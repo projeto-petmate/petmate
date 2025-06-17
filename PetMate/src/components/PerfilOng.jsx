@@ -73,7 +73,7 @@ function PerfilOng() {
         document.getElementById('file-upload').value = null;
         setIsModalConfirmOpen(false);
     };
-    
+
     const handleSave = async () => {
         try {
             if (!userData.id_ong) {
@@ -121,7 +121,7 @@ function PerfilOng() {
                         </button>
                     </div>
                 </div>
-                <p>Dados do Perfil</p>
+                <p className='texto-dados-perfil'>Dados do Perfil</p>
                 <div className="user-icon-container">
                     <div className="add-img">
                         <input
@@ -149,19 +149,23 @@ function PerfilOng() {
                             onClick={() => editMode && document.getElementById('file-upload').click()}
                         />
                     )}
-                    <div className="icon-trash-container">
+                    { editMode &&
+                        <div className="icon-trash-container">
                         {(imagemPreviewPerfil || userData?.foto_perfil) && (
                             <FaTrash
-                                className="icon-trash"
-                                onClick={() => {   if (editMode) {
-                                    setIsModalConfirmOpen(true); 
+                            className="icon-trash"
+                            onClick={() => {
+                                if (editMode) {
+                                    setIsModalConfirmOpen(true);
                                 }
                             }}
-                                style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
+                            style={{ cursor: editMode ? 'pointer' : 'not-allowed', opacity: editMode ? 1 : 0.5 }}
                             />
                         )}
                     </div>
-                    {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil</p>}
+                    }
+
+                    {editMode && <p className="trocar-foto-texto">Clique no ícone para alterar sua imagem de perfil ou na lixeira para excluir ela</p>}
 
                 </div>
                 <div className="inputs-infom-ong">
@@ -432,7 +436,7 @@ function PerfilOng() {
                                 </div>
                             </button>
                         ) : (
-                            <button className="botao-salvar-perfil" onClick={() => setOpenModalConfirmEdit(true)}>
+                            <button className="botao-salvar-dados" onClick={() => setOpenModalConfirmEdit(true)}>
                                 <div className="salvar-dados">
                                     Salvar Dados
                                     <FaCheck className='icon-edit' />
