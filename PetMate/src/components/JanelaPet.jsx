@@ -80,7 +80,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <img
                 src={pet.imagem ? pet.imagem : "/images/default_pet_image.jpg"}
                 alt={`Imagem de ${pet.nome}`}
-                className="pet-image"
+                className="pet-image-modal"
               />
             </div>
 

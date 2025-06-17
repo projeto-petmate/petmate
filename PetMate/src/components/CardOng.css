@@ -27,8 +27,8 @@
 }
 
 .ong-image {
-  width: 100%;
-  height: 250px;
+  min-width: 60%;
+  height: 260px;
   object-fit: cover;
 }
 

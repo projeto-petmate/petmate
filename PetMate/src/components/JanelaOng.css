@@ -119,8 +119,8 @@
 }
 
 .logo-ong {
-    width: 12em;
-    height: 12em;
+    width: 20em;
+    min-height: auto;
     object-fit: cover;
     border-radius: 8px;
 }

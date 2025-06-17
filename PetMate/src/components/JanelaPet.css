@@ -9,6 +9,12 @@
     z-index: 1000;
 }
 
+.pet-image-modal{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
 .container_modal_pet {
     background-color: #fff;
     border-radius: 10px;
