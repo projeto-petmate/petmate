@@ -40,9 +40,12 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
     return null
   }
 
+  const cidade = doador?.cidade || doador?.cidade_ong || 'Cidade não informada';
+  const bairro = doador?.bairro || doador?.bairro_ong || 'Bairro não informado';
+
   const telefone = doador?.telefone_contato || doador?.telefone;
   const email = doador?.email_ong || doador?.email;
-  const endereco = doador?.bairro || doador?.bairro;
+  const endereco = `${bairro}, ${cidade}`;
   const nome = doador?.nome_ong || doador?.nome
 
   const linkWpp = telefone && `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Estou%20interessado%20no%20pet%20${pet.nome}.`;

@@ -88,6 +88,7 @@ function PerfilOng() {
             setEditMode(false);
             setShowSuccessPopup(true);
             setOpenModalConfirmEdit(false);
+            setMostrarSenha(false);
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);

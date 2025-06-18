@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { OngContext } from '../contexts/OngContext';
 import { getOngs, deleteOng, updateOng } from '../apiService';
-import './CardOng.css';
+import './OngsAdm.css';
 import JanelaOng from './JanelaOng';
 import { IoTrash, IoTrashOutline } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
@@ -91,7 +91,7 @@ function OngsAdm({idOng}) {
             <img
               src={o.foto_perfil || '/images/default_ong_image.jpg'}
               alt={`Imagem da ONG ${o.nome_ong}`}
-              className="ong-image"
+              className="ong-image-gerenciamento"
             />
             <div className="ong-info-card">
               <h3>{o.nome_ong}</h3>

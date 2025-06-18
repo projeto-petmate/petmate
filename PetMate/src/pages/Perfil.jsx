@@ -34,11 +34,11 @@ function Perfil() {
     const [userDenuncias, setUserDenuncias] = useState([]);
 
     const navigate = useNavigate();
-  
-    useEffect (() => {
-      if(logado !== true){
-        navigate('/home')
-      }
+
+    useEffect(() => {
+        if (logado !== true) {
+            navigate('/home')
+        }
     })
 
     const handleRemovePhoto = () => {
@@ -92,6 +92,7 @@ function Perfil() {
             setEditMode(false);
             setShowSuccessPopup(true);
             setOpenModalConfirmEdit(false)
+            setMostrarSenha(false);
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
@@ -343,11 +344,11 @@ function Perfil() {
                                 )}
                                 {/* <h4>Editar dados do perfil</h4> */}
                             </div>
-                              <div className="conteiner-minha-denuncias">
+                            <div className="conteiner-minha-denuncias">
                                 <button
                                     className='botao-minhas-denuncias'
                                     onClick={() => setOpenModalDenuncias(true)}>
-                                    Minhas denuncias <GoAlert/>
+                                    Minhas denuncias <GoAlert />
                                 </button>
                             </div>
                             <div className="excluir-conta">
