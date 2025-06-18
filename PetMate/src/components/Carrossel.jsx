@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Carrossel.css';
-import { HiArrowCircleLeft } from "react-icons/hi";
-import { HiArrowCircleRight } from "react-icons/hi";
+import { VscChevronLeft } from "react-icons/vsc";
+import { VscChevronRight } from "react-icons/vsc";
 
 const Carrossel = () => {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Carrossel = () => {
 
     const [index, setIndex] = useState(0);
     const [intervalId, setIntervalId] = useState(null);
-    
+
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % banners.length);
@@ -56,7 +56,7 @@ const Carrossel = () => {
         <div className="carrossel-container">
 
             <button className="arrow left" onClick={handlePrev}>
-                <HiArrowCircleLeft />
+                <VscChevronLeft />
             </button>
 
             <img
@@ -67,7 +67,7 @@ const Carrossel = () => {
             />
 
             <button className="arrow right" onClick={handleNext}>
-                <HiArrowCircleRight />
+                <VscChevronRight />
             </button>
 
             <div className="carrossel-dots">
