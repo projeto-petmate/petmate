@@ -1,29 +1,17 @@
-/* @import "~slick-carousel/slick/slick.css"; */
-/* @import "~slick-carousel/slick/slick-theme.css"; */
+@import "slick-carousel/slick/slick-theme.css";
+@import "slick-carousel/slick/slick.css";
 
-.pet_modal_container {
-    position: fixed;
-    inset: 0;
-    backdrop-filter: blur(2px);
-    /* background-color: rgba(0, 0, 0, 0.2); */
+.janela-pet-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
 }
 
-.pet-image-modal{
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
 
 .container_modal_pet {
     background-color: #fff;
     border-radius: 10px;
     width: 90vw;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 93vh;
     border-left: #654833 25px solid;
     align-items: center;
     padding: 20px;
@@ -33,6 +21,7 @@
 .container_modal_pet {
     animation: fadeIn 0.15s ease-out;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -136,13 +125,14 @@
 .modal-pet-1 {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 50px;
-    height: 70vh;
+    width: 50%;
     margin: auto;
-    justify-content: space-between;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* gap: 50px; */
+    /* height: 70vh; */
     /* border: solid; */
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .modal-pet-2 {
@@ -151,8 +141,8 @@
     align-items: center;
     height: 70vh;
     justify-content: space-between;
-    /* border: solid; */
     padding: 10px;
+    /* border: solid; */
 }
 
 .detalhes-desc {
@@ -175,6 +165,89 @@
     border: none;
     box-shadow: 2px 2px 4px #484848;
 }
+
+.carrossel-img-pet {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    max-height: 10%;
+}
+.map-foto-pet {
+    /* width: fit-content; */
+    /* height: fit-content; */
+}
+
+.pet-image-janela {
+    display: flex;
+    margin: auto;
+    max-height: 25rem;
+    max-width: 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* height: 2rem; */
+    /* width: 2rem; */
+    /* justify-content: center; */
+    /* border: solid 1px #ccc; */
+    /* border-radius: 4px; */
+    /* padding: 10px; */
+  }
+  
+  .pet-image-janela img {
+    height: auto;
+    border-radius: 8px;
+    /* width: 150px;  */
+    /* object-fit: cover;  */
+  }
+.pet_modal_container {
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(2px);
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.pet-image-modal{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+
+.slick-slider,
+.slick-list,
+.slick-track {
+  width: 100% !important;
+  height: auto !important;
+  box-sizing: border-box;
+}
+
+.slick-slide {
+  /* display: flex !important; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  height: auto !important;
+}
+
+.map-foto-pet {
+  width: 100% !important;
+  height: auto !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pet-image-janela {
+    max-width: 100%;
+    max-height: 25rem;
+    width: auto;
+    height: auto;
+    margin: auto;
+    display: block;
+  }
 
 .container-pet-modal {
     display: flex;

@@ -919,9 +919,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
         }
 
-        // Faz o upload para o Cloudinary
         const result = await cloudinary.uploader.upload_stream(
-            { folder: 'pets' }, // Opcional: define uma pasta no Cloudinary
+            { folder: 'pets' },
             (error, uploadResult) => {
                 if (error) {
                     console.error('Erro ao fazer upload:', error);
@@ -931,7 +930,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
             }
         );
 
-        result.end(file.buffer); // Envia o buffer do arquivo para o Cloudinary
+        result.end(file.buffer);
     } catch (error) {
         console.error('Erro ao fazer upload:', error.message);
         res.status(500).json({ error: 'Erro ao fazer upload.' });

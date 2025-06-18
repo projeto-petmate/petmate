@@ -12,7 +12,7 @@ function SegundaEtapaPet({
     inptPetPorte,
     inptPetGenero,
     inptPetDescricao,
-    inptPetImagem,
+    inptPetImagens,
     aceitarTermos,
     setAceitarTermos,
     setEtapa,
@@ -41,7 +41,7 @@ function SegundaEtapaPet({
     const validarFormulario = () => {
         const novosErros = {};
 
-        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem || !tags) {
+        if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagens.length || !tags.length) {
             novosErros.campos = 'Todos os campos são obrigatórios.';
         }
         if (!aceitarTermos) {

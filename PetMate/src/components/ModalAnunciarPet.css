@@ -1,3 +1,25 @@
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+.img-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    height: 10rem;
+    width: 10rem;
+    justify-content: center;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+    padding: 10px;
+  }
+  
+  .img-preview img {
+    height: auto;
+    /* width: 150px;  */
+    /* object-fit: cover;  */
+    border-radius: 8px;
+  }
+
 .modal-anunciar-fundo {
     position: fixed;
     min-height: 100vh;
@@ -33,42 +55,52 @@
         opacity: 0;
         transform: scale(0.8);
     }
+
     10% {
         opacity: 0.1;
         transform: scale(0.82);
     }
+
     20% {
         opacity: 0.2;
         transform: scale(0.84);
     }
+
     30% {
         opacity: 0.3;
         transform: scale(0.86);
     }
+
     40% {
         opacity: 0.4;
         transform: scale(0.88);
     }
+
     50% {
         opacity: 0.5;
         transform: scale(0.9);
     }
+
     60% {
         opacity: 0.6;
         transform: scale(0.92);
     }
+
     70% {
         opacity: 0.7;
         transform: scale(0.94);
     }
+
     80% {
         opacity: 0.8;
         transform: scale(0.96);
     }
+
     90% {
         opacity: 0.9;
         transform: scale(0.98);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -76,13 +108,14 @@
 }
 
 
-.titulo-barra-pet img{
+.titulo-barra-pet img {
     width: 380px;
 }
 
 .botao-modal-2 {
     font-size: 3rem;
 }
+
 .botao-modal-2 {
     background-color: #FFFFFF;
     color: #84644D;
@@ -181,23 +214,26 @@
     height: 10px;
 }
 
-.add-img{
+.add-img {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
-.img-preview{
+
+.img-preview {
     border: solid 3px #84644D;
     border-radius: 4px;
     display: flex;
 }
-.img-preview img{
+
+.img-preview img {
     height: 120px;
     width: fit-content;
     max-width: 400px;
 }
-.label-inpt-img{
+
+.label-inpt-img {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -210,7 +246,8 @@
     flex-direction: row;
     gap: 150px;
 }
-.botao-add-img{
+
+.botao-add-img {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -232,6 +269,7 @@
     color: #F9F9F9;
     transition: 0.3s ease;
 }
+
 .botao-add-img:hover {
     transform: scale(1.01);
 }
@@ -244,8 +282,8 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: auto; 
-    gap: 10px;   
+    margin: auto;
+    gap: 10px;
 }
 
 .radio-pet input {
@@ -253,8 +291,8 @@
 }
 
 .radio-pet p {
-   text-align: center;
-   align-items: center;
+    text-align: center;
+    align-items: center;
 }
 
 .radio-pet input[type="radio"] {
@@ -278,7 +316,7 @@
     color: #D9D9D9;
 }
 
-#selectGeneroCad{
+#selectGeneroCad {
     width: 400px;
     height: 50px;
 }
@@ -353,28 +391,31 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
     animation: fadeInOut 3s ease-in-out;
-  }
-  
-  @keyframes fadeInOut {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -60%);
-    }
-    10% {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-    }
-    90% {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -60%);
-    }
-  }
+}
 
-  @media (max-width: 768px) {
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+
+    10% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+}
+
+@media (max-width: 768px) {
     .container-modal-anunciar {
         width: 90vw;
         padding: 15px;
@@ -468,7 +509,7 @@
 
 
 
-    .linha-inpt{
+    .linha-inpt {
         flex-direction: column;
         gap: 0px;
     }
@@ -476,7 +517,7 @@
 
 
 
-    #slectGenero{
+    #slectGenero {
         width: 120%;
         height: 40px;
     }
@@ -519,14 +560,16 @@
     }
 
 
-    #selectGeneroCad{
+    #selectGeneroCad {
         width: 150%;
         height: 40px;
         margin-left: -40px;
     }
 
 
-    .container-modal-anunciar label, .container-modal-anunciar input, .container-modal-anunciar select{
+    .container-modal-anunciar label,
+    .container-modal-anunciar input,
+    .container-modal-anunciar select {
         font-size: 16px;
         margin-left: -40px;
     }

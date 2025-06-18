@@ -17,6 +17,15 @@ function CardPet() {
     toggleFavorito(id_pet);
   };
 
+  const getPetImage = (pet) => {
+    if (pet.imagens) {
+      const imgs = pet.imagens.split(',').map(s => s.trim()).filter(Boolean);
+      if (imgs.length > 0 && imgs[0]) return imgs[0];
+    }
+    if (pet.imagem) return pet.imagem;
+    return "/images/default_pet_image.jpg";
+  };
+
   const safeFavoritos = Array.isArray(favoritos) ? favoritos : [];
 
   const filteredPets = filterOn
@@ -57,7 +66,7 @@ function CardPet() {
         {paginatedPets.map((p) => (
           <div key={p.id_pet} className="pet-card">
             <img
-              src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
+              src={getPetImage(p)}
               alt={`Imagem de ${p.nome}`}
               className="pet-image"
             />

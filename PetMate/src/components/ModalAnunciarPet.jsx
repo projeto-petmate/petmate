@@ -7,10 +7,11 @@ import SegundaEtapaPet from './SegundaEtapaPet'
 import { CgCloseO } from "react-icons/cg"
 import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";
+import Slider from "react-slick";
 
 export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const { addPet, setPets, pets } = useContext(PetContext)
-  const { userLogado } = useContext(GlobalContext); 
+  const { userLogado } = useContext(GlobalContext);
   const [inptPetEspecie, setInptPetEspecie] = useState('')
   const [inptPetNome, setInptPetNome] = useState('')
   const [inptPetRaca, setInptPetRaca] = useState('')
@@ -23,8 +24,15 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const [aceitarTermos, setAceitarTermos] = useState(false)
   const [erros, setErros] = useState({})
   const [etapa, setEtapa] = useState(1)
-  const vrfOng = userLogado?.id_ong ? true : false; 
+  const vrfOng = userLogado?.id_ong ? true : false;
   const navigate = useNavigate()
+
+  useEffect(() => {
+    // Atualiza previews se já houver imagens (ex: ao voltar da segunda etapa)
+    if (inptPetImagens.length > 0) {
+      setImagemPreview(inptPetImagens);
+    }
+  }, [inptPetImagens]);
 
   if (!isOpen) {
     return null
@@ -36,7 +44,9 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
     }
     return {}
   }
-  
+
+
+
 
   const CadastrarPet = async (e) => {
     e.preventDefault()
@@ -55,18 +65,18 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
     const files = Array.from(e.target.files); // Converte FileList para array
     const previews = [];
     const urls = [];
-  
+
     for (const file of files) {
       const formData = new FormData();
       formData.append('file', file);
-  
+
       try {
         // Faz o upload para o Cloudinary
-        const response = await fetch('/upload', {
+        const response = await fetch('http://localhost:3000/upload', {
           method: 'POST',
           body: formData,
         });
-  
+
         const data = await response.json();
         urls.push(data.url); // Salva o URL retornado pelo Cloudinary
         previews.push(URL.createObjectURL(file)); // Salva a pré-visualização local
@@ -74,10 +84,20 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
         console.error('Erro ao fazer upload:', error);
       }
     }
-  
-    setInptPetImagens(urls); // Atualiza o estado com os URLs das imagens
-    setImagemPreview(previews); // Atualiza o estado com as pré-visualizações
+
+    // Atualiza os estados acumulando as imagens
+    setInptPetImagens((prevUrls) => [...prevUrls, ...urls]);
+    setImagemPreview((prevPreviews) => [...prevPreviews, ...previews]);
   };
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const enviarPet = async (tags = [], condicoes = '') => {
     if (!userLogado) {
       console.error("Erro: Usuário não está logado.");
@@ -215,32 +235,34 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
 
             <div className="label-inpt-img">
               <div className="add-img">
-                <label htmlFor="imagemURL" className='labelImg'>Imagem:</label>
+                <label htmlFor="imagemURL" className="labelImg">Imagem:</label>
                 <input
                   id="file-upload"
                   type="file"
                   multiple
                   onChange={handleImageChange}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                 />
                 <button
                   type="button"
-                  onClick={() => document.getElementById('file-upload').click()}
+                  onClick={() => document.getElementById("file-upload").click()}
                   className="botao-add-img"
                 >
                   Escolher Imagem
                 </button>
               </div>
-              {imagemPreview === null ? '' :
-                <div className="img-preview" >
-                  {imagemPreview && (
-                    <img src={imagemPreview} alt="Pré-visualização" className="imagem-preview" />
-                  )}
-                </div>
-              }
-
+              {imagemPreview.length > 0 ? (
+                <Slider {...sliderSettings} className="img-preview">
+                  {imagemPreview.map((preview, index) => (
+                    <div key={index}>
+                      <img src={preview} alt={`Pré-visualização ${index + 1}`} className="imagem-preview" />
+                    </div>
+                  ))}
+                </Slider>
+              ) : (
+                <p>Nenhuma imagem selecionada</p>
+              )}
             </div>
-
             <div className="descricao-pet-cad">
               <label htmlFor="descricaoPet">Descrição:</label>
               <input
@@ -263,7 +285,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
             inptPetPorte={inptPetPorte}
             inptPetGenero={inptPetGenero}
             inptPetDescricao={inptPetDescricao}
-            inptPetImagem={inptPetImagem}
+            inptPetImagens={inptPetImagens}
             aceitarTermos={aceitarTermos}
             setAceitarTermos={setAceitarTermos}
             setEtapa={setEtapa}

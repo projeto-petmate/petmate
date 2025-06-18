@@ -50,15 +50,28 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${endereco}` : "#";
 
   const tagsArray = pet.tags ? pet.tags.split(', ') : [];
-  const imagensArray = pet.imagens ? pet.imagens.split(',') : []; // Divide os links das imagens em um array
+
+  function getPetImages(pet) {
+    if (pet.imagens) {
+      return pet.imagens.split(',').map(s => s.trim()).filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
+    }
+    if (pet.imagem) return [pet.imagem];
+    return ["/images/default_pet_image.jpg"];
+  }
+
+  const imagensArray = pet.imagens
+    ? pet.imagens.split(',').map(s => s.trim()).filter(Boolean)
+    : (pet.imagem ? [pet.imagem] : []);
 
   // Configuração do carrossel
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: true,
+    adaptiveHeight: true,
   };
 
   return (
@@ -81,21 +94,31 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
           </div>
         </div>
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
-        <div className="card-pet-container">
+        <div className="janela-pet-container">
           <div className="modal-pet-1">
             <div className="img-modal">
               {/* Carrossel de imagens */}
-              <Slider {...sliderSettings}>
-                {imagensArray.map((imagem, index) => (
-                  <div key={index}>
-                    <img
-                      src={imagem || "/images/default_pet_image.jpg"}
-                      alt={`Imagem de ${pet.nome}`}
-                      className="pet-image-modal"
-                    />
-                  </div>
-                ))}
-              </Slider>
+              <div className="carrossel-img-pet">
+                <Slider {...sliderSettings}>
+                  {imagensArray.length > 0 ? imagensArray.map((imagem, index) => (
+                    <div key={index} className='map-foto-pet'>
+                      <img
+                        src={imagem || "/images/default_pet_image.jpg"}
+                        alt={`Imagem de ${pet.nome}`}
+                        className="pet-image-janela"
+                      />
+                    </div>
+                  )) : (
+                    <div>
+                      <img
+                        src="/images/default_pet_image.jpg"
+                        alt={`Imagem de ${pet.nome}`}
+                        className="pet-image-janela"
+                      />
+                    </div>
+                  )}
+                </Slider>
+              </div>
             </div>
 
             <div className="descricao-pet">
