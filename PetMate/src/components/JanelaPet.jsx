@@ -1,6 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import './JanelaPet.css';
-import Slider from 'react-slick'; // Importa React Slick
 import { PetContext } from "../contexts/PetContext";
 import axios from 'axios';
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
@@ -11,10 +10,10 @@ import ModalDenuncia from './ModalDenuncia';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { CgCloseO } from 'react-icons/cg';
 import CarrosselPet from './CarrosselPet';
+import { getOngById, getUsuarioById } from '../apiService';
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext);
-  const [denuncia, setDenuncia] = useState(false);
   const [doador, setDoador] = useState(null);
   const { openDenuncia, openModalDenuncia, setOpenModalDenuncia, logado } = useContext(GlobalContext);
 
@@ -24,11 +23,11 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         try {
           let response;
           if (pet.id_usuario) {
-            response = await axios.get(`http://localhost:3000/usuarios/id/${pet.id_usuario}`);
+            response = await getUsuarioById(pet.id_usuario);
           } else if (pet.id_ong) {
-            response = await axios.get(`http://localhost:3000/ongs/${pet.id_ong}`);
+            response = await getOngById(EventTarget.id_ong);
           }
-          setDoador(response.data);
+          setDoador(response);
         } catch (error) {
           console.error('Erro ao buscar informações do doador/ONG:', error);
         }
@@ -46,7 +45,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const endereco = doador?.bairro || doador?.bairro;
   const nome = doador?.nome_ong || doador?.nome;
 
-  const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Estou%20interessado%20no%20pet%20${pet.nome}.` : "#";
+  const linkWpp = telefone ? `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Tenho%20interesse%20no%20pet%20${pet.nome}.` : "#";
   const linkEmail = email ? `mailto:${email}?subject=Ado%C3%A7%C3%A3o+PetMate` : "#";
   const linkMaps = endereco ? `https://www.google.com/maps/search/?api=1&query=${endereco}` : "#";
 
@@ -87,11 +86,10 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
         <div className="janela-pet-container">
           <div className="modal-pet-1">
-            {/* Carrossel de imagens */}
+
             <div className="carrossel-img-pet">
               <CarrosselPet images={imagensArray.length > 0 ? imagensArray : ["/images/default_pet_image.jpg"]} />
             </div>
-
             <div className="descricao-pet">
               <div className="desc-title">
                 <p>Informações</p>
@@ -114,7 +112,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
               <p className='descPet'> {pet.descricao}</p>
             </div>
           </div>
-
           <div className="modal-pet-2">
             <div className="info-container">
               <p className='info-title'>
@@ -134,7 +131,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
                 </div>
               </div>
             </div>
-
             <div className="info-doador-modal">
               <h2>Quer Adotar?</h2>
               <p>Para adotar este pet, entre em contato com o anunciante:</p>

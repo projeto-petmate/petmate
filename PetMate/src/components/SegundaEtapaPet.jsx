@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './SegundaEtapaPet.css';
 import { IoArrowBackCircle } from "react-icons/io5";
 import { CgCloseO } from "react-icons/cg";
 import Swal from 'sweetalert2'
-import { MdOutlinePhotoCameraBack } from 'react-icons/md';
 import { TbPhotoExclamation } from 'react-icons/tb';
 
 function SegundaEtapaPet({
@@ -15,9 +14,7 @@ function SegundaEtapaPet({
     inptPetGenero,
     inptPetDescricao,
     inptPetImagens,
-    setInptPetImagens,
     imagemPreview,
-    setImagemPreview,
     handleImageChange,
     handleRemoveImage,
     handleSetPrincipal,
@@ -25,7 +22,6 @@ function SegundaEtapaPet({
     setAceitarTermos,
     setEtapa,
     enviarPet,
-    erros,
     setModalOpen
 }) {
     const [tags, setTags] = useState([]);
@@ -33,7 +29,6 @@ function SegundaEtapaPet({
     const [localErros, setLocalErros] = useState({});
     const [radioCondicoes, setRadioCondicoes] = useState('');
     const [inptCondicoes, setInptCondicoes] = useState('')
-    const [condicoes, setCondicoes] = useState('')
 
     const handleAddTag = () => {
         if (tagInput.trim() !== '') {
@@ -92,8 +87,6 @@ function SegundaEtapaPet({
 
     };
 
-
-
     return (
         <div>
             <div className="modal-anunciar-segunda-etapa" onClick={() => setModalOpen(false)}>
@@ -142,7 +135,6 @@ function SegundaEtapaPet({
                                 }
                             </div>
                         </div>
-
                         <div className="tags-container">
                             <div className="tag-button">
                                 <div className="container-input-tag">
@@ -171,7 +163,6 @@ function SegundaEtapaPet({
                                 ))}
                             </div>
                         </div>
-
                         <div className="container-img-anunciar">
                             <div className="add-img-anunciar">
                                 <label className="labelImg">Imagens:</label>
@@ -179,8 +170,6 @@ function SegundaEtapaPet({
                                 <button type="button" onClick={() => document.getElementById("file-upload").click()} className="botao-add-img" title='Escolha até 4 imagens do pet'>
                                     Escolher Imagens
                                 </button>
-                                {/* {imagemPreview.length > 0 && */}
-                                {/* // } */}
                             </div>
                             <div className="img-preview-cad" style={{ display: 'flex', gap: 16 }}>
                                 {imagemPreview.map((img, idx) => (
@@ -212,8 +201,6 @@ function SegundaEtapaPet({
                             {/* </div> */}
                         </div>
                     </div>
-
-
                     <div className="erro-cad-pet">
                         {/* {localErros.imagem && <p className="erro-mensagem-pet">{localErros.imagem}</p>} */}
                         {/* {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>} */}
@@ -221,7 +208,6 @@ function SegundaEtapaPet({
                     </div>
                     <div className="termos-e-submit">
                         <div className="termos-cadastro-pet">
-
                             <div className="termos-pet">
                                 <input
                                     type="checkbox"

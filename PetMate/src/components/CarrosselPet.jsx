@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import './CarrosselPet.css';
 
 /**
- * @param {object} props - As propriedades do componente.
- * @param {string[]} props.images - Um array de URLs das imagens a serem exibidas.
+ * @param {object} props
+ * @param {string[]} props.images
  */
 const CarrosselPet = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Funções para navegar entre as imagens
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
@@ -42,7 +41,6 @@ const CarrosselPet = ({ images }) => {
   >
       {images.length > 1 && <button type="button" onClick={goToPrevious} className="carrossel-anunciar-pet-arrow prev">‹</button>}
       
-      {/* Imagem Principal */}
       <div className="carrossel-anunciar-pet-image-wrapper">
         <img src={images[currentIndex]} alt={`Pré-visualização ${currentIndex + 1}`} className="carrossel-anunciar-pet-imagem-preview" />
       </div>

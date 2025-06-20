@@ -1,8 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import { updateFavoritos, updatePet } from "../apiService";
 import { GlobalContext } from "./GlobalContext";
-
+import {
+    getPets,
+    addPet as apiAddPet,
+    updatePet,
+    updateFavoritos
+} from "../apiService";
 export const PetContext = createContext();
 
 export const PetContextProvider = ({ children }) => {
@@ -28,12 +32,12 @@ export const PetContextProvider = ({ children }) => {
             if (!petData.nome || !petData.especie || !petData.raca || !petData.idade || !petData.porte || !petData.genero) {
                 throw new Error("Todos os campos obrigatórios devem ser preenchidos.");
             }
-    
-            const response = await axios.post("http://localhost:3000/pets", petData);
-    
-            setPets((prevPets) => [...prevPets, response.data]);
-    
-            console.log("Pet cadastrado com sucesso:", response.data);
+            
+            const novoPetSalvo = await apiAddPet(petData);
+
+            setPets((prevPets) => [...prevPets, novoPetSalvo]);
+
+            console.log("Pet cadastrado com sucesso:", novoPetSalvo);
         } catch (error) {
             console.error("Erro ao adicionar pet:", error);
         }
@@ -41,8 +45,8 @@ export const PetContextProvider = ({ children }) => {
     
     const fetchPets = async () => {
         try {
-            const response = await axios.get("http://localhost:3000/pets");
-            setPets(response.data);
+            const response = await getPets();
+            setPets(response);
         } catch (error) {
             console.error("Erro ao buscar pets:", error);
         }

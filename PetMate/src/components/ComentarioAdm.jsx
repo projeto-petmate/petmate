@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { deleteComentario, getComentarios } from '../apiService';
+import { deleteComentario, getComentarios, getUsuarioById } from '../apiService';
 import './ComentarioAdm.css';
 import { UserContext } from '../contexts/UserContext';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { GlobalContext } from '../contexts/GlobalContext';
 
 
-function ComentarioAdm({idComentario}) {
+function ComentarioAdm({ idComentario }) {
     const { isAdmin } = useContext(GlobalContext);
     const { comentarios, setComentarios } = useContext(UserContext);
     const [nomesComentarios, setNomesComentarios] = useState([]);
@@ -30,23 +30,23 @@ function ComentarioAdm({idComentario}) {
         fetchComentarios();
     }, [setComentarios]);
 
-    useEffect(() => {
-        const fetchNomesUsuarios = async () => {
-            try {
-                const nomesComentarios = await Promise.all(comentarios.map(async (comentario) => {
-                    const response = await axios.get(`http://localhost:3000/usuarios/${comentario.id_usuario}`);
-                    return { ...comentario, nomeUsuario: response.data.nome };
-                }));
-                setNomesComentarios(nomesComentarios);
-            } catch (error) {
-                console.error("Erro ao buscar nomes dos usuários:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchNomesUsuarios = async () => {
+    //         try {
+    //             const nomesComentarios = await Promise.all(comentarios.map(async (comentario) => {
+    //                 const usuario = await getUsuarioById(comentario.id_usuario);
+    //                 return { ...comentario, nomeUsuario: usuario.nome };
+    //             }));
+    //             setNomesComentarios(nomesComentarios);
+    //         } catch (error) {
+    //             console.error("Erro ao buscar nomes dos usuários:", error);
+    //         }
+    //     };
 
-        if (comentarios.length > 0) {
-            fetchNomesUsuarios();
-        }
-    }, [comentarios]);
+    //     if (comentarios.length > 0) {
+    //         fetchNomesUsuarios();
+    //     }
+    // }, [comentarios]);
 
     const handleDeleteComment = async () => {
         try {
@@ -87,14 +87,14 @@ function ComentarioAdm({idComentario}) {
                                         <h3>{c.nome_user}</h3>
                                     </div>
                                     <div className="apagar-comentario">
-                                        { isAdmin &&
-                                        <IoTrashOutline
-                                            onClick={() => {
-                                                setCommentToDelete(c);
-                                                setOpenModalExcluirComentario(true);
-                                            }}
-                                            className="botao-excluir-comentario"
-                                        />
+                                        {isAdmin &&
+                                            <IoTrashOutline
+                                                onClick={() => {
+                                                    setCommentToDelete(c);
+                                                    setOpenModalExcluirComentario(true);
+                                                }}
+                                                className="botao-excluir-comentario"
+                                            />
                                         }
                                     </div>
                                 </div>

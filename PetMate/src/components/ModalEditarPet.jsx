@@ -12,8 +12,6 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const [descricao, setDescricao] = useState('');
     const [porte, setPorte] = useState('');
     const [genero, setGenero] = useState('');
-    // const [imagem, setImagem] = useState('');
-    // const [imagemPreview, setImagemPreview] = useState(null);
     const [especie, setEspecie] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInputEdit, setTagInputEdit] = useState('');
@@ -35,7 +33,6 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
             setTags(tagsArray);
             setInitialTags(tagsArray);
 
-            // Carrega imagens
             let imgs = [];
             if (petToEdit.imagens) {
                 imgs = petToEdit.imagens.split(',').map(s => s.trim()).filter(Boolean);
@@ -55,17 +52,14 @@ const handleImageChange = async (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) return;
 
-    // Previews locais
     const newPreviews = files.map(file => URL.createObjectURL(file));
     setImagemPreviews(prev => [...prev, ...newPreviews]);
 
-    // Upload para backend usando apiService
     try {
         const uploadedUrls = await Promise.all(files.map(uploadPetImage));
         setImagens(prev => [...prev, ...uploadedUrls]);
     } catch (error) {
         console.error("Um ou mais uploads falharam:", error);
-        // Aqui você pode exibir um alerta de erro se quiser
     }
     e.target.value = '';
 };

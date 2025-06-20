@@ -282,9 +282,8 @@ export const deleteDenuncia = async (id) => {
 
 
 /**
- * Faz upload de uma imagem para o backend e retorna a URL do Cloudinary.
- * @param {File} file - O arquivo de imagem a ser enviado.
- * @returns {Promise<string>} - URL da imagem hospedada.
+ * @param {File} file 
+ * @returns {Promise<string>}
  */
 export const uploadPetImage = async (file) => {
     const formData = new FormData();
