@@ -269,6 +269,73 @@
     /* outline: none; */
 }
 
+.img-preview {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.img-preview-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.imagem-preview {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  background: #fff;
+}
+
+.imagem-principal {
+  border: 2px solid #84644D;
+}
+
+.botao-excluir-img-pet {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    color: #84644D;
+    font-size: 16px;
+    transition: 0.3s ease;
+}
+
+.botao-excluir-img-pet:hover {
+    background: #ad947e;
+    color: #fff;
+
+}
+
+.botao-img-principal-pet {
+    position: absolute;
+    left: 2px;
+    background: #fff;
+    border-radius: 50%;
+    color: #84644D;
+    border: none;
+    font-size: 2rem;
+    padding: 7px 6px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 2px;
+}
+
+.botao-img-principal-pet:hover {
+    background: #ad947e;
+    color: #fff;
+}
+
+
 @media (max-width: 768px) {
     .editar-pet-container {
         width: 90vw;

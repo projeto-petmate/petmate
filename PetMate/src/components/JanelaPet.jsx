@@ -10,6 +10,7 @@ import { GoAlert } from 'react-icons/go';
 import ModalDenuncia from './ModalDenuncia';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { CgCloseO } from 'react-icons/cg';
+import CarrosselPet from './CarrosselPet';
 
 export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const { pet } = useContext(PetContext);
@@ -63,16 +64,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
     ? pet.imagens.split(',').map(s => s.trim()).filter(Boolean)
     : (pet.imagem ? [pet.imagem] : []);
 
-  // Configuração do carrossel
-  const sliderSettings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    adaptiveHeight: true,
-  };
 
   return (
     <div className='pet_modal_container' onClick={() => setPetModalOpen(false)}>
@@ -96,29 +87,9 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
         <img src="/images/barra_marrom.png" className='barra-pet-modal' alt="Barra" />
         <div className="janela-pet-container">
           <div className="modal-pet-1">
-            <div className="img-modal">
-              {/* Carrossel de imagens */}
-              <div className="carrossel-img-pet">
-                <Slider {...sliderSettings}>
-                  {imagensArray.length > 0 ? imagensArray.map((imagem, index) => (
-                    <div key={index} className='map-foto-pet'>
-                      <img
-                        src={imagem || "/images/default_pet_image.jpg"}
-                        alt={`Imagem de ${pet.nome}`}
-                        className="pet-image-janela"
-                      />
-                    </div>
-                  )) : (
-                    <div>
-                      <img
-                        src="/images/default_pet_image.jpg"
-                        alt={`Imagem de ${pet.nome}`}
-                        className="pet-image-janela"
-                      />
-                    </div>
-                  )}
-                </Slider>
-              </div>
+            {/* Carrossel de imagens */}
+            <div className="carrossel-img-pet">
+              <CarrosselPet images={imagensArray.length > 0 ? imagensArray : ["/images/default_pet_image.jpg"]} />
             </div>
 
             <div className="descricao-pet">

@@ -28,8 +28,17 @@ function Favoritos() {
         fetchPets();
     }, []);
 
+    const getPetImage = (p) => {
+        if (p.imagens) {
+            const imgs = p.imagens.split(',').map(s => s.trim()).filter(Boolean);
+            if (imgs.length > 0 && imgs[0]) return imgs[0];
+        }
+        if (p.imagem) return p.imagem;
+        return "/images/default_pet_image.jpg";
+    };
+
     const petsfavoritos = pets.filter(pet => favoritos.includes(pet.id_pet));
-    
+
     // PAGINAÇÃO LOCAL
     const petsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +65,7 @@ function Favoritos() {
                         paginatedPets.map((p) => (
                             <div key={p.id_pet} className="pet-card-fav">
                                 <img
-                                    src={p.imagem ? p.imagem : "/images/default_pet_image.jpg"}
+                                    src={getPetImage(p) ? p.imagem : "/images/default_pet_image.jpg"}
                                     alt={`Imagem de ${p.nome}`}
                                     className="pet-image"
                                 />

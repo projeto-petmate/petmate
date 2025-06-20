@@ -7,7 +7,9 @@ import SegundaEtapaPet from './SegundaEtapaPet'
 import { CgCloseO } from "react-icons/cg"
 import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";
-import Slider from "react-slick";
+import { uploadPetImage } from '../apiService';
+import './CarrosselPet.css';
+import CarrosselPet from './CarrosselPet'
 
 export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const { addPet, setPets, pets } = useContext(PetContext)
@@ -28,22 +30,41 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Atualiza previews se já houver imagens (ex: ao voltar da segunda etapa)
-    if (inptPetImagens.length > 0) {
-      setImagemPreview(inptPetImagens);
+    if (!isOpen) {
+      imagemPreview.forEach(previewUrl => URL.revokeObjectURL(previewUrl));
+      setImagemPreview([]);
+      setInptPetImagens([]);
+      setInptPetEspecie('');
+      setInptPetNome('');
+      setInptPetRaca('');
+      setInptPetIdade('');
+      setInptPetPorte('');
+      setInptPetGenero('');
+      setInptPetDescricao('');
+      setAceitarTermos(false);
+      setErros({});
+      setEtapa(1);
     }
-  }, [inptPetImagens]);
+  }, [isOpen]);
 
   if (!isOpen) {
     return null
   }
 
   const validarFormulario = () => {
-    if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagem || !aceitarTermos) {
-      return { geral: 'Todos os campos são obrigatórios e você deve aceitar os termos e condições.' }
-    }
-    return {}
-  }
+    const novosErros = {};
+    if (!inptPetEspecie) novosErros.especie = 'Espécie é obrigatória.';
+    if (!inptPetNome) novosErros.nome = 'Nome é obrigatório.';
+    if (!inptPetRaca) novosErros.raca = 'Raça é obrigatória.';
+    if (!inptPetIdade) novosErros.idade = 'Idade é obrigatória.';
+    if (!inptPetPorte) novosErros.porte = 'Porte é obrigatório.';
+    if (!inptPetGenero) novosErros.genero = 'Gênero é obrigatório.';
+    if (!inptPetDescricao) novosErros.descricao = 'Descrição é obrigatória.';
+    if (imagemPreview.length === 0) novosErros.imagem = 'Pelo menos uma imagem é obrigatória.';
+
+    setErros(novosErros);
+    return Object.keys(novosErros).length === 0;
+  };
 
 
 
@@ -62,40 +83,50 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
 
 
   const handleImageChange = async (e) => {
-    const files = Array.from(e.target.files); // Converte FileList para array
-    const previews = [];
-    const urls = [];
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
 
-    for (const file of files) {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      try {
-        // Faz o upload para o Cloudinary
-        const response = await fetch('http://localhost:3000/upload', {
-          method: 'POST',
-          body: formData,
-        });
-
-        const data = await response.json();
-        urls.push(data.url); // Salva o URL retornado pelo Cloudinary
-        previews.push(URL.createObjectURL(file)); // Salva a pré-visualização local
-      } catch (error) {
-        console.error('Erro ao fazer upload:', error);
-      }
+    // Limite de 4 imagens
+    if (imagemPreview.length + files.length > 4) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Limite de imagens',
+        text: 'Você pode adicionar no máximo 4 imagens por pet.'
+      });
+      return;
     }
 
-    // Atualiza os estados acumulando as imagens
-    setInptPetImagens((prevUrls) => [...prevUrls, ...urls]);
-    setImagemPreview((prevPreviews) => [...prevPreviews, ...previews]);
+    const newPreviews = files.map(file => URL.createObjectURL(file));
+    setImagemPreview(prev => [...prev, ...newPreviews]);
+
+    try {
+      const uploadedUrls = await Promise.all(files.map(uploadPetImage));
+      setInptPetImagens(prev => [...prev, ...uploadedUrls]);
+    } catch (error) {
+      console.error("Um ou mais uploads falharam:", error);
+      Swal.fire({ icon: 'error', title: 'Erro de Upload', text: 'Ocorreu um erro ao enviar as imagens.' });
+    }
+    e.target.value = '';
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+  const handleRemoveImage = (idx) => {
+    setImagemPreview(prev => prev.filter((_, i) => i !== idx));
+    setInptPetImagens(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const handleSetPrincipal = (idx) => {
+    setImagemPreview(prev => {
+      const arr = [...prev];
+      const [img] = arr.splice(idx, 1);
+      arr.unshift(img);
+      return arr;
+    });
+    setInptPetImagens(prev => {
+      const arr = [...prev];
+      const [img] = arr.splice(idx, 1);
+      arr.unshift(img);
+      return arr;
+    });
   };
 
   const enviarPet = async (tags = [], condicoes = '') => {
@@ -103,7 +134,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
       console.error("Erro: Usuário não está logado.");
       return;
     }
-  
+
     const novoPet = {
       especie: inptPetEspecie,
       nome: inptPetNome,
@@ -112,7 +143,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
       porte: inptPetPorte,
       genero: inptPetGenero,
       descricao: inptPetDescricao,
-      imagens: inptPetImagens.join(','), // Concatena os URLs das imagens
+      imagens: inptPetImagens.join(','),
       tags: tags.join(', '),
       condicoes: condicoes,
       id_usuario: vrfOng ? null : userLogado.id_usuario,
@@ -120,11 +151,11 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
       disponivel: true,
       data_criacao: new Date().toISOString(),
     };
-  
+
     try {
       const response = await addPet(novoPet);
       console.log('Pet cadastrado:', response);
-  
+
       Swal.fire({
         position: "center",
         icon: "success",
@@ -132,7 +163,7 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
         showConfirmButton: false,
         timer: 2000,
       });
-  
+
       setModalOpen(false);
     } catch (error) {
       console.error("Erro ao cadastrar pet:", error);
@@ -232,37 +263,6 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
                 </div>
               </div>
             </div>
-
-            <div className="label-inpt-img">
-              <div className="add-img">
-                <label htmlFor="imagemURL" className="labelImg">Imagem:</label>
-                <input
-                  id="file-upload"
-                  type="file"
-                  multiple
-                  onChange={handleImageChange}
-                  style={{ display: "none" }}
-                />
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("file-upload").click()}
-                  className="botao-add-img"
-                >
-                  Escolher Imagem
-                </button>
-              </div>
-              {imagemPreview.length > 0 ? (
-                <Slider {...sliderSettings} className="img-preview">
-                  {imagemPreview.map((preview, index) => (
-                    <div key={index}>
-                      <img src={preview} alt={`Pré-visualização ${index + 1}`} className="imagem-preview" />
-                    </div>
-                  ))}
-                </Slider>
-              ) : (
-                <p>Nenhuma imagem selecionada</p>
-              )}
-            </div>
             <div className="descricao-pet-cad">
               <label htmlFor="descricaoPet">Descrição:</label>
               <input
@@ -286,6 +286,12 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
             inptPetGenero={inptPetGenero}
             inptPetDescricao={inptPetDescricao}
             inptPetImagens={inptPetImagens}
+            setInptPetImagens={setInptPetImagens}
+            imagemPreview={imagemPreview}
+            setImagemPreview={setImagemPreview}
+            handleImageChange={handleImageChange}
+            handleRemoveImage={handleRemoveImage}
+            handleSetPrincipal={handleSetPrincipal}
             aceitarTermos={aceitarTermos}
             setAceitarTermos={setAceitarTermos}
             setEtapa={setEtapa}

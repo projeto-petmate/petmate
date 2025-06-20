@@ -279,3 +279,24 @@ export const deleteDenuncia = async (id) => {
         throw error;
     }
 };
+
+
+/**
+ * Faz upload de uma imagem para o backend e retorna a URL do Cloudinary.
+ * @param {File} file - O arquivo de imagem a ser enviado.
+ * @returns {Promise<string>} - URL da imagem hospedada.
+ */
+export const uploadPetImage = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await api.post('/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        return response.data.url;
+    } catch (error) {
+        console.error('Erro ao fazer upload da imagem:', error);
+        throw error;
+    }
+};

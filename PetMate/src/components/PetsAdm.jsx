@@ -64,6 +64,15 @@ function PetsAdm({ idPet }) {
         }
     };
 
+    function getPetImage(pet) {
+        if (pet.imagens) {
+            const imgs = pet.imagens.split(',').map(s => s.trim()).filter(Boolean);
+            if (imgs.length > 0 && imgs[0]) return imgs[0];
+        }
+        if (pet.imagem) return pet.imagem;
+        return "/images/default_pet_image.jpg";
+    }
+
     // const ordemPets = [...allPets].sort((a, b) => a.id_pet - b.id_pet);
     const petsFiltrados = idPet ? allPets.filter((pet) => pet.id_pet === idPet) : allPets;
 
@@ -72,7 +81,7 @@ function PetsAdm({ idPet }) {
             {petsFiltrados.length > 0 ? (
                 petsFiltrados.map((pet) => (
                     <div key={pet.id_pet} className="pet-card-perfil">
-                        <img src={pet.imagem || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
+                        <img src={getPetImage(pet) || '/images/default_pet_image.jpg'} alt={`Imagem de ${pet.nome}`} className="pet-image" />
                         <div className="pet-info">
                             <h3>{pet.nome}</h3>
                             <p><strong className='texto-card'>Raça:</strong> {pet.raca}</p>

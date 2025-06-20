@@ -3,6 +3,8 @@ import './SegundaEtapaPet.css';
 import { IoArrowBackCircle } from "react-icons/io5";
 import { CgCloseO } from "react-icons/cg";
 import Swal from 'sweetalert2'
+import { MdOutlinePhotoCameraBack } from 'react-icons/md';
+import { TbPhotoExclamation } from 'react-icons/tb';
 
 function SegundaEtapaPet({
     inptPetEspecie,
@@ -13,6 +15,12 @@ function SegundaEtapaPet({
     inptPetGenero,
     inptPetDescricao,
     inptPetImagens,
+    setInptPetImagens,
+    imagemPreview,
+    setImagemPreview,
+    handleImageChange,
+    handleRemoveImage,
+    handleSetPrincipal,
     aceitarTermos,
     setAceitarTermos,
     setEtapa,
@@ -42,10 +50,13 @@ function SegundaEtapaPet({
         const novosErros = {};
 
         if (!inptPetEspecie || !inptPetNome || !inptPetRaca || !inptPetIdade || !inptPetPorte || !inptPetGenero || !inptPetDescricao || !inptPetImagens.length || !tags.length) {
-            novosErros.campos = 'Todos os campos são obrigatórios.';
+            novosErros.campos = 'Por favor, preencha todos os campos obrigatórios.';
         }
         if (!aceitarTermos) {
             novosErros.termos = 'Você deve aceitar os termos e condições.';
+        }
+        if (!imagemPreview.length) {
+            novosErros.imagem = 'Pelo menos uma imagem é obrigatória.';
         }
         return novosErros;
     };
@@ -57,11 +68,7 @@ function SegundaEtapaPet({
             Swal.fire({
                 icon: "error",
                 title: "<strong>Erro ao enviar anúncio</strong>",
-                html: `
-                    <p style="color: #84644D; font-size: 16px;">
-                        Algum campo obrigatório não foi preenchido!
-                    </p>
-                `,
+                html: Object.values(novosErros)[0] || "Por favor, preencha todos os campos obrigatórios.",
                 background: "#F6F4F1",
                 color: "#654833",
                 confirmButtonText: "Entendido",
@@ -103,7 +110,6 @@ function SegundaEtapaPet({
                     </div>
                     <div className="container-meio-segunda-etapa">
 
-
                         <div className="condicoes-container">
                             <div className="condicoes-pet">
                                 <div className='condicoes-texto'>
@@ -128,6 +134,7 @@ function SegundaEtapaPet({
                                 {radioCondicoes === 'sim' &&
                                     <label htmlFor="input-condicao">Descreva a condição especial do pet:
                                         <input type="text" name="" id="input-condicao"
+                                            className='input-condicao-pet'
                                             placeholder='Ex: Depende de remédios'
                                             value={inptCondicoes}
                                             onChange={(e) => setInptCondicoes(e.target.value)} />
@@ -139,7 +146,7 @@ function SegundaEtapaPet({
                         <div className="tags-container">
                             <div className="tag-button">
                                 <div className="container-input-tag">
-                                    <label htmlFor="input-tag">{'Características'}</label>
+                                    <label htmlFor="input-tag">Características:</label>
                                     <div className="tag-button">
                                         <input
                                             type="text"
@@ -164,6 +171,46 @@ function SegundaEtapaPet({
                                 ))}
                             </div>
                         </div>
+
+                        <div className="container-img-anunciar">
+                            <div className="add-img-anunciar">
+                                <label className="labelImg">Imagens:</label>
+                                <input id="file-upload" type="file" multiple accept="image/*" onChange={handleImageChange} style={{ display: "none" }} />
+                                <button type="button" onClick={() => document.getElementById("file-upload").click()} className="botao-add-img" title='Escolha até 4 imagens do pet'>
+                                    Escolher Imagens
+                                </button>
+                                {/* {imagemPreview.length > 0 && */}
+                                {/* // } */}
+                            </div>
+                            <div className="img-preview-cad" style={{ display: 'flex', gap: 16 }}>
+                                {imagemPreview.map((img, idx) => (
+                                    <div key={idx} className="img-preview-wrapper">
+                                        <img
+                                            src={img}
+                                            alt={`Pré-visualização ${idx + 1}`}
+                                            className={`imagem-preview-cad ${idx === 0 ? 'imagem-principal' : ''}`}
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveImage(idx)}
+                                            className="botao-excluir-img-cad"
+                                            title="Excluir"
+                                        >✕</button>
+                                        {idx !== 0 && (
+                                        <TbPhotoExclamation
+                                            type="button"
+                                            onClick={() => handleSetPrincipal(idx)}
+                                            className="botao-img-principal-cad"
+                                            title="Definir imagem como principal"
+                                        />
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                            {/* <div className="carrossel-anuncio"> */}
+                            {/* <CarrosselPet images={imagemPreview} /> */}
+                            {/* </div> */}
+                        </div>
                     </div>
 
 
@@ -172,21 +219,24 @@ function SegundaEtapaPet({
                         {/* {localErros.campos && <p className="erro-mensagem-pet">{localErros.campos}</p>} */}
                         {/* {localErros.termos && <p className="erro-mensagem-pet">{localErros.termos}</p>} */}
                     </div>
-                    <div className="termos-cadastro-pet">
-                        <div className="termos-pet">
-                            <input
-                                type="checkbox"
-                                className='radio-termos'
-                                checked={aceitarTermos}
-                                onChange={(e) => setAceitarTermos(e.target.checked)}
-                            />
-                            <p className='termos-1'>
-                                Ao preencher este formulário você concorda com os nossos
-                            </p>
-                            <a href="#" className='link-termos'>Termos de Uso.</a>
+                    <div className="termos-e-submit">
+                        <div className="termos-cadastro-pet">
+
+                            <div className="termos-pet">
+                                <input
+                                    type="checkbox"
+                                    className='radio-termos'
+                                    checked={aceitarTermos}
+                                    onChange={(e) => setAceitarTermos(e.target.checked)}
+                                />
+                                <p className='termos-1'>
+                                    Ao preencher este formulário você concorda com os nossos
+                                </p>
+                                <a href="#" className='link-termos'>Termos de Uso.</a>
+                            </div>
                         </div>
+                        <button onClick={handleSubmit} className="botao-enviar-pet">Enviar</button>
                     </div>
-                    <button onClick={handleSubmit} className="botao-enviar-pet">Enviar</button>
                 </div>
             </div>
         </div>

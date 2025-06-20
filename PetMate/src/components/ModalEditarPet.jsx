@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import './ModalEditarPet.css';
 import { PetContext } from '../contexts/PetContext';
+import { uploadPetImage } from '../apiService';
+import { TbPhotoExclamation } from 'react-icons/tb';
 
 function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const { pet, setPet, setPets, pets } = useContext(PetContext);
@@ -10,12 +12,14 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const [descricao, setDescricao] = useState('');
     const [porte, setPorte] = useState('');
     const [genero, setGenero] = useState('');
-    const [imagem, setImagem] = useState('');
-    const [imagemPreview, setImagemPreview] = useState(null);
+    // const [imagem, setImagem] = useState('');
+    // const [imagemPreview, setImagemPreview] = useState(null);
     const [especie, setEspecie] = useState('');
     const [tags, setTags] = useState([]);
     const [tagInputEdit, setTagInputEdit] = useState('');
     const [initialTags, setInitialTags] = useState([]);
+    const [imagens, setImagens] = useState([]);
+    const [imagemPreviews, setImagemPreviews] = useState([]);
 
 
     useEffect(() => {
@@ -26,25 +30,64 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
             setDescricao(petToEdit.descricao);
             setPorte(petToEdit.porte);
             setGenero(petToEdit.genero);
-            setImagem(petToEdit.imagem);
             setEspecie(petToEdit.especie);
             const tagsArray = petToEdit.tags ? petToEdit.tags.split(', ') : [];
             setTags(tagsArray);
             setInitialTags(tagsArray);
+
+            // Carrega imagens
+            let imgs = [];
+            if (petToEdit.imagens) {
+                imgs = petToEdit.imagens.split(',').map(s => s.trim()).filter(Boolean);
+            } else if (petToEdit.imagem) {
+                imgs = [petToEdit.imagem];
+            }
+            setImagens(imgs);
+            setImagemPreviews(imgs);
         }
     }, [petToEdit]);
 
     if (!isEditarPet) {
         return null;
     }
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setImagem(reader.result);
-            setImagemPreview(reader.result);
-        };
-        reader.readAsDataURL(file);
+
+const handleImageChange = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    // Previews locais
+    const newPreviews = files.map(file => URL.createObjectURL(file));
+    setImagemPreviews(prev => [...prev, ...newPreviews]);
+
+    // Upload para backend usando apiService
+    try {
+        const uploadedUrls = await Promise.all(files.map(uploadPetImage));
+        setImagens(prev => [...prev, ...uploadedUrls]);
+    } catch (error) {
+        console.error("Um ou mais uploads falharam:", error);
+        // Aqui você pode exibir um alerta de erro se quiser
+    }
+    e.target.value = '';
+};
+
+    const handleRemoveImage = (idx) => {
+        setImagemPreviews(prev => prev.filter((_, i) => i !== idx));
+        setImagens(prev => prev.filter((_, i) => i !== idx));
+    };
+
+    const handleSetPrincipal = (idx) => {
+        setImagemPreviews(prev => {
+            const arr = [...prev];
+            const [img] = arr.splice(idx, 1);
+            arr.unshift(img);
+            return arr;
+        });
+        setImagens(prev => {
+            const arr = [...prev];
+            const [img] = arr.splice(idx, 1);
+            arr.unshift(img);
+            return arr;
+        });
     };
 
     const handleAddTag = () => {
@@ -67,8 +110,8 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
             descricao,
             porte,
             genero,
-            imagem,
             especie,
+            imagens: imagens.join(','),
             tags: tags.join(', ')
         };
         onEditPet(updatedPet);
@@ -76,7 +119,6 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         setPets((prevPets) =>
             prevPets.map((pet) => (pet.id_pet === updatedPet.id_pet ? updatedPet : pet))
         );
-        // window.location.reload();
     };
 
     const handleClose = () => {
@@ -164,16 +206,32 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                                 Escolher Imagem
                             </button>
                         </div>
-                        {imagemPreview === null ? '' :
-                            <div className="img-preview" >
-                                {imagemPreview && (
-                                    <img src={imagemPreview} alt="Pré-visualização" className="imagem-preview" />
-                                )}
-                            </div>
-                        }
-
+                        <div className="img-preview" style={{ display: 'flex', gap: 16 }}>
+                            {imagemPreviews.map((img, idx) => (
+                                <div key={idx} className="img-preview-wrapper">
+                                    <img
+                                        src={img}
+                                        alt={`Pré-visualização ${idx + 1}`}
+                                        className={`imagem-preview ${idx === 0 ? 'imagem-principal' : ''}`}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => handleRemoveImage(idx)}
+                                        className="botao-excluir-img-pet"
+                                        title="Excluir Imagem"
+                                    >✕</button>
+                                    {idx !== 0 && (
+                                        <TbPhotoExclamation
+                                            type="button"
+                                            onClick={() => handleSetPrincipal(idx)}
+                                            className="botao-img-principal-pet"
+                                            title="Definir imagem como principal"
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
                     <div className="edit-desc">
                         <label htmlFor="descricao-pet">Descrição</label>
                         <input
@@ -212,8 +270,8 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
                     <button onClick={handleSave} className='botao-edit-salvar'>Salvar</button>
                     <button onClick={handleClose} className='botao-edit-fechar'>Fechar</button>
                 </div>
-                
-            
+
+
             </div>
         </div>
     );
