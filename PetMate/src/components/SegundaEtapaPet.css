@@ -225,16 +225,6 @@
 }
 
 
-.tags-container {
-    display: flex;
-    flex-direction: column;
-    width: 30vw;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
 #input-tag {
     width: 600px;
     height: 60px;
@@ -245,13 +235,6 @@
     font-size: 18px;
 }
 
-
-.tag-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-}
 
 .tags-list {
     display: flex;
@@ -339,7 +322,6 @@
 
 .tag-button {
     display: flex;
-    flex-direction: row;
 }
 
 .termos-pet {
@@ -590,6 +572,15 @@
     justify-content: center;
     width: 100%;
     gap: 10px;
+}
+
+
+.inputs-segunda-etapa {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: solid; */
 }
 
 

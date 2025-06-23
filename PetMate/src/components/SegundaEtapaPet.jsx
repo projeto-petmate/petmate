@@ -102,65 +102,66 @@ function SegundaEtapaPet({
                         </div>
                     </div>
                     <div className="container-meio-segunda-etapa">
-
-                        <div className="condicoes-container">
-                            <div className="condicoes-pet">
-                                <div className='condicoes-texto'>
-                                    <p>
-                                        O pet possui alguma condição especial?
-                                    </p>
+                        <div className="inputs-segunda-etapa">
+                            <div className="condicoes-container">
+                                <div className="condicoes-pet">
+                                    <div className='condicoes-texto'>
+                                        <p>
+                                            O pet possui alguma condição especial?
+                                        </p>
+                                    </div>
+                                    <div className="radio-condicoes">
+                                        <label htmlFor="radio-pet-nao">Não</label>
+                                        <input type="radio" id='radio-pet-nao' name='radio-pet'
+                                            value={radioCondicoes}
+                                            onChange={() => setRadioCondicoes('não')} />
+                                    </div>
+                                    <div className="radio-condicoes">
+                                        <label htmlFor="radio-pet-sim">Sim</label>
+                                        <input type="radio" id='radio-pet-sim' name='radio-pet'
+                                            value={radioCondicoes}
+                                            onChange={() => setRadioCondicoes('sim')} />
+                                    </div>
                                 </div>
-                                <div className="radio-condicoes">
-                                    <label htmlFor="radio-pet-nao">Não</label>
-                                    <input type="radio" id='radio-pet-nao' name='radio-pet'
-                                        value={radioCondicoes}
-                                        onChange={() => setRadioCondicoes('não')} />
+                                <div className="input-condicao">
+                                    {radioCondicoes === 'sim' &&
+                                        <label htmlFor="input-condicao">Descreva a condição especial do pet:
+                                            <input type="text" name="" id="input-condicao"
+                                                className='input-condicao-pet'
+                                                placeholder='Ex: Depende de remédios'
+                                                value={inptCondicoes}
+                                                onChange={(e) => setInptCondicoes(e.target.value)} />
+                                        </label>
+                                    }
                                 </div>
-                                <div className="radio-condicoes">
-                                    <label htmlFor="radio-pet-sim">Sim</label>
-                                    <input type="radio" id='radio-pet-sim' name='radio-pet'
-                                        value={radioCondicoes}
-                                        onChange={() => setRadioCondicoes('sim')} />
-                                </div>
-                            </div>
-                            <div className="input-condicao">
-                                {radioCondicoes === 'sim' &&
-                                    <label htmlFor="input-condicao">Descreva a condição especial do pet:
-                                        <input type="text" name="" id="input-condicao"
-                                            className='input-condicao-pet'
-                                            placeholder='Ex: Depende de remédios'
-                                            value={inptCondicoes}
-                                            onChange={(e) => setInptCondicoes(e.target.value)} />
-                                    </label>
-                                }
-                            </div>
-                        </div>
-                        <div className="tags-container">
-                            <div className="tag-button">
-                                <div className="container-input-tag">
-                                    <label htmlFor="input-tag">Características:</label>
+                                <div className="tags-container">
                                     <div className="tag-button">
-                                        <input
-                                            type="text"
-                                            className='input-tag-cad'
-                                            value={tagInput}
-                                            onChange={(e) => setTagInput(e.target.value)}
-                                            id='input-tag'
-                                            placeholder="Ex: Vacinado, Castrado, Brincalhão"
-                                        />
-                                        <button type="button" onClick={handleAddTag} className='add-tag'>+</button>
+                                        <div className="container-input-tag">
+                                            <label htmlFor="input-tag">Características:</label>
+                                            <div className="tag-button">
+                                                <input
+                                                    type="text"
+                                                    className='input-tag-cad'
+                                                    value={tagInput}
+                                                    onChange={(e) => setTagInput(e.target.value)}
+                                                    id='input-tag'
+                                                    placeholder="Ex: Vacinado, Castrado, Brincalhão"
+                                                />
+                                                <button type="button" onClick={handleAddTag} className='add-tag'>+</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="tags-list">
-                                {tags.map((tag, index) => (
-                                    <div key={index} className="tag-item">
-                                        <div className="texto-tag">
-                                            {tag}
+                                <div className="tags-list">
+                                    {tags.map((tag, index) => (
+                                        <div key={index} className="tag-item">
+                                            <div className="texto-tag">
+                                                {tag}
+                                            </div>
+                                            <button type="button" onClick={() => handleRemoveTag(index)} className='remove-tag'>x</button>
                                         </div>
-                                        <button type="button" onClick={() => handleRemoveTag(index)} className='remove-tag'>x</button>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                         <div className="container-img-anunciar">
@@ -186,12 +187,12 @@ function SegundaEtapaPet({
                                             title="Excluir"
                                         >✕</button>
                                         {idx !== 0 && (
-                                        <TbPhotoExclamation
-                                            type="button"
-                                            onClick={() => handleSetPrincipal(idx)}
-                                            className="botao-img-principal-cad"
-                                            title="Definir imagem como principal"
-                                        />
+                                            <TbPhotoExclamation
+                                                type="button"
+                                                onClick={() => handleSetPrincipal(idx)}
+                                                className="botao-img-principal-cad"
+                                                title="Definir imagem como principal"
+                                            />
                                         )}
                                     </div>
                                 ))}
