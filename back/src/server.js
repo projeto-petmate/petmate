@@ -152,13 +152,13 @@ app.get('/ongs/verificar-cnpj', async (req, res) => {
 
 //Rotas para usuários
 app.post('/usuarios', async (req, res) => {
-    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
+    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo } = req.body;
 
     console.log("Dados recebidos no backend:", req.body);
     try {
         const result = await pool.query(
-            'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *',
-            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo]
+            'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
+            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo]
         );
         console.log("Resultado da inserção:", result.rows);
         res.json(result.rows[0]);
@@ -170,7 +170,7 @@ app.post('/usuarios', async (req, res) => {
 
 app.put('/usuarios/:id', async (req, res) => {
     const { id } = req.params;
-    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo } = req.body;
+    const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo } = req.body;
 
     if (!id) {
         return res.status(400).json({ error: 'ID do usuário é obrigatório.' });
@@ -178,8 +178,8 @@ app.put('/usuarios/:id', async (req, res) => {
 
     try {
         const result = await pool.query(
-            'UPDATE usuarios SET nome = $1, email = $2, genero = $3, senha = $4, uf = $5, cidade = $6, bairro = $7, telefone = $8, cpf = $9, favoritos = $10, imagem = $11, tipo = $12 WHERE id_usuario = $13 RETURNING *',
-            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, imagem, tipo, id]
+            'UPDATE usuarios SET nome = $1, email = $2, genero = $3, senha = $4, uf = $5, cidade = $6, bairro = $7, telefone = $8, cpf = $9, favoritos = $10, tipo = $11 WHERE id_usuario = $12 RETURNING *',
+            [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo, id]
         );
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'Usuário não encontrado.' });
