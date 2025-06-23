@@ -6,7 +6,7 @@ import { TbPhotoExclamation } from 'react-icons/tb';
 import Swal from 'sweetalert2'
 
 function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
-    const { pet, setPet, setPets, pets } = useContext(PetContext);
+    const { setPets } = useContext(PetContext);
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
     const [raca, setRaca] = useState('');
@@ -110,11 +110,12 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const handleSave = () => {
         if (imagemPreviews.length < 1) {
             Swal.fire({
-                position: "center",
-                icon: "warning",
-                title: "O anúncio precisa ter pelo menos uma foto!",
-                showConfirmButton: true,
-                confirmButtonColor: '#654833',
+            position: "center",
+            icon: "warning",
+            title: "<span style='font-size: 22px;'>O anúncio precisa ter pelo menos uma foto!</span>",
+            showConfirmButton: true,
+            confirmButtonColor: '#654833',
+            width: 500,
             });
             return
         }

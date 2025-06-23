@@ -309,9 +309,9 @@
   .p-texto-login-desejado{
     font-size: 18px;
     font-family: inter;
-    font-weight: 700;
+    font-weight: 450;
     color: #6b4f3a;
-    margin-top: 0.9rem;
+    padding-top: 0.9rem;
   }
   
   .mydict input[type="radio"] {
