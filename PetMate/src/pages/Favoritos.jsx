@@ -8,12 +8,29 @@ import JanelaPet from '../components/JanelaPet';
 import { getPets } from '../apiService';
 import LastPage from '../components/LastPage';
 import { GlobalContext } from '../contexts/GlobalContext';
+import ModalDesfavoritar from '../components/ModalDesfavoritar';
+
 
 function Favoritos() {
     const [pets, setPets] = useState([]);
     const [openPetModal, setOpenPetModal] = useState(false);
     const { logado } = useContext(GlobalContext)
     const { setPet, favoritos, toggleFavorito } = useContext(PetContext);
+    const [showModalDesfavoritar, setShowModalDesfavoritar] = useState(false);
+    const [petSelecionado, setPetSelecionado] = useState(null);
+
+    const abrirModalDesfavoritar = (id_pet) => {
+        setPetSelecionado(id_pet);
+        setShowModalDesfavoritar(true);
+    };
+
+    const confirmarDesfavoritar = () => {
+        toggleFavorito(petSelecionado);
+        setShowModalDesfavoritar(false);
+        setPetSelecionado(null);
+    };
+
+
 
     useEffect(() => {
         const fetchPets = async () => {
@@ -84,7 +101,7 @@ function Favoritos() {
                                     <button
                                         alt="Desfavoritar"
                                         className="favorito-icon"
-                                        onClick={() => toggleFavorito(p.id_pet)}>
+                                        onClick={() => abrirModalDesfavoritar(p.id_pet)}>
                                         <FaStar className='estrela-preenchida' />
                                     </button>
                                 </div>
@@ -129,6 +146,12 @@ function Favoritos() {
                     </div>
                 }
             </div>
+            <ModalDesfavoritar
+                isOpen={showModalDesfavoritar}
+                onClose={() => setShowModalDesfavoritar(false)}
+                onConfirm={confirmarDesfavoritar}
+            />
+
             <LastPage />
             <Footer />
         </div>

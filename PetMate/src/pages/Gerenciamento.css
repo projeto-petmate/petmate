@@ -138,11 +138,14 @@
 }
 
 .container-adm2 {
-    min-width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: 20rem; */
     /* height: 63vh; */
     background-color: #FBFBFB;
     background-image: url(/images/fundo_patas.svg);
-    padding: 20px;
+    padding: 5rem;
 }
 
 .gerenciar-title2 {
@@ -150,7 +153,6 @@
     font-weight: bold;
     color: #84644D;
     text-align: center;
-    margin-top: 200px;
     padding: 10px 20px;
     background-color: #F6F4F1;
     border: 2px solid #AD947E;

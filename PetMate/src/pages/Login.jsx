@@ -30,6 +30,7 @@ function Login() {
                             <img src="/images/barra_marrom.png" className='barra_marrom' />
                             <p>Digite seus dados de acesso no campo abaixo.</p>
                         </div>
+                        
                         <div className="mydict">
                             <div>
                                 <label>
@@ -42,7 +43,9 @@ function Login() {
                                         onChange={(e) => setMudarConta(e.target.value)}></input>
                                     <span>ONG</span>
                                 </label>
+                                
                             </div>
+                            <p className='p-texto-login-desejado'>Selecione o login desejado</p>
                         </div>
 
                         {mudarConta === '1' ? <LoginUsuario /> : <LoginOng />}

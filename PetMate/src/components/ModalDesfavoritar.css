@@ -1,0 +1,186 @@
+.modal-fundo {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    min-height: 29vh;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 30vw;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.15s;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.meio-modal-desfavoritar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.texto-desfavoritar h1 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.botao-confirmar,
+.botao-cancelar {
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 50px;
+    width: 120px;
+    font-family: nunito;
+    transition: 0.3s ease;
+}
+
+
+.botao-cancelar {
+    background-color: #84644D;
+    color: #EBE5E0;
+}
+
+.botao-confirmar {
+    background-color: #EBE5E0;
+    border: 1px solid #6b4f3a;
+    color: #333;
+}
+
+.botao-confirmar:hover {
+    background-color: #b3aba5;
+    transition: 0.3s;
+}
+
+.botao-cancelar:hover {
+    background-color: #6e533f;
+}
+
+@media (max-width: 768px) {
+    .container-modal-logout {
+        width: 80vw;
+        min-height: 40vh;
+        padding: 20px;
+    }
+
+
+
+
+    .texto_logout h1 {
+        font-size: 22px;
+    }
+
+
+
+
+    .botao-modal-logout,
+    .botao-cancelar-logout {
+        width: 120px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .container-modal-logout {
+        width: 90vw;
+        min-height: 10vh;
+    }
+
+
+
+
+    .texto_logout h1 {
+        font-size: 19px;
+        margin-top: 20px;
+    }
+
+
+
+
+    .botoes-logout {
+        width: 120%;
+    }
+
+
+
+
+    .botao-modal-logout,
+    .botao-cancelar-logout {
+        width: 100%;
+        height: 40px;
+        font-size: 14px;
+    }
+}
