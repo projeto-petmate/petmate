@@ -82,7 +82,7 @@ function Favoritos() {
                         paginatedPets.map((p) => (
                             <div key={p.id_pet} className="pet-card-fav">
                                 <img
-                                    src={getPetImage(p) ? p.imagem : "/images/default_pet_image.jpg"}
+                                    src={getPetImage(p)}
                                     alt={`Imagem de ${p.nome}`}
                                     className="pet-image"
                                 />

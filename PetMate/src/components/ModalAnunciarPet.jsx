@@ -9,7 +9,6 @@ import Swal from 'sweetalert2'
 import { GlobalContext } from "../contexts/GlobalContext";
 import { uploadPetImage } from '../apiService';
 import './CarrosselPet.css';
-import CarrosselPet from './CarrosselPet'
 
 export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const { addPet, setPets, pets } = useContext(PetContext)
@@ -21,8 +20,8 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   const [inptPetPorte, setInptPetPorte] = useState('')
   const [inptPetGenero, setInptPetGenero] = useState('')
   const [inptPetDescricao, setInptPetDescricao] = useState('')
-  const [inptPetImagens, setInptPetImagens] = useState([]); // Array para armazenar URLs das imagens
-  const [imagemPreview, setImagemPreview] = useState([]); // Array para armazenar pré-visualizações
+  const [inptPetImagens, setInptPetImagens] = useState([]);
+  const [imagemPreview, setImagemPreview] = useState([]);
   const [aceitarTermos, setAceitarTermos] = useState(false)
   const [erros, setErros] = useState({})
   const [etapa, setEtapa] = useState(1)

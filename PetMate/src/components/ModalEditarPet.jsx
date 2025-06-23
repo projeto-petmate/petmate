@@ -3,6 +3,7 @@ import './ModalEditarPet.css';
 import { PetContext } from '../contexts/PetContext';
 import { uploadPetImage } from '../apiService';
 import { TbPhotoExclamation } from 'react-icons/tb';
+import Swal from 'sweetalert2'
 
 function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
     const { pet, setPet, setPets, pets } = useContext(PetContext);
@@ -44,25 +45,36 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         }
     }, [petToEdit]);
 
+    useEffect(() => {
+        if (isEditarPet && petToEdit) {
+            const imgs = petToEdit.imagens
+                ? petToEdit.imagens.split(',').map(s => s.trim()).filter(Boolean)
+                : (petToEdit.imagem ? [petToEdit.imagem] : []);
+            setImagemPreviews(imgs);
+            setImagens(imgs);
+            setTags(petToEdit.tags ? petToEdit.tags.split(',').map(s => s.trim()) : []);
+        }
+    }, [isEditarPet, petToEdit]);
+
     if (!isEditarPet) {
         return null;
     }
 
-const handleImageChange = async (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
+    const handleImageChange = async (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
 
-    const newPreviews = files.map(file => URL.createObjectURL(file));
-    setImagemPreviews(prev => [...prev, ...newPreviews]);
+        const newPreviews = files.map(file => URL.createObjectURL(file));
+        setImagemPreviews(prev => [...prev, ...newPreviews]);
 
-    try {
-        const uploadedUrls = await Promise.all(files.map(uploadPetImage));
-        setImagens(prev => [...prev, ...uploadedUrls]);
-    } catch (error) {
-        console.error("Um ou mais uploads falharam:", error);
-    }
-    e.target.value = '';
-};
+        try {
+            const uploadedUrls = await Promise.all(files.map(uploadPetImage));
+            setImagens(prev => [...prev, ...uploadedUrls]);
+        } catch (error) {
+            console.error("Um ou mais uploads falharam:", error);
+        }
+        e.target.value = '';
+    };
 
     const handleRemoveImage = (idx) => {
         setImagemPreviews(prev => prev.filter((_, i) => i !== idx));
@@ -96,6 +108,17 @@ const handleImageChange = async (e) => {
     };
 
     const handleSave = () => {
+        if (imagemPreviews.length < 1) {
+            Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "O anúncio precisa ter pelo menos uma foto!",
+                showConfirmButton: true,
+                confirmButtonColor: '#654833',
+            });
+            return
+        }
+
         const updatedPet = {
             ...petToEdit,
             nome,
@@ -200,7 +223,7 @@ const handleImageChange = async (e) => {
                                 Escolher Imagem
                             </button>
                         </div>
-                        <div className="img-preview" style={{ display: 'flex', gap: 16 }}>
+                        <div className="img-preview-edit">
                             {imagemPreviews.map((img, idx) => (
                                 <div key={idx} className="img-preview-wrapper">
                                     <img

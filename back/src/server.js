@@ -278,7 +278,7 @@ app.get('/loggedUser', authenticateToken, async (req, res) => {
     try {
         if (tipo === 'usuario') {
             const result = await pool.query(
-                'SELECT id_usuario, nome, email, genero, cpf, senha, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios WHERE id_usuario = $1',
+                'SELECT * FROM usuarios WHERE id_usuario = $1',
                 [id]
             );
             if (result.rows.length === 0) {
