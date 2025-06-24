@@ -10,7 +10,8 @@ import { FaShieldDog } from 'react-icons/fa6';
 import ModalPetAdotado from './ModalPetAdotado';
 import { PetContext } from '../contexts/PetContext';
 
-function CardPetPerfil() {
+function 
+CardPetPerfil() {
 
     const { userLogado } = useContext(GlobalContext);
     const { togglePetAdotado } = useContext(PetContext)
@@ -111,6 +112,12 @@ function CardPetPerfil() {
     const startIndex = (currentPage - 1) * petsPerPage;
     const endIndex = startIndex + petsPerPage;
     const paginatedPets = ordemPerfil.slice(startIndex, endIndex);
+
+    useEffect(() => {
+        if (currentPage > totalPages) {
+            setCurrentPage(1);
+        }
+    }, [totalPages]);
 
     return (
         <div className={containerClass}>
