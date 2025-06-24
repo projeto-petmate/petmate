@@ -26,7 +26,7 @@ function CardOng({ termoPesquisa }) {
   }, []);
 
   const ongsFiltradas = ongs.filter((o) =>
-    o.nome_ong.toLowerCase().startsWith(termoPesquisa.toLowerCase())
+    o.nome_ong.toLowerCase().includes(termoPesquisa.toLowerCase())
   );
 
   // Paginação
