@@ -1,33 +1,28 @@
-# PetMate - Backend
+# 🐾 PetMate - Backend
 
-API para gerenciamento de pets, usuários, ONGs, comentários, denúncias e upload de imagens, desenvolvida em Node.js com Express e PostgreSQL.
+Bem-vindo ao **PetMate**! Este é o backend de uma plataforma completa para adoção de pets, gerenciamento de ONGs, usuários, denúncias, comentários e upload de imagens. Desenvolvido em **Node.js** com **Express** e **PostgreSQL**, o sistema é robusto, seguro e pronto para escalar.
 
 ---
 
-## **Pré-requisitos**
+## 🚀 Como rodar o projeto
 
+### 1. Pré-requisitos
+
+- Git
 - Node.js (v16+)
 - PostgreSQL
-- Conta no [Cloudinary](https://cloudinary.com/) para upload de imagens
+- Conta gratuita no [Cloudinary](https://cloudinary.com/) para upload de imagens
 
----
-
-## **Configuração**
-
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/projeto-petmate/petmate.git
-   cd back
-
-2. **Instale as dependências**
-   ```bash
-   npm install
+### 2. Instalação
+      git clone https://github.com/projeto-petmate/petmate.git
+      cd back
+      npm install
 
 3. **Configure o banco de dados**
    - Crie um banco chamado petmate no PostgreSQL.
    - Importe as tabelas e dados iniciais conforme os arquivos SQL do projeto.
 
-4. Configure as variáveis de ambiente
+4. **Configure as variáveis de ambiente**  
   Crie um arquivo .env na raiz do projeto com:
    ```bash
     EMAIL_USER=seu_email@gmail.com
