@@ -42,7 +42,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/usuarios', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id_usuario, cpf, nome, senha, email, genero, uf, cidade, bairro, telefone, imagem, tipo FROM usuarios');
+        const result = await pool.query('SELECT id_usuario, cpf, nome, senha, email, genero, uf, cidade, bairro, telefone, tipo FROM usuarios');
         res.json(result.rows);
     } catch (err) {
         console.error(err.message);
