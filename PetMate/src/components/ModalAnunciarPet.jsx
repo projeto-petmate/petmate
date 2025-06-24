@@ -89,8 +89,10 @@ const handleImageChange = (e) => {
     Swal.fire({
       icon: 'warning',
       title: 'Limite de imagens',
-      text: 'Você pode adicionar no máximo 4 imagens por pet.'
+      text: 'Você pode adicionar no máximo 4 imagens por pet.',
+      confirmButtonColor: "#654833",
     });
+    e.target.value = '';
     return;
   }
 
