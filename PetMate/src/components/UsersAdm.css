@@ -7,6 +7,7 @@
     color: #543A28;
     margin-bottom: 20px;
 }
+
 .users-list {
     display: flex;
     flex-wrap: wrap;
@@ -76,4 +77,50 @@
 
 .botao-excluir-user:hover {
     color: #84644D;
+}
+
+/* Paginação */
+.paginacao-usuarios {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    padding-bottom: 25px;
+}
+
+.paginacao-usuarios button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #654833;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.paginacao-ongs button:hover:not(:disabled) {
+    background-color: #eee;
+}
+
+.paginacao-usuarios button.active {
+    background-color: #654833;
+    color: #fff;
+    font-weight: bold;
+}
+
+.paginacao-usuarios button:disabled {
+    background-color: #fff;
+    color: rgba(8, 8, 8, 0.5);
+}
+
+.icon-setaPag {
+    font-size: 20px;
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getUsuarios, deleteUsuario, updateUsuario } from '../apiService';
 import { FaEdit, FaUserCircle } from 'react-icons/fa';
-import { IoTrash, IoTrashOutline } from 'react-icons/io5';
+import { IoTrash } from 'react-icons/io5';
 import './UsersAdm.css';
 import ModalExcluirUser from './ModalExcluirUser';
 import ModalEditarUser from './ModalEditarUser';
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 
 function UsersAdm() {
   const [users, setUsers] = useState([]);
@@ -12,6 +13,15 @@ function UsersAdm() {
   const [userToEdit, setUserToEdit] = useState(null);
   const [openModalExcluirUser, setOpenModalExcluirUser] = useState(false);
   const [openModalEditarUser, setOpenModalEditarUser] = useState(false);
+
+  // Paginação
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 12;
+
+  const totalPages = Math.ceil(users.length / usersPerPage);
+  const startIndex = (currentPage - 1) * usersPerPage;
+  const endIndex = startIndex + usersPerPage;
+  const paginatedUsers = users.slice(startIndex, endIndex);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -50,7 +60,7 @@ function UsersAdm() {
     <div className="users-adm-container">
       <h2 className='title-lista-users'>Lista de Usuários</h2>
       <div className="users-list">
-        {users.map((user) => (
+        {paginatedUsers.map((user) => (
           <div key={user.id_usuario} className="user-card">
             <div className="user-photo">
               {user.imagem ? (
@@ -84,6 +94,38 @@ function UsersAdm() {
           </div>
         ))}
       </div>
+
+      {/* Paginação */}
+      {users.length > usersPerPage && (
+        <div className="paginacao-usuarios">
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            <FaArrowLeft className='icon-setaPag' />
+            Anterior
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              className={currentPage === i + 1 ? 'active' : ''}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Próxima
+            <FaArrowRight className='icon-setaPag' />
+          </button>
+        </div>
+      )}
+
       <ModalExcluirUser
         isExcluirUser={openModalExcluirUser}
         setUserDeleteOpen={setOpenModalExcluirUser}

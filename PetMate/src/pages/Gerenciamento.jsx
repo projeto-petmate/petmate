@@ -11,6 +11,8 @@ import OngsAdm from '../components/OngsAdm';
 import { NavLink, useNavigate } from "react-router-dom";
 import UsersAdm from '../components/UsersAdm';
 import { GlobalContext } from '../contexts/GlobalContext';
+import LastPage from "../components/LastPage";
+
 
 function Gerenciamento() {
   const [mostrar, setMostrar] = useState(0)
@@ -80,7 +82,7 @@ function Gerenciamento() {
         {mostrar == 4 && <ComentarioAdm />}
       </div>
       {/* </div> */}
-
+      <LastPage />
     </div>
   )
 }
