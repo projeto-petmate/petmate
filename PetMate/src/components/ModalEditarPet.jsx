@@ -60,21 +60,6 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         return null;
     }
 
-    const handleImageChange = async (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length === 0) return;
-
-        const newPreviews = files.map(file => URL.createObjectURL(file));
-        setImagemPreviews(prev => [...prev, ...newPreviews]);
-
-        try {
-            const uploadedUrls = await Promise.all(files.map(uploadPetImage));
-            setImagens(prev => [...prev, ...uploadedUrls]);
-        } catch (error) {
-            console.error("Um ou mais uploads falharam:", error);
-        }
-        e.target.value = '';
-    };
 
     const handleRemoveImage = (idx) => {
         setImagemPreviews(prev => prev.filter((_, i) => i !== idx));
@@ -107,19 +92,86 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
         setTags(tags.filter((_, i) => i !== index));
     };
 
-    const handleSave = () => {
+    
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
+
+        if (imagemPreviews.length + files.length > 4) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Limite de imagens',
+              text: 'Você pode adicionar no máximo 4 imagens por pet.',
+              confirmButtonColor: "#654833",
+            });
+            e.target.value = '';
+            return;
+          }
+    
+        const maxSize = 2 * 1024 * 1024; // 2MB
+        const validFiles = [];
+        const newPreviews = [];
+    
+        for (const file of files) {
+            if (file.size > maxSize) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Imagem muito grande!",
+                    text: "Cada imagem deve ter no máximo 2MB.",
+                    confirmButtonColor: "#654833"
+                });
+                continue;
+            }
+            validFiles.push(file);
+            newPreviews.push(URL.createObjectURL(file));
+        }
+    
+        setImagens(prev => [...prev, ...validFiles]);
+        setImagemPreviews(prev => [...prev, ...newPreviews]);
+        e.target.value = '';
+    };
+
+    const handleSave = async () => {
         if (imagemPreviews.length < 1) {
             Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "<span style='font-size: 22px;'>O anúncio precisa ter pelo menos uma foto!</span>",
-            showConfirmButton: true,
-            confirmButtonColor: '#654833',
-            width: 500,
+                position: "center",
+                icon: "warning",
+                title: "<span style='font-size: 22px;'>O anúncio precisa ter pelo menos uma foto!</span>",
+                showConfirmButton: true,
+                confirmButtonColor: '#654833',
+                width: 500,
             });
-            return
+            return;
         }
 
+        Swal.fire({
+            title: 'Enviando imagens...',
+            html: '<b>Aguarde enquanto as imagens são enviadas.</b>',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+    
+        let uploadedUrls = [];
+        try {
+            uploadedUrls = await Promise.all(
+                imagens.map(img =>
+                    img instanceof File ? uploadPetImage(img) : img
+                )
+            );
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Erro ao enviar imagens",
+                text: "Tente novamente.",
+                confirmButtonColor: "#654833"
+            });
+            return;
+        }
+        Swal.close();
+    
         const updatedPet = {
             ...petToEdit,
             nome,
@@ -129,7 +181,7 @@ function ModalEditarPet({ isEditarPet, setPetEditOpen, onEditPet, petToEdit }) {
             porte,
             genero,
             especie,
-            imagens: imagens.join(','),
+            imagens: uploadedUrls.join(','),
             tags: tags.join(', ')
         };
         onEditPet(updatedPet);
