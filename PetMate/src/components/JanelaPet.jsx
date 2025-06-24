@@ -25,7 +25,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
           if (pet.id_usuario) {
             response = await getUsuarioById(pet.id_usuario);
           } else if (pet.id_ong) {
-            response = await getOngById(EventTarget.id_ong);
+            response = await getOngById(pet.id_ong);
           }
           setDoador(response);
         } catch (error) {
@@ -40,12 +40,12 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
     return null;
   }
 
-  const cidade = doador?.cidade || doador?.cidade_ong || 'Cidade não informada';
-  const bairro = doador?.bairro || doador?.bairro_ong || 'Bairro não informado';
+  const cidade = doador?.cidade || 'Cidade não informada';
+  const bairro = doador?.bairro || 'Bairro não informado';
 
-  const telefone = doador?.telefone_contato || doador?.telefone;
-  const email = doador?.email_ong || doador?.email;
-  const endereco = `${bairro}, ${cidade}`;
+  const telefone = doador?.telefone;
+  const email = doador?.email_contato || doador?.email;
+  const endereco = pet.id_usuario ? `${bairro}, ${cidade}` : `${cidade}, ${doador?.endereco}`;
   const nome = doador?.nome_ong || doador?.nome
 
   const linkWpp = telefone && `https://api.whatsapp.com/send?phone=${'55' + telefone}&text=Ol%C3%A1%2C%20vim%20pelo%20PetMate.%20Estou%20interessado%20no%20pet%20${pet.nome}.`;
@@ -53,14 +53,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
   const linkMaps = endereco && `https://www.google.com/maps/search/?api=1&query=${endereco}`;
 
   const tagsArray = pet.tags ? pet.tags.split(', ') : [];
-
-  function getPetImages(pet) {
-    if (pet.imagens) {
-      return pet.imagens.split(',').map(s => s.trim()).filter(Boolean).filter((v, i, a) => a.indexOf(v) === i);
-    }
-    if (pet.imagem) return [pet.imagem];
-    return ["/images/default_pet_image.jpg"];
-  }
+  
 
   const imagensArray = pet.imagens
     ? pet.imagens.split(',').map(s => s.trim()).filter(Boolean)
@@ -96,6 +89,7 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             <div className="descricao-pet">
               <div className="desc-title">
                 <p>Informações</p>
+                <p>{doador?.cidade}</p>
               </div>
               <div className="detalhes-pet">
                 <div className='detalhePet'>

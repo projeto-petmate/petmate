@@ -275,7 +275,6 @@
     color: #F6F4F1;
     font-weight: 600;
     letter-spacing: 0.025em;
-    font-family: Roboto;
     margin-top: 30px;
     margin: auto;
     cursor: pointer;
@@ -290,7 +289,7 @@
     border: 2px solid #84644D;
     border-radius: 10px;
     color: #84644D;
-    font-size: 22px;
+    font-size: 20px;
     font-family: 'Nunito';
     font-weight: 700;
     letter-spacing: 0.03em;

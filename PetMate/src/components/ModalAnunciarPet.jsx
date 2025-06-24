@@ -11,7 +11,7 @@ import { uploadPetImage } from '../apiService';
 import './CarrosselPet.css';
 
 export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
-  const { addPet, setPets, pets } = useContext(PetContext)
+  const { addPet } = useContext(PetContext)
   const { userLogado } = useContext(GlobalContext);
   const [inptPetEspecie, setInptPetEspecie] = useState('')
   const [inptPetNome, setInptPetNome] = useState('')
@@ -81,40 +81,40 @@ export default function ModalAnunicarPet({ isOpen, setModalOpen }) {
   }
 
 
-const handleImageChange = (e) => {
-  const files = Array.from(e.target.files);
-  const maxSize = 2 * 1024 * 1024; // 2MB
-  
-  if (imagemPreview.length + files.length > 4) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Limite de imagens',
-      text: 'Você pode adicionar no máximo 4 imagens por pet.',
-      confirmButtonColor: "#654833",
-    });
-    e.target.value = '';
-    return;
-  }
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    const maxSize = 2 * 1024 * 1024; // 2MB
 
-  const validFiles = [];
-  const previews = [];
-  for (const file of files) {
-    if (file.size > maxSize) {
+    if (imagemPreview.length + files.length > 4) {
       Swal.fire({
-        icon: "warning",
-        title: "Imagem muito grande!",
-        text: "Cada imagem deve ter no máximo 2MB.",
-        confirmButtonColor: "#654833"
+        icon: 'warning',
+        title: 'Limite de imagens',
+        text: 'Você pode adicionar no máximo 4 imagens por pet.',
+        confirmButtonColor: "#654833",
       });
-      continue;
+      e.target.value = '';
+      return;
     }
-    validFiles.push(file);
-    previews.push(URL.createObjectURL(file));
-  }
 
-  setInptPetImagens(prev => [...prev, ...validFiles]);
-  setImagemPreview(prev => [...prev, ...previews]);
-};
+    const validFiles = [];
+    const previews = [];
+    for (const file of files) {
+      if (file.size > maxSize) {
+        Swal.fire({
+          icon: "warning",
+          title: "Imagem muito grande!",
+          text: "Cada imagem deve ter no máximo 2MB.",
+          confirmButtonColor: "#654833"
+        });
+        continue;
+      }
+      validFiles.push(file);
+      previews.push(URL.createObjectURL(file));
+    }
+
+    setInptPetImagens(prev => [...prev, ...validFiles]);
+    setImagemPreview(prev => [...prev, ...previews]);
+  };
 
   const handleRemoveImage = (idx) => {
     setImagemPreview(prev => prev.filter((_, i) => i !== idx));
@@ -305,7 +305,6 @@ const handleImageChange = (e) => {
                 onChange={(e) => setInptPetDescricao(e.target.value)}
               />
             </div>
-
             <button type="submit" className='botao-cad-pet'>Próxima Etapa</button>
           </form>
         ) : (

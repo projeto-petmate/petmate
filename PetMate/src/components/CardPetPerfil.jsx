@@ -25,27 +25,22 @@ CardPetPerfil() {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showSuccessPopupDel, setShowSuccessPopupDel] = useState(false);
     const containerClass = userPets.length <= 2 ? 'card-pet-perfil-container-poucos-pets' : 'card-pet-perfil-container';
-    const isOng = userLogado?.tipo === "ong";
     const [currentPage, setCurrentPage] = useState(1);
     const petsPerPage = 2;
+    const { pets } = useContext(PetContext);
+    
 
     useEffect(() => {
-        const fetchUserPets = async () => {
-            try {
-                const pets = await getPets();
-                const filteredPets = isOng
-                    ? pets.filter(pet => pet.id_ong === userLogado.id_ong)
-                    : pets.filter(pet => pet.id_usuario === userLogado.id_usuario);
-                setUserPets(filteredPets);
-            } catch (error) {
-                console.error("Erro ao buscar pets do usuário/ONG:", error);
-            }
-        };
-
         if (userLogado) {
-            fetchUserPets();
+          setUserPets(
+            pets.filter(pet =>
+              userLogado.id_usuario
+                ? pet.id_usuario === userLogado.id_usuario
+                : pet.id_ong === userLogado.id_ong
+            )
+          );
         }
-    }, [userLogado, isOng]);;
+      }, [pets, userLogado]);
 
     const handleDelete = async () => {
         try {
@@ -67,6 +62,7 @@ CardPetPerfil() {
             setUserPets(userPets.map(pet => (pet.id_pet === updatedPet.id_pet ? updatedPet : pet)));
             setOpenModalEditarPet(false);
             setShowSuccessPopup(true);
+            
             setTimeout(() => {
                 setShowSuccessPopup(false);
             }, 2000);
