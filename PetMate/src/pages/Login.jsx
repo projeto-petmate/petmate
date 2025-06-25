@@ -1,19 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { FaEnvelope, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { GlobalContext } from '../contexts/GlobalContext';
+import React, { useState } from 'react';
 import './Login.css';
-import { useEffect } from 'react';
-import Swal from 'sweetalert2'
 import LoginOng from '../components/LoginOng';
 import LoginUsuario from '../components/LoginUsuario';
 
 function Login() {
-    const { Logar, mudarTipo, MostrarSenha, userLogado, setUserLogado } = useContext(GlobalContext);
     const [mudarConta, setMudarConta] = useState('1')
-    const navigate = useNavigate()
-    const [userData, setUserData] = useState(userLogado || {})
-    const { } = useContext(GlobalContext);
 
     return (
         <div>

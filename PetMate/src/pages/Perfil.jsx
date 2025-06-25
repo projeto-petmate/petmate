@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import './Perfil.css';
-import { FaCheck, FaUnlock, FaEdit, FaUserCircle, FaLock, FaTrash, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
-import { BsDoorOpenFill } from "react-icons/bs";
+import { FaCheck, FaUnlock, FaEdit, FaLock, FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import { MdOutlineLogout } from 'react-icons/md';
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
 import ModalLogout from '../components/ModalLogout';
@@ -10,12 +10,10 @@ import CardPetPerfil from '../components/CardPetPerfil';
 import PerfilOng from '../components/PerfilOng';
 import { useNavigate } from 'react-router-dom';
 import { getPets } from '../apiService';
-import { TbMoodEdit } from 'react-icons/tb';
 import ModalConfirmFoto from '../components/ModalConfirmFoto';
 import ModalConfirmarEdit from '../components/ModalConfirmarEdit';
 import { GoAlert } from 'react-icons/go'
 import ModalMinhasDenuncias from '../components/ModalMinhasDenuncias';
-import { getDenuncias } from '../apiService';
 
 function Perfil() {
     const { userLogado, Logout, updateUsuario, deleteUsuario, logado } = useContext(GlobalContext);
@@ -25,13 +23,10 @@ function Perfil() {
     const [userPets, setUserPets] = useState([]);
     const [openModalExclui, setOpenModalExclui] = useState(false);
     const [openModalLogout, setOpenModalLogout] = useState(false);
-    const [imagemPreviewPerfil, setImagemPreviewPerfil] = useState(userLogado?.imagem || null);
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [openModalConfirmEdit, setOpenModalConfirmEdit] = useState(false);
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [openModalDenuncias, setOpenModalDenuncias] = useState(false);
-    const [userDenuncias, setUserDenuncias] = useState([]);
 
     const navigate = useNavigate();
 
@@ -40,13 +35,6 @@ function Perfil() {
             navigate('/home')
         }
     })
-
-    const handleRemovePhoto = () => {
-        setImagemPreviewPerfil(null);
-        setUserData((prevData) => ({ ...prevData, imagem: null }));
-        document.getElementById('file-upload').value = null;
-        setIsModalOpen(false);
-    };
 
     useEffect(() => {
         const fetchUserPets = async () => {
@@ -110,20 +98,6 @@ function Perfil() {
         }
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setUserData((prevData) => ({ ...prevData, imagem: reader.result }));
-            setImagemPreviewPerfil(reader.result);
-        };
-        reader.readAsDataURL(file);
-    };
-    if (isLoading) {
-        return <div className="loading">Carregando...</div>;
-    }
-
-
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
     };
@@ -145,7 +119,7 @@ function Perfil() {
                             </div>
                             <div className="sair-conta">
                                 <button className="botao-sair-logout" onClick={() => setOpenModalLogout(true)}>
-                                    <BsDoorOpenFill className='icon-logout' />
+                                    <MdOutlineLogout className='icon-logout' />
                                 </button>
                             </div>
                         </div>
@@ -178,7 +152,7 @@ function Perfil() {
                                         {!editMode ? (
                                             <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
                                         ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                         )}
                                     </div>
                                 </div>
@@ -204,7 +178,7 @@ function Perfil() {
                                                 >
                                                     {mostrarSenha ? <FaRegEyeSlash /> : <FaRegEye />}
                                                 </button>
-                                                <FaUnlock className='icon-lock' onClick={handleSave} />
+                                                <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                             </>
                                         )}
                                     </div>
@@ -222,7 +196,7 @@ function Perfil() {
                                         {!editMode ? (
                                             <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
                                         ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                         )}
                                     </div>
                                 </div>
@@ -284,7 +258,7 @@ function Perfil() {
                                         {!editMode ? (
                                             <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
                                         ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                         )}
                                     </div>
                                 </div>
@@ -301,7 +275,7 @@ function Perfil() {
                                         {!editMode ? (
                                             <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
                                         ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                         )}
                                     </div>
                                 </div>
@@ -318,7 +292,7 @@ function Perfil() {
                                         {!editMode ? (
                                             <FaLock className='icon-lock' onClick={() => setEditMode(true)} />
                                         ) : (
-                                            <FaUnlock className='icon-lock' onClick={handleSave} />
+                                            <FaUnlock className='icon-lock' onClick={() => setOpenModalConfirmEdit(true)} />
                                         )}
                                     </div>
                                 </div>
@@ -374,11 +348,6 @@ function Perfil() {
             />
             <ModalExclusaoDeConta isExclui={openModalExclui} setContaExcluiOpen={() => setOpenModalExclui(!openModalExclui)} onDelete={handleDelete} />
             <ModalLogout isLogout={openModalLogout} setLogoutOpen={setOpenModalLogout} onLogout={handleLogout} />
-            <ModalConfirmFoto
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={handleRemovePhoto}
-            />
             <ModalMinhasDenuncias
                 isOpen={openModalDenuncias}
                 onClose={() => setOpenModalDenuncias(false)}

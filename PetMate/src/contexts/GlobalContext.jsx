@@ -53,7 +53,6 @@ export const GlobalContextProvider = ({ children }) => {
                         setUserLogado(user);
                         setLogado(true);
     
-                        // Verifica se o usuário é administrador
                         if (user.tipo === 'admin') {
                             setIsAdmin(true);
                         } else {
@@ -65,7 +64,7 @@ export const GlobalContextProvider = ({ children }) => {
                     }
                 } else {
                     console.error("Token inválido ou expirado.");
-                    Logout(); // Remove o token inválido
+                    Logout();
                 }
             } catch (error) {
                 console.error("Erro ao buscar usuário logado:", error);

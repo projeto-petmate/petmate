@@ -2,16 +2,12 @@ import { useContext, useState } from "react";
 import CardOng from "../components/CardOng";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { GlobalContext } from '../contexts/GlobalContext';
-import { useNavigate } from "react-router-dom";
 import './Ongs.css';
 import LastPage from "../components/LastPage";
 import ScrollToTop from "../components/ScrollToTop";
 import BarraPesquisa from "../components/BarraPesquisa";
 
 function Ongs() {
-  const { logado } = useContext(GlobalContext);
-  const navigate = useNavigate();
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import './ModalExcluirPet.css'; // Reutilizando o mesmo CSS do ModalExcluirPet
+import './ModalExcluirPet.css';
 
 export default function ModalExcluirDenuncia({ isExcluirDenuncia, setDenunciaDeleteOpen, onDeleteDenuncia }) {
     if (!isExcluirDenuncia) {

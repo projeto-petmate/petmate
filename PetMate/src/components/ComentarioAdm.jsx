@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import { deleteComentario, getComentarios, getUsuarioById } from '../apiService';
+import { deleteComentario, getComentarios } from '../apiService';
 import './ComentarioAdm.css';
 import { UserContext } from '../contexts/UserContext';
-import axios from 'axios';
 import { FaUserCircle } from "react-icons/fa";
 import { IoTrashOutline } from "react-icons/io5";
 import ModalExcluirComentario from '../components/ModalExcluirComentario';

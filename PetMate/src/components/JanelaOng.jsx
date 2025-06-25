@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import './JanelaOng.css';
 import { OngContext } from '../contexts/OngContext';
-import { IoMdClose } from 'react-icons/io';
 import { FaWhatsapp } from "react-icons/fa6";
 import { MdOutlineMail } from "react-icons/md";
 import { FaInstagram, FaMapMarkedAlt } from "react-icons/fa";

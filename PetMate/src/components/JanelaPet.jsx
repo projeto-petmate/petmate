@@ -1,10 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import './JanelaPet.css';
 import { PetContext } from "../contexts/PetContext";
-import axios from 'axios';
 import { FaWhatsapp, FaMapMarkerAlt } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
-import { IoMdClose } from "react-icons/io";
 import { GoAlert } from 'react-icons/go';
 import ModalDenuncia from './ModalDenuncia';
 import { GlobalContext } from '../contexts/GlobalContext';

@@ -1,6 +1,5 @@
 import { createContext, useState, useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
-import axios from 'axios';
 import { addComentario, addUsuario, getComentarios } from "../apiService";
 
 export const UserContext = createContext()

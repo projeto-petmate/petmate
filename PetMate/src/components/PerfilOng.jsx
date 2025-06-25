@@ -2,16 +2,11 @@ import React, { useContext, useEffect } from 'react'
 import './PerfilOng.css'
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import CardPetPerfil from '../components/CardPetPerfil';
-import { FiLogOut } from "react-icons/fi";
-import { FaEdit, FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
+import { FaEdit, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import ModalExclusaoDeConta from '../components/ModalExclusaoDeConta';
 import ModalLogout from '../components/ModalLogout';
-import Navbar from '../components/Navbar';
-import { BsDoorOpenFill } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
-import { FaLock, FaLockOpen } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { FaCheck, FaUnlock } from "react-icons/fa";
 import { deleteOng, updateOng } from '../apiService';
 import { TbMoodEdit } from 'react-icons/tb';
@@ -19,6 +14,7 @@ import ModalConfirmFoto from './ModalConfirmFoto';
 import ModalConfirmarEdit from './ModalConfirmarEdit';
 import { GoAlert } from 'react-icons/go';
 import ModalMinhasDenuncias from './ModalMinhasDenuncias';
+import { MdOutlineLogout } from 'react-icons/md';
 
 function PerfilOng() {
     const [editMode, setEditMode] = useState(false);
@@ -121,7 +117,7 @@ function PerfilOng() {
                     </div>
                     <div className="botao-logout-ong">
                         <button className="botao-sair-logout" onClick={() => setOpenModalLogout(true)}>
-                            <BsDoorOpenFill className='icon-logout' />
+                            <MdOutlineLogout className='icon-logout' />
                         </button>
                     </div>
                 </div>
@@ -322,7 +318,7 @@ function PerfilOng() {
                             {!editMode ? (
                                 <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} />
                             ) : (
-                                <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             )}
                         </div>
                         <label className='descricao-inputs'>Cidade:</label>
@@ -336,7 +332,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                         <label className='descricao-inputs'>Endereço:</label>
@@ -350,7 +346,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
 
@@ -367,7 +363,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                         <label className='descricao-inputs'>Telefone do responsável:</label>
@@ -381,7 +377,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                         <label className='descricao-inputs'>CPF do responsável:</label>
@@ -395,7 +391,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                         <label className='descricao-inputs'>Data de nascimento:</label>
@@ -409,7 +405,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                         <label className='descricao-inputs'>Descrição:</label>
@@ -424,7 +420,7 @@ function PerfilOng() {
                                 disabled={!editMode}
                             />
                             {!editMode ?
-                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado' onClick={handleSave} />
+                                <FaLock className='icon-cadeado' onClick={() => setEditMode(true)} /> : <FaUnlock className='icon-cadeado'  onClick={() => setOpenModalConfirmEdit(true)} />
                             }
                         </div>
                     </div>

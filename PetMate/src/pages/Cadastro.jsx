@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Cadastro.css";
-import { FaEnvelope, FaLock, FaUser, FaPhone, FaMapMarkerAlt, FaIdCard, FaCity, FaGlobeAmericas } from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUser, FaPhone, FaIdCard, FaCity, FaGlobeAmericas } from "react-icons/fa";
 import { GlobalContext } from "../contexts/GlobalContext";
 import { UserContext } from "../contexts/UserContext";
-import { addUsuario, getUserByEmail, verificarCpfUnico, verificarEmailUnico } from '../apiService';
+import { getUserByEmail, verificarCpfUnico } from '../apiService';
 import { MdHolidayVillage } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { cpf } from 'cpf-cnpj-validator';

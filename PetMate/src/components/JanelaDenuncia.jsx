@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './JanelaDenuncia.css';
-import { IoMdClose } from 'react-icons/io';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { getDenunciaById, updateDenuncia } from '../apiService';
 import PetsAdm from '../components/PetsAdm';

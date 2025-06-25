@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import CardPet from "../components/CardPet";
 import Navbar from "../components/Navbar";

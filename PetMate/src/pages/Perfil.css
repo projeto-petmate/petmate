@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     min-height: calc(100vh - 120px);
-    /* background-image: url(/images/fundo_patas.svg); */
+    background-image: url(/images/fundo_patas.svg);
 }
 
 .info-perfil {
@@ -12,8 +12,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    padding-top: 6rem;
-    /* justify-content: center; */
+    padding-top: 3rem;
 }
 .container-pets {
     width: 42vw;
@@ -27,7 +26,6 @@
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 3rem;
-    /* margin-top: -50px; */
 }
 
 .titulo-barra h2 {
@@ -42,54 +40,8 @@
 }
 
 
-.user-icon-perfil {
-    font-size: 80px;
-    color: #84644D;
-}
-
-.user-icon-container {
-    display: flex;
-    width: 100%;
-    height: 15%;
-    margin: 0 auto;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-.icon-trash-container {
-    position: absolute;
-    top: 50%;
-    right: 450px;
-    transform: translateY(-50%);
-}
-
-.icon-trash {
-    font-size: 24px;
-    color: #84644D;
-}
-
-.img-preview-perfil {
-    display: flex;
-}
-
-.img-preview-perfil img {
-    /* border: solid 3px #84644D; */
-    border-radius: 100%;
-    min-height: 80px;
-    max-height: 80px;
-    min-width: 80px;
-    max-width: 80px;
-    object-fit: cover;
-}
-.user-icon-container.edit-mode .user-icon {
-    font-size: 70px;
-}
 .info-perfil p {
     font-size: 20px;
-    /* margin-bottom: 8px; */
-
 }
 
 .barra-perfil {
@@ -104,13 +56,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 5px;
+    padding-top: 3rem;
     gap: 10px;
-    /* align-items: center; */
-    /* height: auto; */
-    /* width: 100%; */
-    /* gap: 60px; */
-    /* margin-bottom: 10px; */
 }
 
 .inputs-perfil input, .inputs-perfil select {
@@ -122,7 +69,6 @@
     outline: none;
     padding: 10px;
     font: 18px Roboto;
-    /* max-width: ; */
 }
 
 
@@ -294,7 +240,6 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     padding: 0px 25px 0px 25px;
-    /* margin-top: 10px; */
 }
 .conteiner-minha-denuncias{
     display: flex;
@@ -316,11 +261,6 @@
     letter-spacing: 0.03em;
     padding: 0px 25px 0px 25px;
 }
-
-
-
-
-
 
 .mostrar-senha{
     display: flex;
@@ -385,7 +325,6 @@
     text-align: center;
 }
 
-/* Responsividade para a página de perfil */
 @media (max-width: 1280px) {
     .container-perfil {
         display: flex;
