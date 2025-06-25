@@ -1,13 +1,8 @@
 .card-pet-perfil-container {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
-  gap: 20px;
-  height: 100%;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+  gap: 80px;
   justify-content: center;
-  align-items: center;
 }
 
 
@@ -39,19 +34,19 @@
 
 
 .sem-pets {
-font-size: 24px;
-font-weight: bold;
-color: #84644D;
-text-align: center;
-margin-top: 20px;
-padding: 10px 20px;
-background-color: #F6F4F1;
-border: 2px solid #AD947E;
-border-radius: 8px;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-max-width: 400px;
-margin-left: auto;
-margin-right: auto;
+  font-size: 24px;
+  font-weight: bold;
+  color: #84644D;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #F6F4F1;
+  border: 2px solid #AD947E;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
@@ -83,7 +78,7 @@ margin-right: auto;
 }
 
 
-.botoes-pet-perfil{
+.botoes-pet-perfil {
   display: flex;
   align-items: center;
 }
@@ -111,7 +106,7 @@ margin-right: auto;
 }
 
 
-.botao-excluir{
+.botao-excluir {
   font-size: 28px;
   color: #84644D;
   cursor: pointer;
@@ -126,21 +121,21 @@ margin-right: auto;
 }
 
 .faixa-adotado {
-  background-color: #6e533f; 
+  background-color: #6e533f;
   font-weight: bold;
-  text-align: center; 
-  padding: 5px 10px; 
-  border-radius: 5px; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-  font-size: 14px; 
-  letter-spacing: 1px; 
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  letter-spacing: 1px;
   transform: translateY(-380px);
 }
 
 .faixa-adotado p {
-  margin: 0; 
+  margin: 0;
   padding: 0;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 
@@ -202,7 +197,8 @@ margin-right: auto;
   background-color: #fff;
   color: rgba(8, 8, 8, 0.5);
 }
-.icon-seta-pag{
+
+.icon-seta-pag {
   font-size: 20px;
 }
 
@@ -216,14 +212,17 @@ margin-right: auto;
     opacity: 0;
     transform: translateY(-10px);
   }
+
   10% {
     opacity: 1;
     transform: translateY(0);
   }
+
   90% {
     opacity: 1;
     transform: translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: translateY(-10px);
@@ -323,33 +322,29 @@ margin-right: auto;
   }
 
 
-  .pet-info{
+  .pet-info {
     padding: 0px;
   }
 
 
-  .pet-info h3{
+  .pet-info h3 {
     font-size: 17px;
   }
 
 
-  .pet-info p{
+  .pet-info p {
     font-size: 14px;
   }
 
 
-  .botoes-pet-perfil{
+  .botoes-pet-perfil {
     flex-direction: row;
     gap: 3px;
   }
 
 
-  .botao-adotado{
+  .botao-adotado {
     font-size: 30px;
     margin-right: 0px;
   }
 }
-
-
-
-
