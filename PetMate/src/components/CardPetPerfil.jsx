@@ -5,7 +5,7 @@ import ModalExcluirPet from './ModalExcluirPet';
 import './CardPetPerfil.css';
 import ModalEditarPet from './ModalEditarPet';
 import { FaArrowLeft, FaArrowRight, FaRegEdit } from "react-icons/fa";
-import { IoTrashOutline } from "react-icons/io5";
+import { IoTrash } from "react-icons/io5";
 import { FaShieldDog } from 'react-icons/fa6';
 import ModalPetAdotado from './ModalPetAdotado';
 import { PetContext } from '../contexts/PetContext';
@@ -136,7 +136,7 @@ CardPetPerfil() {
                                 <div className="botoes-pet-perfil">
                                     <FaShieldDog className='botao-adotado' onClick={() => { setPetAdotado(pet); setOpenModalPetAdotado(true) }} />
                                     <button className="botao-editar" onClick={() => { setPetToEdit(pet); setOpenModalEditarPet(true) }}> Editar dados {<FaRegEdit />}</button>
-                                    <IoTrashOutline className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
+                                    <IoTrash className="botao-excluir" onClick={() => { setPetToDelete(pet); setOpenModalExcluirPet(true) }} />
                                 </div>
                             </div>
 
