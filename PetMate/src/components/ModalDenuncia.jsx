@@ -14,7 +14,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
     const [mensagem, setMensagem] = useState('')
     const [motivo, setMotivo] = useState('')
     const [erros, setErros] = useState({});
-    const { userLogado } = useContext(GlobalContext)
+    const { userLogado, adicionarDenuncia } = useContext(GlobalContext)
     let id_user = userLogado.id_usuario
     const validarDenuncia = async () => {
         const novosErros = {};
@@ -58,7 +58,10 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
         };
     
         try {
-            await addDenuncia(denuncia);
+            const novaDenuncia = await addDenuncia(denuncia);
+            
+            adicionarDenuncia(novaDenuncia);
+
             Swal.fire({
                 position: 'center',
                 icon: 'success',

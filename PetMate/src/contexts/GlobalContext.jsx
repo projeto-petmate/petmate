@@ -34,9 +34,9 @@ export const GlobalContextProvider = ({ children }) => {
         const fetchLoggedUser = async () => {
             const storedToken = localStorage.getItem('token');
             if (!storedToken) return;
-    
+
             setToken(storedToken);
-    
+
             try {
                 const response = await fetch(`${API_BASE_URL}/loggedUser`, {
                     method: 'GET',
@@ -44,15 +44,15 @@ export const GlobalContextProvider = ({ children }) => {
                         Authorization: `Bearer ${storedToken}`,
                     },
                 });
-    
+
                 if (response.ok) {
                     const data = await response.json();
                     const user = data.user;
-    
+
                     if (user.id_usuario || user.id_ong) {
                         setUserLogado(user);
                         setLogado(true);
-    
+
                         if (user.tipo === 'admin') {
                             setIsAdmin(true);
                         } else {
@@ -71,7 +71,7 @@ export const GlobalContextProvider = ({ children }) => {
                 setLogado(false);
             }
         };
-    
+
         fetchLoggedUser();
     }, []);
 
@@ -200,6 +200,7 @@ export const GlobalContextProvider = ({ children }) => {
 
         fetchDenuncias();
     }, []);
+
     const filtrarDenuncias = () => {
         let denunciasFiltradas = [...denuncias];
 
@@ -212,6 +213,13 @@ export const GlobalContextProvider = ({ children }) => {
         }
 
         return denunciasFiltradas;
+    };
+
+    if (!userLogado) {
+        return <div className="loading">Carregando...</div>;
+    }
+    const adicionarDenuncia = (novaDenuncia) => {
+        setDenuncias((prevDenuncias) => [...prevDenuncias, novaDenuncia]);
     };
 
     useEffect(() => {
@@ -237,6 +245,7 @@ export const GlobalContextProvider = ({ children }) => {
                 filtrosDenuncias,
                 setFiltrosDenuncias,
                 filtrarDenuncias,
+                adicionarDenuncia,
                 isAdmin,
 
             }}
