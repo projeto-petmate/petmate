@@ -64,6 +64,8 @@ function Perfil() {
         navigate('/home');
     };
 
+    
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData((prevData) => ({ ...prevData, [name]: value }));
@@ -101,6 +103,11 @@ function Perfil() {
     const toggleMostrarSenha = () => {
         setMostrarSenha(!mostrarSenha);
     };
+
+
+    if (isLoading) {
+        return <div className="loading">Carregando...</div>;
+    }
 
 
     return (
