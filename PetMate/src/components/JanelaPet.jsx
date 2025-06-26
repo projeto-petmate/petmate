@@ -87,7 +87,6 @@ export default function JanelaPet({ isOpen, setPetModalOpen }) {
             <div className="descricao-pet">
               <div className="desc-title">
                 <p>Informações</p>
-                <p>{doador?.cidade}</p>
               </div>
               <div className="detalhes-pet">
                 <div className='detalhePet'>
