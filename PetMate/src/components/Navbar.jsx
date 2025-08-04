@@ -84,7 +84,15 @@ function Navbar() {
             Denúncias
           </NavLink>
         }
+      <NavLink
+        to="/coleiras"
+        className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        onClick={() => setMenuAberto(false)}
+      >
+        Coleiras
+      </NavLink>
       </div>
+
 
       <div className="perfil-nav">
         {logado ? <NavLogado /> : <NavDeslogado />}

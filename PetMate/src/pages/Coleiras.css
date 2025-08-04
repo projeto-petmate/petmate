@@ -1,0 +1,96 @@
+.container-pg-coleiras {
+    background-image: url(/images/fundo_patas.svg);
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 120px);
+    padding-bottom: 20px;
+}
+
+.banner-coleiras {
+    height: 100%;
+    display: flex;
+    padding-bottom: 20px;
+}
+
+.banner-coleiras img {
+    min-width: 100vw;
+}
+
+
+.titulo-coleiras {
+    margin-left: 50px;
+}
+
+.titulo-coleiras h2 {
+    font-size: 40px;
+    color: #654833;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+
+}
+
+.titulo-coleiras p {
+    font-size: 24px;
+    font-family: nunito;
+    font-weight: 600;
+}
+
+.carrossel-coleiras {
+    background-color: #BDA795;
+    min-height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.personalizar-coleira {
+    /* background-color: #BDA795; */
+    min-height: 30vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card-personalizar-coleira {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-personalizar-coleira h2{
+    font-size: 3rem;
+    font-weight: 800;
+    color: #654833;
+    margin-bottom: 10px;
+}
+
+.titulo-personalizar-coleira p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #654833;
+    margin-bottom: 10px;
+}
+
+.botao-personalizar {
+    background-color: #654833;
+    color: #f5f5f5;
+    padding: 3px;
+    width: 15rem;
+    height: 3rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
