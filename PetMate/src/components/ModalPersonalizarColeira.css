@@ -1,0 +1,210 @@
+.modal-overlay-coleiras {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-modal-personalizar-coleiras {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.15s ease-in-out;
+    height: 100%;
+    width: 70vw;
+}
+
+.container-modal-personalizar-coleiras .etapa-1-coleira,
+.container-modal-personalizar-coleiras .etapa-2-coleira,
+.container-modal-personalizar-coleiras .etapa-3-coleira,
+.container-modal-personalizar-coleiras .etapa-4-coleira {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 16px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.container-titulo-modal-personalizar-coleira {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: #654833;
+    /* border: solid; */
+}
+
+.etapa-1-coleira .container-titulo-modal-personalizar-coleira {
+    justify-content: flex-end;
+}
+.etapa-1-coleira .container-titulo-modal-personalizar-coleira p{
+    /* margin-right: 3rem; */
+}
+
+.etapa-1-coleira .btn-fechar-modal-personalizar-coleira {
+    margin-left: 40%;
+}
+
+.container-modal-personalizar-coleiras p {
+    font-size: 2.3rem;
+    font-weight: 600;
+}
+
+.btn-fechar-modal-personalizar-coleira {
+    background: none;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.btn-fechar-modal-personalizar-coleira:hover {
+    color: #654833;
+    transition: 0.2s;
+}
+
+.btn-voltar-etapa-personalizar-coleira {
+    background: none;
+    border: none;
+    font-size: 3rem;
+    cursor: pointer;
+}
+
+.meio-modal-personalizar-coleira {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    width: 100%;
+    gap: 16px;
+    margin-top: 16px;
+    /* border: solid; */
+}
+
+.imagem-modal-personalizar-coleira {
+    width: 50%;
+}
+
+.img-coleira-perso {
+    width: 100%;
+    /* border: solid; */
+}
+
+
+.btn-avancar-etapa-personalizar-coleira {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: #654833;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
+    cursor: pointer;
+    width: 8vw;
+}
+
+
+.opcoes-coleira {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.opcoes-modelo {
+    display: flex;
+    gap: 10px;
+}
+
+.titulo-opcoes-coleira p{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #654833;
+    margin-bottom: 8px;
+}
+
+.opcoes-coleira button {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
