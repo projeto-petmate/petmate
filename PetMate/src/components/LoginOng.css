@@ -328,7 +328,7 @@
     color: #6b4f3a;
   }
   
-  label span {
+ .container-login label span {
     display: block;
     cursor: pointer;
     background-color: #fff;
@@ -342,13 +342,13 @@
     transition: background-color .3s ease;
   }
   
-  label:first-child span {
+ /* .container-login label:first-child span {
     border-radius: .475em 0 0 .375em;
   }
   
-  label:last-child span {
+ .container-login label:last-child span {
     border-radius: 0 .475em .375em 0;
-  }
+  } */
   
 
 

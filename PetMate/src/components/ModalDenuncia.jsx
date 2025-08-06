@@ -16,6 +16,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
     const [erros, setErros] = useState({});
     const { userLogado, adicionarDenuncia } = useContext(GlobalContext)
     let id_user = userLogado.id_usuario
+
     const validarDenuncia = async () => {
         const novosErros = {};
 
@@ -44,9 +45,9 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
     }
     const enviarDenuncia = async () => {
         const denunciaValida = await validarDenuncia();
-    
+
         if (!denunciaValida) return;
-    
+
         const denuncia = {
             mensagem,
             motivo,
@@ -56,10 +57,10 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
             id_denunciante: userLogado.tipo === 'user' ? userLogado.id_usuario : null,
             id_ong_denunciante: userLogado.tipo === 'ong' ? userLogado.id_ong : null,
         };
-    
+
         try {
             const novaDenuncia = await addDenuncia(denuncia);
-            
+
             adicionarDenuncia(novaDenuncia);
 
             Swal.fire({
@@ -77,6 +78,7 @@ function ModalDenuncia({ isOpen, setIsOpen, idObjeto, tipo }) {
                 title: 'Erro',
                 text: 'Não foi possível enviar a denúncia.',
                 confirmButtonColor: '#84644D',
+
             });
         }
     };

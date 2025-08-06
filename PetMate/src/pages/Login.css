@@ -331,7 +331,7 @@
     color: #6b4f3a;
   }
   
-  label span {
+  .container-login label span {
     display: block;
     cursor: pointer;
     background-color: #fff;
@@ -345,12 +345,12 @@
     transition: background-color .3s ease;
   }
   
-  label:first-child span {
-    border-radius: 0.5em; /* Certifique-se de que as bordas estão arredondadas */
+  .container-login label:first-child span {
+    /* border-radius: 0.5em; */
 }
 
-label:last-child span {
-    border-radius: 0.5em; /* Certifique-se de que as bordas estão arredondadas */
+.container-login label:last-child span {
+    /* border-radius: 0.5em; */
 }
   
 
