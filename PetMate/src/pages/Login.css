@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 
-.container-login{
+.container-login {
     font-family: inter;
     display: flex;
     flex-direction: row;
@@ -14,7 +14,8 @@
     width: 100%;
     background-color: #D4C6B5;
 }
-.titulo-input{
+
+.titulo-input {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -22,16 +23,18 @@
     width: 100%;
 }
 
-.img_cachorro{
+.img_cachorro {
     height: 800px;
     margin-top: 9em;
 }
-.img-login{
+
+.img-login {
     height: 100vh;
     width: auto;
     margin-left: 110px;
-    
+
 }
+
 /* .titulo-bem-vindo {
     text-align: center;
     position: relative;
@@ -45,8 +48,8 @@
 
 
 /* <<CONTAINER DIREITA>> */
-.info-login{
-    background-color: #fdfaf4; 
+.info-login {
+    background-color: #fdfaf4;
     border-radius: 16px;
     padding: 70px;
     display: flex;
@@ -56,39 +59,41 @@
     text-align: left;
     margin-right: 300px;
     z-index: 10;
-    box-shadow:  10px 10px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
 }
+
 /* <<CONTAINER DIREITA//>> */
 
 
 
 /* <<H2 + BOTÃO LOGIN>> */
-.texto-login{
+.texto-login {
     display: flex;
     flex-direction: column;
     text-align: start;
     height: auto;
     position: relative;
-}   
+}
 
-.texto-login h2{
+.texto-login h2 {
     color: #3d3d3d;
     font-size: 35px;
 }
-.texto-login p{
+
+.texto-login p {
     font-size: 18px;
     font-family: inter;
 }
 
-.barra_marrom{
+.barra_marrom {
     height: 5px;
     width: 20%;
     margin-top: 5px;
     margin-bottom: 25px;
-    
+
 }
 
-.texto-login button{
+.texto-login button {
     width: 8em;
     height: 50px;
     font-size: 20px;
@@ -99,38 +104,41 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
 /* <<H2 + BOTÃO LOGIN//>> */
 
 
 
 /* <<INPUTS>> */
-.inputs-login{
+.inputs-login {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 20em;
     /* border: solid; */
-    
+
 }
+
 /* 
 .texto-input-login{
     font-family: inter;
     font-size: 18px;
 } */
 
-.inpt-p{
+.inpt-p {
     display: flex;
     flex-direction: column;
     text-align: start;
     margin-bottom: 30px;
 }
-.inpts-login{
+
+.inpts-login {
     display: flex;
     flex-direction: column;
 }
 
-.inpts-login input{
+.inpts-login input {
     width: 450px;
     height: 45px;
     padding: 15px;
@@ -159,7 +167,7 @@
     border: none;
 }
 
-.inpts-login input:focus + .icon-mostrar-senha {
+.inpts-login input:focus+.icon-mostrar-senha {
     background-color: #f3f3fc;
     border: 1px solid #84644D;
     border-left: none;
@@ -172,7 +180,7 @@
 }
 
 
-#inputSenha{
+#inputSenha {
     width: calc(490px - 40px);
     height: 45px;
     border-right: none;
@@ -180,14 +188,14 @@
 }
 
 /* <<<<<<<<<Mostrar senha>>>>>>>>>>>> */
-.mostrar-senha{
+.mostrar-senha {
     display: flex;
     align-items: center;
     position: relative;
-    
+
 }
 
-.icon-mostrar-senha{
+.icon-mostrar-senha {
     height: 45px;
     width: 40px;
     background-color: #FFFFFF;
@@ -195,7 +203,7 @@
     border-left: none;
     font-size: 25px;
     padding-right: 15px;
-    border-radius: 0px 20px 20px 0px ;
+    border-radius: 0px 20px 20px 0px;
     position: absolute;
     right: 0%;
     display: flex;
@@ -209,7 +217,7 @@
 
 
 /* <<CADASTRO + BOTÃO>> */
-.base-login{
+.base-login {
     display: flex;
     flex-direction: column;
     height: auto;
@@ -218,7 +226,7 @@
     align-items: center;
 }
 
-.sem-cadastro{
+.sem-cadastro {
     font-size: 18px;
     font-family: roboto;
     display: flex;
@@ -232,7 +240,7 @@
 
 }
 
-.sem-cadastro a{ 
+.sem-cadastro a {
     font-size: 18px;
     text-decoration: none;
     margin: 5px;
@@ -258,19 +266,22 @@
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
     transition: all 0.5s ease;
 }
+
 /* <<CADASTRO + BOTÃO//>> */
 
 /* CUSTOMIZAÇÃO */
 
-.icon-input{
+.icon-input {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.icon-input p{
+
+.icon-input p {
     margin-left: 10px;
 }
-.icon-login{
+
+.icon-login {
     font-size: 24px;
 }
 
@@ -278,7 +289,7 @@
 
 /* radio */
 
-.ong-usuario-escolha{
+.ong-usuario-escolha {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -289,12 +300,13 @@
     margin-left: 4%;
 }
 
-.ong-usuario-escolha input{
+.ong-usuario-escolha input {
     width: 13%;
     height: 26px;
 
 }
-  .mydict{
+
+.mydict {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -303,18 +315,18 @@
     align-items: center;
     gap: 1rem;
     /* border: solid; */
-    
-  }
 
-  .p-texto-login-desejado{
+}
+
+.p-texto-login-desejado {
     font-size: 18px;
     font-family: inter;
     font-weight: 450;
     color: #6b4f3a;
     padding-top: 0.9rem;
-  }
-  
-  .mydict input[type="radio"] {
+}
+
+.mydict input[type="radio"] {
     clip: rect(0 0 0 0);
     clip-path: inset(100%);
     height: 1px;
@@ -322,16 +334,16 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
-  }
-  
-  .mydict input[type="radio"]:checked + span {
+}
+
+.mydict input[type="radio"]:checked+span {
     box-shadow: 0 0 0 0.0625em #6b4f3a;
     background-color: #f3f3fc;
     z-index: 1;
     color: #6b4f3a;
-  }
-  
-  .container-login label span {
+}
+
+.container-login label span {
     display: block;
     cursor: pointer;
     background-color: #fff;
@@ -343,41 +355,45 @@
     color: #6b4f3a;
     text-align: center;
     transition: background-color .3s ease;
-  }
-  
-  .container-login label:first-child span {
-    /* border-radius: 0.5em; */
+}
+
+.container-login label:first-child span {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+
 }
 
 .container-login label:last-child span {
-    /* border-radius: 0.5em; */
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
 }
-  
 
 
-  @media (max-width: 1200px) {
+
+@media (max-width: 1200px) {
     .container-login {
-      flex-direction: column;
-      justify-content: center;
-      padding: 20px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
     }
 
 
-    .img_cachorro{
+    .img_cachorro {
         margin-left: -70px;
         max-height: 300px;
         margin-top: 0;
     }
+
     .img_cachorro img {
         margin: 0;
     }
 
 
     .img-login {
-      max-height: 440px;
-      margin: 0;
+        max-height: 440px;
+        margin: 0;
     }
- 
+
     .info-login {
         width: 100%;
         padding: 10px;
@@ -385,9 +401,8 @@
     }
 
 
-    .sem-cadastro{
+    .sem-cadastro {
         margin-top: 20px;
         margin-bottom: 20px;
     }
-   }
-
+}

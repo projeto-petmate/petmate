@@ -305,7 +305,7 @@
     cursor: pointer;
 }
 
-.opcoes-selecionadas {
+.container-opcoes-selecionadas {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -321,16 +321,24 @@
     border: solid 1px #ddd;
 }
 
-.opcoes-selecionadas p {
-    font-size: 1.5rem;
+.container-opcoes-selecionadas p {
+    font-size: 1.7rem;
     font-weight: 600;
     color: #654833;
 }
 
-.opcoes-selecionadas span {
-    font-size: 1.2rem;
+.container-opcoes-selecionadas span {
+    font-size: 1.4rem;
     color: #84644D;
     /* margin-top: 5px; */
+}
+
+.opcao-selecionada {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
 }
 
 #cores-tecido {

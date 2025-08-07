@@ -50,7 +50,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         if (Object.keys(novosErros).length > 0) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Oops..',
+                title: 'Ops..',
                 text: Object.values(novosErros)[0],
                 confirmButtonColor: '#84644D',
             })
@@ -129,15 +129,15 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                     </div>
                                     <div className="opcoes-modelo">
                                         <label className='radio-modelo'>
-                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Pescoço")}} />
+                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Pescoço") }} />
                                             <span>R$ 20 - Pescoço</span>
                                         </label>
                                         <label className='radio-modelo'>
-                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Peitoral")}} />
+                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Peitoral") }} />
                                             <span>R$ 30 - Peitoral</span>
                                         </label>
                                         <label className='radio-modelo'>
-                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Cabresto")}} />
+                                            <input type="radio" name='modelo' onChange={() => { atualizarColeira("modelo", "Cabresto") }} />
                                             <span>R$ 40 - Cabresto</span>
                                         </label>
                                     </div>
@@ -167,7 +167,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                     </div>
                                     <div className="opcoes-gps">
                                         <label className='radio-gps'>
-                                            <input type="radio" name='gps' onChange={() =>  atualizarColeira("gps", true)} />
+                                            <input type="radio" name='gps' onChange={() => atualizarColeira("gps", true)} />
                                             <span id='com-gps'>Com GPS</span>
                                         </label>
                                         <label className='radio-gps'>
@@ -329,43 +329,43 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                             <div className="imagem-modal-personalizar-coleira">
                                 <img className='img-coleira-perso' src="/images/coleiraex.png" alt="" />
                             </div>
-                            <div className="opcoes-selecionadas">
-                                <div className="linha-opcoes-selecionadas">
-                                    <div className="opcao-selecionada">
-                                        <p>Modelo:</p>
-                                        <span>{coleira.modelo}</span>
+                            <div className="container-opcoes-selecionadas">
+                                <div className="opcoes-selecionadas">
+                                    <div className="linha-opcoes-selecionadas">
+                                        <div className="opcao-selecionada">
+                                            <p>Modelo:</p>
+                                            <span>{coleira.modelo}</span>
+                                        </div>
+                                        <div className="opcao-selecionada">
+                                            <p>Tamanho:</p>
+                                            <span>{coleira.tamanho}</span>
+                                        </div>
                                     </div>
-                                    <div className="opcao-selecionada">
-                                        <p>Tamanho:</p>
-                                        <span>{coleira.tamanho}</span>
+                                    <div className="linha-opcoes-selecionadas">
+                                        <div className="opcao-selecionada">
+                                            <p>GPS:</p>
+                                            <span>{coleira.gps ? "Sim" : "Não"}</span>
+                                        </div>
+                                        <div className="opcao-selecionada">
+                                            <p>Cor do Tecido:</p>
+                                            <span>{coleira.corTecido}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="linha-opcoes-selecionadas">
-
-                                    <div className="opcao-selecionada">
-                                        <p>GPS:</p>
-                                        <span>{coleira.gps ? "Sim" : "Não"}</span>
+                                    <div className="linha-opcoes-selecionadas">
+                                        <div className="opcao-selecionada">
+                                            <p>Cor da Medalha:</p>
+                                            <span>{coleira.corMedalha}</span>
+                                        </div>
+                                        <div className="opcao-selecionada">
+                                            <p>Desenho:</p>
+                                            <span>{coleira.desenho}</span>
+                                        </div>
                                     </div>
-                                    <div className="opcao-selecionada">
-                                        <p>Cor do Tecido:</p>
-                                        <span>{coleira.corTecido}</span>
-                                    </div>
-                                </div>
-                                <div className="linha-opcoes-selecionadas">
-
-                                    <div className="opcao-selecionada">
-                                        <p>Cor da Medalha:</p>
-                                        <span>{coleira.corMedalha}</span>
-                                    </div>
-                                    <div className="opcao-selecionada">
-                                        <p>Desenho:</p>
-                                        <span>{coleira.desenho}</span>
-                                    </div>
-                                </div>
-                                <div className="linha-opcoes-selecionadas">
-                                    <div className="opcao-selecionada">
-                                        <p>Valor:</p>
-                                        <span>R${coleira.valor}</span>
+                                    <div className="linha-opcoes-selecionadas">
+                                        <div className="opcao-selecionada">
+                                            <p>Valor:</p>
+                                            <span>R${coleira.valor}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
