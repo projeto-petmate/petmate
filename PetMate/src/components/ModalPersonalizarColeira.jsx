@@ -4,9 +4,13 @@ import { IoArrowBackCircle } from 'react-icons/io5'
 import { CgCloseO } from "react-icons/cg"
 import { FaArrowRightLong } from 'react-icons/fa6'
 import Swal from 'sweetalert2';
+import ModalAvisoFinalizar from './ModalAvisoFinalizar'
+
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
     if (!open) return null
+
+    const [abrirAviso, setAbrirAviso] = useState(false)
 
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
@@ -377,7 +381,19 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                 <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(3) }} title='Medalha' />
                                 <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Revisão' />
                             </div>
-                            <button className='btn-avancar-etapa-personalizar-coleira' onClick={onClose}>Finalizar</button>
+                            <button
+                                className='btn-avancar-etapa-personalizar-coleira'
+                                onClick={() => setAbrirAviso(true)}
+                            >
+                                Finalizar
+                            </button>
+
+                            <ModalAvisoFinalizar open={abrirAviso} onClose={() => {
+                                setAbrirAviso(false);
+                                onClose(); // fecha o modal de personalização também
+                            }} />
+
+
                         </div>
                     </div>
                 )}

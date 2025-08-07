@@ -20,7 +20,7 @@ function Coleiras() {
 
       <div className="container-pg-coleiras">
         <div className="banner-coleiras">
-          <img src="/images/banner_processos.svg" className='banner-coleiras' />
+          <img src="/images/banner-coleiraEditar.svg" className='banner-coleiras' />
         </div>
 
         <div className="titulo-coleiras">

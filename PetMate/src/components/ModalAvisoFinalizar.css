@@ -1,0 +1,50 @@
+.fundo-janela-ong {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.container-janela-ong {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    max-width: 400px;
+    width: 90%;
+}
+
+.icone-alerta {
+    width: 50px;
+    margin-bottom: 15px;
+}
+
+.mensagem-aviso {
+    font-size: 18px;
+    color: #4B2C19;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.botao-finalizar-aviso {
+    background-color: #A07753;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
