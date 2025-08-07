@@ -1,9 +1,10 @@
+import React, { Suspense, useState, useEffect } from 'react';
 import './Coleiras.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ModalPersonalizarColeira from '../components/ModalPersonalizarColeira';
 import ModalColeiras from '../components/ModalColeiras';
-import { useState, useEffect } from 'react';
+const ColeiraModelo = React.lazy(() => import('../components/ColeiraModelo'));
 
 function Coleiras() {
   const [openModalPersonalizar, setOpenModalPersonalizar] = useState(false);
@@ -27,7 +28,11 @@ function Coleiras() {
           <p>Encontre ou personalize uma coleira para seu companheiro!</p>
         </div>
 
-        <div className="carrossel-coleiras"></div>
+        <div className="carrossel-coleiras">
+          <Suspense fallback={<div>Carregando visualizador 3D...</div>}>
+            <ColeiraModelo />
+          </Suspense>
+        </div>
 
         <div className="personalizar-coleira">
           <ModalPersonalizarColeira />

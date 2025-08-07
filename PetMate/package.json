@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^9.56.15",
+    "@react-three/fiber": "^8.13.7",
     "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -28,7 +30,8 @@
     "react-spinners": "^0.15.0",
     "router-context": "file:",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.6.13"
+    "sweetalert2": "^11.6.13",
+    "three": "^0.152.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
