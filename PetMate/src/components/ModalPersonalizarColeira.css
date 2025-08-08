@@ -13,14 +13,17 @@
     justify-content: center;
 }
 
+
 .container-modal-personalizar-coleiras {
     display: flex;
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.15s ease-in-out;
-    height: 100%;
-    width: 70vw;
+    height: 70vh;
+    width: 74vw;
+    gap: 0;
 }
+
 
 .container-modal-personalizar-coleiras .etapa-1-coleira,
 .container-modal-personalizar-coleiras .etapa-2-coleira,
@@ -32,14 +35,37 @@
     justify-content: center;
     background-color: whitesmoke;
     padding: 16px;
-    width: 100%;
+    width: 50%;
+    height: 100%;
     border-radius: 12px;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-    min-height: 60vh;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); */
+    min-height: 70vh;
+    border-left: none;
 }
 
 
 
+
+
+
+.visualizador-3d-fixo {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    /* border: solid 1px #ddd; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    padding: 16px;
+
+
+}
 
 
 @keyframes fadeIn {
@@ -48,56 +74,68 @@
         transform: scale(0.8);
     }
 
+
     10% {
         opacity: 0.1;
         transform: scale(0.82);
     }
+
 
     20% {
         opacity: 0.2;
         transform: scale(0.84);
     }
 
+
     30% {
         opacity: 0.3;
         transform: scale(0.86);
     }
+
 
     40% {
         opacity: 0.4;
         transform: scale(0.88);
     }
 
+
     50% {
         opacity: 0.5;
         transform: scale(0.9);
     }
+
 
     60% {
         opacity: 0.6;
         transform: scale(0.92);
     }
 
+
     70% {
         opacity: 0.7;
         transform: scale(0.94);
     }
+
 
     80% {
         opacity: 0.8;
         transform: scale(0.96);
     }
 
+
     90% {
         opacity: 0.9;
         transform: scale(0.98);
     }
+
 
     100% {
         opacity: 1;
         transform: scale(1);
     }
 }
+
+
 
 
 .container-titulo-modal-personalizar-coleira {
@@ -107,24 +145,26 @@
     width: 100%;
     color: #84644D;
     /* border: solid; */
+    /* padding-bottom: 8rem; */
+    min-height: auto;
 }
+
 
 .etapa-1-coleira .container-titulo-modal-personalizar-coleira {
     justify-content: flex-end;
 }
 
-.etapa-1-coleira .container-titulo-modal-personalizar-coleira p {
-    /* margin-right: 3rem; */
-}
 
 .etapa-1-coleira .btn-fechar-modal-personalizar-coleira {
     margin-left: 40%;
 }
 
+
 .titulo-etapa-personalizar-coleira {
     font-size: 2.3rem;
     font-weight: 600;
 }
+
 
 .btn-fechar-modal-personalizar-coleira {
     background: none;
@@ -133,10 +173,12 @@
     cursor: pointer;
 }
 
+
 .btn-fechar-modal-personalizar-coleira:hover {
     color: #84644D;
     transition: 0.2s;
 }
+
 
 .btn-voltar-etapa-personalizar-coleira {
     background: none;
@@ -144,6 +186,7 @@
     font-size: 3rem;
     cursor: pointer;
 }
+
 
 .meio-modal-personalizar-coleira {
     display: flex;
@@ -155,14 +198,18 @@
     /* border: solid; */
 }
 
+
 .imagem-modal-personalizar-coleira {
     width: 50%;
 }
+
 
 .img-coleira-perso {
     max-width: 100%;
     /* border: solid; */
 }
+
+
 
 
 .btn-avancar-etapa-personalizar-coleira {
@@ -183,25 +230,31 @@
 }
 
 
+
+
 .opcoes-coleira {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 100%;
+    min-height: 40vh;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: solid 1px #ddd;
     gap: 20px;
     background-color: #F5F5F5;
+    flex: 1;
 }
+
 
 .opcoes-coleira label {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
 
 .container-opcoes {
     display: flex;
@@ -210,6 +263,7 @@
     align-items: center;
     /* border: solid; */
 }
+
 
 .opcoes-modelo,
 .opcoes-tamanho,
@@ -221,12 +275,16 @@
     gap: 10px;
 }
 
+
 .titulo-opcoes-coleira p {
     font-size: 1.5rem;
     font-weight: 600;
     color: #654833;
     margin-bottom: 8px;
 }
+
+
+
 
 
 
@@ -246,9 +304,11 @@
     font-size: 1.3rem;
 }
 
+
 .opcoes-coleira input[type="radio"] {
     display: none;
 }
+
 
 /* #com-gps {
     background-color: #7e6959;
@@ -257,27 +317,34 @@
 } */
 
 
+
+
 .opcoes-coleira input[type="radio"]:checked+span {
     box-shadow: 0 0 0 0.0425em #6b4f3a;
     background-color: #f3f3fc;
     color: #6b4f3a;
 }
 
+
 #status-pendente:checked+span {
     background-color: #f3f3fc;
 }
+
 
 #status-analise:checked+span {
     background-color: #ffe5b4;
 }
 
+
 #status-resolvido:checked+span {
     background-color: #d4edda;
 }
 
+
 .opcoes-coleira input[type="radio"]:checked+span {
     animation: subirDescer 0.6s ease;
 }
+
 
 .etapas-personalizar-coleira {
     display: flex;
@@ -286,8 +353,11 @@
     justify-content: center;
     width: 100%;
     margin-top: 20px;
-    gap: 20px
+    gap: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
 }
+
 
 .visor-etapas {
     display: flex;
@@ -296,14 +366,18 @@
     align-items: center;
 }
 
+
 .visor-etapas img {
     width: 20px;
     height: 20px;
     margin: 0 5px;
 }
+
+
 .elipse-clicavel {
     cursor: pointer;
 }
+
 
 .container-opcoes-selecionadas {
     display: flex;
@@ -319,7 +393,9 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: solid 1px #ddd;
+    flex: 1;
 }
+
 
 .container-opcoes-selecionadas p {
     font-size: 1.7rem;
@@ -327,11 +403,13 @@
     color: #654833;
 }
 
+
 .container-opcoes-selecionadas span {
     font-size: 1.4rem;
     color: #84644D;
     /* margin-top: 5px; */
 }
+
 
 .opcao-selecionada {
     display: flex;
@@ -341,9 +419,11 @@
     gap: 5px;
 }
 
+
 #cores-tecido {
     padding-bottom: 15px;
 }
+
 
 /* .linha-opcoes-selecionadas {
     display: flex;
@@ -355,19 +435,27 @@
 } */
 
 
+
+
 .swal2-popup {
-  font-size: 1.4rem ;
+    font-size: 1.4rem;
 }
+
 
 .swal2-title {
-  font-size: 1.8rem ;
+    font-size: 1.8rem;
 }
+
 
 .swal2-html-container {
-  font-size: 1.4rem ;
+    font-size: 1.4rem;
 }
 
-.swal2-confirm, .swal2-cancel {
-  font-size: 1.2rem ;
-  padding: 10px 20px ;
+
+.swal2-confirm,
+.swal2-cancel {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    font-family: 'Nunito';
 }
+
