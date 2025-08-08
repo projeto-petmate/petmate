@@ -16,7 +16,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-    min-width: 50%;
+    min-width: 60%;
     max-width: 500px;
     min-height: 60%;
     display: flex;
@@ -42,46 +42,67 @@
 }
 
 .modal-title {
-    color: #f5a623;
-    font-size: 2em;
+    color: #654833;
+    font-size: 3.6em;
     font-weight: bold;
+    font-family: 'Open Sans Hebrew';
+    height: 50px;
+    margin-bottom: 50px;
 }
 
 .tituloModalColeira {
     display: flex;
-    gap: 500px;
-    margin-bottom: 230px;
+    gap: 470px;
+    margin-bottom: 80px;
+}
+
+.info-coleiras{
+    margin-right: 321px;
 }
 
 .modal-container p {
-    color: #5e4632;
+    color: #000000;
     font-size: 1.4em;
     font-weight: bold;
     width: 700px;
+    margin-bottom: 50px;
 }
 
 .modal-video-placeholder {
     background-color: #d8d8d8;
-    padding: 2rem;
+    padding: 6rem;
+    width: 35rem;
     margin: 1rem 0;
     border-radius: 10px;
     font-size: 1rem;
+    margin-bottom: 40px;
 }
 
 .modal-button {
-    background-color: #f5a623;
+    background-color: #654833;
     color: white;
     border: none;
-    padding: 0.7rem 1.5rem;
-    border-radius: 8px;
+    padding: 1rem 3rem;
+    border-radius: 30px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 1rem;
+    margin-left: 150px;
+    font-family: 'Open Sans Hebrew';
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-width: fit-content;
+    margin-bottom: 20px;
 }
 
-.dog-image {
+
+.dog-imageModal {
     position: absolute;
     bottom: 0;
-    left: -60px;
-    width: 120px;
+    height: 600px;
+    margin-bottom: 92px;
+    margin-left: 650px;
 }

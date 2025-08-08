@@ -13,7 +13,7 @@
 
 .container-janela-ong {
     background-color: white;
-    padding: 30px 40px;
+    padding: 40px 30px;
     border-radius: 15px;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -22,29 +22,55 @@
     width: 90%;
 }
 
-.icone-alerta {
-    width: 50px;
-    margin-bottom: 15px;
+.icone-alertaModal {
+    width: 200px;
+    margin-bottom: 25px;
+    margin-left: 400px; 
 }
 
 .mensagem-aviso {
-    font-size: 18px;
+    font-family: 'Open Sans Hebrew';
+    font-size: 45px;
     color: #4B2C19;
     font-weight: bold;
-    margin-bottom: 20px;
+    text-align: left;
+    margin-bottom: 10px;
+    width: 800px;
+    margin-left: 110px;
 }
 
 .botao-finalizar-aviso {
-    background-color: #A07753;
+    background-color: #9C7A5E;
     color: white;
-    font-weight: bold;
-    padding: 10px 20px;
     border: none;
-    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    border-radius: 30px;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
+    margin-top: 3rem;
+    margin-left: 400px;
+    font-family: 'Open Sans Hebrew';
+    font-size: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    white-space: nowrap;
+    min-width: fit-content;
+    gap: 10px;
+}
+.iconFinalizarC{
+    font-size: 30px;
+    color: #66BB6A;
+}
+.modal-closeF{
+    color: #654833;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 3.3rem;
+    margin-left: 64rem;
+    margin-top: -30px;
 }
