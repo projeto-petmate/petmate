@@ -16,7 +16,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     // const [tamanho, setTamanho] = useState('')
     // const [gps, setGps] = useState(false)
     // const [corTecido, setCorTecido] = useState('')
-    // const [corMedalha, setCorMedalha] = useState('')
+    // const [corArgola, setcorArgola] = useState('')
     // const [desenho, setDesenho] = useState('')
     const [abrirAviso, setAbrirAviso] = useState(false)
 
@@ -25,10 +25,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     const [coleira, setColeira] = useState({
         modelo: 'Pescoço',
         tamanho: '',
-        gps: null,
         corTecido: '',
-        corMedalha: '',
-        desenho: '',
+        corArgola: '',
+        corPresilha: '',
         valor: 20
     })
 
@@ -39,10 +38,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             setColeira({
                 modelo: 'Pescoço',
                 tamanho: '',
-                gps: null,
                 corTecido: '',
-                corMedalha: '',
-                desenho: '',
+                corArgola: '',
+                corPresilha: '',
                 valor: 20
             });
             setErro({});
@@ -57,22 +55,22 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         }
         else if (etapa === 1 && !coleira.tamanho) {
             novosErros.tamanho = "Por favor, selecione um tamanho de coleira."
-        } else if (etapa === 1 && coleira.gps === null) {
-            novosErros.gps = "Por favor, selecione se deseja GPS ou não."
         }
         else if (etapa === 2 && !coleira.corTecido) {
             novosErros.corTecido = "Por favor, selecione uma cor de tecido."
-        } else if (etapa === 3 && !coleira.corMedalha) {
-            novosErros.corMedalha = "Por favor, selecione uma cor de medalha."
-        } else if (etapa === 3 && !coleira.desenho) {
-            novosErros.desenho = "Por favor, selecione um desenho para a medalha."
+        }
+        else if (etapa === 3 && !coleira.corArgola) {
+            novosErros.corArgola = "Por favor, selecione uma cor de medalha."
+        }
+        else if (etapa === 3 && !coleira.corPresilha) {
+            novosErros.corPresilha = "Por favor, selecione uma cor para a presilha."
         }
 
         // Verifica se há erros
         if (Object.keys(novosErros).length > 0) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Ops..',
+                title: 'Ops...',
                 text: Object.values(novosErros)[0],
                 confirmButtonColor: '#84644D',
                 customClass: {
@@ -94,11 +92,8 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         else if (coleira.modelo === "Peitoral") total += 30
         else if (coleira.modelo === "Cabresto") total += 40
 
-        // Valor do GPS
-        if (coleira.gps) total += 40
-
         return total
-    }, [coleira.modelo, coleira.gps])
+    }, [coleira.modelo])
 
     // Atualiza o valor total da coleira
     useEffect(() => {
@@ -139,21 +134,20 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             text: "Todas as alterações serão perdidas.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#84644D',
-            cancelButtonColor: '#DE4628',
-            confirmButtonText: 'Sim, sair',
-            cancelButtonText: 'Não, continuar'
+            confirmButtonColor: '#DE4628',
+            cancelButtonColor: '#84644D',
+            confirmButtonText: 'Sair',
+            cancelButtonText: 'Continuar'
         }).then((result) => {
             if (result.isConfirmed) {
                 setEtapa(1);
                 setColeira({
-                    modelo: '',
+                    modelo: 'Pescoço',
                     tamanho: '',
-                    gps: null,
                     corTecido: '',
-                    corMedalha: '',
-                    desenho: '',
-                    valor: 0
+                    corArgola: '',
+                    corPresilha: '',
+                    valor: 20
                 });
                 setErro({});
                 onClose();
@@ -172,7 +166,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                     <div className="etapa-1-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
                             <p className='titulo-etapa-personalizar-coleira'>Modelo</p>
-                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={onClose}>Sair</CgCloseO>
+                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira"> */}
@@ -232,7 +226,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         </label>
                                     </div>
                                 </div>
-                                <div className="container-opcoes">
+                                {/* <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
                                         <p>GPS (R$ 40):</p>
                                     </div>
@@ -246,7 +240,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <span>Sem GPS</span>
                                         </label>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="etapas-personalizar-coleira">
@@ -266,7 +260,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         <div className="container-titulo-modal-personalizar-coleira">
                             <IoArrowBackCircle className='btn-voltar-etapa-personalizar-coleira' onClick={voltarEtapa}>Voltar</IoArrowBackCircle>
                             <p className='titulo-etapa-personalizar-coleira'>Cor do Tecido</p>
-                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={onClose}>Sair</CgCloseO>
+                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira">
@@ -287,8 +281,8 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <span>Branco</span>
                                         </label>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Verde"} onChange={() => atualizarColeira("corTecido", "Verde")} />
-                                            <span>Verde</span>
+                                            <input type="radio" name='cores' checked={coleira.corTecido === "Bege"} onChange={() => atualizarColeira("corTecido", "Bege")} />
+                                            <span>Bege</span>
                                         </label>
                                     </div>
                                     <div className="opcoes-cores">
@@ -325,53 +319,63 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                     <div className="etapa-3-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
                             <IoArrowBackCircle className='btn-voltar-etapa-personalizar-coleira' onClick={voltarEtapa}>Voltar</IoArrowBackCircle>
-                            <p className='titulo-etapa-personalizar-coleira'>Medalha</p>
-                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={onClose}>Sair</CgCloseO>
+                            <p className='titulo-etapa-personalizar-coleira'>Argola e Presilha</p>
+                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira">
-                                    <ColeiraModelo coleira={coleira} />
+                                <ColeiraModelo coleira={coleira} />
                             </div> */}
                             <div className="opcoes-coleira">
                                 <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
-                                        <p>Cor da Medalha:</p>
+                                        <p>Cor da Argola:</p>
                                     </div>
                                     <div className="opcoes-medalha">
                                         <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corMedalha === "Dourado"} onChange={() => atualizarColeira("corMedalha", "Dourado")} />
+                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Dourado"} onChange={() => atualizarColeira("corArgola", "Dourado")} />
                                             <span>Dourado</span>
                                         </label>
                                         <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corMedalha === "Prata"} onChange={() => atualizarColeira("corMedalha", "Prata")} />
+                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Prata"} onChange={() => atualizarColeira("corArgola", "Prata")} />
                                             <span>Prata</span>
                                         </label>
                                         <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corMedalha === "Bronze"} onChange={() => atualizarColeira("corMedalha", "Bronze")} />
+                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Bronze"} onChange={() => atualizarColeira("corArgola", "Bronze")} />
                                             <span>Bronze</span>
                                         </label>
                                     </div>
                                 </div>
-                                <div className="container-opcoes">
+                                <div className="container-opcoes" >
                                     <div className="titulo-opcoes-coleira">
-                                        <p>Desenho da Medalha:</p>
+                                        <p>Cor da Presilha:</p>
+                                    </div>
+                                    <div className="opcoes-desenho" id='cores-presilha'>
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Preto"} onChange={() => atualizarColeira("corPresilha", "Preto")} />
+                                            <span>Preto</span>
+                                        </label>
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Branco"} onChange={() => atualizarColeira("corPresilha", "Branco")} />
+                                            <span>Branco</span>
+                                        </label>
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Bege"} onChange={() => atualizarColeira("corPresilha", "Bege")} />
+                                            <span>Bege</span>
+                                        </label>
                                     </div>
                                     <div className="opcoes-desenho">
                                         <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.desenho === "Estrela"} onChange={() => atualizarColeira("desenho", "Estrela")} />
-                                            <span>Estrela</span>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Azul"} onChange={() => atualizarColeira("corPresilha", "Azul")} />
+                                            <span>Azul</span>
                                         </label>
                                         <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.desenho === "Coração"} onChange={() => atualizarColeira("desenho", "Coração")} />
-                                            <span>Coração</span>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Vermelho"} onChange={() => atualizarColeira("corPresilha", "Vermelho")} />
+                                            <span>Vermelho</span>
                                         </label>
                                         <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.desenho === "Osso"} onChange={() => atualizarColeira("desenho", "Osso")} />
-                                            <span>Osso</span>
-                                        </label>
-                                        <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.desenho === "Sem desenho"} onChange={() => atualizarColeira("desenho", "Sem desenho")} />
-                                            <span>Sem desenho</span>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Amarelo"} onChange={() => atualizarColeira("corPresilha", "Amarelo")} />
+                                            <span>Amarelo</span>
                                         </label>
                                     </div>
                                 </div>
@@ -394,7 +398,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         <div className="container-titulo-modal-personalizar-coleira">
                             <IoArrowBackCircle className='btn-voltar-etapa-personalizar-coleira' onClick={voltarEtapa}>Voltar</IoArrowBackCircle>
                             <p className='titulo-etapa-personalizar-coleira'>Revisar Coleira</p>
-                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={onClose}>Sair</CgCloseO>
+                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira">
@@ -414,22 +418,18 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                     </div>
                                     <div className="linha-opcoes-selecionadas">
                                         <div className="opcao-selecionada">
-                                            <p>GPS:</p>
-                                            <span>{coleira.gps ? "Sim" : "Não"}</span>
-                                        </div>
-                                        <div className="opcao-selecionada">
                                             <p>Cor do Tecido:</p>
                                             <span>{coleira.corTecido}</span>
                                         </div>
                                     </div>
                                     <div className="linha-opcoes-selecionadas">
                                         <div className="opcao-selecionada">
-                                            <p>Cor da Medalha:</p>
-                                            <span>{coleira.corMedalha}</span>
+                                            <p>Cor da Argola:</p>
+                                            <span>{coleira.corArgola}</span>
                                         </div>
                                         <div className="opcao-selecionada">
-                                            <p>Desenho:</p>
-                                            <span>{coleira.desenho}</span>
+                                            <p>Cor da Presilha:</p>
+                                            <span>{coleira.corPresilha}</span>
                                         </div>
                                     </div>
                                     <div className="linha-opcoes-selecionadas">
@@ -457,14 +457,12 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
 
                             <ModalAvisoFinalizar open={abrirAviso} onClose={() => {
                                 setAbrirAviso(false);
-                                onClose(); // fecha o modal de personalização também
+                                onClose();
                             }} />
-
 
                         </div>
                     </div>
                 )}
-
             </div>
         </div >
     )

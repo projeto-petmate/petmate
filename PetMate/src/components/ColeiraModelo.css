@@ -1,0 +1,85 @@
+.container-coleira-modelo {
+    width: 90%;
+    height: 600px;
+    background: whitesmoke;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 24px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+    padding-left: 30px;
+}
+
+.seletores-cores-coleira {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+    margin-right: 32px;
+}
+
+.seletor-cor-tecido,
+.seletor-cor-argola,
+.seletor-cor-presilha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo-seletor-cor {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #654833;
+}
+
+.opcoes-cores-tecido,
+.opcoes-cores-argola,
+.opcoes-cores-presilha {
+    display: flex;
+    gap: 10px;
+}
+
+.botao-cor {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.botao-cor:hover {
+    border: 3px solid #333;
+}
+
+.botao-cor.ativo {
+    border: 3px solid #333;
+    box-shadow: 0 0 0 2px #BDA795;
+}
+
+.container-modelo-3d {
+    flex: 1;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.canvas-coleira {
+    border-radius: 16px;
+    background: whitesmoke;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-modelo-3d {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+}
