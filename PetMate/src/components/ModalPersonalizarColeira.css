@@ -261,6 +261,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     /* border: solid; */
 }
 
@@ -394,6 +395,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: solid 1px #ddd;
     flex: 1;
+    min-height: 40vh;
+
 }
 
 
@@ -425,14 +428,15 @@
 }
 
 
-/* .linha-opcoes-selecionadas {
-    display: flex;
+/* .linha-opcoes-selecionadas { */
+    /* display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    gap: 10px;
-} */
+    width: 100%; */
+    /* gap: 10px; */
+    /* padding-bottom: 10px; */
+/* } */
 
 
 

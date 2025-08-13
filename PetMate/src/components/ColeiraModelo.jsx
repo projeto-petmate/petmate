@@ -42,7 +42,7 @@ function Model({ coleira }) {
               'Amarelo': '#E8DD1C'
             };
             // Se corTecido está vazio ou não definido, usa cor padrão
-            const corTecido = coleira.corTecido && coleira.corTecido !== '' ? 
+            const corTecido = coleira.corTecido && coleira.corTecido !== '' ?
               coresTecido[coleira.corTecido] : '#C0C0C0'; // Cor padrão
             child.material.color.set(corTecido);
           }
@@ -55,7 +55,7 @@ function Model({ coleira }) {
               'Bronze': '#cd7f32'
             };
             // Se corArgola está vazio ou não definido, usa cor padrão
-            const corArgola = coleira.corArgola && coleira.corArgola !== '' ? 
+            const corArgola = coleira.corArgola && coleira.corArgola !== '' ?
               coresArgola[coleira.corArgola] : '#C0C0C0'; // Cor padrão
             child.material.color.set(corArgola);
           }
@@ -71,16 +71,29 @@ function Model({ coleira }) {
               'Amarelo': '#f5d442',
             };
             // Se corPresilha está vazio ou não definido, usa cor padrão
-            const corPresilha = coleira.corPresilha && coleira.corPresilha !== '' ? 
+            const corPresilha = coleira.corPresilha && coleira.corPresilha !== '' ?
               coresPresilha[coleira.corPresilha] : '#888888'; // Cor padrão
             child.material.color.set(corPresilha);
           }
 
-  
+          // Aplicar cor da logo (com cor padrão quando resetado)
+          if (child.name === 'Objeto') {
+            const coresLogo = {
+              'Preto': '#484848',
+              'Branco': '#FFFFFF',
+              'Bege': '#D2B48C',
+            };
+            const corLogo = coleira.corLogo && coleira.corLogo !== '' ?
+              coresLogo[coleira.corLogo] : '#888888';
+            child.material.color.set(corLogo);
+          }
+
+
+
         }
       });
     }
-  }, [gltf, coleira.corTecido, coleira.corArgola, coleira.corPresilha, ]);
+  }, [gltf, coleira.corTecido, coleira.corArgola, coleira.corPresilha, coleira.corLogo,]);
 
   return <primitive ref={modelRef} object={gltf.scene} scale={2.2} position={[0, 0, 0]} />;
 }
@@ -90,52 +103,9 @@ function ModeloTemporario({ coleira }) {
   const meshRef = useRef();
   const argolaRef = useRef();
   const presilhaRef = useRef();
+  const logoRef = useRef();
 
-  useEffect(() => {
-    console.log('Aplicando personalizações ao modelo temporário:', coleira);
-    
-    // Aplicar cor do tecido
-    if (meshRef.current) {
-      const coresTecido = {
-        'Preto': '#484848',
-        'Branco': '#F5F5F5',
-        'Verde': '#00ff00',
-        'Azul': '#48CBE0',
-        'Vermelho': '#DB3718',
-        'Amarelo': '#f5d442'
-      };
-      const corTecido = coleira.corTecido && coleira.corTecido !== '' ? 
-        coresTecido[coleira.corTecido] : '#C0C0C0';
-      meshRef.current.material.color.set(corTecido);
-    }
-
-    // Aplicar cor da argola
-    if (argolaRef.current) {
-      const coresArgola = {
-        'Dourado': '#FFD700',
-        'Prata': '#C0C0C0',
-        'Bronze': '#cd7f32'
-      };
-      const corArgola = coleira.corArgola && coleira.corArgola !== '' ? 
-        coresArgola[coleira.corArgola] : '#C0C0C0';
-      argolaRef.current.material.color.set(corArgola);
-    }
-
-    // Aplicar cor da presilha
-    if (presilhaRef.current) {
-      const coresPresilha = {
-        'Preto': '#484848',
-        'Branco': '#FFFFFF',
-        'Verde': '#00ff00',
-        'Azul': '#48CBE0',
-        'Vermelho': '#DB3718',
-        'Amarelo': '#f5d442',
-      };
-      const corPresilha = coleira.corPresilha && coleira.corPresilha !== '' ? 
-        coresPresilha[coleira.corPresilha] : '#888888';
-      presilhaRef.current.material.color.set(corPresilha);
-    }
-  }, [coleira]);
+ 
 
   return (
     <group>
@@ -153,6 +123,12 @@ function ModeloTemporario({ coleira }) {
 
       {/* Presilha */}
       <mesh ref={presilhaRef} position={[0, 1, 0]}>
+        <boxGeometry args={[0.5, 0.3, 0.2]} />
+        <meshStandardMaterial color="#888888" />
+      </mesh>
+
+      {/* Logo */}
+      <mesh ref={logoRef} position={[0, 1, 0]}>
         <boxGeometry args={[0.5, 0.3, 0.2]} />
         <meshStandardMaterial color="#888888" />
       </mesh>

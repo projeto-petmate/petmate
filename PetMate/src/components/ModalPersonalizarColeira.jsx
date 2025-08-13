@@ -28,6 +28,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         corTecido: '',
         corArgola: '',
         corPresilha: '',
+        corLogo: '',
         valor: 20
     })
 
@@ -41,6 +42,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                 corTecido: '',
                 corArgola: '',
                 corPresilha: '',
+                corLogo: '',
                 valor: 20
             });
             setErro({});
@@ -58,6 +60,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         }
         else if (etapa === 2 && !coleira.corTecido) {
             novosErros.corTecido = "Por favor, selecione uma cor de tecido."
+        }
+        else if (etapa === 2 && !coleira.corLogo) {
+            novosErros.corLogo = "Por favor, selecione uma cor de logo."
         }
         else if (etapa === 3 && !coleira.corArgola) {
             novosErros.corArgola = "Por favor, selecione uma cor de medalha."
@@ -147,6 +152,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                     corTecido: '',
                     corArgola: '',
                     corPresilha: '',
+                    corLogo: '',
                     valor: 20
                 });
                 setErro({});
@@ -273,32 +279,49 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                     </div>
                                     <div className="opcoes-cores" id='cores-tecido'>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Preto"} onChange={() => atualizarColeira("corTecido", "Preto")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Preto"} onChange={() => atualizarColeira("corTecido", "Preto")} />
                                             <span>Preto</span>
                                         </label>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Branco"} onChange={() => atualizarColeira("corTecido", "Branco")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Branco"} onChange={() => atualizarColeira("corTecido", "Branco")} />
                                             <span>Branco</span>
                                         </label>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Bege"} onChange={() => atualizarColeira("corTecido", "Bege")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Bege"} onChange={() => atualizarColeira("corTecido", "Bege")} />
                                             <span>Bege</span>
                                         </label>
                                     </div>
                                     <div className="opcoes-cores">
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Azul"} onChange={() => atualizarColeira("corTecido", "Azul")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Azul"} onChange={() => atualizarColeira("corTecido", "Azul")} />
                                             <span>Azul</span>
                                         </label>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Vermelho"} onChange={() => atualizarColeira("corTecido", "Vermelho")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Vermelho"} onChange={() => atualizarColeira("corTecido", "Vermelho")} />
                                             <span>Vermelho</span>
                                         </label>
                                         <label className='radio-cores'>
-                                            <input type="radio" name='cores' checked={coleira.corTecido === "Amarelo"} onChange={() => atualizarColeira("corTecido", "Amarelo")} />
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Amarelo"} onChange={() => atualizarColeira("corTecido", "Amarelo")} />
                                             <span>Amarelo</span>
                                         </label>
                                     </div>
+                                </div>
+                                <div className="titulo-opcoes-coleira">
+                                    <p>Selecione a cor da logo:</p>
+                                </div>
+                                <div className="opcoes-cores" id='cores-tecido'>
+                                    <label className='radio-cores'>
+                                        <input type="radio" name='coresLogo' checked={coleira.corLogo === "Preto"} onChange={() => atualizarColeira("corLogo", "Preto")} />
+                                        <span>Preto</span>
+                                    </label>
+                                    <label className='radio-cores'>
+                                        <input type="radio" name='coresLogo' checked={coleira.corLogo === "Branco"} onChange={() => atualizarColeira("corLogo", "Branco")} />
+                                        <span>Branco</span>
+                                    </label>
+                                    <label className='radio-cores'>
+                                        <input type="radio" name='coresLogo' checked={coleira.corLogo === "Bege"} onChange={() => atualizarColeira("corLogo", "Bege")} />
+                                        <span>Bege</span>
+                                    </label>
                                 </div>
 
                             </div>
@@ -420,6 +443,12 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <div className="opcao-selecionada">
                                             <p>Cor do Tecido:</p>
                                             <span>{coleira.corTecido}</span>
+                                        </div>
+                                    </div>
+                                       <div className="linha-opcoes-selecionadas">
+                                        <div className="opcao-selecionada">
+                                            <p>Cor da Logo:</p>
+                                            <span>{coleira.corLogo}</span>
                                         </div>
                                     </div>
                                     <div className="linha-opcoes-selecionadas">
