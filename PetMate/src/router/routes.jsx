@@ -14,6 +14,7 @@ import Favoritos from "../pages/Favoritos";
 import RecuperarSenha from "../pages/RecuperarSenha";
 import Denuncias from "../pages/Denuncias";
 import Coleiras from "../pages/Coleiras";
+import Carrinho from "../pages/Carrinho";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
     {path: "/recuperar-senha", element: <RecuperarSenha />},
     {path: "/denuncias", element: <Denuncias />},
     {path: "/coleiras", element: <Coleiras />},
+    {path: "/carrinho", element: <Carrinho />},
 
 ])
 

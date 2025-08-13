@@ -1,0 +1,54 @@
+.titulo-carrinho {
+    margin-left: 50px;
+    margin-bottom: 50px;
+}
+.titulo-carrinho h2 {
+    font-size: 50px;
+    color: #84644D;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+}
+
+
+.container-produtos{
+    display: flex;
+    gap: 35px;
+    align-items: flex-start;
+    margin-bottom: 100px;
+    margin-left: 50px;
+}
+.produtosAdicionados{
+    border: 3px solid #9C7A5E;
+    border-radius: 30px;
+    height: 500px;
+    width: 70%;
+}
+.produtosAdicionados h2 {
+    font-size: 35px;
+    color: #84644D;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+    margin-left: 350px;
+    margin-top: 12px;
+}
+.subtotal{
+    border: 3px solid #9C7A5E;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    height: 500px;
+    width: 25%;
+}
+.subtotal p {
+    font-size: 25px;
+    color: #84644D;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-family: 'Raleway';
+    margin-left: 50px;
+    margin-top: 12px;
+}
+.fecharPedido{
+    
+}
