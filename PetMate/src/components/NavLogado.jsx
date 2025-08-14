@@ -4,6 +4,7 @@ import './Navbar.css';
 import { FaUserCircle } from "react-icons/fa";
 import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import { GlobalContext } from '../contexts/GlobalContext';
+import { FiShoppingCart } from "react-icons/fi";
 
 function NavLogado() {
   const { userLogado } = useContext(GlobalContext);
@@ -40,6 +41,10 @@ function NavLogado() {
           <span className="texto-perfil">Ir para o perfil</span>
         </div>
         <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
+
+          <Link to="/carrinho">
+            <FiShoppingCart className='icon-carrinho'/>
+          </Link>
       </>
 
     </div>

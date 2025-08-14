@@ -20,7 +20,7 @@
 }
 .produtosAdicionados{
     border: 3px solid #9C7A5E;
-    border-radius: 30px;
+    border-radius: 20px;
     height: 500px;
     width: 70%;
 }
@@ -36,8 +36,8 @@
 .subtotal{
     border: 3px solid #9C7A5E;
     background-color: #FFFFFF;
-    border-radius: 30px;
-    height: 500px;
+    border-radius: 20px;
+    height: 400px;
     width: 25%;
 }
 .subtotal p {
@@ -50,5 +50,21 @@
     margin-top: 12px;
 }
 .fecharPedido{
-    
+    background-color: #654833;
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 200px;
+    margin-left: 120px;
+    font-family: 'Open Sans Hebrew';
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-width: fit-content;
+    margin-bottom: 20px;
 }
