@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from '@react-three/drei';
 import './ColeiraModelo.css';
@@ -12,8 +12,37 @@ function Loader() {
   );
 }
 
+// Componente para controlar a câmera
+function CameraController({ posicao, fov }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    console.log('Atualizando câmera para:', posicao, 'FOV:', fov);
+    camera.position.set(...posicao);
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+  }, [camera, posicao, fov]);
+
+  return null;
+}
+
 function Model({ coleira }) {
-  const gltf = useLoader(GLTFLoader, '/models/coleira.glb',
+
+  const getModeloArquivo = (modelo) => {
+    switch (modelo) {
+      case 'pescoco':
+        return 'pescoco';
+      case 'cabresto':
+        return 'cabresto';
+      case 'peitoral':
+        return 'peitoral'; // assumindo que você tem este arquivo
+      default:
+        return 'pescoco'; // fallback padrão
+    }
+  };
+
+  const modeloArquivo = getModeloArquivo(coleira.modelo || 'pescoco');
+  const gltf = useLoader(GLTFLoader, `/models/${modeloArquivo}.glb`,
     undefined,
     (xhr) => {
       console.log((xhr.loaded / xhr.total * 100) + '% carregado');
@@ -105,7 +134,7 @@ function ModeloTemporario({ coleira }) {
   const presilhaRef = useRef();
   const logoRef = useRef();
 
- 
+
 
   return (
     <group>
@@ -140,19 +169,95 @@ function ModeloTemporario({ coleira }) {
 function ColeiraModelo({ coleira = {} }) {
   console.log('ColeiraModelo recebendo coleira:', coleira);
 
+  const getModeloArquivo = (modelo) => {
+    switch (modelo) {
+      case 'pescoco':
+        return 'pescoco';
+      case 'cabresto':
+        return 'cabresto';
+      case 'peitoral':
+        return 'peitoral';
+      default:
+        return 'pescoco';
+    }
+  };
+
+    // Configurações específicas para cada tipo de coleira
+  const getPosicaoCamera = (modelo) => {
+    console.log('getPosicaoCamera recebeu:', modelo); // Debug
+    switch (modelo) {
+      case 'pescoco':
+        return [12, 3, 5];
+      case 'cabresto':
+        return [0, 7, -25];
+      case 'peitoral':
+        return [10, 5, 10];
+      default:
+        return [12, 3, 5];
+    }
+  };
+
+  const getFovCamera = (modelo) => {
+    console.log('getFovCamera recebeu:', modelo); // Debug
+    switch (modelo) {
+      case 'pescoco':
+        return 45;
+      case 'cabresto':
+        return 25;
+      case 'peitoral':
+        return 40;
+      default:
+        return 45;
+    }
+  };
+
+  const getPosicaoLuzes = (modelo) => {
+    console.log('getPosicaoLuzes recebeu:', modelo); // Debug
+    switch (modelo) {
+      case 'pescoco':
+        return [-5, -2, 5];
+      case 'cabresto':
+        return [10, 10, -10];
+      case 'peitoral':
+        return [-8, -5, 8];
+      default:
+        return [-5, -2, 5];
+    }
+  };
+
+   const modeloAtual = coleira.modelo || 'pescoco';
+  console.log('Modelo atual:', modeloAtual); // Debug
+
+  const posicaoCamera = getPosicaoCamera(modeloAtual);
+  const fovCamera = getFovCamera(modeloAtual);
+  const posicaoLuzes = getPosicaoLuzes(modeloAtual);
+  const modeloArquivo = getModeloArquivo(modeloAtual);
+
+   console.log('Configurações aplicadas:', { // Debug
+    modelo: modeloAtual,
+    posicaoCamera,
+    fovCamera,
+    posicaoLuzes,
+    modeloArquivo
+  });
   return (
     <div className="container-modelo-3d-fixo">
       <Canvas
-        camera={{ position: [0, 2, 5], fov: 45 }}
+        camera={{
+           position: [0, 0, 10], // Posição inicial, será sobrescrita
+           fov: 45 // FOV inicial, será sobrescrito
+        }}
         className="canvas-coleira"
       >
+        {/* Controlador da câmera */}
+        <CameraController posicao={posicaoCamera} fov={fovCamera} />
+        
         <ambientLight intensity={0.7} />
         <pointLight position={[10, 10, 10]} intensity={1.5} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        <pointLight position={posicaoLuzes} intensity={0.7} />
         <directionalLight position={[0, 5, 5]} intensity={1} />
 
-        {/* Tente carregar o modelo GLB primeiro, senão use o temporário */}
-        <React.Suspense fallback={<ModeloTemporario coleira={coleira} />}>
+        <React.Suspense key={modeloArquivo} fallback={<ModeloTemporario coleira={coleira} />}>
           <Model coleira={coleira} />
         </React.Suspense>
 
@@ -160,7 +265,7 @@ function ColeiraModelo({ coleira = {} }) {
           enableZoom={true}
           maxPolarAngle={Math.PI / 1.5}
           minPolarAngle={Math.PI / 6}
-          maxDistance={6}
+          maxDistance={5}
           minDistance={3}
         />
       </Canvas>
