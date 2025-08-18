@@ -82,6 +82,13 @@
     margin-bottom: 10px;
 }
 
+.botao-personalizar-coleira {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
 .botao-personalizar {
     background-color: #84644D;
     color: #f5f5f5;
@@ -93,6 +100,36 @@
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botao-personalizar:hover {
+    background-color: #74543D;
+    transform: translateY(-2px);
+}
+
+.botao-analisar-cores {
+    background: linear-gradient(135deg, #8B5FBF, #B985E3);
+    color: white;
+    padding: 3px;
+    width: 15rem;
+    height: 3rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.botao-analisar-cores:hover {
+    background: linear-gradient(135deg, #7B4FAF, #A975D3);
+    transform: translateY(-2px);
 }
 
 .container-coleira-modelo {

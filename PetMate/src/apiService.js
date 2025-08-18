@@ -299,3 +299,22 @@ export const uploadPetImage = async (file) => {
         throw error;
     }
 };
+
+/**
+ * @param {File} file 
+ * @returns {Promise<{imageUrl: string, openModalAnalisar: string}>}
+ */
+export const analyzePetColors = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+        const response = await api.post('/analise-cores-pet', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Erro na análise de cores do pet:', error);
+        throw error;
+    }
+};

@@ -319,8 +319,8 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <span>Branco</span>
                                     </label>
                                     <label className='radio-cores'>
-                                        <input type="radio" name='coresLogo' checked={coleira.corLogo === "Bege"} onChange={() => atualizarColeira("corLogo", "Bege")} />
-                                        <span>Bege</span>
+                                        <input type="radio" name='coresLogo' checked={coleira.corLogo === "Marrom"} onChange={() => atualizarColeira("corLogo", "Marrom")} />
+                                        <span>Marrom</span>
                                     </label>
                                 </div>
 
@@ -383,8 +383,8 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <span>Branco</span>
                                         </label>
                                         <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Bege"} onChange={() => atualizarColeira("corPresilha", "Bege")} />
-                                            <span>Bege</span>
+                                            <input type="radio" name='desenho' checked={coleira.corPresilha === "Marrom"} onChange={() => atualizarColeira("corPresilha", "Marrom")} />
+                                            <span>Marrom</span>
                                         </label>
                                     </div>
                                     <div className="opcoes-desenho">

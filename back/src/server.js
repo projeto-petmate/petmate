@@ -1,11 +1,13 @@
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
-const multer = require('multer'); // Middleware para lidar com uploads de arquivos
-const cloudinary = require('./cloudinaryConfig'); // Importa a configuração do Cloudinary
-const upload = multer({ storage: multer.memoryStorage() }); // Configura o multer para armazenar arquivos na memória
+const multer = require('multer'); 
+const cloudinary = require('./cloudinaryConfig'); 
+const upload = multer({ storage: multer.memoryStorage() }); 
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const pool = new Pool({
     user: 'postgres',
@@ -937,7 +939,130 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     }
 });
 
+app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
+    console.log('📸 Requisição de análise de cores recebida');
+    
+    try {
+        const file = req.file;
+
+        if (!file) {
+            console.log('❌ Nenhum arquivo enviado');
+            return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
+        }
+
+        console.log('📁 Arquivo recebido:', file.originalname, 'Tamanho:', file.size);
+
+        console.log('☁️ Fazendo upload para Cloudinary...');
+        const cloudinaryResult = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                { folder: 'pets' },
+                (error, uploadResult) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(uploadResult);
+                    }
+                }
+            ).end(file.buffer);
+        });
+
+        console.log('✅ Upload para Cloudinary concluído:', cloudinaryResult.secure_url);
+
+        console.log('🤖 Iniciando análise com Gemini...');
+        
+        if (!process.env.GEMINI_API_KEY) {
+            console.error('❌ GEMINI_API_KEY não encontrada no arquivo .env');
+            return res.status(500).json({ error: 'Chave da API Gemini não configurada.' });
+        }
+        
+        console.log('🔑 Chave Gemini carregada:', process.env.GEMINI_API_KEY ? 'OK' : 'FALHA');
+        
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+        const prompt = `Analise a imagem do pet fornecida e sugira as melhores combinações de cores para uma coleira personalizada, considerando:
+
+        1. A cor da pelagem, olhos e características físicas do pet
+        2. A harmonia visual entre as cores do pet e da coleira
+        3. Contraste adequado para boa visibilidade
+
+        **Cores disponíveis para cada componente:**
+
+        **Tecido da coleira:**
+        - Preto
+        - Branco  
+        - Bege
+        - Azul
+        - Vermelho
+        - Amarelo
+
+        **Logo:**
+        - Preto
+        - Branco
+        - Bege
+
+        **Argola:**
+        - Dourado
+        - Prata
+        - Bronze
+
+        **Presilha:**
+        - Preto
+        - Branco
+        - Bege
+        - Azul
+        - Vermelho
+        - Amarelo
+
+        **Responda no formato:**
+
+        🐕 **Análise do Pet:**
+        [Descreva brevemente as cores e características do pet]
+
+        🎨 **Combinação Recomendada:**
+        - **Tecido:** [cor]
+        - **Logo:** [cor]  
+        - **Argola:** [cor]
+        - **Presilha:** [cor]
+
+        💡 **Alternativa 2:**
+        - **Tecido:** [cor]
+        - **Logo:** [cor]
+        - **Argola:** [cor] 
+        - **Presilha:** [cor]
+
+        📝 **Explicação:**
+        [Breve explicação do porquê essas combinações funcionam bem com este pet específico]`;
+
+        const imageBase64 = file.buffer.toString('base64');
+        
+        const result = await model.generateContent([
+            prompt,
+            {
+                inlineData: {
+                    data: imageBase64,
+                    mimeType: file.mimetype
+                }
+            }
+        ]);
+
+        const response = await result.response;
+        const text = response.text();
+
+        console.log('🎨 Análise concluída com sucesso');
+        
+        res.status(200).json({ 
+            imageUrl: cloudinaryResult.secure_url,
+            analysis: text
+        });
+
+    } catch (error) {
+        console.error('❌ Erro na análise de cores:', error.message);
+        res.status(500).json({ error: 'Erro na análise de cores.' });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
 });
