@@ -12,7 +12,6 @@ function Loader() {
   );
 }
 
-// Componente para controlar a câmera
 function CameraController({ posicao, fov }) {
   const { camera } = useThree();
 
@@ -35,9 +34,9 @@ function Model({ coleira }) {
       case 'cabresto':
         return 'cabresto';
       case 'peitoral':
-        return 'peitoral'; // assumindo que você tem este arquivo
+        return 'peitoral'; 
       default:
-        return 'pescoco'; // fallback padrão
+        return 'pescoco'; 
     }
   };
 
@@ -127,7 +126,6 @@ function Model({ coleira }) {
   return <primitive ref={modelRef} object={gltf.scene} scale={2.2} position={[0, 0, 0]} />;
 }
 
-// Modelo temporário para testar (corrigido para reset)
 function ModeloTemporario({ coleira }) {
   const meshRef = useRef();
   const argolaRef = useRef();
@@ -182,9 +180,8 @@ function ColeiraModelo({ coleira = {} }) {
     }
   };
 
-    // Configurações específicas para cada tipo de coleira
   const getPosicaoCamera = (modelo) => {
-    console.log('getPosicaoCamera recebeu:', modelo); // Debug
+    console.log('getPosicaoCamera recebeu:', modelo); 
     switch (modelo) {
       case 'pescoco':
         return [12, 3, 5];
@@ -198,7 +195,7 @@ function ColeiraModelo({ coleira = {} }) {
   };
 
   const getFovCamera = (modelo) => {
-    console.log('getFovCamera recebeu:', modelo); // Debug
+    console.log('getFovCamera recebeu:', modelo); 
     switch (modelo) {
       case 'pescoco':
         return 45;
@@ -212,12 +209,12 @@ function ColeiraModelo({ coleira = {} }) {
   };
 
   const getPosicaoLuzes = (modelo) => {
-    console.log('getPosicaoLuzes recebeu:', modelo); // Debug
+    console.log('getPosicaoLuzes recebeu:', modelo); 
     switch (modelo) {
       case 'pescoco':
-        return [-5, -2, 5];
+        return [-70, -10, 5];
       case 'cabresto':
-        return [10, 10, -10];
+        return [-15, -10, -30];
       case 'peitoral':
         return [-8, -5, 8];
       default:
@@ -226,14 +223,14 @@ function ColeiraModelo({ coleira = {} }) {
   };
 
    const modeloAtual = coleira.modelo || 'pescoco';
-  console.log('Modelo atual:', modeloAtual); // Debug
+  console.log('Modelo atual:', modeloAtual); 
 
   const posicaoCamera = getPosicaoCamera(modeloAtual);
   const fovCamera = getFovCamera(modeloAtual);
   const posicaoLuzes = getPosicaoLuzes(modeloAtual);
   const modeloArquivo = getModeloArquivo(modeloAtual);
 
-   console.log('Configurações aplicadas:', { // Debug
+   console.log('Configurações aplicadas:', { 
     modelo: modeloAtual,
     posicaoCamera,
     fovCamera,
@@ -244,8 +241,8 @@ function ColeiraModelo({ coleira = {} }) {
     <div className="container-modelo-3d-fixo">
       <Canvas
         camera={{
-           position: [0, 0, 10], // Posição inicial, será sobrescrita
-           fov: 45 // FOV inicial, será sobrescrito
+           position: [0, 0, 10],
+           fov: 45 
         }}
         className="canvas-coleira"
       >

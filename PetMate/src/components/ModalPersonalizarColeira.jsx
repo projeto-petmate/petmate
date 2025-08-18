@@ -139,7 +139,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             text: "Todas as alterações serão perdidas.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#DE4628',
+            confirmButtonColor: '#E63030',
             cancelButtonColor: '#84644D',
             confirmButtonText: 'Sair',
             cancelButtonText: 'Continuar'
