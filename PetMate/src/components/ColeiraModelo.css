@@ -1,18 +1,3 @@
-.container-coleira-modelo {
-    width: 90%;
-    height: 600px;
-    background: whitesmoke;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    margin-top: 24px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
-    padding-left: 30px;
-}
-
 .seletores-cores-coleira {
     display: flex;
     flex-direction: column;
@@ -62,24 +47,6 @@
     box-shadow: 0 0 0 2px #BDA795;
 }
 
-.container-modelo-3d {
-    flex: 1;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .canvas-coleira {
-    border-radius: 16px;
-    background: whitesmoke;
-    width: 100%;
-    height: 100%;
-}
-
-.loader-modelo-3d {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #666;
+    background: rgb(233, 231, 231);
 }

@@ -188,7 +188,7 @@ function ColeiraModelo({ coleira = {} }) {
       case 'cabresto':
         return [0, 7, -25];
       case 'peitoral':
-        return [10, 5, 10];
+        return [-40, 5, -30];
       default:
         return [12, 3, 5];
     }
@@ -198,11 +198,11 @@ function ColeiraModelo({ coleira = {} }) {
     console.log('getFovCamera recebeu:', modelo); 
     switch (modelo) {
       case 'pescoco':
-        return 45;
+        return 43;
       case 'cabresto':
         return 25;
       case 'peitoral':
-        return 40;
+        return 30;
       default:
         return 45;
     }
@@ -241,8 +241,8 @@ function ColeiraModelo({ coleira = {} }) {
     <div className="container-modelo-3d-fixo">
       <Canvas
         camera={{
-           position: [0, 0, 10],
-           fov: 45 
+           position: [0, 0, 0],
+           fov: 45
         }}
         className="canvas-coleira"
       >
@@ -250,9 +250,9 @@ function ColeiraModelo({ coleira = {} }) {
         <CameraController posicao={posicaoCamera} fov={fovCamera} />
         
         <ambientLight intensity={0.7} />
-        <pointLight position={[10, 10, 10]} intensity={1.5} />
-        <pointLight position={posicaoLuzes} intensity={0.7} />
-        <directionalLight position={[0, 5, 5]} intensity={1} />
+        <pointLight position={[1, 19, 1]} intensity={1.5} />
+        <pointLight position={posicaoLuzes} intensity={1.5} />
+        <directionalLight position={[8, 8, 8]} intensity={1.5} />
 
         <React.Suspense key={modeloArquivo} fallback={<ModeloTemporario coleira={coleira} />}>
           <Model coleira={coleira} />
@@ -263,7 +263,7 @@ function ColeiraModelo({ coleira = {} }) {
           maxPolarAngle={Math.PI / 1.5}
           minPolarAngle={Math.PI / 6}
           maxDistance={5}
-          minDistance={3}
+          minDistance={5}
         />
       </Canvas>
     </div>
