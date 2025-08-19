@@ -1,23 +1,148 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import './ModalAnalisarCores.css'; // Corrigido o nome do arquivo CSS
 import { CgCloseO } from "react-icons/cg";
 import { FiUpload, FiCamera } from 'react-icons/fi';
 import { analyzePetColors } from '../apiService';
 import Swal from 'sweetalert2';
+import { GlobalContext } from '../contexts/GlobalContext';
 
 export default function ModalAnalisarCores({ open, onClose }) {
+    const { 
+        combinacoesCores, 
+        setCombinacoesCores, 
+        aplicarCoresCallback, 
+        setAplicarCoresCallback 
+    } = useContext(GlobalContext);
+    
     const [loading, setLoading] = useState(false);
     const [analisar, setAnalisar] = useState(null);
     const [petImage, setPetImage] = useState(null);
     const fileInputRef = useRef(null);
 
+
     if (!open) return null;
+
+    const extrairCombinacoes = (text) => {
+        if (!text) return { alternativa1: null, alternativa2: null };
+
+        const mapearCor = (cor, tipo) => {
+            const corLimpa = cor.trim().toLowerCase();
+            console.log(`Mapeando: "${cor}" -> "${corLimpa}" para tipo ${tipo}`);
+
+            if (tipo === 'tecido' || tipo === 'presilha') {
+                const mapaTecidoPresilha = {
+                    'preto': 'Preto',
+                    'branco': 'Branco',
+                    'bege': 'Bege',
+                    'azul': 'Azul',
+                    'vermelho': 'Vermelho',
+                    'amarelo': 'Amarelo',
+                    'marrom': 'Marrom'
+                };
+                console.log(`Mapeando cor ${corLimpa} para ${tipo}:`, mapaTecidoPresilha[corLimpa]);
+                return mapaTecidoPresilha[corLimpa] || 'Preto';
+            }
+
+            if (tipo === 'logo') {
+                const mapaLogo = {
+                    'preto': 'Preto',
+                    'branco': 'Branco',
+                    'bege': 'Bege',
+                    'marrom': 'Marrom'
+                };
+                console.log(`Mapeando cor ${corLimpa} para ${tipo}:`, mapaLogo[corLimpa]);
+                return mapaLogo[corLimpa] || 'Preto';
+            }
+
+            if (tipo === 'argola') {
+                const mapaArgola = {
+                    'dourado': 'Dourado',
+                    'prata': 'Prata',
+                    'bronze': 'Bronze'
+                };
+                return mapaArgola[corLimpa] || 'Prata';
+            }
+
+            return '';
+        };
+
+        try {
+            const regex1 = /🎨.*?Combinação Recomendada:\s*(.*?)(?=💡|📝|$)/s;
+            const match1 = text.match(regex1);
+            console.log('Match1 para alternativa 1:', match1);
+            let alternativa1 = null;
+
+            if (match1) {
+                const conteudo1 = match1[1];
+                console.log('Conteúdo da alternativa 1:', conteudo1);
+                
+                const tecido1 = conteudo1.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const logo1 = conteudo1.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const argola1 = conteudo1.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const presilha1 = conteudo1.match(/\*\*Presilha:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+
+                console.log('Cores extraídas alternativa 1:', { tecido1, logo1, argola1, presilha1 });
+                console.log('tecido1 valor:', `"${tecido1}"`);
+                console.log('logo1 valor:', `"${logo1}"`);
+                console.log('argola1 valor:', `"${argola1}"`);
+                console.log('presilha1 valor:', `"${presilha1}"`);
+
+                if (tecido1 && logo1 && argola1 && presilha1) {
+                    alternativa1 = {
+                        corTecido: mapearCor(tecido1, 'tecido'),
+                        corArgola: mapearCor(argola1, 'argola'),
+                        corPresilha: mapearCor(presilha1, 'presilha'),
+                        corLogo: mapearCor(logo1, 'logo')
+                    };
+                    console.log('Alternativa 1 criada:', alternativa1);
+                }
+            }
+
+            const regex2 = /💡.*?Alternativa 2:\s*(.*?)(?=📝|$)/s;
+            const match2 = text.match(regex2);
+            console.log('Match2 para alternativa 2:', match2);
+            let alternativa2 = null;
+
+            if (match2) {
+                const conteudo2 = match2[1];
+                console.log('Conteúdo da alternativa 2:', conteudo2);
+                
+                const tecido2 = conteudo2.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const logo2 = conteudo2.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const argola2 = conteudo2.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+                const presilha2 = conteudo2.match(/\*\*Presilha:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
+
+                console.log('Cores extraídas alternativa 2:', { tecido2, logo2, argola2, presilha2 });
+                console.log('tecido2 valor:', `"${tecido2}"`);
+                console.log('logo2 valor:', `"${logo2}"`);
+                console.log('argola2 valor:', `"${argola2}"`);
+                console.log('presilha2 valor:', `"${presilha2}"`);
+
+                if (tecido2 && logo2 && argola2 && presilha2) {
+                    alternativa2 = {
+                        corTecido: mapearCor(tecido2, 'tecido'),
+                        corArgola: mapearCor(argola2, 'argola'),
+                        corPresilha: mapearCor(presilha2, 'presilha'),
+                        corLogo: mapearCor(logo2, 'logo')
+                    };
+                    console.log('Alternativa 2 criada:', alternativa2);
+                }
+            }
+
+            console.log('Combinações extraídas:', { alternativa1, alternativa2 });
+            console.log('=== FIM extrairCombinacoes ===');
+            return { alternativa1, alternativa2 };
+
+        } catch (error) {
+            console.error('Erro ao extrair combinações:', error);
+            return { alternativa1: null, alternativa2: null };
+        }
+    };
 
     const handleFileSelect = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
-        // Validar tipo de arquivo
         if (!file.type.startsWith('image/')) {
             Swal.fire({
                 title: 'Erro',
@@ -28,7 +153,6 @@ export default function ModalAnalisarCores({ open, onClose }) {
             return;
         }
 
-        // Validar tamanho do arquivo (máx 5MB)
         if (file.size > 5 * 1024 * 1024) {
             Swal.fire({
                 title: 'Erro',
@@ -40,11 +164,14 @@ export default function ModalAnalisarCores({ open, onClose }) {
         }
 
         setLoading(true);
-        
+
         try {
             const result = await analyzePetColors(file);
             setPetImage(result.imageUrl);
-            setAnalisar(result.analysis); // Corrigido: o backend retorna 'analysis', não 'analisar'
+            setAnalisar(result.analysis);
+            
+            const combinacoesExtraidas = extrairCombinacoes(result.analysis);
+            setCombinacoesCores(combinacoesExtraidas);
         } catch (error) {
             console.error('Erro na análise:', error);
             Swal.fire({
@@ -58,15 +185,49 @@ export default function ModalAnalisarCores({ open, onClose }) {
         }
     };
 
+    const aplicarAlternativa = (numero) => {
+        console.log('=== INÍCIO aplicarAlternativa ===');
+        console.log('Número da alternativa:', numero);
+        console.log('combinacoesCores completo:', combinacoesCores);
+        
+        const alternativa = numero === 1 ? combinacoesCores.alternativa1 : combinacoesCores.alternativa2;
+        console.log(`Alternativa ${numero} selecionada:`, alternativa);
+        console.log('aplicarCoresCallback existe?', !!aplicarCoresCallback);
+        console.log('aplicarCoresCallback:', aplicarCoresCallback);
+        
+        if (alternativa && aplicarCoresCallback) {
+            console.log('Aplicando cores via callback...');
+            try {
+                aplicarCoresCallback(alternativa);
+                console.log('Cores aplicadas com sucesso!');
+                handleClose();
+            } catch (error) {
+                console.error('Erro ao aplicar cores:', error);
+            }
+        } else {
+            console.error('Alternativa não encontrada ou callback não definido');
+            console.error('alternativa:', alternativa);
+            console.error('aplicarCoresCallback:', aplicarCoresCallback);
+            Swal.fire({
+                title: 'Erro',
+                text: 'Não foi possível extrair as cores desta alternativa. Tente novamente.',
+                icon: 'error',
+                confirmButtonColor: '#84644D'
+            });
+        }
+        console.log('=== FIM aplicarAlternativa ===');
+    };
+
     const handleClose = () => {
         setAnalisar(null);
         setPetImage(null);
+        setCombinacoesCores({ alternativa1: null, alternativa2: null });
         onClose();
     };
 
     const formatAnalisar = (text) => {
         if (!text) return '';
-        
+
         return text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/🐕 \*\*(.*?)\*\*/g, '🐕 <strong>$1</strong>')
@@ -76,11 +237,13 @@ export default function ModalAnalisarCores({ open, onClose }) {
             .replace(/\n/g, '<br/>');
     };
 
+
+
     return (
         <div className="modal-overlay">
             <div className="modal-analisar-cores">
                 <div className="modal-header">
-                    <h2>🎨 Análise de Cores para Coleira</h2>
+                    <h2>Análise de Cores para Coleira</h2>
                     <button className="close-button" onClick={handleClose}>
                         <CgCloseO />
                     </button>
@@ -93,14 +256,16 @@ export default function ModalAnalisarCores({ open, onClose }) {
                                 <div className="upload-icon">
                                     <FiCamera size={48} />
                                 </div>
-                                <h3>Envie uma foto do seu pet</h3>
-                                <p>
-                                    Nossa IA analisará as cores do seu pet e sugerirá as melhores 
-                                    combinações de cores para uma coleira personalizada.
-                                </p>
-                                
+                                <div className="titulo-analisar">
+                                    <h3>Envie uma foto do seu pet</h3>
+                                    <p>
+                                        Nossa IA analisará as cores do seu pet e sugerirá as melhores
+                                        combinações de cores para uma coleira personalizada.
+                                    </p>
+                                </div>
+
                                 <div className="upload-buttons">
-                                    <button 
+                                    <button
                                         className="upload-btn primary"
                                         onClick={() => fileInputRef.current?.click()}
                                         disabled={loading}
@@ -140,28 +305,42 @@ export default function ModalAnalisarCores({ open, onClose }) {
                         </div>
                     ) : (
                         <div className="analisar-section">
-                            <div className="pet-image-container">
-                                <img src={petImage} alt="Pet analisado" className="analyzed-pet-image" />
-                            </div>
+                            {/* <div className="pet-image-container"> */}
+                            { /*<img src={petImage} alt="Pet analisado" className="analyzed-pet-image" />*/}
+                            {/* </div> */}
 
                             <div className="analisar-content">
-                                <div 
+                                <div
                                     className="analisar-text"
                                     dangerouslySetInnerHTML={{ __html: formatAnalisar(analisar) }}
                                 />
                             </div>
 
                             <div className="action-buttons">
-                                <button 
+                                <button
+                                    className="btn-alternativa"
+                                    onClick={() => aplicarAlternativa(1)}
+                                    disabled={!combinacoesCores.alternativa1}>
+                                    Aplicar alternativa 1
+                                </button>
+                                <button
+                                    className="btn-alternativa"
+                                    onClick={() => aplicarAlternativa(2)}
+                                    disabled={!combinacoesCores.alternativa2}>
+                                    Aplicar alternativa 2
+                                </button>
+                                <button
                                     className="btn secondary"
                                     onClick={() => {
                                         setAnalisar(null);
                                         setPetImage(null);
+                                        setCombinacoesCores({ alternativa1: null, alternativa2: null });
+                                        fileInputRef.current.value = null;
                                     }}
                                 >
                                     Nova Análise
                                 </button>
-                                <button 
+                                <button
                                     className="btn primary"
                                     onClick={handleClose}
                                 >

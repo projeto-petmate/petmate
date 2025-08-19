@@ -463,3 +463,33 @@
     font-family: 'Nunito';
 }
 
+.btn-analisar-cores {
+    background: linear-gradient(135deg, #DB8CF0, #8BB1F2);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-analisar-cores:hover {
+    background: linear-gradient(135deg, #c377d8, #7198da);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(132, 100, 77, 0.3);
+}
+
+.btn-analisar-cores:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(132, 100, 77, 0.3);
+}
+

@@ -4,12 +4,11 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ModalPersonalizarColeira from '../components/ModalPersonalizarColeira';
 import ModalColeiras from '../components/ModalColeiras';
-import ModalAnalisarCores from '../components/ModalAnalisarCores';
+import ModalAnalisarCores from '../components/ModalAnalIsarCores';
 const ColeiraModelo = React.lazy(() => import('../components/ColeiraModelo'));
 
 function Coleiras() {
   const [openModalPersonalizar, setOpenModalPersonalizar] = useState(false);
-  const [openModalAnalisar, setOpenModalAnalisar] = useState(false);
   const [mostrarModalPromo, setMostrarModalPromo] = useState(false);
 
   useEffect(() => {
@@ -55,12 +54,6 @@ function Coleiras() {
               <button className="botao-personalizar" onClick={() => setOpenModalPersonalizar(true)}>
                 Personalizar
               </button>
-              <button 
-                className="botao-analisar-cores" 
-                onClick={() => setOpenModalAnalisar(true)}
-              >
-                🎨 Análise de Cores
-              </button>
             </div>
           </div>
         </div>
@@ -70,7 +63,6 @@ function Coleiras() {
 
       {/* Modais */}
       <ModalPersonalizarColeira open={openModalPersonalizar} onClose={() => setOpenModalPersonalizar(false)} />
-      <ModalAnalisarCores open={openModalAnalisar} onClose={() => setOpenModalAnalisar(false)} />
       <ModalColeiras open={mostrarModalPromo} onClose={() => setMostrarModalPromo(false)} />
     </div>
   );

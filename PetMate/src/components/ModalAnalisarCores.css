@@ -16,8 +16,8 @@
     background: white;
     border-radius: 20px;
     width: 90%;
-    max-width: 800px;
-    height: 90vh;
+    max-width: 62.5vw;
+    height: 93vh;
     overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     animation: modalOpen 0.3s ease-out;
@@ -94,7 +94,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* gap: 30px; */
+    gap: 30px;
     /* flex: 1; */
     /* border: solid; */
 }
@@ -125,7 +125,7 @@
 .upload-area h3 {
     margin: 0;
     color: #84644D;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -134,6 +134,7 @@
     color: #666;
     line-height: 1.6;
     max-width: 400px;
+    font-size: 1.2rem;
 }
 
 .upload-buttons {
@@ -199,7 +200,7 @@
 .tips-section h4 {
     margin: 0 0 15px 0;
     color: #84644D;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 .tips-section ul {
@@ -211,13 +212,15 @@
 .tips-section li {
     color: #666;
     margin-bottom: 8px;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
 }
 
 .analisar-section {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    justify-content: center;
+    align-items: center;
+    /* gap: 25px; */
 }
 
 .pet-image-container {
@@ -238,15 +241,15 @@
 
 .analisar-content {
     background: #fff;
-    padding: 25px;
-    border-radius: 15px;
-    border: 2px solid #f0f0f0;
+    /* padding: 25px; */
+    /* border-radius: 15px; */
+    /* border: 2px solid #f0f0f0; */
 }
 
 .analisar-text {
-    line-height: 1.6;
+    /* line-height: 1.6; */
     color: #333;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .analisar-text strong {
@@ -255,7 +258,7 @@
 }
 
 .analisar-text br {
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .action-buttons {
@@ -274,6 +277,31 @@
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 120px;
+}
+
+.btn-alternativa {
+    background: linear-gradient(135deg, #DB8CF0, #8BB1F2);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    transition: background 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-alternativa:hover {
+    background: linear-gradient(135deg, #c377d8, #7198da);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(132, 100, 77, 0.3);
+}
+
+.btn-alternativa:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(132, 100, 77, 0.3);
 }
 
 .btn.primary {

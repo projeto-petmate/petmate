@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, useEffect, useMemo, useState, useContext } from 'react'
 import './ModalPersonalizarColeira.css'
 import { IoArrowBackCircle } from 'react-icons/io5'
 import { CgCloseO } from "react-icons/cg"
@@ -6,22 +6,22 @@ import { FaArrowRightLong } from 'react-icons/fa6'
 import Swal from 'sweetalert2';
 import ColeiraModelo from './ColeiraModelo';
 import ModalAvisoFinalizar from './ModalAvisoFinalizar'
+import ModalAnalisarCores from './ModalAnalIsarCores'
+import { GlobalContext } from '../contexts/GlobalContext';
 
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
+    const { setAplicarCoresCallback } = useContext(GlobalContext);
+
     if (!open) return null
 
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
-    // const [tamanho, setTamanho] = useState('')
-    // const [gps, setGps] = useState(false)
-    // const [corTecido, setCorTecido] = useState('')
-    // const [corArgola, setcorArgola] = useState('')
-    // const [desenho, setDesenho] = useState('')
     const [abrirAviso, setAbrirAviso] = useState(false)
+    const [modalCoresOpen, setModalCoresOpen] = useState(false);
 
 
-    // Valores iniciais da coleira
+
     const [coleira, setColeira] = useState({
         modelo: 'pescoco',
         tamanho: '',
@@ -32,7 +32,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         valor: 20
     })
 
-    // Resetar formulário quando abrir o modal
     useEffect(() => {
         if (open) {
             setEtapa(1);
@@ -46,8 +45,21 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                 valor: 20
             });
             setErro({});
+
+            const callback = (coresSugeridas) => {
+                setColeira(prevColeira => {
+                    const novaColeira = {
+                        ...prevColeira,
+                        ...coresSugeridas
+                    };
+                    return novaColeira;
+                });
+                setModalCoresOpen(false);
+            };
+
+            setAplicarCoresCallback(() => callback);
         }
-    }, [open]);
+    }, [open, setAplicarCoresCallback]);
 
     const validarEtapa = async () => {
         const novosErros = {}
@@ -71,7 +83,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             novosErros.corPresilha = "Por favor, selecione uma cor para a presilha."
         }
 
-        // Verifica se há erros
         if (Object.keys(novosErros).length > 0) {
             Swal.fire({
                 icon: 'warning',
@@ -92,7 +103,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     const valorTotal = useMemo(() => {
         let total = 0
 
-        // Valor do modelo
         if (coleira.modelo === "pescoco") total += 20
         else if (coleira.modelo === "Peitoral") total += 30
         else if (coleira.modelo === "Cabresto") total += 40
@@ -100,7 +110,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         return total
     }, [coleira.modelo])
 
-    // Atualiza o valor total da coleira
     useEffect(() => {
         setColeira(prev => ({
             ...prev,
@@ -161,13 +170,19 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         })
     }
 
+    const aplicarCoresSugeridas = (coresSugeridas) => {
+        setColeira(prevColeira => ({
+            ...prevColeira,
+            ...coresSugeridas
+        }));
+        setModalCoresOpen(false);
+    };
     return (
         <div className='modal-overlay-coleiras'>
             <div className="container-modal-personalizar-coleiras">
                 <div className="visualizador-3d-fixo">
                     <ColeiraModelo coleira={coleira} />
                 </div>
-                {/* Etapa 1: Modelo, tamanho e GPS */}
                 {etapa === 1 && (
                     <div className="etapa-1-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
@@ -191,7 +206,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                                 checked={coleira.modelo === "pescoco"}
                                                 onChange={() => { atualizarColeira("modelo", "pescoco") }}
                                             />
-                                            <span>R$ 20 - pescoco</span>
+                                            <span>R$ 20 - Pescoço</span>
                                         </label>
                                         <label className='radio-modelo'>
                                             <input
@@ -232,21 +247,18 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         </label>
                                     </div>
                                 </div>
-                                {/* <div className="container-opcoes">
+                                <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
-                                        <p>GPS (R$ 40):</p>
+                                        <p>Quer sugestões personalizadas?</p>
                                     </div>
-                                    <div className="opcoes-gps">
-                                        <label className='radio-gps'>
-                                            <input type="radio" name='gps' checked={coleira.gps === true} onChange={() => atualizarColeira("gps", true)} />
-                                            <span id='com-gps'>Com GPS</span>
-                                        </label>
-                                        <label className='radio-gps'>
-                                            <input type="radio" name='gps' checked={coleira.gps === false} onChange={() => atualizarColeira("gps", false)} />
-                                            <span>Sem GPS</span>
-                                        </label>
-                                    </div>
-                                </div> */}
+                                    <button
+                                        className="btn-analisar-cores"
+                                        onClick={() => setModalCoresOpen(true)}
+                                        type="button"
+                                    >
+                                        Sugestão de Cores com IA
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="etapas-personalizar-coleira">
@@ -260,7 +272,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                     </div>
                 )}
-                {/* Etapa 2: Cor do Tecido */}
                 {etapa === 2 && (
                     <div className="etapa-2-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
@@ -269,9 +280,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                             <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
-                            {/* <div className="imagem-modal-personalizar-coleira">
-                                    <ColeiraModelo coleira={coleira} />
-                            </div> */}
                             <div className="opcoes-coleira">
                                 <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
@@ -304,6 +312,10 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <input type="radio" name='coresTecido' checked={coleira.corTecido === "Amarelo"} onChange={() => atualizarColeira("corTecido", "Amarelo")} />
                                             <span>Amarelo</span>
                                         </label>
+                                        <label className='radio-cores'>
+                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Marrom"} onChange={() => atualizarColeira("corTecido", "Marrom")} />
+                                            <span>Marrom</span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="titulo-opcoes-coleira">
@@ -323,7 +335,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <span>Marrom</span>
                                     </label>
                                 </div>
-
                             </div>
                         </div>
                         <div className="etapas-personalizar-coleira">
@@ -415,7 +426,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                     </div>
                 )}
-                {/* // Etapa 4: Revisão */}
                 {etapa === 4 && (
                     <div className="etapa-4-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
@@ -445,7 +455,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <span>{coleira.corTecido}</span>
                                         </div>
                                     </div>
-                                       <div className="linha-opcoes-selecionadas">
+                                    <div className="linha-opcoes-selecionadas">
                                         <div className="opcao-selecionada">
                                             <p>Cor da Logo:</p>
                                             <span>{coleira.corLogo}</span>
@@ -489,12 +499,22 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                 onClose();
                             }} />
 
+                            <ModalAnalisarCores
+                                open={modalCoresOpen}
+                                onClose={() => setModalCoresOpen(false)}
+                                onAplicarCores={aplicarCoresSugeridas}
+                            />
+
                         </div>
                     </div>
                 )}
             </div>
+
+            {/* Modal de Análise de Cores */}
+            <ModalAnalisarCores
+                open={modalCoresOpen}
+                onClose={() => setModalCoresOpen(false)}
+            />
         </div >
     )
 }
-
-

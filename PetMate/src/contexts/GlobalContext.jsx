@@ -29,6 +29,13 @@ export const GlobalContextProvider = ({ children }) => {
         tabela: '',
     });
     const [isAdmin, setIsAdmin] = useState(false);
+    
+    // Estado para combinações de cores da coleira
+    const [combinacoesCores, setCombinacoesCores] = useState({
+        alternativa1: null,
+        alternativa2: null
+    });
+    const [aplicarCoresCallback, setAplicarCoresCallback] = useState(null);
 
     useEffect(() => {
         const fetchLoggedUser = async () => {
@@ -247,7 +254,10 @@ export const GlobalContextProvider = ({ children }) => {
                 filtrarDenuncias,
                 adicionarDenuncia,
                 isAdmin,
-
+                combinacoesCores,
+                setCombinacoesCores,
+                aplicarCoresCallback,
+                setAplicarCoresCallback,
             }}
         >
             {children}

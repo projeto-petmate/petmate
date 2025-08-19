@@ -979,7 +979,7 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
         
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const prompt = `Analise a imagem do pet fornecida e sugira as melhores combinações de cores para uma coleira personalizada, considerando:
 
@@ -987,7 +987,7 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
         2. A harmonia visual entre as cores do pet e da coleira
         3. Contraste adequado para boa visibilidade
 
-        **Cores disponíveis para cada componente:**
+        **Cores disponíveis para cada componente (todas sempre em estoque):**
 
         **Tecido da coleira:**
         - Preto
@@ -1000,7 +1000,7 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
         **Logo:**
         - Preto
         - Branco
-        - Bege
+        - Marrom
 
         **Argola:**
         - Dourado
@@ -1010,10 +1010,12 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
         **Presilha:**
         - Preto
         - Branco
-        - Bege
+        - Marrom
         - Azul
         - Vermelho
         - Amarelo
+
+        **IMPORTANTE:** Todas as cores listadas estão sempre disponíveis. Escolha APENAS entre as cores especificadas para cada componente, sem mencionar disponibilidade ou alternativas de estoque.
 
         **Responda no formato:**
 
@@ -1047,7 +1049,7 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
             }
         ]);
 
-        const response = await result.response;
+        const response = result.response;
         const text = response.text();
 
         console.log('🎨 Análise concluída com sucesso');
