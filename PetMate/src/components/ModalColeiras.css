@@ -16,7 +16,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 20px;
-    min-width: 60%;
+    min-width: 50%;
     max-width: 500px;
     min-height: 60%;
     display: flex;
@@ -43,11 +43,11 @@
 
 .modal-title {
     color: #654833;
-    font-size: 3.6em;
+    font-size: 2.8em;
     font-weight: bold;
     font-family: 'Open Sans Hebrew';
-    height: 50px;
-    margin-bottom: 50px;
+    height: 30px;
+    margin-bottom: 20px;
 }
 
 .tituloModalColeira {
@@ -64,8 +64,8 @@
     color: #000000;
     font-size: 1.4em;
     font-weight: bold;
-    width: 700px;
-    margin-bottom: 50px;
+    width: 600px;
+    margin-bottom: 25px;
 }
 
 .modal-video-placeholder {
@@ -102,7 +102,7 @@
 .dog-imageModal {
     position: absolute;
     bottom: 0;
-    height: 600px;
-    margin-bottom: 92px;
+    height: 550px;
+    margin-bottom: 140px;
     margin-left: 650px;
 }
