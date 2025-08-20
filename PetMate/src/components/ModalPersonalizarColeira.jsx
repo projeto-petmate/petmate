@@ -23,7 +23,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
 
 
     const [coleira, setColeira] = useState({
-        modelo: 'pescoco',
+        modelo: 'Pescoço',
         tamanho: '',
         corTecido: '',
         corArgola: '',
@@ -36,7 +36,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         if (open) {
             setEtapa(1);
             setColeira({
-                modelo: 'pescoco',
+                modelo: 'Pescoço',
                 tamanho: '',
                 corTecido: '',
                 corArgola: '',
@@ -103,7 +103,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     const valorTotal = useMemo(() => {
         let total = 0
 
-        if (coleira.modelo === "pescoco") total += 20
+        if (coleira.modelo === "Pescoço") total += 20
         else if (coleira.modelo === "Peitoral") total += 30
         else if (coleira.modelo === "Cabresto") total += 40
 
@@ -156,7 +156,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             if (result.isConfirmed) {
                 setEtapa(1);
                 setColeira({
-                    modelo: 'pescoco',
+                    modelo: 'Pescoço',
                     tamanho: '',
                     corTecido: '',
                     corArgola: '',
@@ -203,28 +203,28 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                             <input
                                                 type="radio"
                                                 name='modelo'
-                                                checked={coleira.modelo === "pescoco"}
-                                                onChange={() => { atualizarColeira("modelo", "pescoco") }}
+                                                checked={coleira.modelo === "Pescoço"}
+                                                onChange={() => { atualizarColeira("modelo", "Pescoço") }}
                                             />
-                                            <span>R$ 20 - Pescoço</span>
+                                            <span>Pescoço</span>
                                         </label>
                                         <label className='radio-modelo'>
                                             <input
                                                 type="radio"
                                                 name='modelo'
-                                                checked={coleira.modelo === "peitoral"}
-                                                onChange={() => { atualizarColeira("modelo", "peitoral") }}
+                                                checked={coleira.modelo === "Peitoral"}
+                                                onChange={() => { atualizarColeira("modelo", "Peitoral") }}
                                             />
-                                            <span>R$ 30 - Peitoral</span>
+                                            <span>Peitoral</span>
                                         </label>
                                         <label className='radio-modelo'>
                                             <input
                                                 type="radio"
                                                 name='modelo'
-                                                checked={coleira.modelo === "cabresto"}
-                                                onChange={() => { atualizarColeira("modelo", "cabresto") }}
+                                                checked={coleira.modelo === "Cabresto"}
+                                                onChange={() => { atualizarColeira("modelo", "Cabresto") }}
                                             />
-                                            <span>R$ 40 - Cabresto</span>
+                                            <span>Cabresto</span>
                                         </label>
                                     </div>
                                 </div>
@@ -311,10 +311,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <label className='radio-cores'>
                                             <input type="radio" name='coresTecido' checked={coleira.corTecido === "Amarelo"} onChange={() => atualizarColeira("corTecido", "Amarelo")} />
                                             <span>Amarelo</span>
-                                        </label>
-                                        <label className='radio-cores'>
-                                            <input type="radio" name='coresTecido' checked={coleira.corTecido === "Marrom"} onChange={() => atualizarColeira("corTecido", "Marrom")} />
-                                            <span>Marrom</span>
                                         </label>
                                     </div>
                                 </div>

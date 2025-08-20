@@ -21,11 +21,11 @@ function Model({ coleira }) {
 
   const getModeloArquivo = (modelo) => {
     switch (modelo) {
-      case 'pescoco':
+      case 'Pescoço':
         return 'pescoco';
-      case 'cabresto':
+      case 'Cabresto':
         return 'cabresto';
-      case 'peitoral':
+      case 'Peitoral':
         return 'peitoral';
       default:
         return 'pescoco';
@@ -55,9 +55,9 @@ function Model({ coleira }) {
               'Branco': '#F5F5F5',
               'Bege': '#D2B48C',
               // 'Marrom': '#6F4E37',
-              'Azul': '#48CBE0',
+              'Azul': '#054F77',
               'Vermelho': '#A52A2A',
-              'Amarelo': '#E8DD1C'
+              'Amarelo': '#FFC222'
             };
             const corTecido = coleira.corTecido && coleira.corTecido !== '' ?
               coresTecido[coleira.corTecido] : '#C0C0C0';
@@ -81,9 +81,9 @@ function Model({ coleira }) {
               'Branco': '#FFFFFF',
               // 'Bege': '#D2B48C',
               'Marrom': '#6F4E37',
-              'Azul': '#48CBE0',
+              'Azul': '#054F77',
               'Vermelho': '#A52A2A',
-              'Amarelo': '#f5d442',
+              'Amarelo': '#FFC222',
             };
             const corPresilha = coleira.corPresilha && coleira.corPresilha !== '' ?
               coresPresilha[coleira.corPresilha] : '#888888';
@@ -154,11 +154,11 @@ function ColeiraModelo({ coleira = {} }) {
 
   const getModeloArquivo = (modelo) => {
     switch (modelo) {
-      case 'pescoco':
+      case 'Pescoço':
         return 'pescoco';
-      case 'cabresto':
+      case 'Cabresto':
         return 'cabresto';
-      case 'peitoral':
+      case 'Peitoral':
         return 'peitoral';
       default:
         return 'pescoco';
@@ -167,12 +167,12 @@ function ColeiraModelo({ coleira = {} }) {
 
   const getPosicaoCamera = (modelo) => {
     switch (modelo) {
-      case 'pescoco':
+      case 'Pescoço':
         return [12, 3, 5];
-      case 'cabresto':
+      case 'Cabresto':
         return [0, 7, -25];
-      case 'peitoral':
-        return [-40, 5, -30];
+      case 'Peitoral':
+        return [-12, 2, 2];
       default:
         return [12, 3, 5];
     }
@@ -180,11 +180,11 @@ function ColeiraModelo({ coleira = {} }) {
 
   const getFovCamera = (modelo) => {
     switch (modelo) {
-      case 'pescoco':
+      case 'Pescoço':
         return 43;
-      case 'cabresto':
+      case 'Cabresto':
         return 25;
-      case 'peitoral':
+      case 'Peitoral':
         return 30;
       default:
         return 45;
@@ -193,12 +193,12 @@ function ColeiraModelo({ coleira = {} }) {
 
   const getPosicaoLuzes = (modelo) => {
     switch (modelo) {
-      case 'pescoco':
+      case 'Pescoço':
         return [-70, -10, 5];
-      case 'cabresto':
+      case 'Cabresto':
         return [-15, -10, -30];
-      case 'peitoral':
-        return [-8, -5, 8];
+      case 'Peitoral':
+        return [-80, -120, 8];
       default:
         return [-5, -2, 5];
     }

@@ -76,17 +76,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid; */
     height: 100%;
     width: 100%;
-}
-
-.modal-content:hover {
-    cursor: grab;
-}
-
-.modal-content:active {
-    cursor: grabbing;
 }
 
 .upload-section {
@@ -95,8 +86,6 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
-    /* flex: 1; */
-    /* border: solid; */
 }
 
 .upload-area {
@@ -324,6 +313,17 @@
     background: #84644D;
     color: white;
     transform: translateY(-2px);
+}
+
+.btn-close-custom {
+    font-size: 1.2rem !important;
+    color: #84644D;
+    background: transparent !important;
+    border: solid 2px #84644D !important;
+}
+
+.btn-close-custom:hover, .btn-confirm-custom:hover {
+    transform: translateY(-1px) !important;
 }
 
 /* Responsividade */

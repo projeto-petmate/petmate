@@ -48,7 +48,7 @@ function Coleiras() {
 
           <div className="card-personalizar-coleira">
             <div className="imagem-personalizar-coleira">
-              <img src="/images/gatoleira.jfif" alt="" />
+              {/* <img src="/images/gatoleira.jfif" alt="" /> */}
             </div>
             <div className="botao-personalizar-coleira">
               <button className="botao-personalizar" onClick={() => setOpenModalPersonalizar(true)}>

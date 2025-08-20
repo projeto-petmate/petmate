@@ -7,13 +7,13 @@ import Swal from 'sweetalert2';
 import { GlobalContext } from '../contexts/GlobalContext';
 
 export default function ModalAnalisarCores({ open, onClose }) {
-    const { 
-        combinacoesCores, 
-        setCombinacoesCores, 
-        aplicarCoresCallback, 
-        setAplicarCoresCallback 
+    const {
+        combinacoesCores,
+        setCombinacoesCores,
+        aplicarCoresCallback,
+        setAplicarCoresCallback
     } = useContext(GlobalContext);
-    
+
     const [loading, setLoading] = useState(false);
     const [analisar, setAnalisar] = useState(null);
     const [petImage, setPetImage] = useState(null);
@@ -75,7 +75,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
             if (match1) {
                 const conteudo1 = match1[1];
                 console.log('Conteúdo da alternativa 1:', conteudo1);
-                
+
                 const tecido1 = conteudo1.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const logo1 = conteudo1.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const argola1 = conteudo1.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
@@ -106,7 +106,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
             if (match2) {
                 const conteudo2 = match2[1];
                 console.log('Conteúdo da alternativa 2:', conteudo2);
-                
+
                 const tecido2 = conteudo2.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const logo2 = conteudo2.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const argola2 = conteudo2.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
@@ -169,7 +169,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
             const result = await analyzePetColors(file);
             setPetImage(result.imageUrl);
             setAnalisar(result.analysis);
-            
+
             const combinacoesExtraidas = extrairCombinacoes(result.analysis);
             setCombinacoesCores(combinacoesExtraidas);
         } catch (error) {
@@ -189,12 +189,12 @@ export default function ModalAnalisarCores({ open, onClose }) {
         console.log('=== INÍCIO aplicarAlternativa ===');
         console.log('Número da alternativa:', numero);
         console.log('combinacoesCores completo:', combinacoesCores);
-        
+
         const alternativa = numero === 1 ? combinacoesCores.alternativa1 : combinacoesCores.alternativa2;
         console.log(`Alternativa ${numero} selecionada:`, alternativa);
         console.log('aplicarCoresCallback existe?', !!aplicarCoresCallback);
         console.log('aplicarCoresCallback:', aplicarCoresCallback);
-        
+
         if (alternativa && aplicarCoresCallback) {
             console.log('Aplicando cores via callback...');
             try {
@@ -237,7 +237,48 @@ export default function ModalAnalisarCores({ open, onClose }) {
             .replace(/\n/g, '<br/>');
     };
 
+    const selecionarEsquemaUm = () => {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "O esquema de cores será aplicado.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#84644D',
+            cancelButtonColor: '#84644D',
+            confirmButtonText: 'Aplicar alternativa 1',
+            cancelButtonText: 'Voltar',
+            customClass: {
+                cancelButton: 'btn-close-custom',
+                confirmButton: 'btn-confirm-custom',
+            }
 
+        }).then((result) => {
+            if (result.isConfirmed) {
+                aplicarAlternativa(1)
+            }
+        })
+    }
+
+    const selecionarEsquemaDois = () => {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "O esquema de cores será aplicado.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#84644D',
+            cancelButtonColor: '#84644D',
+            confirmButtonText: 'Aplicar alternativa 2',
+            cancelButtonText: 'Voltar',
+            customClass: {
+                cancelButton: 'btn-close-custom',
+                confirmButton: 'btn-confirm-custom',
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                aplicarAlternativa(2)
+            }
+        })
+    };
 
     return (
         <div className="modal-overlay">
@@ -319,15 +360,15 @@ export default function ModalAnalisarCores({ open, onClose }) {
                             <div className="action-buttons">
                                 <button
                                     className="btn-alternativa"
-                                    onClick={() => aplicarAlternativa(1)}
+                                    onClick={selecionarEsquemaUm}
                                     disabled={!combinacoesCores.alternativa1}>
-                                    Aplicar alternativa 1
+                                    Aplicar combinação recomendada
                                 </button>
                                 <button
                                     className="btn-alternativa"
-                                    onClick={() => aplicarAlternativa(2)}
+                                    onClick={selecionarEsquemaDois}
                                     disabled={!combinacoesCores.alternativa2}>
-                                    Aplicar alternativa 2
+                                    Aplicar segunda alternativa
                                 </button>
                                 <button
                                     className="btn secondary"
