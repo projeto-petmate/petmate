@@ -19,7 +19,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     const [erro, setErro] = useState({})
     const [abrirAviso, setAbrirAviso] = useState(false)
     const [modalCoresOpen, setModalCoresOpen] = useState(false);
-
+    const [modeloKey, setModeloKey] = useState(0);
 
 
     const [coleira, setColeira] = useState({
@@ -45,7 +45,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                 valor: 20
             });
             setErro({});
-
+            setModeloKey(prev => prev + 1);
             const callback = (coresSugeridas) => {
                 setColeira(prevColeira => {
                     const novaColeira = {
@@ -181,7 +181,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         <div className='modal-overlay-coleiras'>
             <div className="container-modal-personalizar-coleiras">
                 <div className="visualizador-3d-fixo">
-                    <ColeiraModelo coleira={coleira} />
+                    <ColeiraModelo key={modeloKey} coleira={coleira} />
                 </div>
                 {etapa === 1 && (
                     <div className="etapa-1-coleira">
@@ -492,14 +492,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
 
                             <ModalAvisoFinalizar open={abrirAviso} onClose={() => {
                                 setAbrirAviso(false);
-                                onClose();
                             }} />
 
-                            <ModalAnalisarCores
-                                open={modalCoresOpen}
-                                onClose={() => setModalCoresOpen(false)}
-                                onAplicarCores={aplicarCoresSugeridas}
-                            />
+                     
 
                         </div>
                     </div>

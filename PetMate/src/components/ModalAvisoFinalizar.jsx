@@ -15,7 +15,7 @@ export default function ModalAvisoAdicionarCarrinho({ open, onClose }) {
                 </p>
                 <div className="container-botoes-aviso">
                     <button className="botao-cancelar-aviso" onClick={onClose}>
-                        Cancelar <IoCloseSharp className='iconCancelarC'/>
+                        Voltar
                     </button>
                     <button className="botao-finalizar-aviso" onClick={onClose}>
                         Finalizar <FaCheck className='iconFinalizarC'/>

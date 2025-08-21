@@ -4,7 +4,8 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ModalPersonalizarColeira from '../components/ModalPersonalizarColeira';
 import ModalColeiras from '../components/ModalColeiras';
-import ModalAnalisarCores from '../components/ModalAnalIsarCores';
+import LastPage from "../components/LastPage"
+
 const ColeiraModelo = React.lazy(() => import('../components/ColeiraModelo'));
 
 function Coleiras() {
@@ -12,7 +13,10 @@ function Coleiras() {
   const [mostrarModalPromo, setMostrarModalPromo] = useState(false);
 
   useEffect(() => {
-    setMostrarModalPromo(true);
+    if (localStorage.getItem('mostrarModalPromo') === 'true') {
+      setMostrarModalPromo(true);
+      localStorage.removeItem('mostrarModalPromo');
+    }
   }, []);
 
   return (
@@ -60,6 +64,7 @@ function Coleiras() {
       </div>
 
       <Footer />
+      <LastPage />
 
       {/* Modais */}
       <ModalPersonalizarColeira open={openModalPersonalizar} onClose={() => setOpenModalPersonalizar(false)} />

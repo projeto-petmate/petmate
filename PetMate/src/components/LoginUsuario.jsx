@@ -23,10 +23,10 @@ function LoginUsuario() {
 
     const handleLogin = async () => {
         try {
-            const data = await loginUser(email, senha); 
+            const data = await loginUser(email, senha);
             if (data) {
                 setErro('');
-                Logar(data.user.email, data.user.senha, 'usuario'); 
+                Logar(data.user.email, data.user.senha, 'usuario');
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -41,11 +41,12 @@ function LoginUsuario() {
                 } else {
                     pagina = '/home'
                 }
-                
+                localStorage.setItem('mostrarModalPromo', true)
+
                 setTimeout(() => {
                     navigate(pagina);
                 }, 1500);
-                
+
             } else {
                 console.error('Erro no login:', data.error);
                 setErro(data.error);
@@ -53,8 +54,8 @@ function LoginUsuario() {
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Erro ao fazer login. Tente novamente.';
             console.error('Erro no login:', errorMessage);
-       
-            setErro(errorMessage); 
+
+            setErro(errorMessage);
         }
     };
 

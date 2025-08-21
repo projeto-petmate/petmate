@@ -248,9 +248,9 @@ app.post('/login', async (req, res) => {
         }
 
         const usuario = result.rows[0];
-        //if (usuario.senha !== senha) {
-        //    return res.status(401).json({ error: 'Senha incorreta' });
-        //}
+        if (usuario.senha !== senha) {
+           return res.status(401).json({ error: 'Login ou senha incorretos' });
+        }
 
         const token = jwt.sign({ id: usuario.id_usuario, tipo: 'usuario' }, SECRET_KEY, { expiresIn: '7d' });
 

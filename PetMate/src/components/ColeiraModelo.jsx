@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from '@react-three/drei';
@@ -7,6 +7,22 @@ import './ColeiraModelo.css';
 
 function CameraController({ posicao, fov }) {
   const { camera } = useThree();
+  const loader = new GLTFLoader();
+  const modelos = ['pescoco', 'cabresto', 'peitoral'];
+
+  modelos.forEach(modelo => {
+    loader.load(`/models/${modelo}.glb`,
+      (gltf) => {
+        // console.log(`Modelo ${modelo} pré-carregado com sucesso`);
+      },
+      (progress) => {
+        // console.log(`Pré-carregando ${modelo}:`, (progress.loaded / progress.total * 100) + '%');
+      },
+      (error) => {
+        // console.error(`Erro ao pré-carregar ${modelo}:`, error);
+      }
+    );
+  });
 
   useEffect(() => {
     camera.position.set(...posicao);
@@ -151,6 +167,17 @@ function ModeloTemporario({ coleira }) {
 }
 
 function ColeiraModelo({ coleira = {} }) {
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    console.log('ColeiraModelo montado com coleira:', coleira);
+    setIsReady(true);
+
+    return () => {
+      console.log('ColeiraModelo desmontado');
+      setIsReady(false);
+    };
+  }, []);
 
   const getModeloArquivo = (modelo) => {
     switch (modelo) {
@@ -211,6 +238,9 @@ function ColeiraModelo({ coleira = {} }) {
   const posicaoLuzes = getPosicaoLuzes(modeloAtual);
   const modeloArquivo = getModeloArquivo(modeloAtual);
 
+  if (!isReady) {
+    return <div className="container-modelo-3d-fixo">Carregando modelo 3D...</div>;
+  }
   return (
     <div className="container-modelo-3d-fixo">
       <Canvas
