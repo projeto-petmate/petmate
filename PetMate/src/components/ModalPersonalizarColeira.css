@@ -227,6 +227,7 @@
     letter-spacing: 0.05rem;
     cursor: pointer;
     width: 8vw;
+    padding: 10px 0;
 }
 
 
@@ -492,4 +493,6 @@
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(132, 100, 77, 0.3);
 }
+
+
 

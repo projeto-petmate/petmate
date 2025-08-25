@@ -1,5 +1,5 @@
-import React from 'react';
 import './ModalConfirmarEdit.css';
+import { CiEdit } from 'react-icons/ci';
 
 export default function ModalConfirmarEdit({ isOpen, setEditConfirmOpen, onConfirm }) {
     if (!isOpen) {
@@ -10,6 +10,7 @@ export default function ModalConfirmarEdit({ isOpen, setEditConfirmOpen, onConfi
         <div className='modal-confirmar-edit'>
             <div className='container-modal-confirmar-edit'>
                 <div className="meio-modal">
+                    <CiEdit className='icon-alerta-edit'/>
                     <div className="texto-confirmar-edit">
                         <h1>Deseja atualizar os dados do perfil?</h1>
                     </div>

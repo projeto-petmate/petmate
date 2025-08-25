@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext } from 'react';
-import './ModalAnalisarCores.css'; // Corrigido o nome do arquivo CSS
+import './ModalAnalisarCores.css';
 import { CgCloseO } from "react-icons/cg";
 import { FiUpload, FiCamera } from 'react-icons/fi';
 import { analyzePetColors } from '../apiService';
@@ -27,7 +27,6 @@ export default function ModalAnalisarCores({ open, onClose }) {
 
         const mapearCor = (cor, tipo) => {
             const corLimpa = cor.trim().toLowerCase();
-            console.log(`Mapeando: "${cor}" -> "${corLimpa}" para tipo ${tipo}`);
 
             if (tipo === 'tecido' || tipo === 'presilha') {
                 const mapaTecidoPresilha = {
@@ -39,7 +38,6 @@ export default function ModalAnalisarCores({ open, onClose }) {
                     'amarelo': 'Amarelo',
                     'marrom': 'Marrom'
                 };
-                console.log(`Mapeando cor ${corLimpa} para ${tipo}:`, mapaTecidoPresilha[corLimpa]);
                 return mapaTecidoPresilha[corLimpa] || 'Preto';
             }
 
@@ -50,7 +48,6 @@ export default function ModalAnalisarCores({ open, onClose }) {
                     'bege': 'Bege',
                     'marrom': 'Marrom'
                 };
-                console.log(`Mapeando cor ${corLimpa} para ${tipo}:`, mapaLogo[corLimpa]);
                 return mapaLogo[corLimpa] || 'Preto';
             }
 
@@ -69,23 +66,16 @@ export default function ModalAnalisarCores({ open, onClose }) {
         try {
             const regex1 = /🎨.*?Combinação Recomendada:\s*(.*?)(?=💡|📝|$)/s;
             const match1 = text.match(regex1);
-            console.log('Match1 para alternativa 1:', match1);
             let alternativa1 = null;
 
             if (match1) {
                 const conteudo1 = match1[1];
-                console.log('Conteúdo da alternativa 1:', conteudo1);
 
                 const tecido1 = conteudo1.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const logo1 = conteudo1.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const argola1 = conteudo1.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const presilha1 = conteudo1.match(/\*\*Presilha:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
 
-                console.log('Cores extraídas alternativa 1:', { tecido1, logo1, argola1, presilha1 });
-                console.log('tecido1 valor:', `"${tecido1}"`);
-                console.log('logo1 valor:', `"${logo1}"`);
-                console.log('argola1 valor:', `"${argola1}"`);
-                console.log('presilha1 valor:', `"${presilha1}"`);
 
                 if (tecido1 && logo1 && argola1 && presilha1) {
                     alternativa1 = {
@@ -94,29 +84,21 @@ export default function ModalAnalisarCores({ open, onClose }) {
                         corPresilha: mapearCor(presilha1, 'presilha'),
                         corLogo: mapearCor(logo1, 'logo')
                     };
-                    console.log('Alternativa 1 criada:', alternativa1);
                 }
             }
 
             const regex2 = /💡.*?Alternativa 2:\s*(.*?)(?=📝|$)/s;
             const match2 = text.match(regex2);
-            console.log('Match2 para alternativa 2:', match2);
             let alternativa2 = null;
 
             if (match2) {
                 const conteudo2 = match2[1];
-                console.log('Conteúdo da alternativa 2:', conteudo2);
 
                 const tecido2 = conteudo2.match(/\*\*Tecido:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const logo2 = conteudo2.match(/\*\*Logo:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const argola2 = conteudo2.match(/\*\*Argola:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
                 const presilha2 = conteudo2.match(/\*\*Presilha:\*\*\s*(.+?)(?:\n|$)/m)?.[1];
 
-                console.log('Cores extraídas alternativa 2:', { tecido2, logo2, argola2, presilha2 });
-                console.log('tecido2 valor:', `"${tecido2}"`);
-                console.log('logo2 valor:', `"${logo2}"`);
-                console.log('argola2 valor:', `"${argola2}"`);
-                console.log('presilha2 valor:', `"${presilha2}"`);
 
                 if (tecido2 && logo2 && argola2 && presilha2) {
                     alternativa2 = {
@@ -125,12 +107,9 @@ export default function ModalAnalisarCores({ open, onClose }) {
                         corPresilha: mapearCor(presilha2, 'presilha'),
                         corLogo: mapearCor(logo2, 'logo')
                     };
-                    console.log('Alternativa 2 criada:', alternativa2);
                 }
             }
 
-            console.log('Combinações extraídas:', { alternativa1, alternativa2 });
-            console.log('=== FIM extrairCombinacoes ===');
             return { alternativa1, alternativa2 };
 
         } catch (error) {
@@ -186,20 +165,12 @@ export default function ModalAnalisarCores({ open, onClose }) {
     };
 
     const aplicarAlternativa = (numero) => {
-        console.log('=== INÍCIO aplicarAlternativa ===');
-        console.log('Número da alternativa:', numero);
-        console.log('combinacoesCores completo:', combinacoesCores);
 
         const alternativa = numero === 1 ? combinacoesCores.alternativa1 : combinacoesCores.alternativa2;
-        console.log(`Alternativa ${numero} selecionada:`, alternativa);
-        console.log('aplicarCoresCallback existe?', !!aplicarCoresCallback);
-        console.log('aplicarCoresCallback:', aplicarCoresCallback);
 
         if (alternativa && aplicarCoresCallback) {
-            console.log('Aplicando cores via callback...');
             try {
                 aplicarCoresCallback(alternativa);
-                console.log('Cores aplicadas com sucesso!');
                 handleClose();
             } catch (error) {
                 console.error('Erro ao aplicar cores:', error);
@@ -215,7 +186,6 @@ export default function ModalAnalisarCores({ open, onClose }) {
                 confirmButtonColor: '#84644D'
             });
         }
-        console.log('=== FIM aplicarAlternativa ===');
     };
 
     const handleClose = () => {
@@ -328,7 +298,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
                                 <input
                                     ref={fileInputRef}
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/png"
                                     onChange={handleFileSelect}
                                     style={{ display: 'none' }}
                                 />

@@ -485,23 +485,18 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                             </div>
                             <button
                                 className='btn-avancar-etapa-personalizar-coleira'
+                                id='btn-finalizar-coleira'
                                 onClick={() => setAbrirAviso(true)}
                             >
                                 Finalizar
                             </button>
-
                             <ModalAvisoFinalizar open={abrirAviso} onClose={() => {
                                 setAbrirAviso(false);
                             }} />
-
-                     
-
                         </div>
                     </div>
                 )}
             </div>
-
-            {/* Modal de Análise de Cores */}
             <ModalAnalisarCores
                 open={modalCoresOpen}
                 onClose={() => setModalCoresOpen(false)}

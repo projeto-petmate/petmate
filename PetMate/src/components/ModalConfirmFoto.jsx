@@ -1,5 +1,6 @@
 import React from 'react';
 import './ModalConfirmFoto.css';
+import { FiAlertTriangle } from 'react-icons/fi';
 
 function ModalConfirmFoto({ isOpen, onClose, onConfirm }) {
     if (!isOpen) return null;
@@ -7,15 +8,20 @@ function ModalConfirmFoto({ isOpen, onClose, onConfirm }) {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <h3>Remover Foto de Perfil</h3>
-                <p>Tem certeza de que deseja remover sua foto de perfil?</p>
-                <div className="modal-buttons">
-                    <button className="modal-button confirm" onClick={onConfirm}>
-                        Confirmar
-                    </button>
-                    <button className="modal-button cancel" onClick={onClose}>
-                        Cancelar
-                    </button>
+                <div className="meio-modal">
+                    <FiAlertTriangle className='icon-alerta-foto'/>
+                    <div className="texto-confirmar-foto">
+                        <h3>Remover Foto de Perfil</h3>
+                        <p>Tem certeza de que deseja remover sua foto de perfil?</p>
+                    </div>
+                    <div className="modal-buttons">
+                        <button className="modal-button confirm" onClick={onConfirm}>
+                            Confirmar
+                        </button>
+                        <button className="modal-button cancel" onClick={onClose}>
+                            Cancelar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

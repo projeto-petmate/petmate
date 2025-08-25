@@ -11,6 +11,7 @@
     align-items: center;
     z-index: 1000;
 }
+
 .container_modal_excluir_conta {
     display: flex;
     flex-direction: column;
@@ -21,50 +22,61 @@
     background-color: #FFFFFF;
     border-radius: 10px;
     width: 30vw;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.15s;
 }
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
         transform: scale(0.8);
     }
+
     10% {
         opacity: 0.1;
         transform: scale(0.82);
     }
+
     20% {
         opacity: 0.2;
         transform: scale(0.84);
     }
+
     30% {
         opacity: 0.3;
         transform: scale(0.86);
     }
+
     40% {
         opacity: 0.4;
         transform: scale(0.88);
     }
+
     50% {
         opacity: 0.5;
         transform: scale(0.9);
     }
+
     60% {
         opacity: 0.6;
         transform: scale(0.92);
     }
+
     70% {
         opacity: 0.7;
         transform: scale(0.94);
     }
+
     80% {
         opacity: 0.8;
         transform: scale(0.96);
     }
+
     90% {
         opacity: 0.9;
         transform: scale(0.98);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -85,33 +97,47 @@
     gap: 10px;
 }
 
-.botao-modal-excluir-conta, .botao-modal-cancelar-excluir-conta {
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    height: 50px;
-    width: 120px;
-    font-family: nunito;
-    transition: 0.3s ease;
+.icon-alerta-conta {
+    font-size: 6rem;
+    color: #7A5D47;
 }
 
-.botao-modal-cancelar-excluir-conta{
-    background-color: #84644D;
-    color: #EBE5E0;
+.botao-modal-excluir-conta,
+.botao-modal-cancelar-excluir-conta {
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Nunito';
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    min-width: 140px;
 }
-.botao-modal-excluir-conta{
-    background-color: #EBE5E0;
-    border: 1px solid #6b4f3a;
-    color: #333;
+
+.botao-modal-cancelar-excluir-conta {
+    background-color: #7A5D47;
+    color: white;
+    border: none;
 }
+
+.botao-modal-excluir-conta {
+    background-color: #F5F5F5;
+    color: #4B2C19;
+    border: #4B2C19 2px solid;
+}
+
 .botao-modal-excluir-conta:hover {
-    background-color: #b3aba5;
+    transform: translateY(-2px);
     transition: 0.3s;
 }
 
 .botao-modal-cancelar-excluir-conta:hover {
     background-color: #6e533f;
+    transform: translateY(-2px);
 }
 
 
@@ -121,7 +147,7 @@
     margin-bottom: 10px;
 }
 
-.texto_excluir_conta{
+.texto_excluir_conta {
     width: 110%;
     /* margin-top: 60px; */
     font-size: 1.1rem;
@@ -129,4 +155,3 @@
     text-align: center;
     color: #333;
 }
-

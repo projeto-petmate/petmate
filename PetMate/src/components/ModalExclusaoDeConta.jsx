@@ -1,5 +1,6 @@
 import React from 'react';
 import './ModalExclusaoDeConta.css';
+import { FiAlertTriangle } from 'react-icons/fi';
 
 export default function ModalExclusaoDeConta({ isExclui, setContaExcluiOpen, onDelete }) {
     if (!isExclui) {
@@ -11,6 +12,7 @@ export default function ModalExclusaoDeConta({ isExclui, setContaExcluiOpen, onD
             <div className='modal_container_excluir_conta'>
                 <div className='container_modal_excluir_conta'>
                     <div className="meio-modal">
+                        <FiAlertTriangle className='icon-alerta-conta'/>
                         <div className="texto_excluir_conta">
                             <h1>Deseja excluir sua conta e todos seus anúncios?</h1> 
                             <p> Esta ação não pode ser desfeita.</p>

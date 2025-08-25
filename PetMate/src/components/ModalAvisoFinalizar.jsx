@@ -1,16 +1,17 @@
 import './ModalAvisoFinalizar.css'
 import { FaCheck } from 'react-icons/fa'
 import { IoCloseSharp } from 'react-icons/io5';
+import { FiAlertTriangle } from "react-icons/fi";
 
 export default function ModalAvisoAdicionarCarrinho({ open, onClose }) {
     if (!open) return null
 
     return (
         <div className="fundo-janela-ong">
-            <div className="modalAviso">
-                <img src="/images/avisoFinalizar.png" alt="Alerta" className='icone-alertaModal' />
+            <div className="modal-aviso">
+                <FiAlertTriangle className='icon-alerta' />
                 <p className="mensagem-aviso">
-                    Ao finalizar o produto editado será<br />
+                    Ao finalizar o produto personalizado será<br />
                     adicionado automaticamente no carrinho.
                 </p>
                 <div className="container-botoes-aviso">

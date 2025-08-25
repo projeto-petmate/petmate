@@ -1,4 +1,4 @@
-.modalAviso {
+.modal-aviso {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,63 +14,74 @@
     animation: fadeIn 0.15s ease-out;
 
 }
-    
+
 
 @keyframes fadeIn {
     0% {
         opacity: 0;
         transform: scale(0.8);
     }
+
     10% {
         opacity: 0.1;
         transform: scale(0.82);
     }
+
     20% {
         opacity: 0.2;
         transform: scale(0.84);
     }
+
     30% {
         opacity: 0.3;
         transform: scale(0.86);
     }
+
     40% {
         opacity: 0.4;
         transform: scale(0.88);
     }
+
     50% {
         opacity: 0.5;
         transform: scale(0.9);
     }
+
     60% {
         opacity: 0.6;
         transform: scale(0.92);
     }
+
     70% {
         opacity: 0.7;
         transform: scale(0.94);
     }
+
     80% {
         opacity: 0.8;
         transform: scale(0.96);
     }
+
     90% {
         opacity: 0.9;
         transform: scale(0.98);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
     }
 }
 
-.icone-alertaModal {
-    width: 80px;
+.icon-alerta {
+    font-size: 8rem;
+    color: #7A5D47;
     margin-bottom: 20px;
 }
 
 .mensagem-aviso {
     font-family: 'Nunito';
-    font-size: 20px;
+    font-size: 1.5rem;
     color: #4B2C19;
     font-weight: bold;
     text-align: center;
@@ -78,7 +89,6 @@
     line-height: 1.4;
 }
 
-/* Container para os botões lado a lado */
 .container-botoes-aviso {
     display: flex;
     justify-content: center;
@@ -88,17 +98,15 @@
     flex-wrap: wrap;
 }
 
-/* Botão Cancelar */
-.botao-cancelar-aviso {
-    background-color: #F5F5F5;
-    color: #4B2C19;
-    border: #4B2C19 2px solid;
-    padding: 15px 25px;
-    border-radius: 30px;
+.botao-cancelar-aviso,
+.botao-finalizar-aviso {
+    padding: 14px 20px;
+    border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
-    font-family: 'Open Sans Hebrew';
-    font-size: 18px;
+    font-family: 'Nunito';
+    /* letter-spacing: 0.03em; */
+    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -108,28 +116,20 @@
 }
 
 .botao-cancelar-aviso:hover {
-    /* background-color: #B8661C; */
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(210, 105, 30, 0.3);
 }
 
-/* Botão Finalizar atualizado */
+.botao-cancelar-aviso {
+    background-color: #F5F5F5;
+    color: #4B2C19;
+    border: #4B2C19 2px solid;
+}
+
 .botao-finalizar-aviso {
     background-color: #7A5D47;
     color: white;
     border: none;
-    padding: 15px 25px;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    font-family: 'Open Sans Hebrew';
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.3s ease;
-    min-width: 140px;
 }
 
 .botao-finalizar-aviso:hover {
@@ -137,6 +137,7 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(156, 122, 94, 0.3);
 }
+
 /* Ícones dos botões */
 .iconFinalizarC {
     font-size: 20px;
@@ -154,21 +155,21 @@
         flex-direction: column;
         gap: 15px;
     }
-    
+
     .botao-cancelar-aviso,
     .botao-finalizar-aviso {
         width: 100%;
         max-width: 200px;
     }
-    
+
     .mensagem-aviso {
         font-size: 18px;
         width: 100%;
         margin-left: 0;
         text-align: center;
     }
-    
-    .icone-alertaModal {
+
+    .icon-alerta {
         margin-left: 0;
         margin-bottom: 20px;
     }
