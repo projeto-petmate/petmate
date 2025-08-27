@@ -157,16 +157,43 @@ app.post('/usuarios', async (req, res) => {
     const { nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo } = req.body;
 
     console.log("Dados recebidos no backend:", req.body);
+    
+    const client = await pool.connect(); 
+    
     try {
-        const result = await pool.query(
+        await client.query('BEGIN');
+
+       
+        const userResult = await client.query(
             'INSERT INTO usuarios (nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *',
             [nome, email, genero, senha, uf, cidade, bairro, telefone, cpf, favoritos, tipo]
         );
-        console.log("Resultado da inserção:", result.rows);
-        res.json(result.rows[0]);
+        
+        const novoUsuario = userResult.rows[0];
+        console.log("✅ Usuário criado:", novoUsuario.id_usuario);
+
+    
+        const carrinhoResult = await client.query(
+            'INSERT INTO carrinhos (valor_total, status, id_usuario) VALUES ($1, $2, $3) RETURNING *',
+            [0.00, 'ativo', novoUsuario.id_usuario]
+        );
+        
+        console.log("🛒 Carrinho criado:", carrinhoResult.rows[0].id_carrinho);
+
+        await client.query('COMMIT'); 
+        
+        
+        res.json({
+            ...novoUsuario,
+            carrinho: carrinhoResult.rows[0]
+        });
+        
     } catch (err) {
-        console.error('Erro ao criar usuário:', err.message);
-        res.status(500).json({ error: 'Erro ao criar usuário' });
+        await client.query('ROLLBACK');
+        console.error('Erro ao criar usuário e carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao criar usuário e carrinho' });
+    } finally {
+        client.release(); // Liberar conexão
     }
 });
 
@@ -436,24 +463,48 @@ app.get('/ongs/:id', async (req, res) => {
 app.post('/ongs', async (req, res) => {
     const {
         nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
-        data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
+        data_nascimento_responsavel, telefone_responsavel, uf, cidade, endereco, foto_perfil, descricao, tipo
     } = req.body;
 
+    const client = await pool.connect();
+    
     try {
-        const result = await pool.query(
+        await client.query('BEGIN');
+
+        const ongResult = await client.query(
             `INSERT INTO ongs (
                 nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
-                data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
+                data_nascimento_responsavel, telefone_responsavel, uf, cidade, endereco, foto_perfil, descricao, tipo
             ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17) RETURNING *`,
             [
                 nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
-                data_nascimento_responsavel, telefone_responsavel, estado, cidade, endereco, foto_perfil, descricao, tipo
+                data_nascimento_responsavel, telefone_responsavel, uf, cidade, endereco, foto_perfil, descricao, tipo
             ]
         );
-        res.status(201).json(result.rows[0]);
+        
+        const novaOng = ongResult.rows[0];
+        console.log("✅ ONG criada:", novaOng.id_ong);
+
+        const carrinhoResult = await client.query(
+            'INSERT INTO carrinhos (valor_total, status, id_ong) VALUES ($1, $2, $3) RETURNING *',
+            [0.00, 'ativo', novaOng.id_ong]
+        );
+        
+        console.log("🛒 Carrinho criado para ONG:", carrinhoResult.rows[0].id_carrinho);
+
+        await client.query('COMMIT'); 
+        
+        res.status(201).json({
+            ...novaOng,
+            carrinho: carrinhoResult.rows[0]
+        });
+        
     } catch (err) {
-        console.error('Erro ao criar ONG:', err.message);
-        res.status(500).json({ error: 'Erro ao criar ONG' });
+        await client.query('ROLLBACK'); 
+        console.error('Erro ao criar ONG e carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao criar ONG e carrinho' });
+    } finally {
+        client.release(); 
     }
 });
 app.put('/ongs/:id', async (req, res) => {
@@ -1062,6 +1113,268 @@ app.post('/analise-cores-pet', upload.single('file'), async (req, res) => {
     } catch (error) {
         console.error('❌ Erro na análise de cores:', error.message);
         res.status(500).json({ error: 'Erro na análise de cores.' });
+    }
+});
+
+
+//Rotas para carrinhos de compra
+//CRUD para Carrinhos
+
+//Listar todos os carrinhos
+app.get('/carrinhos', async (req, res) => {
+    const { id_usuario, id_ong } = req.query;
+
+    try {
+        let query = 'SELECT * FROM carrinhos';
+        const params = [];
+
+        if (id_usuario) {
+            query += ' WHERE id_usuario = $1';
+            params.push(id_usuario);
+        } else if (id_ong) {
+            query += ' WHERE id_ong = $1';
+            params.push(id_ong);
+        }
+
+        const result = await pool.query(query, params);
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Erro ao buscar carrinhos:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar carrinhos' });
+    }
+});
+
+//Buscar um carrinho por ID
+app.get('/carrinhos/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM carrinhos WHERE id_carrinho = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar carrinho' });
+    }
+});
+
+//Criar um novo carrinho
+app.post('/carrinhos', async (req, res) => {
+    const { valor_total, status, id_usuario, id_ong } = req.body;
+
+    if (!id_usuario && !id_ong) {
+        return res.status(400).json({ error: 'É necessário informar id_usuario ou id_ong' });
+    }
+
+    if (id_usuario && id_ong) {
+        return res.status(400).json({ error: 'Um carrinho não pode pertencer a um usuário e a uma ONG ao mesmo tempo' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO carrinhos (valor_total, status, id_usuario, id_ong) 
+             VALUES ($1, $2, $3, $4) RETURNING *`,
+            [valor_total, status || 'ativo', id_usuario || null, id_ong || null]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao criar carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao criar carrinho' });
+    }
+});
+
+//Atualizar um carrinho
+app.put('/carrinhos/:id', async (req, res) => {
+    const { id } = req.params;
+    const { valor_total, status, id_usuario, id_ong } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE carrinhos SET 
+                valor_total = $1, status = $2, id_usuario = $3, id_ong = $4 
+            WHERE id_carrinho = $5 RETURNING *`,
+            [valor_total, status, id_usuario || null, id_ong || null, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar carrinho' });
+    }
+});
+
+//Deletar um carrinho
+app.delete('/carrinhos/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        // As coleiras serão deletadas automaticamente devido ao ON DELETE CASCADE
+        const result = await pool.query('DELETE FROM carrinhos WHERE id_carrinho = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado' });
+        }
+        res.json({ message: 'Carrinho deletado com sucesso' });
+    } catch (err) {
+        console.error('Erro ao deletar carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao deletar carrinho' });
+    }
+});
+
+//Buscar carrinho por usuário
+app.get('/carrinho/usuario/:id_usuario', async (req, res) => {
+    const { id_usuario } = req.params;
+    
+    try {
+        const result = await pool.query('SELECT * FROM carrinhos WHERE id_usuario = $1', [id_usuario]);
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado para este usuário' });
+        }
+        
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao buscar carrinho do usuário:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar carrinho do usuário' });
+    }
+});
+
+//Buscar carrinho por ONG
+app.get('/carrinho/ong/:id_ong', async (req, res) => {
+    const { id_ong } = req.params;
+    
+    try {
+        const result = await pool.query('SELECT * FROM carrinhos WHERE id_ong = $1', [id_ong]);
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado para esta ONG' });
+        }
+        
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao buscar carrinho da ONG:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar carrinho da ONG' });
+    }
+});
+
+//Rotas para pedidos de coleiras
+//CRUD para Coleiras
+
+//Listar todas as coleiras
+app.get('/coleiras', async (req, res) => {
+    const { id_carrinho } = req.query;
+
+    try {
+        let query = 'SELECT * FROM coleiras';
+        const params = [];
+
+        if (id_carrinho) {
+            query += ' WHERE id_carrinho = $1';
+            params.push(id_carrinho);
+        }
+
+        const result = await pool.query(query, params);
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Erro ao buscar coleiras:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar coleiras' });
+    }
+});
+
+//Buscar uma coleira por ID
+app.get('/coleiras/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('SELECT * FROM coleiras WHERE id_coleira = $1', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Coleira não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erro ao buscar coleira' });
+    }
+});
+
+//Criar uma nova coleira
+app.post('/coleiras', async (req, res) => {
+    const { tipo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, material, preco_unitario, id_carrinho } = req.body;
+
+    if (!tipo || !tamanho || !cor_tecido || !cor_logo || !cor_argola || !cor_presilha || !preco_unitario || !id_carrinho) {
+        return res.status(400).json({ error: 'Todos os campos obrigatórios devem ser preenchidos' });
+    }
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO coleiras (tipo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, material, preco_unitario, id_carrinho) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+            [tipo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, material || 'Nylon', preco_unitario, id_carrinho]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao criar coleira:', err.message);
+        res.status(500).json({ error: 'Erro ao criar coleira' });
+    }
+});
+
+//Atualizar uma coleira
+app.put('/coleiras/:id', async (req, res) => {
+    const { id } = req.params;
+    const { tipo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, material, preco_unitario, id_carrinho } = req.body;
+
+    try {
+        const result = await pool.query(
+            `UPDATE coleiras SET 
+                tipo = $1, tamanho = $2, cor_tecido = $3, cor_logo = $4, cor_argola = $5, 
+                cor_presilha = $6, material = $7, preco_unitario = $8, id_carrinho = $9 
+            WHERE id_coleira = $10 RETURNING *`,
+            [tipo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, material, preco_unitario, id_carrinho, id]
+        );
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Coleira não encontrada' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Erro ao atualizar coleira:', err.message);
+        res.status(500).json({ error: 'Erro ao atualizar coleira' });
+    }
+});
+
+//Deletar uma coleira
+app.delete('/coleiras/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query('DELETE FROM coleiras WHERE id_coleira = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Coleira não encontrada' });
+        }
+        res.json({ message: 'Coleira deletada com sucesso' });
+    } catch (err) {
+        console.error('Erro ao deletar coleira:', err.message);
+        res.status(500).json({ error: 'Erro ao deletar coleira' });
+    }
+});
+
+//Buscar coleiras de um carrinho específico com detalhes do carrinho
+app.get('/carrinhos/:id/coleiras', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const result = await pool.query(`
+            SELECT c.*, col.* 
+            FROM carrinhos c 
+            LEFT JOIN coleiras col ON c.id_carrinho = col.id_carrinho 
+            WHERE c.id_carrinho = $1
+        `, [id]);
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Carrinho não encontrado' });
+        }
+        
+        res.json(result.rows);
+    } catch (err) {
+        console.error('Erro ao buscar coleiras do carrinho:', err.message);
+        res.status(500).json({ error: 'Erro ao buscar coleiras do carrinho' });
     }
 });
 

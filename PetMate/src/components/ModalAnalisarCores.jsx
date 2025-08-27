@@ -260,7 +260,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
                     </button>
                 </div>
 
-                <div className="modal-content">
+                <div className="conteudo-modal-analisar">
                     {!analisar ? (
                         <div className="upload-section">
                             <div className="upload-area">
@@ -304,7 +304,7 @@ export default function ModalAnalisarCores({ open, onClose }) {
                                 />
                             </div>
 
-                            <div className="tips-section">
+                            <div className="container-dicas">
                                 <h4>📸 Dicas para uma boa foto:</h4>
                                 <ul>
                                     <li>• Use boa iluminação natural</li>
@@ -315,14 +315,14 @@ export default function ModalAnalisarCores({ open, onClose }) {
                             </div>
                         </div>
                     ) : (
-                        <div className="analisar-section">
+                        <div className="container-analise">
                             {/* <div className="pet-image-container"> */}
                             { /*<img src={petImage} alt="Pet analisado" className="analyzed-pet-image" />*/}
                             {/* </div> */}
 
-                            <div className="analisar-content">
+                            <div className="conteudo-analise">
                                 <div
-                                    className="analisar-text"
+                                    className="texto-analise"
                                     dangerouslySetInnerHTML={{ __html: formatAnalisar(analisar) }}
                                 />
                             </div>

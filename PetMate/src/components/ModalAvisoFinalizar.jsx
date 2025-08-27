@@ -15,11 +15,11 @@ export default function ModalAvisoAdicionarCarrinho({ open, onClose }) {
                     adicionado automaticamente no carrinho.
                 </p>
                 <div className="container-botoes-aviso">
-                    <button className="botao-cancelar-aviso" onClick={onClose}>
-                        Voltar
-                    </button>
                     <button className="botao-finalizar-aviso" onClick={onClose}>
                         Finalizar <FaCheck className='iconFinalizarC'/>
+                    </button>
+                    <button className="botao-cancelar-aviso" onClick={onClose}>
+                        Voltar
                     </button>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import { FaArrowRightLong } from 'react-icons/fa6'
 import Swal from 'sweetalert2';
 import ColeiraModelo from './ColeiraModelo';
 import ModalAvisoFinalizar from './ModalAvisoFinalizar'
-import ModalAnalisarCores from './ModalAnalIsarCores'
+import ModalAnalisarCores from './ModalAnalisarCores'
 import { GlobalContext } from '../contexts/GlobalContext';
 
 
