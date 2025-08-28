@@ -309,7 +309,7 @@ export const analyzePetColors = async (file) => {
     formData.append('file', file);
 
     try {
-        const response = await api.post('/analise-cores-pet', formData, {
+        const response = await api.post('/analise/analise-cores-pet', formData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         });
         return response.data;

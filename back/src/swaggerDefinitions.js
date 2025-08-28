@@ -524,7 +524,6 @@
  *         description: Erro de validação
  */
 
-
 /**
  * @swagger
  * /ongs/{id}:
@@ -605,7 +604,6 @@
  *       404:
  *         description: ONG não encontrada
  */
-
 
 /**
  * @swagger
@@ -713,7 +711,6 @@
  *         description: Comentário não encontrado
  */
 
-
 /**
  * @swagger
  * /recuperar-senha:
@@ -799,7 +796,6 @@
  *         description: Erro ao verificar o código
  */
 
-
 /**
  * @swagger
  * /redefinir-senha:
@@ -843,7 +839,6 @@
  *       500:
  *         description: Erro ao redefinir a senha
  */
-
 
 /**
  * @swagger
@@ -932,7 +927,6 @@
  *       500:
  *         description: Erro ao realizar login
  */
-
 
 /**
  * @swagger
