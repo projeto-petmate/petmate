@@ -57,6 +57,11 @@ const analiseRoutes = require('./routes/analise');
 const authRoutes = require('./routes/auth');
 const uploadRoutes = require('./routes/upload');
 
+// Novas rotas da estrutura completa de e-commerce
+const carrinhoItensRoutes = require('./routes/carrinho_itens');
+const pedidosRoutes = require('./routes/pedidos');
+const pedidosItensRoutes = require('./routes/pedidos_itens');
+
 // Configurar rotas
 app.use('/usuarios', usuariosRoutes(pool));
 app.use('/ongs', ongsRoutes(pool));
@@ -68,6 +73,11 @@ app.use('/coleiras', coleirasRoutes(pool));
 app.use('/analise', analiseRoutes(upload, cloudinary));
 app.use('/', authRoutes(pool, enviarEmail));
 app.use('/upload', uploadRoutes(upload, cloudinary));
+
+// Novas rotas da estrutura completa
+app.use('/carrinho-itens', carrinhoItensRoutes(pool));
+app.use('/pedidos', pedidosRoutes(pool));
+app.use('/pedidos-itens', pedidosItensRoutes(pool));
 
 // Rota de teste
 app.get('/', (req, res) => {

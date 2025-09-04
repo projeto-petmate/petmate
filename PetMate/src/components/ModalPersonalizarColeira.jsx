@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo, useState, useContext } from 'react'
+import { useEffect, useMemo, useState, useContext } from 'react'
 import './ModalPersonalizarColeira.css'
 import { IoArrowBackCircle } from 'react-icons/io5'
 import { CgCloseO } from "react-icons/cg"
@@ -8,10 +8,11 @@ import ColeiraModelo from './ColeiraModelo';
 import ModalAvisoFinalizar from './ModalAvisoFinalizar'
 import ModalAnalisarCores from './ModalAnalisarCores'
 import { GlobalContext } from '../contexts/GlobalContext';
+import { getCarrinhos, addCarrinho, addItemCarrinho } from '../apiService';
 
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
-    const { setAplicarCoresCallback } = useContext(GlobalContext);
+    const { setAplicarCoresCallback, userLogado } = useContext(GlobalContext);
 
     if (!open) return null
 
@@ -20,6 +21,83 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     const [abrirAviso, setAbrirAviso] = useState(false)
     const [modalCoresOpen, setModalCoresOpen] = useState(false);
     const [modeloKey, setModeloKey] = useState(0);
+
+    const handleFecharAviso = (confirmado) => {
+        setAbrirAviso(false);
+
+        if (confirmado) {
+            console.log('Coleira finalizada:', coleira);
+
+            adicionarAoCarrinho(coleira);
+            onClose();
+        } else {
+            console.log('Usuário cancelou a finalização');
+        }
+    }
+
+   const adicionarAoCarrinho = async (coleira) => {
+    try {
+        const id_usuario = userLogado?.id_usuario || null;
+        const id_ong = userLogado?.id_ong || null;
+
+        if (!id_usuario && !id_ong) {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
+                icon: 'error',
+                confirmButtonColor: '#84644D'
+            });
+            return;
+        }
+
+        // Buscar carrinho aberto do usuário ou ONG
+        let carrinhos = await getCarrinhos(id_usuario || id_ong);
+        let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
+
+        // Se não existir, criar um novo
+        if (!carrinho) {
+            carrinho = await addCarrinho({
+                id_usuario: id_usuario,
+                id_ong: id_ong,
+                valor_total: 0
+            });
+        }
+
+        // Montar item do carrinho
+        const item = {
+            modelo: coleira.modelo,
+            tamanho: coleira.tamanho,
+            cor_tecido: coleira.corTecido,
+            cor_logo: coleira.corLogo,
+            cor_argola: coleira.corArgola,
+            cor_presilha: coleira.corPresilha,
+            valor: coleira.valor,
+            quantidade: 1
+        };
+
+        // Adicionar item ao carrinho
+        await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
+
+        Swal.fire({
+            title: 'Sucesso!',
+            text: 'Coleira adicionada ao carrinho com sucesso!',
+            icon: 'success',
+            confirmButtonColor: '#84644D',
+            customClass: {
+                popup: 'swal-petmate-popup'
+            }
+        });
+
+    } catch (error) {
+        console.error('Erro ao adicionar ao carrinho:', error);
+        Swal.fire({
+            title: 'Erro!',
+            text: 'Não foi possível adicionar a coleira ao carrinho.',
+            icon: 'error',
+            confirmButtonColor: '#84644D'
+        });
+    }
+}
 
 
     const [coleira, setColeira] = useState({
@@ -170,13 +248,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         })
     }
 
-    const aplicarCoresSugeridas = (coresSugeridas) => {
-        setColeira(prevColeira => ({
-            ...prevColeira,
-            ...coresSugeridas
-        }));
-        setModalCoresOpen(false);
-    };
     return (
         <div className='modal-overlay-coleiras'>
             <div className="container-modal-personalizar-coleiras">
@@ -490,9 +561,10 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                             >
                                 Finalizar
                             </button>
-                            <ModalAvisoFinalizar open={abrirAviso} onClose={() => {
-                                setAbrirAviso(false);
-                            }} />
+                            <ModalAvisoFinalizar
+                                open={abrirAviso}
+                                onClose={handleFecharAviso}
+                            />
                         </div>
                     </div>
                 )}

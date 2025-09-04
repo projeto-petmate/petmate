@@ -6,6 +6,7 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import NavLogado from "./NavLogado";
 import NavDeslogado from "./NavDeslogado";
 
+
 function Navbar() {
   const [menuAberto, setMenuAberto] = useState(false);
   const { logado, isAdmin } = useContext(GlobalContext);

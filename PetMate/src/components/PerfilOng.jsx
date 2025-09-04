@@ -140,7 +140,7 @@ function PerfilOng() {
                             <img
                                 src={imagemPreviewPerfil || userData?.foto_perfil}
                                 alt="Pré-visualização"
-                                className="imagem-preview-perfil"
+                                className="imagem-preview-ong"
                             />
                         </div>
                     ) : (

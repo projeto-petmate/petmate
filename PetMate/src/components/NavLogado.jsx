@@ -5,10 +5,13 @@ import { FaUserCircle } from "react-icons/fa";
 import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import { GlobalContext } from '../contexts/GlobalContext';
 import { FiShoppingCart } from "react-icons/fi";
+// import { getQuantidadeItensCarrinho } from '../apiService';
+
 
 function NavLogado() {
   const { userLogado } = useContext(GlobalContext);
   const [openModal, setOpenCadModal] = useState(false);
+  // const carrinhoLogado = getQuantidadeItensCarrinho(userLogado.id_usuario)
 
   const getFirstName = (fullName) => {
     return fullName.split(' ')[0];

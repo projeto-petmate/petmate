@@ -177,5 +177,44 @@ module.exports = (pool) => {
     }
   });
 
+  // GET - Quantidade de itens do carrinho pelo id_usuario ou id_ong
+router.get("/quantidade", async (req, res) => {
+  const { id_usuario, id_ong } = req.query;
+
+  if (!id_usuario && !id_ong) {
+    return res.status(400).json({ error: "Informe id_usuario ou id_ong" });
+  }
+
+  try {
+    // Buscar o carrinho pelo id_usuario ou id_ong
+    let carrinhoQuery = "SELECT id_carrinho FROM carrinhos WHERE ";
+    let param;
+    if (id_usuario) {
+      carrinhoQuery += "id_usuario = $1";
+      param = id_usuario;
+    } else {
+      carrinhoQuery += "id_ong = $1";
+      param = id_ong;
+    }
+
+    const carrinhoResult = await pool.query(carrinhoQuery, [param]);
+    if (carrinhoResult.rows.length === 0) {
+      return res.json({ quantidade: 0 });
+    }
+
+    const id_carrinho = carrinhoResult.rows[0].id_carrinho;
+
+    // Contar os itens do carrinho
+    const itensResult = await pool.query(
+      "SELECT COUNT(*) AS quantidade FROM carrinho_itens WHERE id_carrinho = $1",
+      [id_carrinho]
+    );
+
+    res.json({ quantidade: parseInt(itensResult.rows[0].quantidade, 10) });
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao buscar quantidade de itens" });
+  }
+});
+
   return router;
 };

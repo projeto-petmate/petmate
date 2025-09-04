@@ -55,6 +55,22 @@ module.exports = (pool) => {
     }
 
     try {
+        // Verifica se já existe um carrinho ativo para o usuário/ong
+        let query = 'SELECT * FROM carrinhos WHERE status = $1';
+        let params = ['ativo'];
+        if (id_usuario) {
+            query += ' AND id_usuario = $2';
+            params.push(id_usuario);
+        } else if (id_ong) {
+            query += ' AND id_ong = $2';
+            params.push(id_ong);
+        }
+        const existing = await pool.query(query, params);
+        if (existing.rows.length > 0) {
+            // Já existe carrinho ativo, retorna ele
+            return res.status(200).json(existing.rows[0]);
+        }
+        // Se não existe, cria novo
         const result = await pool.query(
             `INSERT INTO carrinhos (valor_total, status, id_usuario, id_ong) 
              VALUES ($1, $2, $3, $4) RETURNING *`,

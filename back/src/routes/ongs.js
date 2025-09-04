@@ -94,7 +94,6 @@ module.exports = (pool) => {
     try {
       await client.query('BEGIN');
 
-      // 1. Criar a ONG
       const result = await client.query(
         `INSERT INTO ongs (
                     nome_ong, email, senha, telefone, instagram, cnpj, email_contato, nome_responsavel, cpf_responsavel,
@@ -124,28 +123,14 @@ module.exports = (pool) => {
       const novaOng = result.rows[0];
       console.log("✅ ONG criada:", novaOng.id_ong);
 
-      // 2. Criar carrinho para a ONG
-      const carrinhoResult = await client.query(
-        "INSERT INTO carrinhos (valor_total, status, id_ong) VALUES ($1, $2, $3) RETURNING *",
-        [0.0, "ativo", novaOng.id_ong]
-      );
-
-      console.log(
-        "🛒 Carrinho criado para ONG:",
-        carrinhoResult.rows[0].id_carrinho
-      );
-
       await client.query("COMMIT");
 
-      res.status(201).json({
-        ...novaOng,
-        carrinho: carrinhoResult.rows[0],
-      });
+      res.status(201).json(novaOng);
       
     } catch (err) {
       await client.query('ROLLBACK');
       console.error("Erro ao criar ONG:", err.message);
-      res.status(500).json({ error: "Erro ao criar ONG e carrinho" });
+      res.status(500).json({ error: "Erro ao criar ONG" });
     } finally {
       client.release();
     }
