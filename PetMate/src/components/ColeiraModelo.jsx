@@ -110,8 +110,10 @@ function Model({ coleira }) {
             const coresLogo = {
               'Preto': '#484848',
               'Branco': '#FFFFFF',
-              // 'Bege': '#D2B48C',
               'Marrom': '#6F4E37',
+              'Azul': '#054F77',
+              'Vermelho': '#A52A2A',
+              'Amarelo': '#FFC222',
             };
             const corLogo = coleira.corLogo && coleira.corLogo !== '' ?
               coresLogo[coleira.corLogo] : '#888888';

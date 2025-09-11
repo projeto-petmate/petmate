@@ -388,7 +388,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                 <div className="titulo-opcoes-coleira">
                                     <p>Selecione a cor da logo:</p>
                                 </div>
-                                <div className="opcoes-cores" id='cores-tecido'>
+                                <div className="opcoes-cores">
                                     <label className='radio-cores'>
                                         <input type="radio" name='coresLogo' checked={coleira.corLogo === "Preto"} onChange={() => atualizarColeira("corLogo", "Preto")} />
                                         <span>Preto</span>
@@ -402,6 +402,20 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <span>Marrom</span>
                                     </label>
                                 </div>
+                                 <div className="opcoes-cores">
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Azul"} onChange={() => atualizarColeira("corLogo", "Azul")} />
+                                            <span>Azul</span>
+                                        </label>
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Vermelho"} onChange={() => atualizarColeira("corLogo", "Vermelho")} />
+                                            <span>Vermelho</span>
+                                        </label>
+                                        <label className='radio-desenho'>
+                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Amarelo"} onChange={() => atualizarColeira("corLogo", "Amarelo")} />
+                                            <span>Amarelo</span>
+                                        </label>
+                                    </div>
                             </div>
                         </div>
                         <div className="etapas-personalizar-coleira">

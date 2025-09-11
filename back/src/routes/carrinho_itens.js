@@ -65,7 +65,12 @@ module.exports = (pool) => {
     try {
       console.log(`➕ Adicionando item ao carrinho ${id_carrinho}:`, {
         modelo,
+        tamanho,
         valor,
+        cor_tecido,
+        cor_logo,
+        cor_argola,
+        cor_presilha,
         quantidade,
       });
 
