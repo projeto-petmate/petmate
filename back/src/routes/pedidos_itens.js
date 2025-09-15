@@ -15,7 +15,7 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.preco * pi.quantidade) as subtotal,
+                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido
                 FROM pedidos_itens pi
@@ -42,7 +42,7 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.preco * pi.quantidade) as subtotal,
+                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido,
                     p.id_usuario,
@@ -141,7 +141,7 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.preco * pi.quantidade) as subtotal,
+                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido,
                     p.id_usuario,
@@ -175,7 +175,7 @@ module.exports = (pool) => {
                 SELECT 
                     pi.status,
                     COUNT(pi.id_item_pedido) as quantidade,
-                    COALESCE(SUM(pi.preco * pi.quantidade), 0) as valor_total,
+                    COALESCE(SUM(pi.valor * pi.quantidade), 0) as valor_total,
                     pi.produto_tipo,
                     COUNT(DISTINCT pi.id_pedido) as pedidos_diferentes
                 FROM pedidos_itens pi

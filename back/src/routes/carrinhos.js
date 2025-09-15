@@ -11,12 +11,18 @@ module.exports = (pool) => {
         let query = 'SELECT * FROM carrinhos';
         const params = [];
 
-        if (id_usuario) {
-            query += ' WHERE id_usuario = $1';
+        if (id_usuario && !id_ong) {
+            query += ' WHERE id_usuario = $1 AND id_ong IS NULL';
             params.push(id_usuario);
-        } else if (id_ong) {
-            query += ' WHERE id_ong = $1';
+        } else if (id_ong && !id_usuario) {
+            query += ' WHERE id_ong = $1 AND id_usuario IS NULL';
             params.push(id_ong);
+        } else if (!id_usuario && !id_ong) {
+            // Se não especificou usuário nem ong, retorna todos
+            // Talvez você queira restringir isso por questões de segurança
+        } else {
+            // Se ambos foram fornecidos, erro
+            return res.status(400).json({ error: 'Forneça apenas id_usuario OU id_ong, não ambos' });
         }
 
         const result = await pool.query(query, params);
