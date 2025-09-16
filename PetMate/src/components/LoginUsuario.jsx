@@ -71,7 +71,7 @@ function LoginUsuario() {
                         <div className="inpt-p">
                             <div className="icon-input">
                                 <FaEnvelope className="icon-login" />
-                                <p className='texto-input-login'>Email de Usuário:</p>
+                                <p className='texto-input-login'>Email:</p>
                             </div>
                             <input
                                 type="text"
