@@ -6,7 +6,6 @@ import { GlobalContext } from "../contexts/GlobalContext";
 import NavLogado from "./NavLogado";
 import NavDeslogado from "./NavDeslogado";
 
-
 function Navbar() {
   const [menuAberto, setMenuAberto] = useState(false);
   const { logado, isAdmin } = useContext(GlobalContext);
@@ -15,40 +14,52 @@ function Navbar() {
     <nav className="navbar-container">
       <div className="img-nav">
         <NavLink to="/home" className="a-logo">
-          <img className="nav-img" src="/images/petmate.svg" alt="logo_petmate" />
+          <img
+            className="nav-img"
+            src="/images/petmate.svg"
+            alt="logo_petmate"
+          />
         </NavLink>
       </div>
 
       <div className={`botoes-nav ${menuAberto ? "ativo" : ""}`}>
-        {isAdmin &&
+        {isAdmin && (
           <NavLink
             to="/gerenciamento"
-            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
             onClick={() => setMenuAberto(false)}
           >
             Gerenciamento
           </NavLink>
-        }
-        {isAdmin &&
+        )}
+        {isAdmin && (
           <NavLink
             to="https://app.powerbi.com/view?r=eyJrIjoiNmJmZGFlN2MtOGJhOS00MDVhLTgwZDYtYzkxODVjZjQ4YTQyIiwidCI6IjJjZjdkNGQ1LWJkMWItNDk1Ni1hY2Y4LTI5OTUzOTliMjE2OCJ9"
-            target='_blank'
-            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            target="_blank"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
             onClick={() => setMenuAberto(false)}
           >
             Dashboard
           </NavLink>
-        }
+        )}
         <NavLink
           to="/home"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
           onClick={() => setMenuAberto(false)}
         >
           Início
         </NavLink>
         <NavLink
           to="/adotar"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
           onClick={() => setMenuAberto(false)}
         >
           Adotar
@@ -56,7 +67,9 @@ function Navbar() {
         {
           <NavLink
             to="/favoritos"
-            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
             onClick={() => setMenuAberto(false)}
           >
             Favoritos
@@ -64,42 +77,55 @@ function Navbar() {
         }
         <NavLink
           to="/ongs"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
           onClick={() => setMenuAberto(false)}
         >
           ONGs
         </NavLink>
         <NavLink
           to="/feedback"
-          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
           onClick={() => setMenuAberto(false)}
         >
           Feedback
         </NavLink>
-        {isAdmin &&
+        {isAdmin && (
           <NavLink
             to="/denuncias"
-            className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
             onClick={() => setMenuAberto(false)}
           >
             Denúncias
           </NavLink>
-        }
-      <NavLink
-        to="/coleiras"
-        className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
-        onClick={() => setMenuAberto(false)}
-      >
-        Coleiras
-      </NavLink>
-      </div>
+        )}
 
+        {logado && (
+          <NavLink
+            to="/coleiras"
+            className={({ isActive }) =>
+              isActive ? "nav-link active" : "nav-link"
+            }
+            onClick={() => setMenuAberto(false)}
+          >
+            Coleiras
+          </NavLink>
+        )}
+      </div>
 
       <div className="perfil-nav">
         {logado ? <NavLogado /> : <NavDeslogado />}
       </div>
 
-      <button className="menu-hamburguer" onClick={() => setMenuAberto(!menuAberto)}>
+      <button
+        className="menu-hamburguer"
+        onClick={() => setMenuAberto(!menuAberto)}
+      >
         <CgMenuRound className="menu-hamburguer-icon" />
       </button>
     </nav>
