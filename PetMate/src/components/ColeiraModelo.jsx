@@ -1,14 +1,24 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from '@react-three/drei';
 import './ColeiraModelo.css';
 
 
-function CameraController({ posicao, fov }) {
+const CameraController = forwardRef(({ posicao, fov }, ref) => {
   const { camera } = useThree();
   const loader = new GLTFLoader();
   const modelos = ['pescoco', 'cabresto', 'peitoral'];
+
+  // Expor função para resetar câmera
+  useImperativeHandle(ref, () => ({
+    resetCamera: () => {
+      camera.position.set(...posicao);
+      camera.fov = fov;
+      camera.updateProjectionMatrix();
+      camera.lookAt(0, 0, 0); // Olhar para o centro
+    }
+  }));
 
   modelos.forEach(modelo => {
     loader.load(`/models/${modelo}.glb`,
@@ -31,7 +41,7 @@ function CameraController({ posicao, fov }) {
   }, [camera, posicao, fov]);
 
   return null;
-}
+});
 
 function Model({ coleira }) {
 
@@ -168,8 +178,88 @@ function ModeloTemporario({ coleira }) {
   );
 }
 
-function ColeiraModelo({ coleira = {} }) {
+const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
   const [isReady, setIsReady] = useState(false);
+  const canvasRef = useRef();
+  const cameraControllerRef = useRef();
+
+  // Expor função para capturar screenshot
+  useImperativeHandle(ref, () => ({
+    captureScreenshot: () => {
+      if (canvasRef.current) {
+        const canvas = canvasRef.current.querySelector('canvas');
+        if (canvas) {
+          // Capturar como data URL (base64)
+          const dataURL = canvas.toDataURL('image/png', 1.0);
+          return dataURL;
+        }
+      }
+      return null;
+    },
+    captureScreenshotAsBlob: () => {
+      return new Promise((resolve) => {
+        if (canvasRef.current) {
+          const canvas = canvasRef.current.querySelector('canvas');
+          if (canvas) {
+            canvas.toBlob((blob) => {
+              resolve(blob);
+            }, 'image/png', 1.0);
+          } else {
+            resolve(null);
+          }
+        } else {
+          resolve(null);
+        }
+      });
+    },
+    captureWithFixedCamera: () => {
+      return new Promise((resolve) => {
+        console.log('ColeiraModelo: Iniciando captureWithFixedCamera');
+        
+        if (canvasRef.current && cameraControllerRef.current) {
+          console.log('ColeiraModelo: Canvas e camera controller encontrados');
+          
+          // Resetar a câmera para posição inicial
+          cameraControllerRef.current.resetCamera();
+          console.log('ColeiraModelo: Camera resetada');
+          
+          // Aguardar um frame para a câmera se posicionar
+          setTimeout(() => {
+            const canvas = canvasRef.current.querySelector('canvas');
+            if (canvas) {
+              console.log('ColeiraModelo: Canvas encontrado, capturando...', {
+                width: canvas.width,
+                height: canvas.height
+              });
+              
+              try {
+                const dataURL = canvas.toDataURL('image/png', 1.0);
+                console.log('ColeiraModelo: DataURL gerado', {
+                  length: dataURL.length,
+                  starts: dataURL.substring(0, 50) + '...'
+                });
+                resolve(dataURL);
+              } catch (error) {
+                console.error('ColeiraModelo: Erro ao gerar dataURL:', error);
+                resolve(null);
+              }
+            } else {
+              console.error('ColeiraModelo: Canvas não encontrado no DOM');
+              resolve(null);
+            }
+          }, 100);
+        } else {
+          console.error('ColeiraModelo: Canvas ou camera controller não encontrados', {
+            canvasRef: !!canvasRef.current,
+            cameraControllerRef: !!cameraControllerRef.current
+          });
+          resolve(null);
+        }
+      });
+    }
+  }));
+
+
 
   useEffect(() => {
     console.log('ColeiraModelo montado com coleira:', coleira);
@@ -201,7 +291,7 @@ function ColeiraModelo({ coleira = {} }) {
       case 'Cabresto':
         return [0, 7, -25];
       case 'Peitoral':
-        return [-12, 2, 2];
+        return [-12, 4, -8];
       default:
         return [12, 3, 5];
     }
@@ -244,16 +334,17 @@ function ColeiraModelo({ coleira = {} }) {
     return <div className="container-modelo-3d-fixo">Carregando modelo 3D...</div>;
   }
   return (
-    <div className="container-modelo-3d-fixo">
+    <div className="container-modelo-3d-fixo" ref={canvasRef}>
       <Canvas
         camera={{
           position: [0, 0, 0],
           fov: 45
         }}
         className="canvas-coleira"
+        gl={{ preserveDrawingBuffer: true }}
       >
         {/* Controlador da câmera */}
-        <CameraController posicao={posicaoCamera} fov={fovCamera} />
+        <CameraController ref={cameraControllerRef} posicao={posicaoCamera} fov={fovCamera} />
 
         <ambientLight intensity={0.7} />
         <pointLight position={[1, 19, 1]} intensity={1.5} />
@@ -274,6 +365,6 @@ function ColeiraModelo({ coleira = {} }) {
       </Canvas>
     </div>
   );
-}
-
+})
+  
 export default ColeiraModelo;

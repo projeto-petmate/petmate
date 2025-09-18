@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useContext } from 'react'
+import { useEffect, useMemo, useState, useContext, useRef } from 'react'
 import './ModalPersonalizarColeira.css'
 import { IoArrowBackCircle } from 'react-icons/io5'
 import { CgCloseO } from "react-icons/cg"
@@ -8,98 +8,17 @@ import ColeiraModelo from './ColeiraModelo';
 import ModalAvisoFinalizar from './ModalAvisoFinalizar'
 import ModalAnalisarCores from './ModalAnalisarCores'
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getCarrinhos, addCarrinho, addItemCarrinho } from '../apiService';
+import { getCarrinhos, addCarrinho, addItemCarrinho, uploadColeiraScreenshot, uploadPetImage } from '../apiService';
 
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
     const { setAplicarCoresCallback, userLogado } = useContext(GlobalContext);
-
-    if (!open) return null
-
+    const [arquivoTeste, setArquivoTeste] = useState(null);
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
     const [abrirAviso, setAbrirAviso] = useState(false)
     const [modalCoresOpen, setModalCoresOpen] = useState(false);
     const [modeloKey, setModeloKey] = useState(0);
-
-    const handleFecharAviso = (confirmado) => {
-        setAbrirAviso(false);
-
-        if (confirmado) {
-            console.log('Coleira finalizada:', coleira);
-
-            adicionarAoCarrinho(coleira);
-            onClose();
-        } else {
-            console.log('Usuário cancelou a finalização');
-        }
-    }
-
-   const adicionarAoCarrinho = async (coleira) => {
-    try {
-        const id_usuario = userLogado?.id_usuario || null;
-        const id_ong = userLogado?.id_ong || null;
-
-        if (!id_usuario && !id_ong) {
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
-                icon: 'error',
-                confirmButtonColor: '#84644D'
-            });
-            return;
-        }
-
-        // Buscar carrinho aberto do usuário ou ONG
-        let carrinhos = await getCarrinhos(id_usuario || id_ong);
-        let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
-
-        // Se não existir, criar um novo
-        if (!carrinho) {
-            carrinho = await addCarrinho({
-                id_usuario: id_usuario,
-                id_ong: id_ong,
-                valor_total: 0
-            });
-        }
-
-        // Montar item do carrinho
-        const item = {
-            modelo: coleira.modelo,
-            tamanho: coleira.tamanho,
-            cor_tecido: coleira.corTecido,
-            cor_logo: coleira.corLogo,
-            cor_argola: coleira.corArgola,
-            cor_presilha: coleira.corPresilha,
-            valor: coleira.valor,
-            quantidade: 1
-        };
-
-        // Adicionar item ao carrinho
-        await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
-
-        Swal.fire({
-            title: 'Sucesso!',
-            text: 'Coleira adicionada ao carrinho com sucesso!',
-            icon: 'success',
-            confirmButtonColor: '#84644D',
-            customClass: {
-                popup: 'swal-petmate-popup'
-            }
-        });
-
-    } catch (error) {
-        console.error('Erro ao adicionar ao carrinho:', error);
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Não foi possível adicionar a coleira ao carrinho.',
-            icon: 'error',
-            confirmButtonColor: '#84644D'
-        });
-    }
-}
-
-
     const [coleira, setColeira] = useState({
         modelo: 'Pescoço',
         tamanho: '',
@@ -108,7 +27,19 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         corPresilha: '',
         corLogo: '',
         valor: 20
-    })
+    });
+
+    const coleiraModeloRef = useRef();
+
+    const valorTotal = useMemo(() => {
+        let total = 0
+
+        if (coleira.modelo === "Pescoço") total += 20
+        else if (coleira.modelo === "Peitoral") total += 30
+        else if (coleira.modelo === "Cabresto") total += 40
+
+        return total
+    }, [coleira.modelo])
 
     useEffect(() => {
         if (open) {
@@ -138,6 +69,232 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             setAplicarCoresCallback(() => callback);
         }
     }, [open, setAplicarCoresCallback]);
+
+    useEffect(() => {
+        setColeira(prev => ({
+            ...prev,
+            valor: valorTotal
+        }))
+    }, [valorTotal])
+
+    if (!open) return null
+
+
+const handleFecharAviso = (confirmado) => {
+    setAbrirAviso(false);
+
+    if (confirmado) {
+        console.log('Coleira finalizada:', coleira);
+        
+        adicionarAoCarrinho(coleira).then(() => {
+            onClose();
+        }).catch((error) => {
+            console.error('Erro ao adicionar ao carrinho:', error);
+            onClose();
+        });
+    } else {
+        console.log('Usuário cancelou a finalização');
+    }
+}
+
+
+const adicionarAoCarrinho = async (coleira) => {
+    
+    try {
+        const id_usuario = userLogado?.id_usuario || null;
+        const id_ong = userLogado?.id_ong || null;
+
+        if (!id_usuario && !id_ong) {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
+                icon: 'error',
+                confirmButtonColor: '#84644D'
+            });
+            return;
+        }
+
+        let imagemColeiraUrl = null;
+
+        if (coleiraModeloRef.current) {
+            try {               
+                const imagemBase64 = await coleiraModeloRef.current.captureWithFixedCamera();
+                
+                if (imagemBase64) {
+                    Swal.fire({
+                        title: 'Salvando coleira personalizada...',
+                        text: 'Salvando imagem da personalização',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    imagemColeiraUrl = await uploadColeiraScreenshot(
+                        imagemBase64, 
+                        `coleira-${coleira.modelo}-${Date.now()}.png`
+                    );
+
+                    console.log('Imagem enviada ao Cloudinary:', imagemColeiraUrl);
+                } else {
+                    console.warn(' Screenshot retornou vazio');
+                }
+                
+            } catch (captureError) {
+                console.error('Erro na captura/upload:', captureError);
+            }
+        } else {
+            console.warn('Referência do modelo 3D não encontrada');
+        }
+
+        Swal.fire({
+            title: 'Adicionando ao carrinho...',
+            text: 'Finalizando processo',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        console.log('🛒 Processando carrinho...');
+
+        let carrinhos = await getCarrinhos(id_usuario, id_ong);
+        let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
+
+        if (!carrinho) {
+            console.log('🆕 Criando novo carrinho...');
+            carrinho = await addCarrinho({
+                id_usuario: id_usuario,
+                id_ong: id_ong,
+                valor_total: 0
+            });
+        }
+
+        const id_carrinho = carrinho.id_carrinho || carrinho.id;
+
+        const item = {
+            modelo: coleira.modelo,
+            tamanho: coleira.tamanho,
+            cor_tecido: coleira.corTecido,
+            cor_logo: coleira.corLogo,
+            cor_argola: coleira.corArgola,
+            cor_presilha: coleira.corPresilha,
+            valor: coleira.valor,
+            quantidade: 1,
+            imagem: imagemColeiraUrl
+        };
+
+        await addItemCarrinho(id_carrinho, item);
+
+        console.log('✅ Item adicionado ao carrinho com sucesso!');
+
+        Swal.fire({
+            title: 'Sucesso!',
+            html: `
+                <div style="text-align: center;">
+                    <p><strong>Coleira adicionada ao carrinho!</strong></p>
+                </div>
+            `,
+            icon: 'success',
+            confirmButtonColor: '#84644D',
+            timer: 5000,
+            timerProgressBar: true
+        });
+
+    } catch (error) {
+        console.error('❌ ERRO GERAL:', error);
+        
+        Swal.close();
+        
+        Swal.fire({
+            title: 'Erro!',
+            text: `Não foi possível adicionar a coleira ao carrinho: ${error.message}`,
+            icon: 'error',
+            confirmButtonColor: '#84644D'
+        });
+    }
+};
+
+// ...existing code...
+
+    // Versão melhorada do teste que usa o base64 da captura real
+    const testarUploadComCaptura = async () => {
+        try {
+            if (!coleiraModeloRef.current) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Modelo 3D não disponível.',
+                    icon: 'error',
+                    confirmButtonColor: '#84644D'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Testando captura + upload...',
+                text: 'Capturando screenshot e enviando para servidor',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // 1. Capturar screenshot
+            console.log('🔍 Capturando screenshot para teste...');
+            const imagemBase64 = await coleiraModeloRef.current.captureWithFixedCamera();
+
+            if (!imagemBase64) {
+                throw new Error('Falha na captura do screenshot');
+            }
+
+            console.log('✅ Screenshot capturado:', {
+                length: imagemBase64.length,
+                type: typeof imagemBase64,
+                startsWithData: imagemBase64.startsWith('data:')
+            });
+
+            // 2. Tentar upload usando uploadColeiraScreenshot
+            console.log('🚀 Testando uploadColeiraScreenshot...');
+            const imageUrl = await uploadColeiraScreenshot(imagemBase64, `teste-captura-${Date.now()}.png`);
+
+            console.log('✅ Upload concluído:', imageUrl);
+
+            Swal.fire({
+                title: 'Teste Completo Sucesso!',
+                html: `
+                <div style="text-align: left; font-family: monospace; font-size: 12px;">
+                    <p><strong>✅ Captura 3D:</strong> Sucesso</p>
+                    <p><strong>✅ Upload:</strong> Sucesso</p>
+                    <p><strong>🔗 URL:</strong> <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>
+                    <hr>
+                    <img src="${imageUrl}" style="max-width: 100%; max-height: 200px;" />
+                </div>
+            `,
+                icon: 'success',
+                confirmButtonColor: '#84644D',
+                width: 600
+            });
+
+        } catch (error) {
+            console.error('❌ Erro no teste completo:', error);
+
+            Swal.fire({
+                title: 'Erro no Teste!',
+                html: `
+                <div style="text-align: left; font-family: monospace; font-size: 12px;">
+                    <p><strong>❌ Erro:</strong> ${error.message}</p>
+                    <p><strong>🔍 Stack:</strong> ${error.stack}</p>
+                </div>
+            `,
+                icon: 'error',
+                confirmButtonColor: '#84644D',
+                width: 600
+            });
+        }
+    };
 
     const validarEtapa = async () => {
         const novosErros = {}
@@ -177,23 +334,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         setErro(novosErros)
         return Object.keys(novosErros).length === 0
     }
-
-    const valorTotal = useMemo(() => {
-        let total = 0
-
-        if (coleira.modelo === "Pescoço") total += 20
-        else if (coleira.modelo === "Peitoral") total += 30
-        else if (coleira.modelo === "Cabresto") total += 40
-
-        return total
-    }, [coleira.modelo])
-
-    useEffect(() => {
-        setColeira(prev => ({
-            ...prev,
-            valor: valorTotal
-        }))
-    }, [valorTotal])
 
     const atualizarColeira = (campo, valor) => {
         setColeira(prevColeira => ({
@@ -248,11 +388,65 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         })
     }
 
+    // Função para testar captura de screenshot
+    const testarCaptura = async () => {
+        if (coleiraModeloRef.current) {
+            try {
+                // Usar a nova função que reseta a câmera antes de capturar
+                const screenshot = await coleiraModeloRef.current.captureWithFixedCamera();
+                if (screenshot) {
+                    // Criar link de download
+                    const link = document.createElement('a');
+                    link.download = `coleira-preview-${coleira.modelo}-${Date.now()}.png`;
+                    link.href = screenshot;
+                    link.click();
+
+                    Swal.fire({
+                        title: 'Screenshot Capturado!',
+                        text: 'Imagem da coleira foi baixada com posição de câmera padronizada!',
+                        icon: 'success',
+                        confirmButtonColor: '#84644D'
+                    });
+
+                    console.log('✅ Screenshot capturado com câmera resetada!');
+                    console.log('📸 Tamanho da imagem:', screenshot.length, 'caracteres');
+                } else {
+                    Swal.fire({
+                        title: 'Erro!',
+                        text: 'Não foi possível capturar o screenshot.',
+                        icon: 'error',
+                        confirmButtonColor: '#84644D'
+                    });
+                    console.log('❌ Falha ao capturar screenshot');
+                }
+            } catch (error) {
+                console.error('Erro na captura:', error);
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Erro durante a captura do screenshot.',
+                    icon: 'error',
+                    confirmButtonColor: '#84644D'
+                });
+            }
+        } else {
+            Swal.fire({
+                title: 'Erro!',
+                text: 'Componente 3D não está disponível.',
+                icon: 'error',
+                confirmButtonColor: '#84644D'
+            });
+        }
+    };
+
     return (
         <div className='modal-overlay-coleiras'>
             <div className="container-modal-personalizar-coleiras">
                 <div className="visualizador-3d-fixo">
-                    <ColeiraModelo key={modeloKey} coleira={coleira} />
+                    <ColeiraModelo
+                        ref={coleiraModeloRef}
+                        key={modeloKey}
+                        coleira={coleira}
+                    />
                 </div>
                 {etapa === 1 && (
                     <div className="etapa-1-coleira">
@@ -402,20 +596,20 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                         <span>Marrom</span>
                                     </label>
                                 </div>
-                                 <div className="opcoes-cores">
-                                        <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Azul"} onChange={() => atualizarColeira("corLogo", "Azul")} />
-                                            <span>Azul</span>
-                                        </label>
-                                        <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Vermelho"} onChange={() => atualizarColeira("corLogo", "Vermelho")} />
-                                            <span>Vermelho</span>
-                                        </label>
-                                        <label className='radio-desenho'>
-                                            <input type="radio" name='desenho' checked={coleira.corLogo === "Amarelo"} onChange={() => atualizarColeira("corLogo", "Amarelo")} />
-                                            <span>Amarelo</span>
-                                        </label>
-                                    </div>
+                                <div className="opcoes-cores">
+                                    <label className='radio-desenho'>
+                                        <input type="radio" name='desenho' checked={coleira.corLogo === "Azul"} onChange={() => atualizarColeira("corLogo", "Azul")} />
+                                        <span>Azul</span>
+                                    </label>
+                                    <label className='radio-desenho'>
+                                        <input type="radio" name='desenho' checked={coleira.corLogo === "Vermelho"} onChange={() => atualizarColeira("corLogo", "Vermelho")} />
+                                        <span>Vermelho</span>
+                                    </label>
+                                    <label className='radio-desenho'>
+                                        <input type="radio" name='desenho' checked={coleira.corLogo === "Amarelo"} onChange={() => atualizarColeira("corLogo", "Amarelo")} />
+                                        <span>Amarelo</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div className="etapas-personalizar-coleira">
@@ -512,7 +706,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         <div className="container-titulo-modal-personalizar-coleira">
                             <IoArrowBackCircle className='btn-voltar-etapa-personalizar-coleira' onClick={voltarEtapa}>Voltar</IoArrowBackCircle>
                             <p className='titulo-etapa-personalizar-coleira'>Revisar Coleira</p>
-                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
+                            <CgCloseO className='btn-fechar-modal_personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira">

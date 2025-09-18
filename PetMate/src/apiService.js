@@ -461,20 +461,6 @@ export const getColeirasDoCarrinho = async (id_carrinho) => {
     }
 };
 
-export const getQuantidadeItensCarrinho = async ({ id_usuario = null, id_ong = null }) => {
-    try {
-        const query = [];
-        if (id_usuario) query.push(`id_usuario=${id_usuario}`);
-        if (id_ong) query.push(`id_ong=${id_ong}`);
-        const url = `/carrinhos/quantidade${query.length ? `?${query.join('&')}` : ''}`;
-        const response = await api.get(url);
-        return response.data.quantidade || 0;
-    } catch (error) {
-        console.error('Erro ao buscar quantidade de itens do carrinho:', error.response ? error.response.data : error.message);
-        return 0;
-    }
-};
-
 
 // CARRINHO ITENS - Itens temporários no carrinho
 export const getCarrinhoItens = async (id_carrinho) => {
@@ -686,36 +672,84 @@ export const updateEspecificacoesPedidoItem = async (id_item_pedido, especificac
     }
 };
 
-// FUNÇÕES AUXILIARES PARA WORKFLOW COMPLETO
-// export const criarColeiraComAnaliseIA = async (imagemPet, id_carrinho, dadosAdicionais = {}) => {
-//     try {
-//         // 1. Analisar cores do pet com IA
-//         const analise = await analyzePetColors(imagemPet);
+export const getQuantidadeItensCarrinho = async ({ id_usuario = null, id_ong = null }) => {
+    try {
+        const query = [];
+        if (id_usuario) query.push(`id_usuario=${id_usuario}`);
+        if (id_ong) query.push(`id_ong=${id_ong}`);
+        const url = `/carrinho-itens/quantidade${query.length ? `?${query.join('&')}` : ''}`;
+        const response = await api.get(url);
+        return response.data.quantidade || 0;
+    } catch (error) {
+        console.error('Erro ao buscar quantidade de itens do carrinho:', error.response ? error.response.data : error.message);
+        return 0;
+    }
+};
+
+
+/**
+ * Converte uma string base64 em um arquivo Blob e faz upload para o servidor
+ * @param {string} base64String - String base64 da imagem
+ * @param {string} filename - Nome do arquivo (opcional)
+ * @returns {Promise<string>} URL da imagem no servidor
+ */
+export const uploadColeiraScreenshot = async (base64String, filename = 'coleira-screenshot.png') => {
+    try {
+        console.log('🖼️ Iniciando upload de screenshot da coleira...');
         
-//         // 2. Criar item no carrinho com sugestões da IA
-//         const itemColeira = {
-//             produto_tipo: 'coleira',
-//             especificacoes: {
-//                 cor_primaria: analise.analise.cores_dominantes[0] || '#000000',
-//                 cor_secundaria: analise.analise.cores_dominantes[1] || '#FFFFFF',
-//                 tamanho: dadosAdicionais.tamanho || 'M',
-//                 material: dadosAdicionais.material || 'nylon',
-//                 observacoes: `Coleira sugerida pela IA: ${analise.analise.descricao}`,
-//                 imagem_referencia: analise.imageUrl,
-//                 ...dadosAdicionais.especificacoes
-//             },
-//             preco: dadosAdicionais.preco || 29.99,
-//             quantidade: dadosAdicionais.quantidade || 1
-//         };
+        // Verificar se o base64 está no formato correto
+        if (!base64String || typeof base64String !== 'string') {
+            throw new Error('Base64 string inválida ou vazia');
+        }
         
-//         const itemAdicionado = await addItemCarrinho(id_carrinho, itemColeira);
+        // Garantir que tem o prefixo data:image/
+        let processedBase64 = base64String;
+        if (!base64String.startsWith('data:image/')) {
+            processedBase64 = `data:image/png;base64,${base64String}`;
+        }
         
-//         return {
-//             analise: analise,
-//             item: itemAdicionado
-//         };
-//     } catch (error) {
-//         console.error('Erro ao criar coleira com análise IA:', error);
-//         throw error;
-//     }
-// };
+        console.log('📏 Tamanho do base64:', processedBase64.length);
+        
+        // Converte base64 para blob
+        const response = await fetch(processedBase64);
+        const blob = await response.blob();
+        
+        console.log('📦 Blob criado:', {
+            size: blob.size,
+            type: blob.type
+        });
+        
+        if (blob.size === 0) {
+            throw new Error('Blob vazio - screenshot pode estar corrompido');
+        }
+        
+        // Criar arquivo a partir do blob
+        const file = new File([blob], filename, { 
+            type: blob.type || 'image/png',
+            lastModified: Date.now()
+        });
+        
+        console.log('📁 Arquivo criado:', {
+            name: file.name,
+            size: file.size,
+            type: file.type
+        });
+        
+        // Usar a mesma função de upload dos pets (que já funciona)
+        const imageUrl = await uploadPetImage(file);
+        
+        console.log('✅ Upload concluído:', imageUrl);
+        return imageUrl;
+        
+    } catch (error) {
+        console.error('❌ Erro detalhado no upload:', {
+            message: error.message,
+            stack: error.stack,
+            base64Length: base64String ? base64String.length : 0
+        });
+        throw new Error(`Falha no upload da imagem: ${error.message}`);
+    }
+
+};
+
+

@@ -68,7 +68,7 @@ module.exports = (pool) => {
     // PUT - Atualizar status de produção do item
     router.put('/item/:id_item_pedido/status', async (req, res) => {
         const { id_item_pedido } = req.params;
-        const { status, observacoes_producao } = req.body;
+        const { status } = req.body;
         
         const statusValidos = ['aguardando_producao', 'em_producao', 'finalizado', 'cancelado'];
         
@@ -82,28 +82,12 @@ module.exports = (pool) => {
         try {
             console.log(`🔧 Atualizando status do item ${id_item_pedido} para: ${status}`);
             
-            // Preparar campos de data baseado no status
-            let camposExtras = '';
-            let valoresExtras = [];
-            let paramCount = 2;
-            
-            if (status === 'em_producao') {
-                camposExtras = ', data_inicio_producao = CURRENT_TIMESTAMP';
-            } else if (status === 'finalizado') {
-                camposExtras = ', data_finalizacao = CURRENT_TIMESTAMP';
-            }
-            
-            if (observacoes_producao) {
-                camposExtras += `, observacoes_producao = $${++paramCount}`;
-                valoresExtras.push(observacoes_producao);
-            }
-            
             const result = await pool.query(`
                 UPDATE pedidos_itens 
-                SET status = $1${camposExtras}
+                SET status = $1
                 WHERE id_item_pedido = $2
                 RETURNING *
-            `, [status, id_item_pedido, ...valoresExtras]);
+            `, [status, id_item_pedido]);
             
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Item do pedido não encontrado' });
@@ -149,12 +133,7 @@ module.exports = (pool) => {
                 FROM pedidos_itens pi
                 JOIN pedidos p ON pi.id_pedido = p.id_pedido
                 WHERE pi.status = $1
-                ORDER BY 
-                    CASE 
-                        WHEN pi.status = 'aguardando_producao' THEN pi.id_item_pedido
-                        WHEN pi.status = 'em_producao' THEN pi.data_inicio_producao
-                        ELSE pi.data_finalizacao
-                    END ASC
+                ORDER BY pi.id_item_pedido ASC
                 LIMIT $2
             `, [status, limite]);
             
@@ -176,20 +155,18 @@ module.exports = (pool) => {
                     pi.status,
                     COUNT(pi.id_item_pedido) as quantidade,
                     COALESCE(SUM(pi.valor * pi.quantidade), 0) as valor_total,
-                    pi.produto_tipo,
                     COUNT(DISTINCT pi.id_pedido) as pedidos_diferentes
                 FROM pedidos_itens pi
                 JOIN pedidos p ON pi.id_pedido = p.id_pedido
                 WHERE p.status NOT IN ('cancelado')
-                GROUP BY pi.status, pi.produto_tipo
+                GROUP BY pi.status
                 ORDER BY 
                     CASE pi.status
                         WHEN 'aguardando_producao' THEN 1
                         WHEN 'em_producao' THEN 2
                         WHEN 'finalizado' THEN 3
                         ELSE 4
-                    END,
-                    pi.produto_tipo
+                    END
             `);
             
             // Organizar dados por status
@@ -235,9 +212,7 @@ module.exports = (pool) => {
                 SELECT 
                     pi.*,
                     p.status as status_pedido,
-                    p.data_pedido,
-                    p.data_confirmacao,
-                    EXTRACT(EPOCH FROM (pi.data_finalizacao - pi.data_inicio_producao))/86400 as dias_producao
+                    p.data_pedido
                 FROM pedidos_itens pi
                 JOIN pedidos p ON pi.id_pedido = p.id_pedido
                 WHERE pi.id_item_pedido = $1
@@ -250,20 +225,9 @@ module.exports = (pool) => {
             const item = result.rows[0];
             
             const timeline = [
-                { evento: 'Pedido criado', data: item.data_pedido, status: 'pedido_criado' }
+                { evento: 'Pedido criado', data: item.data_pedido, status: 'pedido_criado' },
+                { evento: `Status atual: ${item.status}`, data: new Date(), status: item.status }
             ];
-            
-            if (item.data_confirmacao) {
-                timeline.push({ evento: 'Pedido confirmado', data: item.data_confirmacao, status: 'pedido_confirmado' });
-            }
-            
-            if (item.data_inicio_producao) {
-                timeline.push({ evento: 'Produção iniciada', data: item.data_inicio_producao, status: 'producao_iniciada' });
-            }
-            
-            if (item.data_finalizacao) {
-                timeline.push({ evento: 'Produção finalizada', data: item.data_finalizacao, status: 'producao_finalizada' });
-            }
             
             console.log(`✅ Histórico do item ${id_item_pedido} obtido`);
             res.json({
@@ -276,35 +240,52 @@ module.exports = (pool) => {
         }
     });
 
-    // PUT - Atualizar especificações do item (para ajustes de produção)
-    router.put('/item/:id_item_pedido/especificacoes', async (req, res) => {
+    // PUT - Atualizar informações do item (modelo, cores, etc.)
+    router.put('/item/:id_item_pedido/detalhes', async (req, res) => {
         const { id_item_pedido } = req.params;
-        const { especificacoes, observacoes_producao } = req.body;
+        const { 
+            modelo, 
+            tamanho, 
+            cor_tecido, 
+            cor_logo, 
+            cor_argola, 
+            cor_presilha, 
+            valor, 
+            quantidade,
+            imagem 
+        } = req.body;
         
         try {
-            console.log(`🔧 Atualizando especificações do item ${id_item_pedido}`);
+            console.log(`🔧 Atualizando detalhes do item ${id_item_pedido}`);
             
             const result = await pool.query(`
                 UPDATE pedidos_itens 
-                SET especificacoes = $1,
-                    observacoes_producao = COALESCE($2, observacoes_producao)
-                WHERE id_item_pedido = $3
+                SET modelo = COALESCE($1, modelo),
+                    tamanho = COALESCE($2, tamanho),
+                    cor_tecido = COALESCE($3, cor_tecido),
+                    cor_logo = COALESCE($4, cor_logo),
+                    cor_argola = COALESCE($5, cor_argola),
+                    cor_presilha = COALESCE($6, cor_presilha),
+                    valor = COALESCE($7, valor),
+                    quantidade = COALESCE($8, quantidade),
+                    imagem = COALESCE($9, imagem)
+                WHERE id_item_pedido = $10
                 RETURNING *
-            `, [JSON.stringify(especificacoes), observacoes_producao, id_item_pedido]);
+            `, [modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, valor, quantidade, imagem, id_item_pedido]);
             
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Item do pedido não encontrado' });
             }
             
-            console.log(`✅ Especificações do item ${id_item_pedido} atualizadas`);
+            console.log(`✅ Detalhes do item ${id_item_pedido} atualizados`);
             res.json({
-                message: 'Especificações atualizadas com sucesso',
+                message: 'Detalhes do item atualizados com sucesso',
                 item: result.rows[0]
             });
             
         } catch (err) {
-            console.error('❌ Erro ao atualizar especificações:', err.message);
-            res.status(500).json({ error: 'Erro ao atualizar especificações' });
+            console.error('❌ Erro ao atualizar detalhes do item:', err.message);
+            res.status(500).json({ error: 'Erro ao atualizar detalhes do item' });
         }
     });
 

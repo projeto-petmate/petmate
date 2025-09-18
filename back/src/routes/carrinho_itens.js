@@ -60,6 +60,7 @@ module.exports = (pool) => {
       cor_presilha,
       valor,
       quantidade = 1,
+      imagem,
     } = req.body;
 
     try {
@@ -72,6 +73,7 @@ module.exports = (pool) => {
         cor_argola,
         cor_presilha,
         quantidade,
+        imagem,
       });
 
       // Verificar se o carrinho existe
@@ -86,8 +88,8 @@ module.exports = (pool) => {
 
       const result = await pool.query(
         `
-                INSERT INTO carrinho_itens (id_carrinho, modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, valor, quantidade)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                INSERT INTO carrinho_itens (id_carrinho, modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, valor, quantidade, imagem)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
                 RETURNING *, (valor * quantidade) as subtotal
             `,
         [
@@ -100,6 +102,7 @@ module.exports = (pool) => {
           cor_presilha,
           valor,
           quantidade,
+          imagem,
         ]
       );
 
@@ -140,6 +143,7 @@ module.exports = (pool) => {
       cor_presilha,
       valor,
       quantidade,
+      imagem,
     } = req.body;
 
     try {
@@ -155,8 +159,9 @@ module.exports = (pool) => {
                     cor_argola = COALESCE($5, cor_argola),
                     cor_presilha = COALESCE($6, cor_presilha),
                     valor = COALESCE($7, valor),
-                    quantidade = COALESCE($8, quantidade)
-                WHERE id_item = $9
+                    quantidade = COALESCE($8, quantidade),
+                    imagem = COALESCE($9, imagem)
+                WHERE id_item = $10
                 RETURNING *, (valor * quantidade) as subtotal
             `,
         [
@@ -168,6 +173,7 @@ module.exports = (pool) => {
           cor_presilha,
           valor,
           quantidade,
+          imagem,
           id_item,
         ]
       );
@@ -283,6 +289,59 @@ module.exports = (pool) => {
       res.status(500).json({ error: "Erro ao buscar resumo do carrinho" });
     }
   });
+
+
+// GET - Quantidade de itens do carrinho pelo id_usuario ou id_ong
+router.get("/quantidade", async (req, res) => {
+  const { id_usuario, id_ong } = req.query;
+
+  if (!id_usuario && !id_ong) {
+    return res.status(400).json({ error: "Informe id_usuario ou id_ong" });
+  }
+
+  if (id_usuario && id_ong) {
+    return res.status(400).json({ error: "Informe apenas id_usuario OU id_ong, não ambos" });
+  }
+
+  try {
+    // Buscar o carrinho pelo id_usuario ou id_ong
+    let carrinhoQuery = "SELECT id_carrinho FROM carrinhos WHERE ";
+    let param;
+    
+    if (id_usuario) {
+      carrinhoQuery += "id_usuario = $1";
+      param = id_usuario;
+    } else {
+      carrinhoQuery += "id_ong = $1";
+      param = id_ong;
+    }
+
+    const carrinhoResult = await pool.query(carrinhoQuery, [param]);
+    
+    if (carrinhoResult.rows.length === 0) {
+      return res.json({ quantidade: 0, carrinho_existe: false });
+    }
+
+    const id_carrinho = carrinhoResult.rows[0].id_carrinho;
+
+    // Contar os itens do carrinho
+    const itensResult = await pool.query(
+      "SELECT COUNT(*) AS quantidade FROM carrinho_itens WHERE id_carrinho = $1",
+      [id_carrinho]
+    );
+
+    res.json({ 
+      quantidade: parseInt(itensResult.rows[0].quantidade, 10),
+      carrinho_existe: true,
+      id_carrinho: id_carrinho
+    });
+    
+  } catch (err) {
+    console.error("Erro ao buscar quantidade de itens:", err.message);
+    res.status(500).json({ error: "Erro ao buscar quantidade de itens" });
+  }
+});
+
 
   return router;
 };

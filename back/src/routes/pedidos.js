@@ -312,8 +312,8 @@ module.exports = (pool) => {
       // 3. Transferir itens do carrinho para o pedido
       await pool.query(
         `
-            INSERT INTO pedidos_itens (id_pedido, valor, modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, quantidade)
-            SELECT $1, ci.valor, ci.modelo, ci.tamanho, ci.cor_tecido, ci.cor_logo, ci.cor_argola, ci.cor_presilha, ci.quantidade
+            INSERT INTO pedidos_itens (id_pedido, valor, modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, quantidade, imagem)
+            SELECT $1, ci.valor, ci.modelo, ci.tamanho, ci.cor_tecido, ci.cor_logo, ci.cor_argola, ci.cor_presilha, ci.quantidade, ci.imagem
             FROM carrinho_itens ci
             WHERE ci.id_carrinho = $2
         `,
