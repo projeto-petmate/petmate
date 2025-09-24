@@ -346,7 +346,38 @@ a {
 
     }
 
+    .carrinho-container {
+        display: flex;
+        gap: 8px;
+    }
+
     .icon-carrinho{
         color: #F5F5F5;
         font-size: 40px;
+    }
+
+    .container-badge-carrinho {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: orange;
+        border-radius: 50%;
+        height: 2.5rem;
+        width: 2.5rem;
+        /* cursor: pointer; */
+        text-decoration: none;
+    }
+
+    .container-badge-carrinho span {
+        text-decoration: none;
+    }
+
+    .badge-carrinho {
+        /* color: #94725a; */
+
+        /* padding: 5px; */
+        border: none;
+        font-size: 1.65rem;
+        text-decoration: none;
+
     }

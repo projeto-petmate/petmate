@@ -514,6 +514,9 @@ export const deleteItemCarrinho = async (id_item) => {
     }
 };
 
+// Alias para deleteItemCarrinho
+export const removeItemCarrinho = deleteItemCarrinho;
+
 // PEDIDOS - Pedidos finalizados
 export const getPedidos = async (filtros = {}) => {
     try {
@@ -674,18 +677,29 @@ export const updateEspecificacoesPedidoItem = async (id_item_pedido, especificac
 
 export const getQuantidadeItensCarrinho = async ({ id_usuario = null, id_ong = null }) => {
     try {
-        const query = [];
-        if (id_usuario) query.push(`id_usuario=${id_usuario}`);
-        if (id_ong) query.push(`id_ong=${id_ong}`);
-        const url = `/carrinho-itens/quantidade${query.length ? `?${query.join('&')}` : ''}`;
-        const response = await api.get(url);
-        return response.data.quantidade || 0;
+        
+        const carrinhos = await getCarrinhos(id_usuario, id_ong);
+        
+        if (!carrinhos || carrinhos.length === 0) {
+            return 0;
+        }
+        
+        const carrinhoAtivo = carrinhos.find(c => c.status === 'ativo' || c.status === 'aberto');
+        if (!carrinhoAtivo) {
+            return 0;
+        }
+        
+        const itens = await getCarrinhoItens(carrinhoAtivo.id_carrinho);
+        
+        const quantidade = Array.isArray(itens) ? itens.length : 0;
+        
+        return quantidade;
+        
     } catch (error) {
-        console.error('Erro ao buscar quantidade de itens do carrinho:', error.response ? error.response.data : error.message);
+        console.error('❌ apiService: Erro ao buscar quantidade de itens:', error);
         return 0;
     }
 };
-
 
 /**
  * Converte uma string base64 em um arquivo Blob e faz upload para o servidor

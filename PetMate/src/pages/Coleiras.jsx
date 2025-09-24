@@ -28,16 +28,16 @@ function Coleiras() {
           <img src="/images/banner-coleiraEditar.svg" className='banner-coleiras' />
         </div>
 
-        <div className="titulo-coleiras">
+        {/* <div className="titulo-coleiras">
           <h2>Coleiras para pets</h2>
           <p>Encontre ou personalize uma coleira para seu companheiro!</p>
-        </div>
-
+        </div> */}
+{/* 
         <div className="carrossel-coleiras">
           <Suspense fallback={<div>Carregando visualizador 3D...</div>}>
             <ColeiraModelo />
           </Suspense>
-        </div>
+        </div> */}
 
         <div className="personalizar-coleira">
           <ModalPersonalizarColeira />

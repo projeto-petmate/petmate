@@ -68,7 +68,7 @@ function traduzirColeiraParaMaquina(item) {
       case "bronze":
         return 3;
       default:
-        return 1; // padrão dourado
+        return 1;
     }
   };
 
@@ -85,7 +85,7 @@ function traduzirColeiraParaMaquina(item) {
       case "g":
         return 3;
       default:
-        return 2; // padrão médio
+        return 2;
     }
   };
 
@@ -156,9 +156,6 @@ async function enviarParaMaquinaIoT(dadosMaquina) {
 }
 
 module.exports = (pool) => {
-  // ===============================================
-  // PEDIDOS - Pedidos finalizados
-  // ===============================================
 
   // GET - Listar pedidos com filtros
   router.get("/", async (req, res) => {
@@ -252,7 +249,6 @@ module.exports = (pool) => {
     }
   });
 
-  // POST - Finalizar carrinho criando pedido
   // POST - Finalizar carrinho criando pedido e enviar para a máquina
   router.post("/finalizar-carrinho/:id_carrinho", async (req, res) => {
     const { id_carrinho } = req.params;

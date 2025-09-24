@@ -1,0 +1,124 @@
+.card-item-carrinho {
+    border: solid 1px #ddd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+    border-radius: 14px;
+    gap: 15px;
+    padding: 15px;
+    width: 100%;
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-item-carrinho:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-item-carrinho img {
+    max-height: 200px;
+    max-width: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder-imagem {
+    width: 150px;
+    height: 150px;
+    background-color: #ddd;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+}
+
+.nome-preco-item {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.nome-preco-item b {
+    font-size: 16px;
+    color: #84644D;
+    font-family: 'Raleway';
+    font-weight: 800;
+}
+
+.nome-preco-item > span {
+    font-size: 14px;
+    color: #654833;
+    /* font-family: 'Open Sans'; */
+    font-weight: 600;
+}
+
+.detalhes-item {
+    font-size: 12px !important;
+    color: #888 !important;
+    font-weight: 500 !important;
+    margin-top: 2px;
+}
+
+.cores-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 8px;
+    padding: 8px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+}
+
+.cores-item span {
+    font-size: 11px !important;
+    color: #666 !important;
+    font-weight: 400 !important;
+    text-transform: capitalize;
+}
+
+.container-qtd-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #654833;
+    padding: 8px 12px;
+    border-radius: 14px;
+    background-color: #F3F0ED;
+    color: #654833;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-qtd {
+    background: none;
+    border: none;
+    color: #654833;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+/* .btn-qtd:hover {
+    background-color: #84644D;
+    color: white;
+    transform: scale(1.1);
+} */
+
+.btn-qtd:active {
+    transform: scale(0.95);
+}

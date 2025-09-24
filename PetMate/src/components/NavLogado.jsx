@@ -17,28 +17,22 @@ function NavLogado() {
     return fullName.split(' ')[0];
   };
 
-useEffect(() => {
+  useEffect(() => {
     const buscarQtdItensCarrinho = async () => {
       if (!userLogado) return;
 
       try {
-        let response = null;
-        
-        if (userLogado.tipo === 'usuario') {
-          const id_req = userLogado.id_usuario;
-          response = await getQuantidadeItensCarrinho({ id_usuario: id_req });
-        } else if (userLogado.tipo === 'ong') {
-          const id_req = userLogado.id_ong;
-          response = await getQuantidadeItensCarrinho({ id_ong: id_req });
-        }
-        
-        // Extrair a quantidade do objeto de resposta
-        const qtd = response?.quantidade || 0;
+        const response = await getQuantidadeItensCarrinho({
+          id_usuario: userLogado?.id_usuario || null,
+          id_ong: userLogado?.id_ong || null
+        });
+
+
+        const qtd = response || 0;
+
         setQtdItens(qtd);
-        
-        console.log('Quantidade de itens no carrinho:', qtd);
+
       } catch (error) {
-        console.error('Erro ao buscar quantidade de itens:', error);
         setQtdItens(0);
       }
     };
@@ -46,7 +40,7 @@ useEffect(() => {
     buscarQtdItensCarrinho();
   }, [userLogado]);
 
-  
+
 
   const userName = userLogado?.tipo === 'ong'
     ? userLogado.nome_ong
@@ -78,11 +72,15 @@ useEffect(() => {
 
         <div className="carrinho-container">
           <Link to="/carrinho">
-            <FiShoppingCart className='icon-carrinho'/>
+            <FiShoppingCart className='icon-carrinho' />
           </Link>
-          {qtdItens > 0 && (
-            <span className="badge-carrinho">{qtdItens}</span>
-          )}
+          {/* <Link to="/carrinho"> */}
+            {qtdItens > 0 && (
+              <div className="container-badge-carrinho" title='Quantidade de itens no carrinho'>
+                <span className="badge-carrinho">{qtdItens}</span>
+              </div>
+            )}
+          {/* </Link> */}
         </div>
       </>
 

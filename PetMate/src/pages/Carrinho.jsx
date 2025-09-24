@@ -1,9 +1,10 @@
 import './Carrinho.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import CardItemCarrinho from '../components/CardItemCarrinho';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho } from '../apiService';
+import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho } from '../apiService';
 import Swal from 'sweetalert2';
 
 export default function Carrinho() {
@@ -18,22 +19,91 @@ export default function Carrinho() {
   useEffect(() => {
     const fetchCarrinhoItens = async () => {
 
-      // Buscar carrinho aberto
       const carrinhos = await getCarrinhos(id_usuario, id_ong);
       const carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto' || c.status === 'ativo') : null;
       if (!carrinho) return;
 
       setCarrinhoAtual(carrinho);
 
-      // Buscar itens do carrinho
       const itensCarrinho = await getCarrinhoItens(carrinho.id_carrinho || carrinho.id);
       setItens(itensCarrinho);
-      // Calcular subtotal
       const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
     };
     fetchCarrinhoItens();
   }, [userLogado]);
+
+  const handleQuantidadeChange = async (id_item, novaQuantidade) => {
+    try {
+      await updateItemCarrinho(id_item, { quantidade: novaQuantidade });
+      
+      setItens(prevItens => 
+        prevItens.map(item => 
+          item.id_item === id_item 
+            ? { ...item, quantidade: novaQuantidade }
+            : item
+        )
+      );
+      
+      const novosItens = itens.map(item => 
+        item.id_item === id_item 
+          ? { ...item, quantidade: novaQuantidade }
+          : item
+      );
+      const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
+      setSubtotal(total);
+      
+    } catch (error) {
+      console.error('Erro ao atualizar quantidade:', error);
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Não foi possível atualizar a quantidade.',
+        icon: 'error',
+        confirmButtonColor: '#84644D'
+      });
+    }
+  };
+
+  const handleRemoverItem = async (id_item) => {
+    try {
+      const result = await Swal.fire({
+        title: 'Remover item?',
+        text: "Tem certeza que deseja remover este item do carrinho?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#84644D  ',
+        cancelButtonColor: '#84644D',
+        confirmButtonText: 'Remover',
+        cancelButtonText: 'Cancelar'
+      });
+
+      if (result.isConfirmed) {
+        await removeItemCarrinho(id_item);
+        
+        setItens(prevItens => prevItens.filter(item => item.id_item !== id_item));
+        
+        const novosItens = itens.filter(item => item.id_item !== id_item);
+        const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
+        setSubtotal(total);
+
+        Swal.fire({
+          title: 'Removido!',
+          text: 'Item removido do carrinho.',
+          icon: 'success',
+          confirmButtonColor: '#84644D',
+          timer: 2000
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao remover item:', error);
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Não foi possível remover o item.',
+        icon: 'error',
+        confirmButtonColor: '#84644D'
+      });
+    }
+  };
 
   const fecharPedido = async () => {
     if (!carrinhoAtual) {
@@ -130,15 +200,16 @@ export default function Carrinho() {
       cor_argola: 'prata',
       cor_presilha: 'azul',
       valor: '30.00',
+      imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758221130/pets/fyif1bleoxl99dl8ig0e.png',
       quantidade: 1
     };
 
     await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item)
   }
   return (
-    <div>
+    <div className='container-carrinho'>
       <Navbar />
-      <div className="container-carrinho">
+      <div>
         <div className="banner-coleiras">
           <img src="/images/banner-coleiraCarrinho.svg" className='banner-coleiras' />
         </div>
@@ -148,22 +219,22 @@ export default function Carrinho() {
         </div>
 
         <div className="container-produtos">
-          <div className="produtosAdicionados">
+          <div className="produtos-adicionados">
             <h2>Produtos adicionados</h2>
+            
             {itens.length === 0 ? (
               <p>Nenhum produto no carrinho.</p>
             ) : (
-              <ul>
+              <div className="container-cards-itens">
                 {itens.map(item => (
-                  <li key={item.id_item} style={{ marginBottom: 12 }}>
-                    <b>Coleira personalizada</b><br />
-                    <span>Modelo: {item.modelo}</span> | <span>Tamanho: {item.tamanho}</span><br />
-                    <span>Cor do tecido: {item.cor_tecido}</span> | <span>Cor da logo: {item.cor_logo}</span><br />
-                    <span>Cor da argola: {item.cor_argola}</span> | <span>Cor da presilha: {item.cor_presilha}</span><br />
-                    <span>Quantidade: {item.quantidade}</span> | <span>Valor: R${item.valor}</span>
-                  </li>
+                  <CardItemCarrinho 
+                    key={item.id_item}
+                    item={item}
+                    onQuantidadeChange={handleQuantidadeChange}
+                    onRemover={handleRemoverItem}
+                  />
                 ))}
-              </ul>
+              </div>
             )}
           </div>
           <div className="subtotal">
