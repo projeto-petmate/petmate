@@ -691,9 +691,11 @@ export const getQuantidadeItensCarrinho = async ({ id_usuario = null, id_ong = n
         
         const itens = await getCarrinhoItens(carrinhoAtivo.id_carrinho);
         
-        const quantidade = Array.isArray(itens) ? itens.length : 0;
+        const quantidadeTotal = Array.isArray(itens) 
+            ? itens.reduce((total, item) => total + (item.quantidade || 0), 0)
+            : 0;
         
-        return quantidade;
+        return quantidadeTotal;
         
     } catch (error) {
         console.error('❌ apiService: Erro ao buscar quantidade de itens:', error);
@@ -711,12 +713,10 @@ export const uploadColeiraScreenshot = async (base64String, filename = 'coleira-
     try {
         console.log('🖼️ Iniciando upload de screenshot da coleira...');
         
-        // Verificar se o base64 está no formato correto
         if (!base64String || typeof base64String !== 'string') {
             throw new Error('Base64 string inválida ou vazia');
         }
         
-        // Garantir que tem o prefixo data:image/
         let processedBase64 = base64String;
         if (!base64String.startsWith('data:image/')) {
             processedBase64 = `data:image/png;base64,${base64String}`;
@@ -724,7 +724,6 @@ export const uploadColeiraScreenshot = async (base64String, filename = 'coleira-
         
         console.log('📏 Tamanho do base64:', processedBase64.length);
         
-        // Converte base64 para blob
         const response = await fetch(processedBase64);
         const blob = await response.blob();
         
@@ -737,7 +736,6 @@ export const uploadColeiraScreenshot = async (base64String, filename = 'coleira-
             throw new Error('Blob vazio - screenshot pode estar corrompido');
         }
         
-        // Criar arquivo a partir do blob
         const file = new File([blob], filename, { 
             type: blob.type || 'image/png',
             lastModified: Date.now()
@@ -749,7 +747,6 @@ export const uploadColeiraScreenshot = async (base64String, filename = 'coleira-
             type: file.type
         });
         
-        // Usar a mesma função de upload dos pets (que já funciona)
         const imageUrl = await uploadPetImage(file);
         
         console.log('✅ Upload concluído:', imageUrl);

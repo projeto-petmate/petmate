@@ -4,11 +4,11 @@ import Footer from '../components/Footer';
 import CardItemCarrinho from '../components/CardItemCarrinho';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho } from '../apiService';
+import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho, getQuantidadeItensCarrinho } from '../apiService';
 import Swal from 'sweetalert2';
 
 export default function Carrinho() {
-  const { userLogado } = useContext(GlobalContext);
+  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho } = useContext(GlobalContext);
   const [itens, setItens] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [carrinhoAtual, setCarrinhoAtual] = useState(null);
@@ -21,7 +21,10 @@ export default function Carrinho() {
 
       const carrinhos = await getCarrinhos(id_usuario, id_ong);
       const carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto' || c.status === 'ativo') : null;
-      if (!carrinho) return;
+      if (!carrinho) {
+        setQtdItensCarrinho(0);
+        return;
+      }
 
       setCarrinhoAtual(carrinho);
 
@@ -29,12 +32,19 @@ export default function Carrinho() {
       setItens(itensCarrinho);
       const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
+      
+      // Atualizar badge com quantidade total de itens
+      const qtdTotal = itensCarrinho.reduce((acc, item) => acc + (item.quantidade || 0), 0);
+      setQtdItensCarrinho(qtdTotal);
     };
     fetchCarrinhoItens();
-  }, [userLogado]);
+  }, [userLogado, setQtdItensCarrinho]);
 
   const handleQuantidadeChange = async (id_item, novaQuantidade) => {
     try {
+      const itemAtual = itens.find(item => item.id_item === id_item);
+      const diferencaQuantidade = novaQuantidade - itemAtual.quantidade;
+      
       await updateItemCarrinho(id_item, { quantidade: novaQuantidade });
       
       setItens(prevItens => 
@@ -52,6 +62,8 @@ export default function Carrinho() {
       );
       const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
+      
+      setQtdItensCarrinho(qtdItensCarrinho + diferencaQuantidade);
       
     } catch (error) {
       console.error('Erro ao atualizar quantidade:', error);
@@ -78,6 +90,8 @@ export default function Carrinho() {
       });
 
       if (result.isConfirmed) {
+        const itemRemovido = itens.find(item => item.id_item === id_item);
+        
         await removeItemCarrinho(id_item);
         
         setItens(prevItens => prevItens.filter(item => item.id_item !== id_item));
@@ -85,6 +99,10 @@ export default function Carrinho() {
         const novosItens = itens.filter(item => item.id_item !== id_item);
         const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
         setSubtotal(total);
+
+        if (itemRemovido) {
+          setQtdItensCarrinho(qtdItensCarrinho - itemRemovido.quantidade);
+        }
 
         Swal.fire({
           title: 'Removido!',
@@ -162,10 +180,11 @@ export default function Carrinho() {
           confirmButtonColor: '#84644D'
         });
 
-        // Limpar o carrinho da interface
         setItens([]);
         setSubtotal(0);
         setCarrinhoAtual(null);
+        
+        setQtdItensCarrinho(0);
 
       } catch (error) {
         console.error('Erro ao finalizar carrinho:', error);
@@ -194,7 +213,7 @@ export default function Carrinho() {
     }
     const item = {
       modelo: 'Peitoral',
-      tamanho: 'P',
+      tamanho: 'Pequena',
       cor_tecido: 'preto',
       cor_logo: 'azul',
       cor_argola: 'prata',
@@ -204,8 +223,14 @@ export default function Carrinho() {
       quantidade: 1
     };
 
-    await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item)
+    await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
+    
+    setQtdItensCarrinho(qtdItensCarrinho + 1);
   }
+
+
+
+
   return (
     <div className='container-carrinho'>
       <Navbar />
@@ -239,10 +264,11 @@ export default function Carrinho() {
           </div>
           <div className="subtotal">
             <div className="container-teste">
-              <button onClick={itemTeste}>Teste</button>
+              {/* <button onClick={itemTeste}>Teste Item</button> */}
             </div>
-            <p>Subtotal ({itens.length} produtos):<br />
-              R$ {subtotal.toFixed(2)}
+            <p>
+              Subtotal:
+              R$ {subtotal.toFixed(2)} ({itens.length} produtos)
             </p>
             {itens.length > 0 && (
               <button

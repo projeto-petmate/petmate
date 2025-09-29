@@ -12,92 +12,14 @@ import { getCarrinhos, addCarrinho, addItemCarrinho, uploadColeiraScreenshot, up
 
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
-    const { setAplicarCoresCallback, userLogado } = useContext(GlobalContext);
+    const { setAplicarCoresCallback, userLogado, qtdItensCarrinho, setQtdItensCarrinho } = useContext(GlobalContext);
     const [arquivoTeste, setArquivoTeste] = useState(null);
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
     const [abrirAviso, setAbrirAviso] = useState(false)
     const [modalCoresOpen, setModalCoresOpen] = useState(false);
-
-    const handleFecharAviso = (confirmado) => {
-        setAbrirAviso(false);
-
-        if (confirmado) {
-            console.log('Coleira finalizada:', coleira);
-
-            adicionarAoCarrinho(coleira);
-            onClose();
-        } else {
-            console.log('Usuário cancelou a finalização');
-        }
-    }
-
-   const adicionarAoCarrinho = async (coleira) => {
-    try {
-        const id_usuario = userLogado?.id_usuario || null;
-        const id_ong = userLogado?.id_ong || null;
-
-        if (!id_usuario && !id_ong) {
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
-                icon: 'error',
-                confirmButtonColor: '#84644D'
-            });
-            return;
-        }
-
-        // Buscar carrinho aberto do usuário ou ONG
-        let carrinhos = await getCarrinhos(id_usuario || id_ong);
-        let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
-
-        // Se não existir, criar um novo
-        if (!carrinho) {
-            carrinho = await addCarrinho({
-                id_usuario: id_usuario,
-                id_ong: id_ong,
-                valor_total: 0
-            });
-        }
-
-        // Montar item do carrinho
-        const item = {
-            modelo: coleira.modelo,
-            tamanho: coleira.tamanho,
-            cor_tecido: coleira.corTecido,
-            cor_logo: coleira.corLogo,
-            cor_argola: coleira.corArgola,
-            cor_presilha: coleira.corPresilha,
-            valor: coleira.valor,
-            quantidade: 1
-        };
-
-        // Adicionar item ao carrinho
-        await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
-
-        Swal.fire({
-            title: 'Sucesso!',
-            text: 'Coleira adicionada ao carrinho com sucesso!',
-            icon: 'success',
-            confirmButtonColor: '#84644D',
-            customClass: {
-                popup: 'swal-petmate-popup'
-            }
-        });
-
-    } catch (error) {
-        console.error('Erro ao adicionar ao carrinho:', error);
-        Swal.fire({
-            title: 'Erro!',
-            text: 'Não foi possível adicionar a coleira ao carrinho.',
-            icon: 'error',
-            confirmButtonColor: '#84644D'
-        });
-    }
-}
-
-
     const [modeloKey, setModeloKey] = useState(0);
+
     const [coleira, setColeira] = useState({
         modelo: 'Pescoço',
         tamanho: '',
@@ -158,149 +80,151 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
     if (!open) return null
 
 
-const handleFecharAviso = (confirmado) => {
-    setAbrirAviso(false);
+    const handleFecharAviso = (confirmado) => {
+        setAbrirAviso(false);
 
-    if (confirmado) {
-        console.log('Coleira finalizada:', coleira);
-        
-        adicionarAoCarrinho(coleira).then(() => {
-            onClose();
-        }).catch((error) => {
-            console.error('Erro ao adicionar ao carrinho:', error);
-            onClose();
-        });
-    } else {
-        console.log('Usuário cancelou a finalização');
-    }
-}
+        if (confirmado) {
+            console.log('Coleira finalizada:', coleira);
 
-
-const adicionarAoCarrinho = async (coleira) => {
-    
-    try {
-        const id_usuario = userLogado?.id_usuario || null;
-        const id_ong = userLogado?.id_ong || null;
-
-        if (!id_usuario && !id_ong) {
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
-                icon: 'error',
-                confirmButtonColor: '#84644D'
+            adicionarAoCarrinho(coleira).then(() => {
+                onClose();
+            }).catch((error) => {
+                console.error('Erro ao adicionar ao carrinho:', error);
+                onClose();
             });
-            return;
-        }
-
-        let imagemColeiraUrl = null;
-
-        if (coleiraModeloRef.current) {
-            try {               
-                const imagemBase64 = await coleiraModeloRef.current.captureWithFixedCamera();
-                
-                if (imagemBase64) {
-                    Swal.fire({
-                        title: 'Salvando coleira personalizada...',
-                        text: 'Salvando imagem da personalização',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-
-                    imagemColeiraUrl = await uploadColeiraScreenshot(
-                        imagemBase64, 
-                        `coleira-${coleira.modelo}-${Date.now()}.png`
-                    );
-
-                    console.log('Imagem enviada ao Cloudinary:', imagemColeiraUrl);
-                } else {
-                    console.warn(' Screenshot retornou vazio');
-                }
-                
-            } catch (captureError) {
-                console.error('Erro na captura/upload:', captureError);
-            }
         } else {
-            console.warn('Referência do modelo 3D não encontrada');
+            console.log('Usuário cancelou a finalização');
         }
+    }
 
-        Swal.fire({
-            title: 'Adicionando ao carrinho...',
-            text: 'Finalizando processo',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-                Swal.showLoading();
+
+    const adicionarAoCarrinho = async (coleira) => {
+
+        try {
+            const id_usuario = userLogado?.id_usuario || null;
+            const id_ong = userLogado?.id_ong || null;
+
+            if (!id_usuario && !id_ong) {
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Usuário ou ONG não identificado. Faça login para adicionar ao carrinho.',
+                    icon: 'error',
+                    confirmButtonColor: '#84644D'
+                });
+                return;
             }
-        });
 
-        console.log('🛒 Processando carrinho...');
+            let imagemColeiraUrl = null;
 
-        let carrinhos = await getCarrinhos(id_usuario, id_ong);
-        let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
+            if (coleiraModeloRef.current) {
+                try {
+                    const imagemBase64 = await coleiraModeloRef.current.captureWithFixedCamera();
 
-        if (!carrinho) {
-            console.log('🆕 Criando novo carrinho...');
-            carrinho = await addCarrinho({
-                id_usuario: id_usuario,
-                id_ong: id_ong,
-                valor_total: 0
+                    if (imagemBase64) {
+                        Swal.fire({
+                            title: 'Salvando coleira personalizada...',
+                            text: 'Salvando imagem da personalização',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        imagemColeiraUrl = await uploadColeiraScreenshot(
+                            imagemBase64,
+                            `coleira-${coleira.modelo}-${Date.now()}.png`
+                        );
+
+                        console.log('Imagem enviada ao Cloudinary:', imagemColeiraUrl);
+                    } else {
+                        console.warn(' Screenshot retornou vazio');
+                    }
+
+                } catch (captureError) {
+                    console.error('Erro na captura/upload:', captureError);
+                }
+            } else {
+                console.warn('Referência do modelo 3D não encontrada');
+            }
+
+            Swal.fire({
+                title: 'Adicionando ao carrinho...',
+                text: 'Finalizando processo',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
             });
-        }
 
-        const id_carrinho = carrinho.id_carrinho || carrinho.id;
+            console.log('🛒 Processando carrinho...');
 
-        const item = {
-            modelo: coleira.modelo,
-            tamanho: coleira.tamanho,
-            cor_tecido: coleira.corTecido,
-            cor_logo: coleira.corLogo,
-            cor_argola: coleira.corArgola,
-            cor_presilha: coleira.corPresilha,
-            valor: coleira.valor,
-            quantidade: 1,
-            imagem: imagemColeiraUrl
-        };
+            let carrinhos = await getCarrinhos(id_usuario, id_ong);
+            let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
 
-        await addItemCarrinho(id_carrinho, item);
+            if (!carrinho) {
+                console.log('🆕 Criando novo carrinho...');
+                carrinho = await addCarrinho({
+                    id_usuario: id_usuario,
+                    id_ong: id_ong,
+                    valor_total: 0
+                });
+            }
 
-        console.log('✅ Item adicionado ao carrinho com sucesso!');
+            const id_carrinho = carrinho.id_carrinho || carrinho.id;
 
-        Swal.fire({
-            title: 'Sucesso!',
-            html: `
+            const item = {
+                modelo: coleira.modelo,
+                tamanho: coleira.tamanho,
+                cor_tecido: coleira.corTecido,
+                cor_logo: coleira.corLogo,
+                cor_argola: coleira.corArgola,
+                cor_presilha: coleira.corPresilha,
+                valor: coleira.valor,
+                quantidade: 1,
+                imagem: imagemColeiraUrl
+            };
+
+            await addItemCarrinho(id_carrinho, item);
+
+            console.log('✅ Item adicionado ao carrinho com sucesso!');
+
+            // Update cart quantity in context for instant badge update
+            setQtdItensCarrinho(qtdItensCarrinho + 1);
+
+            Swal.fire({
+                title: 'Sucesso!',
+                html: `
                 <div style="text-align: center;">
                     <p><strong>Coleira adicionada ao carrinho!</strong></p>
                 </div>
             `,
-            icon: 'success',
-            confirmButtonColor: '#84644D',
-            timer: 5000,
-            timerProgressBar: true
-        });
+                icon: 'success',
+                confirmButtonColor: '#84644D',
+                timer: 5000,
+                timerProgressBar: true
+            });
 
-    } catch (error) {
-        console.error('❌ ERRO GERAL:', error);
-        
-        Swal.close();
-        
-        Swal.fire({
-            title: 'Erro!',
-            text: `Não foi possível adicionar a coleira ao carrinho: ${error.message}`,
-            icon: 'error',
-            confirmButtonColor: '#84644D'
-        });
-    }
-};
+        } catch (error) {
+            console.error('❌ ERRO GERAL:', error);
 
-// ...existing code...
+            Swal.close();
 
-    // Versão melhorada do teste que usa o base64 da captura real
+            Swal.fire({
+                title: 'Erro!',
+                text: `Não foi possível adicionar a coleira ao carrinho: ${error.message}`,
+                icon: 'error',
+                confirmButtonColor: '#84644D'
+            });
+        }
+    };
+
     const testarUploadComCaptura = async () => {
         try {
+
             if (!coleiraModeloRef.current) {
+                console.error('❌ Referência do modelo 3D não encontrada');
                 Swal.fire({
                     title: 'Erro!',
                     text: 'Modelo 3D não disponível.',
@@ -312,7 +236,7 @@ const adicionarAoCarrinho = async (coleira) => {
 
             Swal.fire({
                 title: 'Testando captura + upload...',
-                text: 'Capturando screenshot e enviando para servidor',
+                text: 'Executando teste isolado...',
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 didOpen: () => {
@@ -320,35 +244,92 @@ const adicionarAoCarrinho = async (coleira) => {
                 }
             });
 
-            // 1. Capturar screenshot
-            console.log('🔍 Capturando screenshot para teste...');
+            console.log('📸 ETAPA 1: Capturando screenshot...');
+            console.log('🔍 Referência existe?', !!coleiraModeloRef.current);
+            console.log('🔍 Função disponível?', typeof coleiraModeloRef.current.captureWithFixedCamera);
+
             const imagemBase64 = await coleiraModeloRef.current.captureWithFixedCamera();
 
-            if (!imagemBase64) {
-                throw new Error('Falha na captura do screenshot');
-            }
-
-            console.log('✅ Screenshot capturado:', {
-                length: imagemBase64.length,
-                type: typeof imagemBase64,
-                startsWithData: imagemBase64.startsWith('data:')
+            console.log('📊 RESULTADO DA CAPTURA:', {
+                capturou: !!imagemBase64,
+                tipo: typeof imagemBase64,
+                tamanho: imagemBase64?.length || 0,
+                isDataUrl: imagemBase64?.startsWith('data:'),
+                primeiros50chars: imagemBase64?.substring(0, 50) || 'N/A'
             });
 
-            // 2. Tentar upload usando uploadColeiraScreenshot
-            console.log('🚀 Testando uploadColeiraScreenshot...');
-            const imageUrl = await uploadColeiraScreenshot(imagemBase64, `teste-captura-${Date.now()}.png`);
+            if (!imagemBase64) {
+                throw new Error('❌ Captura retornou null/undefined');
+            }
 
-            console.log('✅ Upload concluído:', imageUrl);
+            if (!imagemBase64.startsWith('data:image/')) {
+                throw new Error('❌ Captura não é uma data URL válida');
+            }
+
+            console.log('✅ CAPTURA: Sucesso!');
+
+            console.log('📤 ETAPA 2: Testando upload...');
+
+            Swal.update({
+                title: 'Enviando para Cloudinary...',
+                text: 'Testando função uploadColeiraScreenshot'
+            });
+
+            console.log('🔍 Função uploadColeiraScreenshot existe?', typeof uploadColeiraScreenshot);
+
+            const nomeArquivo = `teste-isolado-${Date.now()}.png`;
+            console.log('📁 Nome do arquivo:', nomeArquivo);
+            console.log('📦 Parâmetros do upload:', {
+                imagemTamanho: imagemBase64.length,
+                nomeArquivo: nomeArquivo,
+                imagemTipo: imagemBase64.substring(0, 20)
+            });
+
+            let imageUrl;
+            try {
+                console.log('🚀 Chamando uploadColeiraScreenshot...');
+                imageUrl = await uploadColeiraScreenshot(imagemBase64, nomeArquivo);
+                console.log('📥 Resposta do upload:', imageUrl);
+            } catch (uploadError) {
+                console.error('❌ ERRO NO UPLOAD:', uploadError);
+                console.error('📋 Detalhes completos do erro:', {
+                    message: uploadError.message,
+                    stack: uploadError.stack,
+                    response: uploadError.response,
+                    status: uploadError.response?.status,
+                    data: uploadError.response?.data
+                });
+                throw uploadError;
+            }
+
+            console.log('📊 RESULTADO DO UPLOAD:', {
+                sucesso: !!imageUrl,
+                url: imageUrl,
+                tipo: typeof imageUrl,
+                tamanho: imageUrl?.length || 0
+            });
+
+            if (!imageUrl) {
+                throw new Error('❌ Upload retornou URL vazia/null');
+            }
+
+            console.log('✅ UPLOAD: Sucesso!');
+            console.log('🧪 =========================');
+            console.log('🧪 TESTE COMPLETO: SUCESSO!');
+            console.log('🧪 =========================');
 
             Swal.fire({
-                title: 'Teste Completo Sucesso!',
+                title: 'Teste Completo: SUCESSO! ✅',
                 html: `
-                <div style="text-align: left; font-family: monospace; font-size: 12px;">
-                    <p><strong>✅ Captura 3D:</strong> Sucesso</p>
-                    <p><strong>✅ Upload:</strong> Sucesso</p>
-                    <p><strong>🔗 URL:</strong> <a href="${imageUrl}" target="_blank">${imageUrl}</a></p>
+                <div style="text-align: left; font-family: monospace; font-size: 12px; background: #f5f5f5; padding: 15px; border-radius: 8px;">
+                    <p><strong>✅ CAPTURA 3D:</strong> Sucesso</p>
+                    <p><strong>✅ UPLOAD:</strong> Sucesso</p>
+                    <p><strong>📏 Tamanho:</strong> ${imagemBase64.length} caracteres</p>
+                    <p><strong>🔗 URL:</strong></p>
+                    <p style="word-break: break-all; color: blue;">${imageUrl}</p>
                     <hr>
-                    <img src="${imageUrl}" style="max-width: 100%; max-height: 200px;" />
+                    <p><strong>🖼️ Preview:</strong></p>
+                    <img src="${imageUrl}" style="max-width: 100%; max-height: 200px; border-radius: 8px;" />
                 </div>
             `,
                 icon: 'success',
@@ -357,19 +338,27 @@ const adicionarAoCarrinho = async (coleira) => {
             });
 
         } catch (error) {
-            console.error('❌ Erro no teste completo:', error);
+            console.error('❌ =========================');
+            console.error('❌ TESTE FALHOU:', error.message);
+            console.error('❌ =========================');
+            console.error('📋 Stack trace completo:', error.stack);
 
             Swal.fire({
-                title: 'Erro no Teste!',
+                title: 'Teste FALHOU! ❌',
                 html: `
-                <div style="text-align: left; font-family: monospace; font-size: 12px;">
+                <div style="text-align: left; font-family: monospace; font-size: 12px; background: #ffe6e6; padding: 15px; border-radius: 8px;">
                     <p><strong>❌ Erro:</strong> ${error.message}</p>
-                    <p><strong>🔍 Stack:</strong> ${error.stack}</p>
+                    <p><strong>🔍 Tipo:</strong> ${error.constructor.name}</p>
+                    ${error.response ? `
+                        <p><strong>📡 Status HTTP:</strong> ${error.response.status}</p>
+                        <p><strong>📋 Resposta:</strong></p>
+                        <pre style="background: #f0f0f0; padding: 5px; border-radius: 4px; white-space: pre-wrap;">${JSON.stringify(error.response.data, null, 2)}</pre>
+                    ` : ''}
                 </div>
             `,
                 icon: 'error',
                 confirmButtonColor: '#84644D',
-                width: 600
+                width: 700
             });
         }
     };
@@ -466,14 +455,11 @@ const adicionarAoCarrinho = async (coleira) => {
         })
     }
 
-    // Função para testar captura de screenshot
     const testarCaptura = async () => {
         if (coleiraModeloRef.current) {
             try {
-                // Usar a nova função que reseta a câmera antes de capturar
                 const screenshot = await coleiraModeloRef.current.captureWithFixedCamera();
                 if (screenshot) {
-                    // Criar link de download
                     const link = document.createElement('a');
                     link.download = `coleira-preview-${coleira.modelo}-${Date.now()}.png`;
                     link.href = screenshot;
@@ -516,11 +502,19 @@ const adicionarAoCarrinho = async (coleira) => {
         }
     };
 
+    const debugColeira = async () => {
+        atualizarColeira("modelo", "Cabresto")
+        atualizarColeira("tamanho", "Média")
+        atualizarColeira("corTecido", "Azul")
+        atualizarColeira("corLogo", "Branco")
+        atualizarColeira("corArgola", "Prata")
+        atualizarColeira("corPresilha", "Preto")
+    }
+
     return (
         <div className='modal-overlay-coleiras'>
             <div className="container-modal-personalizar-coleiras">
                 <div className="visualizador-3d-fixo">
-                    <ColeiraModelo coleira={coleira} />
                     <ColeiraModelo
                         ref={coleiraModeloRef}
                         key={modeloKey}
@@ -541,6 +535,8 @@ const adicionarAoCarrinho = async (coleira) => {
                                 <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
                                         <p>Selecione o modelo da coleira</p>
+                                        {/* <button onClick={testarCaptura}>teste</button> */}
+                                        <button onClick={debugColeira}>debug</button>
                                     </div>
                                     <div className="opcoes-modelo">
                                         <label className='radio-modelo'>

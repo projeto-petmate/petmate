@@ -12,17 +12,18 @@ const CameraController = forwardRef(({ posicao, fov }, ref) => {
 
   modelos.forEach(modelo => {
     loader.load(`/models/${modelo}.glb`,
-      (gltf) => {
-        // console.log(`Modelo ${modelo} pré-carregado com sucesso`);
-      },
-      (progress) => {
-        // console.log(`Pré-carregando ${modelo}:`, (progress.loaded / progress.total * 100) + '%');
-      },
-      (error) => {
-        // console.error(`Erro ao pré-carregar ${modelo}:`, error);
-      }
     );
   });
+
+  useImperativeHandle(ref, () => ({
+    resetCamera: () => {
+      console.log('CameraController: Resetando câmera para posição:', posicao);
+      camera.position.set(...posicao);
+      camera.fov = fov;
+      camera.updateProjectionMatrix();
+      console.log('CameraController: Câmera resetada com sucesso');
+    }
+  }));
 
   useEffect(() => {
     camera.position.set(...posicao);
@@ -52,10 +53,8 @@ function Model({ coleira }) {
   const modeloArquivo = getModeloArquivo(coleira.modelo || 'Pescoço');
   const modelPath = `/models/${modeloArquivo}.glb`;
 
-  // Use o cache do Three.js loader ao invés de nosso cache customizado
   const gltf = useLoader(GLTFLoader, modelPath);
 
-  // Memorize o objeto clonado para evitar recriações desnecessárias
   const sceneClone = useMemo(() => {
     if (gltf && gltf.scene) {
       return gltf.scene.clone();
@@ -179,7 +178,6 @@ const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
   const canvasRef = useRef();
   const cameraControllerRef = useRef();
 
-  // Expor função para capturar screenshot
   useImperativeHandle(ref, () => ({
     captureScreenshot: () => {
       if (canvasRef.current) {
@@ -212,44 +210,74 @@ const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
       return new Promise((resolve) => {
         console.log('ColeiraModelo: Iniciando captureWithFixedCamera');
         
-        if (canvasRef.current && cameraControllerRef.current) {
+        console.log('ColeiraModelo: Verificações:', {
+          canvasRefExists: !!canvasRef.current,
+          cameraControllerRefExists: !!cameraControllerRef.current,
+          cameraControllerHasResetMethod: !!cameraControllerRef.current?.resetCamera
+        });
+        
+        if (canvasRef.current && cameraControllerRef.current && cameraControllerRef.current.resetCamera) {
           console.log('ColeiraModelo: Canvas e camera controller encontrados');
           
-          // Resetar a câmera para posição inicial
-          cameraControllerRef.current.resetCamera();
-          console.log('ColeiraModelo: Camera resetada');
+          try {
+            // Reseta a câmera para posição inicial
+            cameraControllerRef.current.resetCamera();
+            console.log('ColeiraModelo: Camera resetada');
+            
+            // Aguarda um frame para a câmera se posicionar
+            setTimeout(() => {
+              const canvas = canvasRef.current.querySelector('canvas');
+              if (canvas) {
+                console.log('ColeiraModelo: Canvas encontrado, capturando...', {
+                  width: canvas.width,
+                  height: canvas.height
+                });
+                
+                try {
+                  const dataURL = canvas.toDataURL('image/png', 1.0);
+                  console.log('ColeiraModelo: DataURL gerado', {
+                    length: dataURL.length,
+                    starts: dataURL.substring(0, 50) + '...'
+                  });
+                  resolve(dataURL);
+                } catch (error) {
+                  console.error('ColeiraModelo: Erro ao gerar dataURL:', error);
+                  resolve(null);
+                }
+              } else {
+                console.error('ColeiraModelo: Canvas não encontrado no DOM');
+                resolve(null);
+              }
+            }, 200); 
+          } catch (cameraError) {
+            console.error('ColeiraModelo: Erro ao resetar câmera:', cameraError);
+            resolve(null);
+          }
+        } else {
+          console.error('ColeiraModelo: Recursos não disponíveis:', {
+            canvasRef: !!canvasRef.current,
+            cameraControllerRef: !!cameraControllerRef.current,
+            resetMethod: !!cameraControllerRef.current?.resetCamera
+          });
           
-          // Aguardar um frame para a câmera se posicionar
-          setTimeout(() => {
+          console.log('ColeiraModelo: Tentando captura sem reset de câmera...');
+          if (canvasRef.current) {
             const canvas = canvasRef.current.querySelector('canvas');
             if (canvas) {
-              console.log('ColeiraModelo: Canvas encontrado, capturando...', {
-                width: canvas.width,
-                height: canvas.height
-              });
-              
               try {
                 const dataURL = canvas.toDataURL('image/png', 1.0);
-                console.log('ColeiraModelo: DataURL gerado', {
-                  length: dataURL.length,
-                  starts: dataURL.substring(0, 50) + '...'
-                });
+                console.log('ColeiraModelo: Captura fallback bem-sucedida');
                 resolve(dataURL);
               } catch (error) {
-                console.error('ColeiraModelo: Erro ao gerar dataURL:', error);
+                console.error('ColeiraModelo: Erro na captura fallback:', error);
                 resolve(null);
               }
             } else {
-              console.error('ColeiraModelo: Canvas não encontrado no DOM');
               resolve(null);
             }
-          }, 100);
-        } else {
-          console.error('ColeiraModelo: Canvas ou camera controller não encontrados', {
-            canvasRef: !!canvasRef.current,
-            cameraControllerRef: !!cameraControllerRef.current
-          });
-          resolve(null);
+          } else {
+            resolve(null);
+          }
         }
       });
     }

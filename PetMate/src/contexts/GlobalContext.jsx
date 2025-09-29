@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { getUsuarioById, getOngById, updateUsuario as apiUpdateUsuario, deleteUsuario as apiDeleteUsuario, getDenuncias } from '../apiService';
+import { getUsuarioById, getOngById, updateUsuario as apiUpdateUsuario, deleteUsuario as apiDeleteUsuario, getDenuncias, getQuantidadeItensCarrinho } from '../apiService';
 
 export const GlobalContext = createContext();
 
@@ -29,8 +29,8 @@ export const GlobalContextProvider = ({ children }) => {
         tabela: '',
     });
     const [isAdmin, setIsAdmin] = useState(false);
+    const [qtdItensCarrinho, setQtdItensCarrinho] = useState(0);
     
-    // Estado para combinações de cores da coleira
     const [combinacoesCores, setCombinacoesCores] = useState({
         alternativa1: null,
         alternativa2: null
@@ -65,6 +65,8 @@ export const GlobalContextProvider = ({ children }) => {
                         } else {
                             setIsAdmin(false);
                         }
+                        
+                        await carregarQuantidadeItensCarrinho(user);
                     } else {
                         console.error("Erro: ID do usuário ou ONG não definido.");
                         setLogado(false);
@@ -138,6 +140,8 @@ export const GlobalContextProvider = ({ children }) => {
                     setToken(data.token);
                     localStorage.setItem('token', data.token);
                     setLogado(true);
+                    
+                    await carregarQuantidadeItensCarrinho(user);
                     // console.log("Usuário logado com sucesso:", user);
                 } else {
                     console.error("Erro: ID do usuário ou ONG não definido.");
@@ -169,6 +173,7 @@ export const GlobalContextProvider = ({ children }) => {
         });
         setIsAdmin(false)
         setToken(null);
+        setQtdItensCarrinho(0);
         localStorage.removeItem('token');
     };
 
@@ -233,6 +238,24 @@ export const GlobalContextProvider = ({ children }) => {
         setIsAdmin(userLogado.tipo === 'admin');
     }, [userLogado]);
 
+    const carregarQuantidadeItensCarrinho = async (user = userLogado) => {
+        if (!user?.id_usuario && !user?.id_ong) {
+            setQtdItensCarrinho(0);
+            return;
+        }
+
+        try {
+            const qtd = await getQuantidadeItensCarrinho({
+                id_usuario: user?.id_usuario || null,
+                id_ong: user?.id_ong || null
+            });
+            setQtdItensCarrinho(qtd || 0);
+        } catch (error) {
+            console.error('Erro ao carregar quantidade de itens no carrinho:', error);
+            setQtdItensCarrinho(0);
+        }
+    };
+
     return (
         <GlobalContext.Provider
             value={{
@@ -258,6 +281,9 @@ export const GlobalContextProvider = ({ children }) => {
                 setCombinacoesCores,
                 aplicarCoresCallback,
                 setAplicarCoresCallback,
+                qtdItensCarrinho,
+                setQtdItensCarrinho,
+                carregarQuantidadeItensCarrinho,
             }}
         >
             {children}
