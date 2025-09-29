@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle, useMemo } from 'react';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from '@react-three/drei';
@@ -9,16 +9,6 @@ const CameraController = forwardRef(({ posicao, fov }, ref) => {
   const { camera } = useThree();
   const loader = new GLTFLoader();
   const modelos = ['pescoco', 'cabresto', 'peitoral'];
-
-  // Expor função para resetar câmera
-  useImperativeHandle(ref, () => ({
-    resetCamera: () => {
-      camera.position.set(...posicao);
-      camera.fov = fov;
-      camera.updateProjectionMatrix();
-      camera.lookAt(0, 0, 0); // Olhar para o centro
-    }
-  }));
 
   modelos.forEach(modelo => {
     loader.load(`/models/${modelo}.glb`,
@@ -44,6 +34,7 @@ const CameraController = forwardRef(({ posicao, fov }, ref) => {
 });
 
 function Model({ coleira }) {
+  const modelRef = useRef();
 
   const getModeloArquivo = (modelo) => {
     switch (modelo) {
@@ -58,22 +49,23 @@ function Model({ coleira }) {
     }
   };
 
-  const modeloArquivo = getModeloArquivo(coleira.modelo || 'pescoco');
-  const gltf = useLoader(GLTFLoader, `/models/${modeloArquivo}.glb`,
-    undefined,
-    (xhr) => {
-    },
-    (error) => {
-      console.error('Erro ao carregar o modelo:', error);
-    }
-  );
+  const modeloArquivo = getModeloArquivo(coleira.modelo || 'Pescoço');
+  const modelPath = `/models/${modeloArquivo}.glb`;
 
-  const modelRef = useRef();
+  // Use o cache do Three.js loader ao invés de nosso cache customizado
+  const gltf = useLoader(GLTFLoader, modelPath);
+
+  // Memorize o objeto clonado para evitar recriações desnecessárias
+  const sceneClone = useMemo(() => {
+    if (gltf && gltf.scene) {
+      return gltf.scene.clone();
+    }
+    return null;
+  }, [gltf]);
 
   useEffect(() => {
-    if (gltf && gltf.scene) {
-
-      gltf.scene.traverse((child) => {
+    if (sceneClone) {
+      sceneClone.traverse((child) => {
         if (child.isMesh) {
           if (child.name === 'tecido') {
             const coresTecido = {
@@ -135,9 +127,13 @@ function Model({ coleira }) {
         }
       });
     }
-  }, [gltf, coleira.corTecido, coleira.corArgola, coleira.corPresilha, coleira.corLogo,]);
+  }, [sceneClone, coleira.corTecido, coleira.corArgola, coleira.corPresilha, coleira.corLogo]);
 
-  return <primitive ref={modelRef} object={gltf.scene} scale={2.2} position={[0, 0, 0]} />;
+  if (!sceneClone) {
+    return null;
+  }
+
+  return <primitive ref={modelRef} object={sceneClone} scale={2.2} position={[0, 0, 0]} />;
 }
 
 function ModeloTemporario({ coleira }) {
@@ -328,7 +324,6 @@ const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
   const posicaoCamera = getPosicaoCamera(modeloAtual);
   const fovCamera = getFovCamera(modeloAtual);
   const posicaoLuzes = getPosicaoLuzes(modeloAtual);
-  const modeloArquivo = getModeloArquivo(modeloAtual);
 
   if (!isReady) {
     return <div className="container-modelo-3d-fixo">Carregando modelo 3D...</div>;
@@ -351,7 +346,7 @@ const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
         <pointLight position={posicaoLuzes} intensity={1.5} />
         <directionalLight position={[8, 8, 8]} intensity={1.5} />
 
-        <React.Suspense key={modeloArquivo} fallback={<ModeloTemporario coleira={coleira} />}>
+        <React.Suspense fallback={<ModeloTemporario coleira={coleira} />}>
           <Model coleira={coleira} />
         </React.Suspense>
 
