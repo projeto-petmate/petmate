@@ -32,7 +32,7 @@ export default function Carrinho() {
       setItens(itensCarrinho);
       const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
-      
+
       // Atualizar badge com quantidade total de itens
       const qtdTotal = itensCarrinho.reduce((acc, item) => acc + (item.quantidade || 0), 0);
       setQtdItensCarrinho(qtdTotal);
@@ -44,27 +44,27 @@ export default function Carrinho() {
     try {
       const itemAtual = itens.find(item => item.id_item === id_item);
       const diferencaQuantidade = novaQuantidade - itemAtual.quantidade;
-      
+
       await updateItemCarrinho(id_item, { quantidade: novaQuantidade });
-      
-      setItens(prevItens => 
-        prevItens.map(item => 
-          item.id_item === id_item 
+
+      setItens(prevItens =>
+        prevItens.map(item =>
+          item.id_item === id_item
             ? { ...item, quantidade: novaQuantidade }
             : item
         )
       );
-      
-      const novosItens = itens.map(item => 
-        item.id_item === id_item 
+
+      const novosItens = itens.map(item =>
+        item.id_item === id_item
           ? { ...item, quantidade: novaQuantidade }
           : item
       );
       const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
-      
+
       setQtdItensCarrinho(qtdItensCarrinho + diferencaQuantidade);
-      
+
     } catch (error) {
       console.error('Erro ao atualizar quantidade:', error);
       Swal.fire({
@@ -91,11 +91,11 @@ export default function Carrinho() {
 
       if (result.isConfirmed) {
         const itemRemovido = itens.find(item => item.id_item === id_item);
-        
+
         await removeItemCarrinho(id_item);
-        
+
         setItens(prevItens => prevItens.filter(item => item.id_item !== id_item));
-        
+
         const novosItens = itens.filter(item => item.id_item !== id_item);
         const total = novosItens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
         setSubtotal(total);
@@ -183,7 +183,7 @@ export default function Carrinho() {
         setItens([]);
         setSubtotal(0);
         setCarrinhoAtual(null);
-        
+
         setQtdItensCarrinho(0);
 
       } catch (error) {
@@ -224,7 +224,7 @@ export default function Carrinho() {
     };
 
     await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
-    
+
     setQtdItensCarrinho(qtdItensCarrinho + 1);
   }
 
@@ -245,14 +245,24 @@ export default function Carrinho() {
 
         <div className="container-produtos">
           <div className="produtos-adicionados">
-            <h2>Produtos adicionados</h2>
-            
+            <div className="container-titulo-carrinho">
+              <div className="produto-title">
+                <p>Produto</p>
+              </div>
+              <div className="valores-title">
+                <p>Preço</p>
+                <p>Quantidade</p>
+                <p>Subtotal</p>
+              </div>
+            </div>
+            {/* <h2>Produtos adicionados</h2> */}
+
             {itens.length === 0 ? (
               <p>Nenhum produto no carrinho.</p>
             ) : (
               <div className="container-cards-itens">
                 {itens.map(item => (
-                  <CardItemCarrinho 
+                  <CardItemCarrinho
                     key={item.id_item}
                     item={item}
                     onQuantidadeChange={handleQuantidadeChange}
@@ -264,7 +274,7 @@ export default function Carrinho() {
           </div>
           <div className="subtotal">
             <div className="container-teste">
-              {/* <button onClick={itemTeste}>Teste Item</button> */}
+              <button onClick={itemTeste}>Teste Item</button>
             </div>
             <p>
               Subtotal:

@@ -1,11 +1,11 @@
 .card-item-carrinho {
-    border: solid 1px #ddd;
+    /* border: solid 1px #ddd; */
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     background-color: #F5F5F5;
-    border-radius: 14px;
+    /* border-radius: 14px; */
     gap: 15px;
     padding: 15px;
     width: 100%;
@@ -19,8 +19,8 @@
 }
 
 .card-item-carrinho img {
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 130px;
+    max-width: 130px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -43,7 +43,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 5px;
+    /* gap: 5px; */
     width: 100%;
 }
 
@@ -62,10 +62,11 @@
 }
 
 .detalhes-item {
-    font-size: 12px !important;
+    font-size: 20px !important;
     color: #888 !important;
     font-weight: 500 !important;
-    margin-top: 2px;
+    /* margin-top: 2px; */
+    padding-left: 4rem;
 }
 
 .cores-item {
@@ -121,4 +122,32 @@
 
 .btn-qtd:active {
     transform: scale(0.95);
+}
+
+.container-detalhes-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.preco-e-qtd-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 33%;
+    /* border: solid; */
+    /* gap: 5rem; */
+}
+
+.valor-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.img-nome-produto {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 70%;
 }
