@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho, getQuantidadeItensCarrinho } from '../apiService';
 import Swal from 'sweetalert2';
+import { PiWarningCircle } from "react-icons/pi";
 
 export default function Carrinho() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
@@ -295,6 +296,7 @@ export default function Carrinho() {
           :
           (
             <div className='sem-itens'>
+              <PiWarningCircle className='icon-warn-itens' />
               <p>Nenhum produto no carrinho.</p>
             </div>
           )
