@@ -12,7 +12,7 @@ import { getCarrinhos, addCarrinho, addItemCarrinho, uploadColeiraScreenshot, up
 
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
-    const { setAplicarCoresCallback, userLogado, qtdItensCarrinho, setQtdItensCarrinho } = useContext(GlobalContext);
+    const { setAplicarCoresCallback, userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
     const [arquivoTeste, setArquivoTeste] = useState(null);
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
@@ -190,7 +190,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
 
             console.log('✅ Item adicionado ao carrinho com sucesso!');
 
-            // Update cart quantity in context for instant badge update
             setQtdItensCarrinho(qtdItensCarrinho + 1);
 
             Swal.fire({
@@ -525,6 +524,11 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                     <div className="etapa-1-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
                             <p className='titulo-etapa-personalizar-coleira'>Modelo</p>
+                            {/* <button onClick={testarCaptura}>teste</button> */}
+                            {
+                                debug &&
+                                <button onClick={debugColeira}>debug</button>
+                            }
                             <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
@@ -535,8 +539,6 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                 <div className="container-opcoes">
                                     <div className="titulo-opcoes-coleira">
                                         <p>Selecione o modelo da coleira</p>
-                                        {/* <button onClick={testarCaptura}>teste</button> */}
-                                        <button onClick={debugColeira}>debug</button>
                                     </div>
                                     <div className="opcoes-modelo">
                                         <label className='radio-modelo'>
@@ -781,7 +783,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         <div className="container-titulo-modal-personalizar-coleira">
                             <IoArrowBackCircle className='btn-voltar-etapa-personalizar-coleira' onClick={voltarEtapa}>Voltar</IoArrowBackCircle>
                             <p className='titulo-etapa-personalizar-coleira'>Revisar Coleira</p>
-                            <CgCloseO className='btn-fechar-modal_personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
+                            <CgCloseO className='btn-fechar-modal-personalizar-coleira' onClick={fecharModal}>Sair</CgCloseO>
                         </div>
                         <div className="meio-modal-personalizar-coleira">
                             {/* <div className="imagem-modal-personalizar-coleira">

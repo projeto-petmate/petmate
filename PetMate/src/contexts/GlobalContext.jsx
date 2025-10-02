@@ -6,6 +6,8 @@ export const GlobalContext = createContext();
 export const GlobalContextProvider = ({ children }) => {
     const API_BASE_URL = 'http://localhost:3000';
     const [logado, setLogado] = useState(false);
+    // Debug
+    const [debug, setDebug] = useState(true)
     const [userLogado, setUserLogado] = useState({
         id: null,
         nome: '',
@@ -156,6 +158,7 @@ export const GlobalContextProvider = ({ children }) => {
             return { error: "Erro ao realizar login" };
         }
     };
+    
 
     const Logout = () => {
         setLogado(false);
@@ -254,6 +257,8 @@ export const GlobalContextProvider = ({ children }) => {
             console.error('Erro ao carregar quantidade de itens no carrinho:', error);
             setQtdItensCarrinho(0);
         }
+
+        //a
     };
 
     return (
@@ -284,6 +289,7 @@ export const GlobalContextProvider = ({ children }) => {
                 qtdItensCarrinho,
                 setQtdItensCarrinho,
                 carregarQuantidadeItensCarrinho,
+                debug
             }}
         >
             {children}

@@ -171,8 +171,7 @@ module.exports = (pool) => {
       let query = `
                 SELECT 
                     p.*,
-                    COUNT(pi.id_item_pedido) as total_itens,
-                    COALESCE(SUM(pi.quantidade), 0) as quantidade_total
+                    COUNT(pi.id_item_pedido) as total_itens
                 FROM pedidos p
                 LEFT JOIN pedidos_itens pi ON p.id_pedido = pi.id_pedido
                 WHERE 1=1
@@ -226,8 +225,7 @@ module.exports = (pool) => {
         `
                 SELECT 
                     p.*,
-                    COUNT(pi.id_item_pedido) as total_itens,
-                    COALESCE(SUM(pi.quantidade), 0) as quantidade_total
+                    COUNT(pi.id_item_pedido) as total_itens
                 FROM pedidos p
                 LEFT JOIN pedidos_itens pi ON p.id_pedido = pi.id_pedido
                 WHERE p.id_pedido = $1
@@ -257,7 +255,6 @@ module.exports = (pool) => {
     try {
       console.log(`🛒➡️📦 Finalizando carrinho ${id_carrinho} em pedido`);
 
-      // Iniciar transação
       await pool.query("BEGIN");
 
       // 1. Verificar se carrinho existe e tem itens
@@ -305,18 +302,7 @@ module.exports = (pool) => {
 
       const pedido = pedidoResult.rows[0];
 
-      // 3. Transferir itens do carrinho para o pedido
-      await pool.query(
-        `
-            INSERT INTO pedidos_itens (id_pedido, valor, modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, quantidade, imagem)
-            SELECT $1, ci.valor, ci.modelo, ci.tamanho, ci.cor_tecido, ci.cor_logo, ci.cor_argola, ci.cor_presilha, ci.quantidade, ci.imagem
-            FROM carrinho_itens ci
-            WHERE ci.id_carrinho = $2
-        `,
-        [pedido.id_pedido, id_carrinho]
-      );
-
-      // 4. Buscar os itens do carrinho para processar individualmente
+      // 3. Buscar os itens do carrinho para processar individualmente
       const itensCarrinho = await pool.query(
         `
             SELECT *
@@ -329,8 +315,9 @@ module.exports = (pool) => {
 
       let itensEnviadosIoT = 0;
       let errosIoT = [];
+      let itensPedidoCriados = [];
 
-      // 5. Enviar cada item para a máquina IoT antes de limpar o carrinho
+      // 4. Para cada item do carrinho, enviar para a máquina e criar registro em pedidos_itens
       for (let i = 0; i < itensCarrinho.rows.length; i++) {
         const item = itensCarrinho.rows[i];
         console.log(
@@ -339,7 +326,7 @@ module.exports = (pool) => {
           } ${item.tamanho}`
         );
 
-        // Processar cada quantidade do item
+        // Processar cada quantidade do item (criar um registro por unidade)
         for (let q = 0; q < item.quantidade; q++) {
           const dadosMaquina = traduzirColeiraParaMaquina(item);
           console.log(
@@ -352,12 +339,16 @@ module.exports = (pool) => {
           const resultadoIoT = await enviarParaMaquinaIoT(dadosMaquina);
           console.log("Resultado IoT:" + JSON.stringify(resultadoIoT));
 
+          let id_maquina = null;
+          
           if (resultadoIoT.sucesso) {
             itensEnviadosIoT++;
+            // Extrair id_maquina da resposta da máquina IoT
+            id_maquina = resultadoIoT.resposta?.id || resultadoIoT.resposta?.machineId || null;
             console.log(
               `✅ Item ${i + 1} (${q + 1}/${
                 item.quantidade
-              }) enviado com sucesso para IoT`
+              }) enviado com sucesso para IoT. ID Máquina: ${id_maquina}`
             );
           } else {
             errosIoT.push(
@@ -372,6 +363,34 @@ module.exports = (pool) => {
             );
           }
 
+          // 5. Criar registro em pedidos_itens COM id_maquina
+          const itemPedidoResult = await pool.query(
+            `
+              INSERT INTO pedidos_itens (
+                id_pedido, valor, modelo, tamanho, 
+                cor_tecido, cor_logo, cor_argola, cor_presilha, 
+                imagem, id_maquina, status
+              )
+              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+              RETURNING *
+            `,
+            [
+              pedido.id_pedido,
+              item.valor,
+              item.modelo,
+              item.tamanho,
+              item.cor_tecido,
+              item.cor_logo,
+              item.cor_argola,
+              item.cor_presilha,
+              item.imagem,
+              id_maquina,
+              id_maquina ? 'em_producao' : 'aguardando_producao'
+            ]
+          );
+
+          itensPedidoCriados.push(itemPedidoResult.rows[0]);
+
           // Pausa entre envios para evitar sobrecarga da máquina
           await new Promise((resolve) => setTimeout(resolve, 1000));
         }
@@ -385,14 +404,13 @@ module.exports = (pool) => {
         id_carrinho,
       ]);
 
-      // Confirmar transação
       await pool.query("COMMIT");
 
       console.log(
         `✅ Carrinho ${id_carrinho} finalizado como pedido ${pedido.id_pedido}`
       );
       console.log(
-        `📊 IoT Status: ${itensEnviadosIoT} itens enviados com sucesso`
+        `📊 IoT Status: ${itensEnviadosIoT} itens enviados com sucesso de ${itensPedidoCriados.length} itens criados`
       );
 
       let message = "Pedido criado com sucesso";
@@ -406,7 +424,9 @@ module.exports = (pool) => {
       res.status(201).json({
         message: message,
         pedido: pedido,
+        total_itens_criados: itensPedidoCriados.length,
         itens_enviados_iot: itensEnviadosIoT,
+        itens_com_id_maquina: itensPedidoCriados.filter(i => i.id_maquina).length,
         erros_iot: errosIoT.length > 0 ? errosIoT : undefined,
       });
     } catch (err) {
@@ -417,67 +437,6 @@ module.exports = (pool) => {
   });
 
   // POST - Criar pedido diretamente (sem carrinho)
-  router.post("/", async (req, res) => {
-    const { id_usuario, id_ong, endereco_entrega, itens } = req.body;
-
-    try {
-      console.log("📦 Criando pedido direto:", {
-        id_usuario,
-        id_ong,
-        itens: itens?.length,
-      });
-
-      if (!itens || itens.length === 0) {
-        return res
-          .status(400)
-          .json({ error: "Pedido deve ter pelo menos um item" });
-      }
-
-      // Calcular valor total
-      const valor_total = itens.reduce((total, item) => {
-        return total + item.valor * (item.quantidade || 1);
-      }, 0);
-
-      // Iniciar transação
-      await pool.query("BEGIN");
-
-      // 1. Criar pedido
-      const pedidoResult = await pool.query(
-        `
-                INSERT INTO pedidos (id_usuario, id_ong, status, valor_total, endereco_entrega)
-                VALUES ($1, $2, 'pendente', $3, $4, $5)
-                RETURNING *
-            `,
-        [id_usuario, id_ong, valor_total, JSON.stringify(endereco_entrega)]
-      );
-
-      const pedido = pedidoResult.rows[0];
-
-      // 2. Adicionar itens ao pedido
-      for (const item of itens) {
-        await pool.query(
-          `
-                    INSERT INTO pedidos_itens (id_pedido, valor, quantidade)
-                    VALUES ($1, $2, $3, $4, $5)
-                `,
-          [pedido.id_pedido, item.valor, item.quantidade || 1]
-        );
-      }
-
-      // Confirmar transação
-      await pool.query("COMMIT");
-
-      console.log(`✅ Pedido ${pedido.id_pedido} criado com sucesso`);
-      res.status(201).json({
-        message: "Pedido criado com sucesso",
-        pedido: pedido,
-      });
-    } catch (err) {
-      await pool.query("ROLLBACK");
-      console.error("❌ Erro ao criar pedido:", err.message);
-      res.status(500).json({ error: "Erro ao criar pedido" });
-    }
-  });
 
   // PUT - Atualizar status do pedido
   router.put("/:id_pedido/status", async (req, res) => {

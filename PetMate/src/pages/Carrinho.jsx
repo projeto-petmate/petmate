@@ -8,7 +8,7 @@ import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, add
 import Swal from 'sweetalert2';
 
 export default function Carrinho() {
-  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho } = useContext(GlobalContext);
+  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
   const [itens, setItens] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [carrinhoAtual, setCarrinhoAtual] = useState(null);
@@ -33,7 +33,6 @@ export default function Carrinho() {
       const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
       setSubtotal(total);
 
-      // Atualizar badge com quantidade total de itens
       const qtdTotal = itensCarrinho.reduce((acc, item) => acc + (item.quantidade || 0), 0);
       setQtdItensCarrinho(qtdTotal);
     };
@@ -214,18 +213,19 @@ export default function Carrinho() {
     const item = {
       modelo: 'Peitoral',
       tamanho: 'Pequena',
-      cor_tecido: 'preto',
-      cor_logo: 'azul',
-      cor_argola: 'prata',
-      cor_presilha: 'azul',
+      cor_tecido: 'Preto',
+      cor_logo: 'Branca',
+      cor_argola: 'Prata',
+      cor_presilha: 'Branca',
       valor: '30.00',
-      imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758221130/pets/fyif1bleoxl99dl8ig0e.png',
+      imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
       quantidade: 1
     };
 
     await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
 
     setQtdItensCarrinho(qtdItensCarrinho + 1);
+    // window.location.reload()
   }
 
 
@@ -243,56 +243,65 @@ export default function Carrinho() {
           <h2>Carrinho de compras</h2>
         </div>
 
-        <div className="container-produtos">
-          <div className="produtos-adicionados">
-            <div className="container-titulo-carrinho">
-              <div className="produto-title">
-                <p>Produto</p>
-              </div>
-              <div className="valores-title">
-                <p>Preço</p>
-                <p>Quantidade</p>
-                <p>Subtotal</p>
-              </div>
-            </div>
-            {/* <h2>Produtos adicionados</h2> */}
+        {debug &&
+          <button onClick={itemTeste}>Teste Item</button>
+        }
+        {qtdItensCarrinho > 0 ?
+          (
+            <div className="container-produtos">
+              <div className="produtos-adicionados" >
+                <div className="container-titulo-carrinho">
+                  <div className="produto-title">
+                    <p>Produto</p>
+                    {/* <p>Personalização</p> */}
+                  </div>
+                  <div className="valores-title">
+                    <p>Preço</p>
+                    <p>Quantidade</p>
+                    <p>Subtotal</p>
+                  </div>
+                </div>
+                {/* <h2>Produtos adicionados</h2> */}
 
-            {itens.length === 0 ? (
-              <p>Nenhum produto no carrinho.</p>
-            ) : (
-              <div className="container-cards-itens">
-                {itens.map(item => (
-                  <CardItemCarrinho
-                    key={item.id_item}
-                    item={item}
-                    onQuantidadeChange={handleQuantidadeChange}
-                    onRemover={handleRemoverItem}
-                  />
-                ))}
+                <div className="container-cards-itens">
+                  {itens.map(item => (
+                    <CardItemCarrinho
+                      key={item.id_item}
+                      item={item}
+                      onQuantidadeChange={handleQuantidadeChange}
+                      onRemover={handleRemoverItem}
+                    />
+                  ))}
+                </div>
               </div>
-            )}
-          </div>
-          <div className="subtotal">
-            <div className="container-teste">
-              <button onClick={itemTeste}>Teste Item</button>
+              <div className="subtotal">
+                <div className="container-teste">
+
+                </div>
+                <p>
+                  Subtotal:
+                  R$ {subtotal.toFixed(2)} ({qtdItensCarrinho} {qtdItensCarrinho > 1 ? ('itens') : ('item')})
+                </p>
+                <button
+                  className='btn-fechar-pedido'
+                  onClick={fecharPedido}
+                  disabled={finalizandoPedido}
+                >
+                  {finalizandoPedido ? 'Finalizando...' : 'Fechar pedido'}
+                </button>
+              </div>
             </div>
-            <p>
-              Subtotal:
-              R$ {subtotal.toFixed(2)} ({itens.length} produtos)
-            </p>
-            {itens.length > 0 && (
-              <button
-                className='fecharPedido'
-                onClick={fecharPedido}
-                disabled={finalizandoPedido}
-              >
-                {finalizandoPedido ? 'Finalizando...' : 'Fechar pedido'}
-              </button>
-            )}
-          </div>
-        </div>
-        <Footer />
+          )
+          :
+          (
+            <div className='sem-itens'>
+              <p>Nenhum produto no carrinho.</p>
+            </div>
+          )
+
+        }
       </div>
+      <Footer />
     </div>
   )
 }

@@ -15,7 +15,6 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido
                 FROM pedidos_itens pi
@@ -42,7 +41,6 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido,
                     p.id_usuario,
@@ -125,7 +123,6 @@ module.exports = (pool) => {
             const result = await pool.query(`
                 SELECT 
                     pi.*,
-                    (pi.valor * pi.quantidade) as subtotal,
                     p.status as status_pedido,
                     p.data_pedido,
                     p.id_usuario,
@@ -154,7 +151,7 @@ module.exports = (pool) => {
                 SELECT 
                     pi.status,
                     COUNT(pi.id_item_pedido) as quantidade,
-                    COALESCE(SUM(pi.valor * pi.quantidade), 0) as valor_total,
+                    COALESCE(SUM(pi.valor), 0) as valor_total,
                     COUNT(DISTINCT pi.id_pedido) as pedidos_diferentes
                 FROM pedidos_itens pi
                 JOIN pedidos p ON pi.id_pedido = p.id_pedido
@@ -250,9 +247,9 @@ module.exports = (pool) => {
             cor_logo, 
             cor_argola, 
             cor_presilha, 
-            valor, 
-            quantidade,
-            imagem 
+            valor,
+            imagem,
+            id_maquina
         } = req.body;
         
         try {
@@ -267,11 +264,11 @@ module.exports = (pool) => {
                     cor_argola = COALESCE($5, cor_argola),
                     cor_presilha = COALESCE($6, cor_presilha),
                     valor = COALESCE($7, valor),
-                    quantidade = COALESCE($8, quantidade),
-                    imagem = COALESCE($9, imagem)
+                    imagem = COALESCE($8, imagem),
+                    id_maquina = COALESCE($9, id_maquina)
                 WHERE id_item_pedido = $10
                 RETURNING *
-            `, [modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, valor, quantidade, imagem, id_item_pedido]);
+            `, [modelo, tamanho, cor_tecido, cor_logo, cor_argola, cor_presilha, valor, imagem, id_maquina, id_item_pedido]);
             
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Item do pedido não encontrado' });
