@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import ModalPersonalizarColeira from '../components/ModalPersonalizarColeira';
 import ModalColeiras from '../components/ModalColeiras';
 import LastPage from "../components/LastPage"
+import ColeiraPronta from '../components/CardColeiraPronta';
 
 const ColeiraModelo = React.lazy(() => import('../components/ColeiraModelo'));
 
@@ -32,7 +33,7 @@ function Coleiras() {
           <h2>Coleiras para pets</h2>
           <p>Encontre ou personalize uma coleira para seu companheiro!</p>
         </div> */}
-{/* 
+        {/* 
         <div className="carrossel-coleiras">
           <Suspense fallback={<div>Carregando visualizador 3D...</div>}>
             <ColeiraModelo />
@@ -42,8 +43,12 @@ function Coleiras() {
         <div className="personalizar-coleira">
           <ModalPersonalizarColeira />
 
+          <div className="container-coleiras-prontas">
+            <p className='coleiras-prontas-title'>Sugestões de Coleiras Prontas</p>
+            <ColeiraPronta />
+          </div>
           <div className="titulo-personalizar-coleira">
-            <h2>Personalize a coleira do seu pet</h2>
+            <h2>Crie uma coleira única para seu pet!</h2>
             <p>
               Escolha entre uma variedade de estilos, cores e tamanhos para criar uma coleira
               única que combine com a personalidade do seu pet.

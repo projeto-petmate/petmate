@@ -21,7 +21,7 @@
     margin-left: 50px;
 }
 
-.titulo-coleiras h2 {
+.titulo-personalizar-coleira h2 {
     font-size: 40px;
     color: #654833;
     margin-bottom: 10px;
@@ -30,7 +30,7 @@
 
 }
 
-.titulo-coleiras p {
+.titulo-personalizar-coleira p {
     font-size: 24px;
     font-family: 'Nunito';
     font-weight: 600;
@@ -228,4 +228,20 @@
     transform: translate(-50%, -50%);
     color: #666;
     font-size: 14px;
+}
+
+.container-coleiras-prontas {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 30px;
+    padding-bottom: 2rem;
+}
+
+.coleiras-prontas-title {
+    font-size: 2.3rem;
+    font-weight: 700;
+    font-family: 'Raleway';
+    color: #654833;
+    padding-left: 4rem;
 }
