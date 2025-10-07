@@ -1,15 +1,19 @@
 import { useContext, useState } from 'react';
 import { addCarrinho, addItemCarrinho, getCarrinhos } from '../apiService';
 import './CardColeiraPronta.css'
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaPaintBrush } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import Swal from 'sweetalert2'
+import ModalPersonalizarColeira from './ModalPersonalizarColeira';
 
 function CardColeiraPronta() {
-  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho } = useContext(GlobalContext);
-  // const [numItem, setNumItem] = useState(0)
+  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, setAplicarCoresCallback } = useContext(GlobalContext);
+  const [modalAberto, setModalAberto] = useState(false);
+  const [itemSelecionado, setItemSelecionado] = useState(null);
+
   let id_usuario = userLogado?.id_usuario || null;
   let id_ong = userLogado?.id_ong || null;
+
 
   const addColeiraPronta = async (numItem) => {
     let carrinhos = await getCarrinhos(id_usuario || id_ong);
@@ -53,13 +57,62 @@ function CardColeiraPronta() {
     // window.location.reload()
   }
 
+  const personalizarColeiraPronta = (numItem) => {
+    let item = null;
+
+    if (numItem === 1) {
+        item = item1;
+    } else if (numItem === 2) {
+        item = item2;
+    } else if (numItem === 3) {
+        item = item3;
+    }
+
+    console.log('🎨 Preparando para personalizar item:', numItem, item);
+
+    const configuracao = {
+        modelo: item.modelo,
+        tamanho: item.tamanho,
+        corTecido: item.cor_tecido,
+        corLogo: item.cor_logo,
+        corArgola: item.cor_argola,
+        corPresilha: item.cor_presilha,
+        valor: parseFloat(item.valor)
+    };
+
+    localStorage.setItem('coleiraProntaConfig', JSON.stringify(configuracao));
+
+    setAplicarCoresCallback(() => {
+        return (atualizarColeiraFn) => {
+            console.log('🎨 Callback executado! Aplicando configuração...');
+            setTimeout(() => {
+                atualizarColeiraFn("modelo", item.modelo);
+                atualizarColeiraFn("tamanho", item.tamanho);
+                atualizarColeiraFn("corTecido", item.cor_tecido);
+                atualizarColeiraFn("corLogo", item.cor_logo);
+                atualizarColeiraFn("corArgola", item.cor_argola);
+                atualizarColeiraFn("corPresilha", item.cor_presilha);
+                console.log('✅ Configuração aplicada com sucesso!');
+            }, 100);
+        };
+    });
+
+    setModalAberto(true);
+};
+
+  const fecharModal = () => {
+    setModalAberto(false);
+    setItemSelecionado(null);
+    setAplicarCoresCallback(null);
+  };
+
   const item1 = {
     modelo: 'Peitoral',
-    tamanho: 'Pequena',
+    tamanho: '',
     cor_tecido: 'Preto',
-    cor_logo: 'Branca',
+    cor_logo: 'Branco',
     cor_argola: 'Prata',
-    cor_presilha: 'Branca',
+    cor_presilha: 'Branco',
     valor: '30.00',
     imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
     quantidade: 1
@@ -67,7 +120,7 @@ function CardColeiraPronta() {
 
   const item2 = {
     modelo: 'Cabresto',
-    tamanho: 'Média',
+    tamanho: '',
     cor_tecido: 'Azul',
     cor_logo: 'Branco',
     cor_argola: 'Prata',
@@ -79,11 +132,11 @@ function CardColeiraPronta() {
 
   const item3 = {
     modelo: 'Pescoço',
-    tamanho: 'Grande',
+    tamanho: '',
     cor_tecido: 'Vermelho',
-    cor_logo: 'Branca',
+    cor_logo: 'Branco',
     cor_argola: 'Prata',
-    cor_presilha: 'Branca',
+    cor_presilha: 'Branco',
     valor: '20.00',
     imagem: 'https://res-console.cloudinary.com/danyxbuuy/thumbnails/v1/image/upload/v1759774790/cGV0cy96NmhnaWplbndiczlkYTFtdmpjeQ==/drilldown',
     quantidade: 1
@@ -103,9 +156,6 @@ function CardColeiraPronta() {
               Modelo: {item1.modelo}
             </span>
             <span className='chips-coleira-pronta'>
-              Tamanho: {item1.tamanho}
-            </span>
-            <span className='chips-coleira-pronta'>
               Tecido: {item1.cor_tecido}
             </span>
             <span className='chips-coleira-pronta'>
@@ -122,6 +172,10 @@ function CardColeiraPronta() {
             <FaCartPlus className="icon-add-carrinho" />
             <p>Adicionar ao carrinho</p>
           </div>
+          <div className="container-personalizar-carrinho" onClick={() => personalizarColeiraPronta(1)}>
+            <FaPaintBrush className="icon-personalizar-carrinho" />
+            <p>Personalizar</p>
+          </div>
         </div>
         <div className="card-coleira-pronta">
           <img src={item2.imagem} alt="" />
@@ -132,9 +186,6 @@ function CardColeiraPronta() {
           <span className="detalhes-item-pronto">
             <span className='chips-coleira-pronta'>
               Modelo: {item2.modelo}
-            </span>
-            <span className='chips-coleira-pronta'>
-              Tamanho: {item2.tamanho}
             </span>
             <span className='chips-coleira-pronta'>
               Tecido: {item2.cor_tecido}
@@ -153,6 +204,10 @@ function CardColeiraPronta() {
             <FaCartPlus className="icon-add-carrinho" />
             <p>Adicionar ao carrinho</p>
           </div>
+          <div className="container-personalizar-carrinho" onClick={() => personalizarColeiraPronta(2)}>
+            <FaPaintBrush className="icon-personalizar-carrinho" />
+            <p>Personalizar</p>
+          </div>
         </div>
         <div className="card-coleira-pronta">
           <img src={item3.imagem} alt="" />
@@ -163,9 +218,6 @@ function CardColeiraPronta() {
           <span className="detalhes-item-pronto">
             <span className='chips-coleira-pronta'>
               Modelo: {item3.modelo}
-            </span>
-            <span className='chips-coleira-pronta'>
-              Tamanho: {item3.tamanho}
             </span>
             <span className='chips-coleira-pronta'>
               Tecido: {item3.cor_tecido}
@@ -184,8 +236,16 @@ function CardColeiraPronta() {
             <FaCartPlus className="icon-add-carrinho" />
             <p>Adicionar ao carrinho</p>
           </div>
+          <div className="container-personalizar-carrinho" onClick={() => personalizarColeiraPronta(3)}>
+            <FaPaintBrush className="icon-personalizar-carrinho" />
+            <p>Personalizar</p>
+          </div>
         </div>
       </div>
+      <ModalPersonalizarColeira
+        open={modalAberto}
+        onClose={fecharModal}
+      />
     </div>
   )
 }

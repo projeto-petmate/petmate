@@ -356,6 +356,7 @@ const ColeiraModelo = forwardRef(({ coleira = {} }, ref) => {
   if (!isReady) {
     return <div className="container-modelo-3d-fixo">Carregando modelo 3D...</div>;
   }
+  
   return (
     <div className="container-modelo-3d-fixo" ref={canvasRef}>
       <Canvas

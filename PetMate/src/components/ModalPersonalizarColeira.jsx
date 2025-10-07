@@ -13,12 +13,13 @@ import { getCarrinhos, addCarrinho, addItemCarrinho, uploadColeiraScreenshot, up
 
 export default function ModalPersonalizarColeira({ open, onClose }) {
     const { setAplicarCoresCallback, userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
-    const [arquivoTeste, setArquivoTeste] = useState(null);
+    // const [arquivoTeste, setArquivoTeste] = useState(null);
     const [etapa, setEtapa] = useState(1)
     const [erro, setErro] = useState({})
     const [abrirAviso, setAbrirAviso] = useState(false)
     const [modalCoresOpen, setModalCoresOpen] = useState(false);
     const [modeloKey, setModeloKey] = useState(0);
+    const [callbackExecutado, setCallbackExecutado] = useState(false);
 
     const [coleira, setColeira] = useState({
         modelo: 'Pescoço',
@@ -44,6 +45,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
 
     useEffect(() => {
         if (open) {
+            console.log('🚀 Modal aberto, resetando estado...');
             setEtapa(1);
             setColeira({
                 modelo: 'Pescoço',
@@ -55,20 +57,98 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                 valor: 20
             });
             setErro({});
-            const callback = (coresSugeridas) => {
-                setColeira(prevColeira => {
-                    const novaColeira = {
-                        ...prevColeira,
-                        ...coresSugeridas
-                    };
-                    return novaColeira;
-                });
-                setModalCoresOpen(false);
-            };
+            setCallbackExecutado(false);
 
-            setAplicarCoresCallback(() => callback);
+            setAplicarCoresCallback(() => (coresAplicar) => {
+                console.log('🎨 Aplicando cores da análise de IA:', coresAplicar);
+
+                if (coresAplicar.corTecido) {
+                    atualizarColeira("corTecido", coresAplicar.corTecido);
+                }
+                if (coresAplicar.corLogo) {
+                    atualizarColeira("corLogo", coresAplicar.corLogo);
+                }
+                if (coresAplicar.corArgola) {
+                    atualizarColeira("corArgola", coresAplicar.corArgola);
+                }
+                if (coresAplicar.corPresilha) {
+                    atualizarColeira("corPresilha", coresAplicar.corPresilha);
+                }
+
+                console.log('✅ Cores aplicadas com sucesso!');
+
+                // setTimeout(() => {
+                //     setEtapa(4);
+                // }, 500);
+            });
         }
-    }, [open, setAplicarCoresCallback]);
+    }, [open]);
+
+    useEffect(() => {
+        if (open && !callbackExecutado) {
+            console.log('🔍 Verificando se há configuração para aplicar...');
+
+            const configSalva = localStorage.getItem('coleiraProntaConfig');
+            if (configSalva) {
+                try {
+                    const config = JSON.parse(configSalva);
+                    console.log('📋 Configuração encontrada:', config);
+
+                    setTimeout(() => {
+                        console.log('🎨 Aplicando configuração da coleira pronta...');
+                        atualizarColeira("modelo", config.modelo);
+                        atualizarColeira("tamanho", config.tamanho);
+                        atualizarColeira("corTecido", config.corTecido);
+                        atualizarColeira("corLogo", config.corLogo);
+                        atualizarColeira("corArgola", config.corArgola);
+                        atualizarColeira("corPresilha", config.corPresilha);
+
+                        console.log('✅ Configuração aplicada com sucesso!');
+                        setCallbackExecutado(true);
+
+                        localStorage.removeItem('coleiraProntaConfig');
+                    }, 300);
+
+                } catch (error) {
+                    console.error('❌ Erro ao parsear configuração:', error);
+                    localStorage.removeItem('coleiraProntaConfig');
+                }
+            }
+        }
+    }, [open, callbackExecutado]);
+
+    const fecharModal = () => {
+        localStorage.removeItem('coleiraProntaConfig');
+
+        Swal.fire({
+            title: 'Tem certeza que deseja sair?',
+            text: "Todas as alterações serão perdidas.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#E63030',
+            cancelButtonColor: '#84644D',
+            confirmButtonText: 'Sair',
+            cancelButtonText: 'Continuar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setEtapa(1);
+                setColeira({
+                    modelo: 'Pescoço',
+                    tamanho: '',
+                    corTecido: '',
+                    corArgola: '',
+                    corPresilha: '',
+                    corLogo: '',
+                    valor: 20
+                });
+                setErro({});
+                setCallbackExecutado(false);
+                // Limpar callback do contexto
+                setAplicarCoresCallback(null);
+                onClose();
+            }
+        })
+    }
 
     useEffect(() => {
         setColeira(prev => ({
@@ -378,7 +458,7 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
             novosErros.corLogo = "Por favor, selecione uma cor de logo."
         }
         else if (etapa === 3 && !coleira.corArgola) {
-            novosErros.corArgola = "Por favor, selecione uma cor de medalha."
+            novosErros.corArgola = "Por favor, selecione uma cor de Argola e Presilha."
         }
         else if (etapa === 3 && !coleira.corPresilha) {
             novosErros.corPresilha = "Por favor, selecione uma cor para a presilha."
@@ -426,33 +506,33 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
         }
     }
 
-    const fecharModal = () => {
-        Swal.fire({
-            title: 'Tem certeza que deseja sair?',
-            text: "Todas as alterações serão perdidas.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#E63030',
-            cancelButtonColor: '#84644D',
-            confirmButtonText: 'Sair',
-            cancelButtonText: 'Continuar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                setEtapa(1);
-                setColeira({
-                    modelo: 'Pescoço',
-                    tamanho: '',
-                    corTecido: '',
-                    corArgola: '',
-                    corPresilha: '',
-                    corLogo: '',
-                    valor: 20
-                });
-                setErro({});
-                onClose();
-            }
-        })
-    }
+    // const fecharModal = () => {
+    //     Swal.fire({
+    //         title: 'Tem certeza que deseja sair?',
+    //         text: "Todas as alterações serão perdidas.",
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#E63030',
+    //         cancelButtonColor: '#84644D',
+    //         confirmButtonText: 'Sair',
+    //         cancelButtonText: 'Continuar'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             setEtapa(1);
+    //             setColeira({
+    //                 modelo: 'Pescoço',
+    //                 tamanho: '',
+    //                 corTecido: '',
+    //                 corArgola: '',
+    //                 corPresilha: '',
+    //                 corLogo: '',
+    //                 valor: 20
+    //             });
+    //             setErro({});
+    //             onClose();
+    //         }
+    //     })
+    // }
 
     const testarCaptura = async () => {
         if (coleiraModeloRef.current) {
@@ -605,9 +685,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                         <div className="etapas-personalizar-coleira">
                             <div className="visor-etapas">
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo' />
-                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Tecido' />
-                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Medalha' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo e Tamanho' />
+                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Tecido e Logo' />
+                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Argola e Presilha' />
                                 <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Revisão' />
                             </div>
                             <button className='btn-avancar-etapa-personalizar-coleira' onClick={proximaEtapa}>Avançar <FaArrowRightLong /></button>
@@ -691,16 +771,16 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                         <div className="etapas-personalizar-coleira">
                             <div className="visor-etapas">
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo' />
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Tecido' />
-                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Medalha' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo e Tamanho' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Tecido e Logo' />
+                                <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Argola e Presilha' />
                                 <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Revisão' />
                             </div>
                             <button className='btn-avancar-etapa-personalizar-coleira' onClick={proximaEtapa}>Avançar <FaArrowRightLong /></button>
                         </div>
                     </div>
                 )}
-                {/* Etapa 3: Medalha */}
+                {/* Etapa 3: Argola e Presilha */}
                 {etapa === 3 && (
                     <div className="etapa-3-coleira">
                         <div className="container-titulo-modal-personalizar-coleira">
@@ -717,17 +797,17 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                                     <div className="titulo-opcoes-coleira">
                                         <p>Cor da Argola:</p>
                                     </div>
-                                    <div className="opcoes-medalha">
-                                        <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Dourado"} onChange={() => atualizarColeira("corArgola", "Dourado")} />
+                                    <div className="opcoes-argola">
+                                        <label className='radio-argola'>
+                                            <input type="radio" name='argola' checked={coleira.corArgola === "Dourado"} onChange={() => atualizarColeira("corArgola", "Dourado")} />
                                             <span>Dourado</span>
                                         </label>
-                                        <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Prata"} onChange={() => atualizarColeira("corArgola", "Prata")} />
+                                        <label className='radio-argola'>
+                                            <input type="radio" name='argola' checked={coleira.corArgola === "Prata"} onChange={() => atualizarColeira("corArgola", "Prata")} />
                                             <span>Prata</span>
                                         </label>
-                                        <label className='radio-medalha'>
-                                            <input type="radio" name='medalha' checked={coleira.corArgola === "Bronze"} onChange={() => atualizarColeira("corArgola", "Bronze")} />
+                                        <label className='radio-argola'>
+                                            <input type="radio" name='argola' checked={coleira.corArgola === "Bronze"} onChange={() => atualizarColeira("corArgola", "Bronze")} />
                                             <span>Bronze</span>
                                         </label>
                                     </div>
@@ -769,9 +849,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                         <div className="etapas-personalizar-coleira">
                             <div className="visor-etapas">
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo' />
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(2) }} title='Tecido' />
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Medalha' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo e Tamanho' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(2) }} title='Tecido e Logo' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Argola e Presilha' />
                                 <img src="/images/elipse-vazia.png" alt="elipse vazia" title='Revisão' />
                             </div>
                             <button className='btn-avancar-etapa-personalizar-coleira' onClick={proximaEtapa}>Avançar <FaArrowRightLong /></button>
@@ -834,9 +914,9 @@ export default function ModalPersonalizarColeira({ open, onClose }) {
                         </div>
                         <div className="etapas-personalizar-coleira">
                             <div className="visor-etapas">
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo' />
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(2) }} title='Tecido' />
-                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(3) }} title='Medalha' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(1) }} title='Modelo e Tamanho' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(2) }} title='Tecido e Logo' />
+                                <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" onClick={() => { setEtapa(3) }} title='Argola e Presilha' />
                                 <img src="/images/elipse-preenchida.png" className='elipse-clicavel' alt="elipse preenchida" title='Revisão' />
                             </div>
                             <button

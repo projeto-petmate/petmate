@@ -262,7 +262,7 @@
 .opcoes-tamanho,
 .opcoes-gps,
 .opcoes-cores,
-.opcoes-medalha,
+.opcoes-argola,
 .opcoes-desenho {
     display: flex;
     gap: 10px;
