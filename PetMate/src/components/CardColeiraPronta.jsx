@@ -5,6 +5,7 @@ import { FaCartPlus, FaPaintBrush } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import Swal from 'sweetalert2'
 import ModalPersonalizarColeira from './ModalPersonalizarColeira';
+import { CgClose, CgSize } from 'react-icons/cg';
 
 function CardColeiraPronta() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, setAplicarCoresCallback, sugestoes } = useContext(GlobalContext);
@@ -33,7 +34,6 @@ function CardColeiraPronta() {
   const finalizarTamanhoColeira = async (t) => {
     let carrinhos = await getCarrinhos(id_usuario || id_ong);
     let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
-    
 
     if (!carrinho) {
       carrinho = await addCarrinho({
@@ -43,12 +43,13 @@ function CardColeiraPronta() {
       });
     }
 
-    setColeira({...coleira, tamanho: t})
-    console.log({...coleira, tamanho: t})
-    let item = {...coleira, tamanho: t}
+    setColeira({ ...coleira, tamanho: t })
+    console.log({ ...coleira, tamanho: t })
+    let item = { ...coleira, tamanho: t }
     await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
 
     setQtdItensCarrinho(qtdItensCarrinho + 1);
+    setMostraTamanho(false)
 
     Swal.fire({
       title: 'Sucesso!',
@@ -62,52 +63,12 @@ function CardColeiraPronta() {
       timer: 5000,
       timerProgressBar: true
     });
-  }
-
-  const addColeiraPronta = async (numItem) => {
-    let carrinhos = await getCarrinhos(id_usuario || id_ong);
-    let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
-    const item = sugestoes.find(s => s.id === numItem)
-    // let tamanhoSelecionado = null
-
-    // tamanhoSelecionado = modalSelecionarTamanho()
-
-    if (!carrinho) {
-      carrinho = await addCarrinho({
-        id_usuario: id_usuario,
-        id_ong: id_ong,
-        valor_total: 0
-      });
-    }
-
-    // if (tamanhoSelecionado != null) {
-
-    // item.tamanho = tamanhoSelecionado
-
-    await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
-
-    setQtdItensCarrinho(qtdItensCarrinho + 1);
-
-    Swal.fire({
-      title: 'Sucesso!',
-      html: `
-                    <div style="text-align: center;">
-                        <p><strong>Coleira adicionada ao carrinho!</strong></p>
-                    </div>
-                `,
-      icon: 'success',
-      confirmButtonColor: '#84644D',
-      timer: 5000,
-      timerProgressBar: true
-    });
-    // }
-    // window.location.reload()
   }
 
   const personalizarColeiraPronta = (numItem) => {
     const item = sugestoes.find(s => s.id === numItem)
 
-    console.log('🎨 Preparando para personalizar item:', numItem, item);
+    console.log('Preparando para personalizar item:', numItem, item);
 
     const configuracao = {
       modelo: item.modelo,
@@ -144,58 +105,33 @@ function CardColeiraPronta() {
     setAplicarCoresCallback(null);
   };
 
-  // const item1 = {
-  //   modelo: 'Peitoral',
-  //   tamanho: 'Média',
-  //   cor_tecido: 'Preto',
-  //   cor_logo: 'Branco',
-  //   cor_argola: 'Prata',
-  //   cor_presilha: 'Branco',
-  //   valor: '30.00',
-  //   imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
-  //   quantidade: 1
-  // };
-
-  // const item2 = {
-  //   modelo: 'Cabresto',
-  //   tamanho: 'Média',
-  //   cor_tecido: 'Azul',
-  //   cor_logo: 'Branco',
-  //   cor_argola: 'Prata',
-  //   cor_presilha: 'Preto',
-  //   valor: '40.00',
-  //   imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1759774404/pets/i5spm3pwsznymouxqy3s.png',
-  //   quantidade: 1
-  // };
-
-  // const item3 = {
-  //   modelo: 'Pescoço',
-  //   tamanho: 'Média',
-  //   cor_tecido: 'Vermelho',
-  //   cor_logo: 'Branco',
-  //   cor_argola: 'Prata',
-  //   cor_presilha: 'Branco',
-  //   valor: '20.00',
-  //   imagem: 'https://res-console.cloudinary.com/danyxbuuy/thumbnails/v1/image/upload/v1759774790/cGV0cy96NmhnaWplbndiczlkYTFtdmpjeQ==/drilldown',
-  //   quantidade: 1
-  // };
-
   return (
     <div>
-      {mostraTamanho &&
-        <div className="botoes-tamanho">
-          <button onClick={() => finalizarTamanhoColeira('Pequena')}>
-            Pequena
-          </button>
-          <button onClick={() => finalizarTamanhoColeira('Média')}>
-            Média
-          </button>
-          <button onClick={() => finalizarTamanhoColeira('Grande')}>
-            Grande
-          </button>
-        </div>
-      }
       <div className="container-coleira-pronta">
+        {mostraTamanho &&
+          <div className="modal-botoes-tamanho" onClick={() => { setMostraTamanho(false) }}>
+            <div className="container-botoes-tamanho" onClick={(e) => e.stopPropagation()} >
+              <div className="texto-botoes-tamanho">
+                <p>
+                <CgSize />
+                  Selecione o tamanho da coleira:
+                </p>
+                <CgClose />
+              </div>
+              <div className="botoes-tamanho">
+                <button className='botao-tam-pequeno' onClick={() => finalizarTamanhoColeira('Pequena')}>
+                  Pequena
+                </button>
+                <button className='botao-tam-medio' onClick={() => finalizarTamanhoColeira('Média')}>
+                  Média
+                </button>
+                <button className='botao-tam-grande' onClick={() => finalizarTamanhoColeira('Grande')}>
+                  Grande
+                </button>
+              </div>
+            </div>
+          </div>
+        }
         {sugestoes.map((s) => (
           <div key={s.id} className="card-coleira-pronta">
             <img src={s.imagem} alt="" />

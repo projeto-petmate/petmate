@@ -74,7 +74,7 @@
 .container-add-carrinho:hover {
     background-color: #654833;
     /* color: #ccc; */
-} 
+}
 
 .icon-add-carrinho {
     color: #F5F5F5;
@@ -150,12 +150,80 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.modal-botoes-tamanho {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.container-botoes-tamanho {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #F5F5F5;
+    height: 50vh;
+    padding: 5rem;
+    border-radius: 12px;
+    /* gap: 20px; */
+}
+
+.texto-botoes-tamanho {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2.5rem;
+    color: #84644D;
+    width: 100%;
+}
+
+.texto-botoes-tamanho p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 2rem;
+    color: #84644D;
+}
+
+.botoes-tamanho {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.botoes-tamanho button {
+    height: 6rem;
+    width: 15rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: #84644D;
+    color: #F5F5F5;
+    transition: 0.3s ease
+}
+
+.botoes-tamanho button:hover {
+    background-color: #654833;
+    transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
     .container-acoes-coleira {
         flex-direction: column;
         gap: 8px;
     }
-    
+
     .container-add-carrinho p,
     .container-personalizar-carrinho p {
         font-size: 13px;
