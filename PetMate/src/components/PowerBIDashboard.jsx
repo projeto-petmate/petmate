@@ -7,8 +7,6 @@ const PowerBIDashboard = ({
   embedUrl,
   width = '100%',
   height = '600px',
-  initialAutoRefreshInterval = 300000, // 5 minutos por padrão
-  initialEnableAutoRefresh = true,
   initialShowControls = true,
   className = '',
   onRefresh = null,
@@ -16,44 +14,30 @@ const PowerBIDashboard = ({
   onLoad = null
 }) => {
   // Estados locais para configurações
-  const [autoRefreshInterval, setAutoRefreshInterval] = useState(initialAutoRefreshInterval);
-  const [enableAutoRefresh, setEnableAutoRefresh] = useState(initialEnableAutoRefresh);
   const [showControls, setShowControls] = useState(initialShowControls);
+  
+  // Auto-refresh desabilitado - apenas refresh manual
+  const enableAutoRefresh = false;
 
   // Hook personalizado do Power BI
   const {
     isLoading,
     error,
     lastRefresh,
-    timeUntilRefresh,
     iframeUrl,
     handleRefresh,
     handleLoad,
     handleError
   } = usePowerBI({
     embedUrl,
-    autoRefreshInterval,
+    autoRefreshInterval: 0, // Desabilitado
     enableAutoRefresh,
     onRefresh,
     onError,
     onLoad
   });
 
-  // Formatar tempo restante
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   // Handlers para configurações
-  const handleIntervalChange = useCallback((newInterval) => {
-    setAutoRefreshInterval(newInterval);
-  }, []);
-
-  const handleAutoRefreshToggle = useCallback((enabled) => {
-    setEnableAutoRefresh(enabled);
-  }, []);
 
   const handleShowControlsToggle = useCallback((show) => {
     setShowControls(show);
@@ -82,22 +66,10 @@ const PowerBIDashboard = ({
               onClick={handleRefresh}
               title="Atualizar Dashboard Agora"
             >
-              🔄 Atualizar
+              🔄 Atualizar Manualmente
             </button>
-            
-            {enableAutoRefresh && (
-              <div className="auto-refresh-info">
-                <span className="refresh-status">
-                  📊 Próxima atualização em: {formatTime(timeUntilRefresh)}
-                </span>
-              </div>
-            )}
 
             <PowerBISettings
-              currentInterval={autoRefreshInterval}
-              onIntervalChange={handleIntervalChange}
-              autoRefresh={enableAutoRefresh}
-              onAutoRefreshToggle={handleAutoRefreshToggle}
               showControls={showControls}
               onShowControlsToggle={handleShowControlsToggle}
               onExportData={handleExportData}

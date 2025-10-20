@@ -5,6 +5,7 @@ import { LuHandshake } from "react-icons/lu";
 import { MdOutlinePets } from "react-icons/md";
 import { BsChatRightHeart } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
+import { BsClipboard2DataFill } from "react-icons/bs";
 import ComentarioAdm from "../components/ComentarioAdm";
 import PetsAdm from "../components/PetsAdm";
 import OngsAdm from "../components/OngsAdm";
@@ -102,7 +103,7 @@ function Gerenciamento() {
             </div>
 
                 <div className="icon-link4">
-              <BsChatRightHeart className="icon-adm4" />
+              <BsClipboard2DataFill className="icon-adm4" />
               <a
                 className="links-adm"
                 onClick={() => {
@@ -128,7 +129,7 @@ function Gerenciamento() {
       {mostrar == 2 && <OngsAdm />}
       {mostrar == 3 && <PetsAdm />}
       {mostrar == 4 && <ComentarioAdm />}
-      {mostrar == 5 && <PowerBIDashboard embedUrl={powerBiUrl} width="100%" height="600px" autoRefreshInterval={300000} enableAutoRefresh={false} showControls={true} className="petmate-dashboard" />}
+      {mostrar == 5 && <PowerBIDashboard embedUrl={powerBiUrl} width="100%" height="600px" initialShowControls={true} className="petmate-dashboard" />}
 
       <LastPage />
     </div>
