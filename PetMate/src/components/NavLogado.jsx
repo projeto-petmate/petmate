@@ -25,8 +25,6 @@ function NavLogado() {
 
   return (
     <div className='nav-logado'>
-
-      <>
         <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
         <p className="boas-vindas">
           {userLogado && `Olá, ${userName}!`}
@@ -41,22 +39,20 @@ function NavLogado() {
           </Link>
           <span className="texto-perfil">Ir para o perfil</span>
         </div>
-        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
 
         <div className="carrinho-container">
           <Link to="/carrinho">
             <FiShoppingCart className='icon-carrinho' />
           </Link>
           {/* <Link to="/carrinho"> */}
-            {qtdItensCarrinho > 0 && (
-              <div className="container-badge-carrinho" title='Quantidade de itens no carrinho'>
-                <span className="badge-carrinho">{qtdItensCarrinho}</span>
-              </div>
-            )}
+          {qtdItensCarrinho > 0 && (
+            <div className="container-badge-carrinho" title='Quantidade de itens no carrinho'>
+              <span className="badge-carrinho">{qtdItensCarrinho}</span>
+            </div>
+          )}
           {/* </Link> */}
         </div>
-      </>
-
+        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
     </div>
   );
 }

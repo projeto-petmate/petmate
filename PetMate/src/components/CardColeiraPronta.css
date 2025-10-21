@@ -171,23 +171,84 @@
     justify-content: space-evenly;
     align-items: center;
     background-color: #F5F5F5;
-    height: 50vh;
-    padding: 5rem;
+    height: 30vh;
+    padding: 0 3rem;
     border-radius: 12px;
-    /* gap: 20px; */
+    gap: 0px;
+    animation: fadeIn 0.15s ease-out;
+    border-left: solid 14px #84644D;
+    
 }
 
-.texto-botoes-tamanho {
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.titulo-botoes-tamanho {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #84644D;
     width: 100%;
+    gap: 2rem;
 }
 
-.texto-botoes-tamanho p {
+.titulo-botoes-tamanho p {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -195,19 +256,33 @@
     color: #84644D;
 }
 
+.barra-tamanho-coleira {
+    width: 100%;
+    height: 7px;
+    border-radius: 12px;
+    /* color: #654833; */
+    background-color: #84644D;
+}
+
+.botao-fechar-tamanho {
+    cursor: pointer;
+    font-size: 3rem;
+}
+
 .botoes-tamanho {
     display: flex;
     flex-direction: row;
     gap: 15px;
+    padding-bottom: 2rem;
 }
 
 .botoes-tamanho button {
-    height: 6rem;
-    width: 15rem;
+    height: 4rem;
+    width: 10rem;
     border-radius: 12px;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     background-color: #84644D;
     color: #F5F5F5;
     transition: 0.3s ease

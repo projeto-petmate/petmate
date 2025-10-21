@@ -12,7 +12,7 @@
 .botoes-nav {
     display: flex;
     justify-content: space-evenly;
-    width: 50%;
+    width: 100%;
     align-items: center;
     gap: 20px;
 }
@@ -30,7 +30,7 @@ a {
 }
 
 .botao-modal-navbar {
-    width: 120px;
+    width: 9rem;
     height: 50px;
     font-weight: 600;
     font-size: 16px;
@@ -41,6 +41,7 @@ a {
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0 10px;
 }
 
 .botao-modal-navbar:hover {

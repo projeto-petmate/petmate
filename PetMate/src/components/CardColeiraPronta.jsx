@@ -5,7 +5,8 @@ import { FaCartPlus, FaPaintBrush } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
 import Swal from 'sweetalert2'
 import ModalPersonalizarColeira from './ModalPersonalizarColeira';
-import { CgClose, CgSize } from 'react-icons/cg';
+import { CgCloseO, CgSize } from 'react-icons/cg';
+import { MdOutlinePets } from 'react-icons/md';
 
 function CardColeiraPronta() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, setAplicarCoresCallback, sugestoes } = useContext(GlobalContext);
@@ -111,12 +112,15 @@ function CardColeiraPronta() {
         {mostraTamanho &&
           <div className="modal-botoes-tamanho" onClick={() => { setMostraTamanho(false) }}>
             <div className="container-botoes-tamanho" onClick={(e) => e.stopPropagation()} >
-              <div className="texto-botoes-tamanho">
-                <p>
-                <CgSize />
-                  Selecione o tamanho da coleira:
-                </p>
-                <CgClose />
+              <div className="titulo-botoes-tamanho">
+                <div className="texto-titulo-tamanho">
+                  <p>
+                    {/* <MdOutlinePets /> */}
+                    Selecione o tamanho da coleira:
+                  </p>
+                  {/* <hr src="/images/barra_marrom.png" className='barra-tamanho-coleira' /> */}
+                </div>
+                <CgCloseO className='botao-fechar-tamanho' onClick={() => { setMostraTamanho(false) }}/>
               </div>
               <div className="botoes-tamanho">
                 <button className='botao-tam-pequeno' onClick={() => finalizarTamanhoColeira('Pequena')}>
