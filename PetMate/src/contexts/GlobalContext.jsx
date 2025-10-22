@@ -72,7 +72,7 @@ export const GlobalContextProvider = ({ children }) => {
             cor_argola: 'Prata',
             cor_presilha: 'Branco',
             valor: '20.00',
-            imagem: 'https://res-console.cloudinary.com/danyxbuuy/thumbnails/v1/image/upload/v1759774790/cGV0cy96NmhnaWplbndiczlkYTFtdmpjeQ==/drilldown',
+            imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1759862647/pets/azykonxvryops0rumyi9.png',
             quantidade: 1
         }
     ])
