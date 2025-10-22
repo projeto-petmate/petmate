@@ -82,30 +82,51 @@
     margin-bottom: 10px;
 }
 
-.botao-personalizar-coleira {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
+.botao-personalizar {
+  background: linear-gradient(135deg, #6f43e8, #c7a8ff);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  width: 16rem;
+  height: 3.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(111, 67, 232, 0.4);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.botao-personalizar {
-    background-color: #84644D;
-    color: #f5f5f5;
-    padding: 3px;
-    width: 15rem;
-    height: 3rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.botao-personalizar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.25);
+  transform: skewX(-25deg);
+  transition: 0.5s;
+}
+
+.botao-personalizar:hover::after {
+  left: 125%;
 }
 
 .botao-personalizar:hover {
-    background-color: #74543D;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #5b34cc, #d3b6ff);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(111, 67, 232, 0.6);
+}
+
+.icon-personalizar-coleira {
+  font-size: 18px;
 }
 
 .botao-analisar-cores {

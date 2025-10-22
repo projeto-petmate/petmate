@@ -6,6 +6,7 @@ import ModalPersonalizarColeira from '../components/ModalPersonalizarColeira';
 import ModalColeiras from '../components/ModalColeiras';
 import LastPage from "../components/LastPage"
 import ColeiraPronta from '../components/CardColeiraPronta';
+import { FaCartPlus, FaPaintBrush } from "react-icons/fa";
 
 const ColeiraModelo = React.lazy(() => import('../components/ColeiraModelo'));
 
@@ -61,7 +62,8 @@ function Coleiras() {
             </div>
             <div className="botao-personalizar-coleira">
               <button className="botao-personalizar" onClick={() => setOpenModalPersonalizar(true)}>
-                Personalizar
+                <FaPaintBrush className="icon-personalizar-coleira" />
+                Criar minha coleira!
               </button>
             </div>
           </div>
