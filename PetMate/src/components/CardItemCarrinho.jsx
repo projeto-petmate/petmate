@@ -36,44 +36,27 @@ function CardItemCarrinho({ item, onQuantidadeChange, onRemover }) {
             </div>
           )}
         </div>
-
         <span className="detalhes-item">
-          {/* <div className="linha-chips-1"> */}
-            <span className='chips-coleira'>
-              Modelo: {item.modelo}
-            </span> 
-            <span className='chips-coleira'>
-              Tamanho: {item.tamanho}
-            </span> 
-            <span className='chips-coleira'>
-              Tecido: {item.cor_tecido}
-            </span>
-          {/* </div> */}
-          {/* <div className="linha-chips-2"> */}
-            <span className='chips-coleira'>
-              Logo: {item.cor_logo}
-            </span> 
-            <span className='chips-coleira'>
-              Argola: {item.cor_argola}
-            </span> 
-            <span className='chips-coleira'>
-              Presilha: {item.cor_presilha}
-            </span>
-          {/* </div> */}
+          <span className='chips-coleira'>
+            Modelo: {item.modelo}
+          </span>
+          <span className='chips-coleira'>
+            Tamanho: {item.tamanho}
+          </span>
+          <span className='chips-coleira'>
+            Tecido: {item.cor_tecido}
+          </span>
+          <span className='chips-coleira'>
+            Logo: {item.cor_logo}
+          </span>
+          <span className='chips-coleira'>
+            Argola: {item.cor_argola}
+          </span>
+          <span className='chips-coleira'>
+            Presilha: {item.cor_presilha}
+          </span>
         </span>
       </div>
-
-
-      {/* <div className="container-detalhes-item"> */}
-      {/* <div className="nome-preco-item"> */}
-      {/* <b>Coleira personalizada</b> */}
-      {/* <div className="cores-item">
-          <span>Tecido: {item.cor_tecido}</span>
-          <span>Logo: {item.cor_logo}</span>
-          <span>Argola: {item.cor_argola}</span>
-          <span>Presilha: {item.cor_presilha}</span>
-        </div> */}
-      {/* </div> */}
       <div className="preco-e-qtd-item">
         <div className="valor-item">
           <span>R${parseFloat(item.valor).toFixed(2)}</span>
@@ -99,7 +82,6 @@ function CardItemCarrinho({ item, onQuantidadeChange, onRemover }) {
           <span>R${(parseFloat(item.valor) * item.quantidade).toFixed(2)}</span>
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

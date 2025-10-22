@@ -4,9 +4,9 @@ import './Navbar.css'
 
 function NavDeslogado() {
   return (
-    <div>
-        <Link to="/login"><button className="loginNav">Entrar</button></Link>
-        <Link to="/cadastro"><button className="cadNav">Cadastrar</button></Link>
+    <div className='botoes-nav-deslogado'>
+        <Link to="/login"><button className="login-nav">Entrar</button></Link>
+        <Link to="/cadastro"><button className="cad-nav">Cadastrar</button></Link>
     </div>
   )
 }

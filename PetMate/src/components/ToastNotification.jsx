@@ -7,7 +7,7 @@ const ToastNotification = ({ message, type = 'info', duration = 3000, onClose })
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-      setTimeout(() => onClose && onClose(), 300); // Aguarda animação
+      setTimeout(() => onClose && onClose(), 300); 
     }, duration);
 
     return () => clearTimeout(timer);

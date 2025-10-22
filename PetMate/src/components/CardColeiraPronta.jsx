@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { addCarrinho, addItemCarrinho, getCarrinhos } from '../apiService';
+import { addCarrinho, addItemCarrinho, getCarrinhos, getQuantidadeItensCarrinho } from '../apiService';
 import './CardColeiraPronta.css'
 import { FaCartPlus, FaPaintBrush } from "react-icons/fa";
 import { GlobalContext } from '../contexts/GlobalContext';
@@ -9,13 +9,11 @@ import { CgCloseO, CgSize } from 'react-icons/cg';
 import { MdOutlinePets } from 'react-icons/md';
 
 function CardColeiraPronta() {
-  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, setAplicarCoresCallback, sugestoes } = useContext(GlobalContext);
+  const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, setAplicarCoresCallback, sugestoes, carregarQuantidadeItensCarrinho } = useContext(GlobalContext);
   const [modalAberto, setModalAberto] = useState(false);
   const [itemSelecionado, setItemSelecionado] = useState(null);
   const [coleira, setColeira] = useState(null)
   const [mostraTamanho, setMostraTamanho] = useState(false)
-
-
 
   let id_usuario = userLogado?.id_usuario || null;
   let id_ong = userLogado?.id_ong || null;
@@ -34,7 +32,7 @@ function CardColeiraPronta() {
 
   const finalizarTamanhoColeira = async (t) => {
     let carrinhos = await getCarrinhos(id_usuario || id_ong);
-    let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
+    let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
 
     if (!carrinho) {
       carrinho = await addCarrinho({
@@ -47,9 +45,18 @@ function CardColeiraPronta() {
     setColeira({ ...coleira, tamanho: t })
     console.log({ ...coleira, tamanho: t })
     let item = { ...coleira, tamanho: t }
-    await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
 
-    setQtdItensCarrinho(qtdItensCarrinho + 1);
+    await addItemCarrinho(carrinho.id_carrinho, item);
+    
+    try {
+        const qtdReal = await carregarQuantidadeItensCarrinho();
+        console.log('📊 CardColeiraPronta: Quantidade sincronizada:', qtdReal);
+    } catch (error) {
+        console.error('Erro ao sincronizar quantidade:', error);
+        // Fallback
+        setQtdItensCarrinho(qtdItensCarrinho + 1);
+    }
+
     setMostraTamanho(false)
 
     Swal.fire({

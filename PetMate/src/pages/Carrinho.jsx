@@ -4,9 +4,10 @@ import Footer from '../components/Footer';
 import CardItemCarrinho from '../components/CardItemCarrinho';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
-import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho, getQuantidadeItensCarrinho } from '../apiService';
+import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, addCarrinho, updateItemCarrinho, removeItemCarrinho, getQuantidadeItensCarrinho, deleteCarrinho } from '../apiService';
 import Swal from 'sweetalert2';
 import { PiWarningCircle } from "react-icons/pi";
+import ColeiraPronta from '../components/CardColeiraPronta';
 
 export default function Carrinho() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
@@ -17,28 +18,53 @@ export default function Carrinho() {
   let id_usuario = userLogado?.id_usuario || null;
   let id_ong = userLogado?.id_ong || null;
 
-  useEffect(() => {
-    const fetchCarrinhoItens = async () => {
 
-      const carrinhos = await getCarrinhos(id_usuario, id_ong);
-      const carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto' || c.status === 'ativo') : null;
-      if (!carrinho) {
-        setQtdItensCarrinho(0);
-        return;
-      }
+  const recarregarCarrinho = async () => {
 
-      setCarrinhoAtual(carrinho);
+    const carrinhos = await getCarrinhos(id_usuario, id_ong);
+    const carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
 
-      const itensCarrinho = await getCarrinhoItens(carrinho.id_carrinho || carrinho.id);
-      setItens(itensCarrinho);
-      const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
-      setSubtotal(total);
+    if (!carrinho) {
+      setItens([]);
+      setSubtotal(0);
+      setCarrinhoAtual(null);
+      setQtdItensCarrinho(0);
+      return;
+    }
 
-      const qtdTotal = itensCarrinho.reduce((acc, item) => acc + (item.quantidade || 0), 0);
+    setCarrinhoAtual(carrinho);
+
+    const itensCarrinho = await getCarrinhoItens(carrinho.id_carrinho || carrinho.id);
+
+    setItens(itensCarrinho);
+
+    const total = itensCarrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
+    setSubtotal(total);
+
+    const qtdTotal = itensCarrinho.reduce((acc, item) => acc + (item.quantidade || 0), 0);
+
+    if (qtdTotal !== qtdItensCarrinho) {
       setQtdItensCarrinho(qtdTotal);
-    };
-    fetchCarrinhoItens();
-  }, [userLogado, setQtdItensCarrinho]);
+    }
+  };
+
+  useEffect(() => {
+    if (userLogado) {
+      recarregarCarrinho();
+    }
+  }, [userLogado]);
+
+  useEffect(() => {
+
+    const qtdAtualItens = itens.reduce((acc, item) => acc + (item.quantidade || 0), 0);
+
+    if (qtdItensCarrinho !== qtdAtualItens && qtdItensCarrinho > 0) {
+
+      setTimeout(() => {
+        recarregarCarrinho();
+      }, 100);
+    }
+  }, [qtdItensCarrinho]);
 
   const handleQuantidadeChange = async (id_item, novaQuantidade) => {
     try {
@@ -67,6 +93,9 @@ export default function Carrinho() {
 
     } catch (error) {
       console.error('Erro ao atualizar quantidade:', error);
+
+      await recarregarCarrinho();
+
       Swal.fire({
         title: 'Erro!',
         text: 'Não foi possível atualizar a quantidade.',
@@ -83,7 +112,7 @@ export default function Carrinho() {
         text: "Tem certeza que deseja remover este item do carrinho?",
         icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#84644D  ',
+        confirmButtonColor: '#84644D',
         cancelButtonColor: '#84644D',
         confirmButtonText: 'Remover',
         cancelButtonText: 'Cancelar'
@@ -114,6 +143,9 @@ export default function Carrinho() {
       }
     } catch (error) {
       console.error('Erro ao remover item:', error);
+
+      await recarregarCarrinho();
+
       Swal.fire({
         title: 'Erro!',
         text: 'Não foi possível remover o item.',
@@ -122,6 +154,7 @@ export default function Carrinho() {
       });
     }
   };
+
 
   const fecharPedido = async () => {
     if (!carrinhoAtual) {
@@ -199,37 +232,124 @@ export default function Carrinho() {
       }
     }
   };
-
+  
   const itemTeste = async () => {
     let carrinhos = await getCarrinhos(id_usuario || id_ong);
-    let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'aberto') : null;
+    let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
 
     if (!carrinho) {
       carrinho = await addCarrinho({
         id_usuario: id_usuario,
         id_ong: id_ong,
-        valor_total: 0
+        valor_total: 0,
+        status: 'ativo'
       });
     }
+
     const item = {
       modelo: 'Peitoral',
       tamanho: 'Pequena',
       cor_tecido: 'Preto',
-      cor_logo: 'Branca',
+      cor_logo: 'Branco',
       cor_argola: 'Prata',
-      cor_presilha: 'Branca',
+      cor_presilha: 'Branco',
       valor: '30.00',
       imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
       quantidade: 1
     };
 
-    await addItemCarrinho(carrinho.id_carrinho || carrinho.id, item);
+    await addItemCarrinho(carrinho.id_carrinho, item);
 
     setQtdItensCarrinho(qtdItensCarrinho + 1);
-    // window.location.reload()
-  }
+  };
+
+  const apagarCarrinho = async () => {
+    try {
+      const confirmacao = await Swal.fire({
+        title: 'Tem certeza?',
+        text: 'Todos os itens do carrinho serão removidos permanentemente.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#84644D',
+        confirmButtonText: 'Sim, apagar tudo!',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: true
+      });
+
+      if (!confirmacao.isConfirmed) {
+        return;
+      }
 
 
+      Swal.fire({
+        title: 'Apagando carrinho...',
+        text: 'Aguarde enquanto removemos todos os itens',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      let carrinhos = await getCarrinhos(id_usuario || id_ong);
+      let carrinho_user = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
+
+      if (!carrinho_user) {
+        Swal.fire({
+          title: 'Carrinho vazio',
+          text: 'Não há itens no carrinho para remover.',
+          icon: 'info',
+          confirmButtonColor: '#84644D',
+          timer: 3000,
+          timerProgressBar: true
+        });
+        return;
+      }
+
+      const response = await deleteCarrinho(carrinho_user.id_carrinho);
+
+      if (response && (response.success || response.message)) {
+        Swal.fire({
+          title: 'Carrinho apagado!',
+          text: 'Todos os itens foram removidos com sucesso.',
+          icon: 'success',
+          confirmButtonColor: '#84644D',
+          timer: 1000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        }).then(() => {
+          window.location.reload();
+        });
+      } else {
+        throw new Error('Resposta inesperada do servidor');
+      }
+
+    } catch (error) {
+      console.error('Erro ao apagar carrinho:', error);
+
+      Swal.fire({
+        title: 'Erro ao apagar carrinho',
+        html: `
+                <p>Não foi possível apagar o carrinho.</p>
+                <p style="color: #666; font-size: 14px;">
+                    <strong>Detalhes:</strong> ${error.message || 'Erro interno do servidor'}
+                </p>
+            `,
+        icon: 'error',
+        confirmButtonColor: '#84644D',
+        confirmButtonText: 'Tentar novamente',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#6c757d'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          apagarCarrinho();
+        }
+      });
+    }
+  };
 
 
   return (
@@ -237,7 +357,7 @@ export default function Carrinho() {
       <Navbar />
       <div>
         <div className="banner-coleiras">
-          <img src="/images/banner-coleiraCarrinho.svg" className='banner-coleiras' />
+          <img src="/images/banner-carrinho.svg" className='banner-coleiras' />
         </div>
 
         <div className="titulo-carrinho">
@@ -247,6 +367,11 @@ export default function Carrinho() {
         {debug &&
           <button onClick={itemTeste}>Teste Item</button>
         }
+
+        {debug &&
+          <button onClick={apagarCarrinho}>Apagar Carrinho</button>
+        }
+
         {qtdItensCarrinho > 0 ?
           (
             <div className="container-produtos">
@@ -254,7 +379,6 @@ export default function Carrinho() {
                 <div className="container-titulo-carrinho">
                   <div className="produto-title">
                     <p>Produto</p>
-                    {/* <p>Personalização</p> */}
                   </div>
                   <div className="valores-title">
                     <p>Preço</p>
@@ -262,8 +386,6 @@ export default function Carrinho() {
                     <p>Subtotal</p>
                   </div>
                 </div>
-                {/* <h2>Produtos adicionados</h2> */}
-
                 <div className="container-cards-itens">
                   {itens.map(item => (
                     <CardItemCarrinho
@@ -277,7 +399,6 @@ export default function Carrinho() {
               </div>
               <div className="subtotal">
                 <div className="container-teste">
-
                 </div>
                 <p>
                   Subtotal:
@@ -300,8 +421,13 @@ export default function Carrinho() {
               <p>Nenhum produto no carrinho.</p>
             </div>
           )
-
         }
+        <div className="container-sugestao-coleiras-carrinho">
+          <div className="titulo-carrinho">
+            <h2>Você pode gostar</h2>
+          </div>
+          <ColeiraPronta />
+        </div>
       </div>
       <Footer />
     </div>

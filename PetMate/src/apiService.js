@@ -400,68 +400,6 @@ export const deleteCarrinho = async (id) => {
     }
 };
 
-// Coleiras (Pedidos de Coleiras)
-export const getColeiras = async () => {
-    try {
-        const response = await api.get('/coleiras');
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao listar coleiras:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-export const getColeiraById = async (id) => {
-    try {
-        const response = await api.get(`/coleiras/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao buscar coleira:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-export const addColeira = async (coleira) => {
-    try {
-        const response = await api.post('/coleiras', coleira);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao adicionar pedido de coleira:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-export const updateColeira = async (id, coleira) => {
-    try {
-        const response = await api.put(`/coleiras/${id}`, coleira);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao atualizar pedido de coleira:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-export const deleteColeira = async (id) => {
-    try {
-        const response = await api.delete(`/coleiras/${id}`);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao deletar pedido de coleira:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-export const getColeirasDoCarrinho = async (id_carrinho) => {
-    try {
-        const response = await api.get(`/coleiras/carrinhos/${id_carrinho}`);
-        return response.data;
-    } catch (error) {
-        console.error('Erro ao buscar coleiras do carrinho:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-};
-
-
 // CARRINHO ITENS - Itens temporários no carrinho
 export const getCarrinhoItens = async (id_carrinho) => {
     try {

@@ -110,8 +110,8 @@ a {
     color: #F5F5F5;
 }
 
-.loginNav,
-.cadNav {
+.login-nav,
+.cad-nav {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 20px;
@@ -122,7 +122,7 @@ a {
     transition: all 0.3s ease;
 }
 
-.loginNav {
+.login-nav {
     border: none;
     background-color: #EBE5E0;
     color: #312319;
@@ -130,26 +130,26 @@ a {
     font-family: 'nunito', sans-serif;
 }
 
-.cadNav {
+.cad-nav {
     border: none;
     color: #F5F5F5;
     background-color: #654833;
     font-family: 'nunito', sans-serif;
 }
 
-.loginNav:hover,
-.cadNav:hover {
+.login-nav:hover,
+.cad-nav:hover {
     cursor: pointer;
     transform: translateY(-2px);
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.loginNav:hover {
+.login-nav:hover {
     background-color: #D4C9C1;
     color: #312319;
 }
 
-.cadNav:hover {
+.cad-nav:hover {
     background-color: #543A28;
     color: #F5F5F5;
 }
@@ -162,9 +162,11 @@ a {
 }
 
 .boas-vindas {
+    display: flex;
     font-family: 'nunito', sans-serif;
     font-size: 20px;
     color: #F5F5F5;
+    width: 100%;
 }
 
 .nav-link {
@@ -266,10 +268,10 @@ a {
         background-color: #94725a;
         z-index: 11;
     }
-    .cadNav {
+    .cad-nav {
         display: none;
     }
-    .loginNav {
+    .login-nav {
         margin-right: -10%;
     }
  
@@ -375,10 +377,12 @@ a {
 
     .badge-carrinho {
         /* color: #94725a; */
-
         /* padding: 5px; */
         border: none;
         font-size: 1.65rem;
         text-decoration: none;
-
     }
+
+.botoes-nav-deslogado {
+    display: flex;
+}

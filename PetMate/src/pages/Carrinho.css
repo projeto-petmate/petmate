@@ -5,14 +5,13 @@
 
 .titulo-carrinho {
     margin-left: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .titulo-carrinho h2 {
-    font-size: 50px;
-    color: #84644D;
-    margin-bottom: 10px;
-    font-weight: 800;
+    font-size: 40px;
+    color: #654833;
+    font-weight: 700;
     font-family: 'Raleway';
 }
 
@@ -197,6 +196,10 @@
 
 .icon-warn-itens {
     font-size: 2rem;
+}
+
+.container-sugestao-coleiras-carrinho {
+    padding-bottom: 5rem;
 }
 
 @media (max-width: 1400px) {

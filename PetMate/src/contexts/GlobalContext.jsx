@@ -32,50 +32,50 @@ export const GlobalContextProvider = ({ children }) => {
     });
     const [isAdmin, setIsAdmin] = useState(false);
     const [qtdItensCarrinho, setQtdItensCarrinho] = useState(0);
-    
+
     const [combinacoesCores, setCombinacoesCores] = useState({
         alternativa1: null,
         alternativa2: null
     });
     const [aplicarCoresCallback, setAplicarCoresCallback] = useState(null);
-      const [sugestoes] = useState([
+    const [sugestoes] = useState([
         {
-          id: 1,
-          modelo: 'Peitoral',
-          tamanho: '',
-          cor_tecido: 'Preto',
-          cor_logo: 'Branco',
-          cor_argola: 'Prata',
-          cor_presilha: 'Branco',
-          valor: '30.00',
-          imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
-          quantidade: 1
+            id: 1,
+            modelo: 'Peitoral',
+            tamanho: '',
+            cor_tecido: 'Preto',
+            cor_logo: 'Branco',
+            cor_argola: 'Prata',
+            cor_presilha: 'Branco',
+            valor: '30.00',
+            imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1758217351/pets/i4nyci8zkjlccnkn1gqd.png',
+            quantidade: 1
         },
         {
-          id: 2,
-          modelo: 'Cabresto',
-          tamanho: '',
-          cor_tecido: 'Azul',
-          cor_logo: 'Branco',
-          cor_argola: 'Prata',
-          cor_presilha: 'Preto',
-          valor: '40.00',
-          imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1759774404/pets/i5spm3pwsznymouxqy3s.png',
-          quantidade: 1
+            id: 2,
+            modelo: 'Cabresto',
+            tamanho: '',
+            cor_tecido: 'Azul',
+            cor_logo: 'Branco',
+            cor_argola: 'Prata',
+            cor_presilha: 'Preto',
+            valor: '40.00',
+            imagem: 'https://res.cloudinary.com/danyxbuuy/image/upload/v1759774404/pets/i5spm3pwsznymouxqy3s.png',
+            quantidade: 1
         },
         {
-          id: 3,
-          modelo: 'Pescoço',
-          tamanho: '',
-          cor_tecido: 'Vermelho',
-          cor_logo: 'Branco',
-          cor_argola: 'Prata',
-          cor_presilha: 'Branco',
-          valor: '20.00',
-          imagem: 'https://res-console.cloudinary.com/danyxbuuy/thumbnails/v1/image/upload/v1759774790/cGV0cy96NmhnaWplbndiczlkYTFtdmpjeQ==/drilldown',
-          quantidade: 1
+            id: 3,
+            modelo: 'Pescoço',
+            tamanho: '',
+            cor_tecido: 'Vermelho',
+            cor_logo: 'Branco',
+            cor_argola: 'Prata',
+            cor_presilha: 'Branco',
+            valor: '20.00',
+            imagem: 'https://res-console.cloudinary.com/danyxbuuy/thumbnails/v1/image/upload/v1759774790/cGV0cy96NmhnaWplbndiczlkYTFtdmpjeQ==/drilldown',
+            quantidade: 1
         }
-      ])
+    ])
 
     useEffect(() => {
         const fetchLoggedUser = async () => {
@@ -105,7 +105,7 @@ export const GlobalContextProvider = ({ children }) => {
                         } else {
                             setIsAdmin(false);
                         }
-                        
+
                         await carregarQuantidadeItensCarrinho(user);
                     } else {
                         console.error("Erro: ID do usuário ou ONG não definido.");
@@ -180,9 +180,8 @@ export const GlobalContextProvider = ({ children }) => {
                     setToken(data.token);
                     localStorage.setItem('token', data.token);
                     setLogado(true);
-                    
+
                     await carregarQuantidadeItensCarrinho(user);
-                    // console.log("Usuário logado com sucesso:", user);
                 } else {
                     console.error("Erro: ID do usuário ou ONG não definido.");
                     return { error: "Erro interno: ID do usuário ou ONG não encontrado." };
@@ -196,7 +195,7 @@ export const GlobalContextProvider = ({ children }) => {
             return { error: "Erro ao realizar login" };
         }
     };
-    
+
 
     const Logout = () => {
         setLogado(false);
@@ -225,7 +224,6 @@ export const GlobalContextProvider = ({ children }) => {
                 ...prevUser,
                 ...updatedUser,
             }));
-            console.log("Usuário atualizado com sucesso:", updatedUser);
         } catch (error) {
             console.error("Erro ao atualizar usuário:", error);
         }
@@ -291,13 +289,20 @@ export const GlobalContextProvider = ({ children }) => {
                 id_ong: user?.id_ong || null
             });
             setQtdItensCarrinho(qtd || 0);
+            return qtd || 0;
         } catch (error) {
             console.error('Erro ao carregar quantidade de itens no carrinho:', error);
             setQtdItensCarrinho(0);
+            return 0;
         }
-
-        //a
     };
+
+    const sincronizarCarrinho = async () => {
+        return await carregarQuantidadeItensCarrinho();
+    };
+
+
+
 
     return (
         <GlobalContext.Provider
@@ -326,9 +331,10 @@ export const GlobalContextProvider = ({ children }) => {
                 setAplicarCoresCallback,
                 qtdItensCarrinho,
                 setQtdItensCarrinho,
-                carregarQuantidadeItensCarrinho,
                 debug,
-                sugestoes
+                sugestoes,
+                carregarQuantidadeItensCarrinho,
+                sincronizarCarrinho,
             }}
         >
             {children}
