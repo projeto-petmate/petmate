@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import ModalAnunciarPet from "../components/ModalAnunciarPet";
 import { GlobalContext } from '../contexts/GlobalContext';
 import { FiShoppingCart } from "react-icons/fi";
+import { MdBorderColor, MdOutlineBorderColor } from 'react-icons/md';
 
 
 function NavLogado() {
@@ -25,34 +26,40 @@ function NavLogado() {
 
   return (
     <div className='nav-logado'>
-        <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
-        <p className="boas-vindas">
-          {userLogado && `Olá, ${userName}!`}
-        </p>
-        <div className="user-icon-container-nav">
-          <Link to="/perfil">
-            {userIcon ? (
-              <img src={userIcon} alt="User Icon" className="nav-profile" />
-            ) : (
-              <FaUserCircle className="profile" />
-            )}
-          </Link>
-          <span className="texto-perfil">Ir para o perfil</span>
-        </div>
-
-        <div className="carrinho-container">
-          <Link to="/carrinho">
-            <FiShoppingCart className='icon-carrinho' />
-          </Link>
-          {/* <Link to="/carrinho"> */}
-          {qtdItensCarrinho > 0 && (
-            <div className="container-badge-carrinho" title='Quantidade de itens no carrinho'>
-              <span className="badge-carrinho">{qtdItensCarrinho}</span>
-            </div>
+      <button className='botao-modal-navbar' onClick={() => setOpenCadModal(true)}>Anunciar Pet</button>
+      <p className="boas-vindas">
+        {userLogado && `Olá, ${userName}!`}
+      </p>
+      <div className="user-icon-container-nav">
+        <Link to="/perfil">
+          {userIcon ? (
+            <img src={userIcon} alt="User Icon" className="nav-profile" />
+          ) : (
+            <FaUserCircle className="profile" />
           )}
-          {/* </Link> */}
-        </div>
-        <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
+        </Link>
+        <span className="texto-perfil">Ir para o perfil</span>
+      </div>
+
+      <div className="carrinho-container">
+        <Link to="/carrinho">
+          <FiShoppingCart className='icon-carrinho' />
+        </Link>
+        {/* <Link to="/carrinho"> */}
+        {qtdItensCarrinho > 0 && (
+          <div className="container-badge-carrinho" title='Quantidade de itens no carrinho'>
+            <span className="badge-carrinho">{qtdItensCarrinho}</span>
+          </div>
+        )}
+        {/* </Link> */}
+      </div>
+
+      <div className="carrinho-container">
+        <Link to="/pedidos">
+          <MdBorderColor className='icon-carrinho' />
+        </Link>
+      </div>
+      <ModalAnunciarPet isOpen={openModal} setModalOpen={() => setOpenCadModal(!openModal)} />
     </div>
   );
 }

@@ -555,6 +555,7 @@ export const getPedidoItemById = async (id_item_pedido) => {
     }
 };
 
+// remover
 export const updateStatusItemPedido = async (id_item_pedido, status, observacoes = null) => {
     try {
         const dados = { status };
@@ -609,6 +610,63 @@ export const updateEspecificacoesPedidoItem = async (id_item_pedido, especificac
         return response.data;
     } catch (error) {
         console.error('Erro ao atualizar especificações:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+};
+
+export const getPedidosItensByID = async (id, status = null, limite = 100) => {
+    try {
+        console.log(`📦 Buscando itens de pedidos para ID ${id}`);
+        
+        let url = `/pedidos-itens/buscar/${id}?limite=${limite}`;
+        if (status) {
+            url += `&status=${status}`;
+        }
+        
+        const response = await api.get(url);
+        console.log(`✅ ${response.data.total_itens} itens encontrados para ${response.data.tipo_conta}: ${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('❌ Erro ao buscar itens de pedidos por ID:', error);
+        
+        if (error.response?.status === 404) {
+            console.log('📝 ID não encontrado em usuários nem ONGs');
+            return {
+                tipo_conta: null,
+                id: id,
+                total_itens: 0,
+                total_pedidos: 0,
+                itens_por_pedido: [],
+                itens: [],
+                estatisticas: {
+                    aguardando_producao: 0,
+                    em_producao: 0,
+                    finalizado: 0,
+                    cancelado: 0,
+                    total: 0
+                },
+                erro: 'ID não encontrado'
+            };
+        }
+        
+        throw error;
+    }
+};
+
+// Função auxiliar para usuário logado
+export const getPedidosItensUsuarioLogado = async (userLogado, status = null, limite = 100) => {
+    try {
+        const id = userLogado?.id_usuario || userLogado?.id_ong;
+        
+        if (!id) {
+            throw new Error('Usuário não possui ID válido');
+        }
+        
+        console.log(`👤 Buscando itens do usuário logado (ID: ${id})`);
+        return await getPedidosItensByID(id, status, limite);
+        
+    } catch (error) {
+        console.error('❌ Erro ao buscar itens do usuário logado:', error);
         throw error;
     }
 };
