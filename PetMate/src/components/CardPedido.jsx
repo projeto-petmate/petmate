@@ -15,7 +15,7 @@ function CardPedido() {
     const [statusMaquinas, setStatusMaquinas] = useState({});
     const [loadingMaquinas, setLoadingMaquinas] = useState(new Set());
 
-  const getStatusMaquina = async (id_maquina) => {
+    const getStatusMaquina = async (id_maquina) => {
         try {
             const response = await axios.get(
                 `http://52.1.197.112:3000/queue/items/${id_maquina}`,
@@ -77,14 +77,28 @@ function CardPedido() {
     const getStatusClass = (status) => {
         if (typeof status === 'object' && status.status) {
             switch (status.status.toLowerCase()) {
-                case 'idle': return 'idle';
-                case 'working': return 'working';
-                case 'error': return 'error';
-                case 'maintenance': return 'maintenance';
+                case 'pending': return 'pendente';
+                case 'processing': return 'producao';
+                case 'completed': return 'completo';
                 default: return 'unknown';
             }
         }
         return 'unknown';
+    };
+
+    const getStatusTexto = (status) => {
+        if (typeof status === 'object' && status.status) {
+            switch (status.status.toLowerCase()) {
+                case 'pending': return 'PENDENTE';
+                case 'processing': return 'EM PRODUÇÃO';
+                case 'completed': return 'COMPLETO';
+                default: return 'DESCONHECIDO';
+            }
+        }
+        if (typeof status === 'string') {
+            return status.toUpperCase();
+        }
+        return 'DESCONHECIDO';
     };
 
     useEffect(() => {
@@ -145,6 +159,9 @@ function CardPedido() {
 
     return (
         <div className="container-card-pedidos">
+            {pedidosItens.length === 0 && (
+                <p className='sem-pedidos'>Você ainda não fez nenhum pedido.</p>
+            )}
             {estatisticas && (
                 <div className="estatisticas-pedidos">
                     <h2>Seus Pedidos ({tipoConta === 'usuario' ? 'Usuário' : 'ONG'})</h2>
@@ -212,15 +229,15 @@ function CardPedido() {
                                                     <span>Presilha: {item.cor_presilha}</span>
                                                 </div>
                                                 <div className="item-status-valor">
-                                                    <span className={`status-producao ${item.status}`}>
+                                                    {/* <span className={`status-producao ${item.status}`}>
                                                         {item.status.replace('_', ' ')}
-                                                    </span>
+                                                    </span> */}
                                                     <span className="item-valor">
                                                         R$ {parseFloat(item.valor).toFixed(2)}
                                                     </span>
                                                 </div>
                                                 {item.id_maquina && (
-                                                    <div className="item-maquina">
+                                                    <div className={`item-maquina ${getStatusClass(statusMaquinas[item.id_maquina])}`}>
                                                         ID Máquina: {item.id_maquina}
                                                         <div className="maquina-status">
                                                             Status: {
@@ -228,7 +245,7 @@ function CardPedido() {
                                                                     <span className="loading-status">Carregando...</span>
                                                                 ) : statusMaquinas[item.id_maquina] ? (
                                                                     <span className={`status-maquina ${getStatusClass(statusMaquinas[item.id_maquina])}`}>
-                                                                        {formatarStatusMaquina(statusMaquinas[item.id_maquina])}
+                                                                        {getStatusTexto(statusMaquinas[item.id_maquina])}
                                                                     </span>
                                                                 ) : (
                                                                     <span className="status-desconhecido">Desconhecido</span>
@@ -242,7 +259,6 @@ function CardPedido() {
                                     ))}
                                 </div>
                             </div>
-
                             {pedido.endereco_entrega && (
                                 <div className="pedido-entrega">
                                     <h4>Entrega</h4>

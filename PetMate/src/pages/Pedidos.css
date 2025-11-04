@@ -1,6 +1,6 @@
 .container-pedidos {
     background-image: url(/images/fundo_patas.svg);
     font-family: 'Nunito';
-    height: 100%;
-    width: 100vw;
+    min-height: 100vh;
+    min-width: 100vw;
 }
