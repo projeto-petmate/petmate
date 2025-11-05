@@ -1,0 +1,88 @@
+/* Fundo escurecido atrás do modal */
+.overlay-entrega {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* Container principal do modal */
+.container-entrega {
+  background-color: #fffaf6;
+  border-radius: 12px;
+  padding: 30px 40px;
+  width: 60vw;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  color: #5c3b1e;
+}
+
+/* Cabeçalho */
+.header-entrega {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.icon-location {
+  color: #654833;
+  font-size: 3em;
+  margin-right: 5px;
+}
+
+.title-entrega {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.7em;
+  color: #654833;
+}
+
+/* Formulário */
+.form-entrega {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Colunas */
+.column-entrega,
+.form-entrega > div {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs */
+.input-entrega {
+  background-color: #f4ede7;
+  border: 1px solid #654833;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-entrega:focus {
+  color: #654833;
+}
+
+/* Labels */
+label {
+  font-size: 20px;
+  font-weight: 550;
+  margin-bottom: 3px;
+  color: #84644D;
+}
+
+/* Botões */
