@@ -15,13 +15,14 @@
 /* Container principal do modal */
 .container-entrega {
   background-color: #fffaf6;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 30px 40px;
   width: 60vw;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
   font-family: 'Poppins', sans-serif;
   color: #5c3b1e;
+  border-left: 14px solid #654833;
 }
 
 /* Cabeçalho */
@@ -46,6 +47,22 @@
   color: #654833;
 }
 
+/*Botão de fechar */
+.entrega-close {
+    color: #654833;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 3.6rem;
+}
+
+.entrega-close:hover {
+    color: #6b4f3a;
+    transform: scale(1.05);
+}
+
 /* Formulário */
 .form-entrega {
   display: flex;
@@ -65,7 +82,7 @@
 .input-entrega {
   background-color: #f4ede7;
   border: 1px solid #654833;
-  border-radius: 6px;
+  border-radius: 11px;
   padding: 6px 10px;
   margin-bottom: 20px;
   font-size: 24px;
@@ -86,3 +103,43 @@ label {
 }
 
 /* Botões */
+.botoes-entrega {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre os botões */
+  margin-top: 35px;
+  margin-bottom: 15px;
+}
+
+.button-confirm,
+.button-back {
+  font-size: 23px;
+  font-weight: bold;
+  border-radius: 9px;
+  padding: 13px 23px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Botão principal (marrom sólido) */
+.button-confirm {
+  background-color: #84644D;
+  color: #fff;
+  border: none;
+}
+
+.button-confirm:hover {
+  background-color: #6f523f;
+}
+
+/* Botão secundário (borda marrom) */
+.button-back {
+  background-color: transparent;
+  color: #84644D;
+  border: 2px solid #84644D;
+  padding: 13px 76px;
+}
+
+.button-back:hover {
+  background-color: #f5f1ee;
+}

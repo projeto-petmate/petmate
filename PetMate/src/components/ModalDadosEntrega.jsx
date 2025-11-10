@@ -1,5 +1,6 @@
 import './ModalDadosEntrega.css';
 import { IoLocationSharp } from "react-icons/io5";
+import { CgCloseO } from 'react-icons/cg';
 
 function ModalDadosEntrega() {
   return (
@@ -10,6 +11,7 @@ function ModalDadosEntrega() {
         <div className="header-entrega">
           <IoLocationSharp className='icon-location'/>
           <h2 className="title-entrega">Preencha os dados para entrega</h2>
+          <CgCloseO className="entrega-close" />
         </div>
 
         {/* Formulário de Entrega */}
@@ -51,7 +53,9 @@ function ModalDadosEntrega() {
             <input type="text" id="observacoes" name="observacoes" className="input-entrega" />
           </div>
           
-          {/* Botões */}
+        </form>
+
+        {/* Botões */}
           <div className="botoes-entrega">
             <button type="submit" className="button-confirm">
               Fechar carrinho
@@ -60,8 +64,8 @@ function ModalDadosEntrega() {
               voltar
             </button>
           </div>
-          
-        </form>
+
+
       </div>
     </div>
   )
