@@ -8,6 +8,7 @@ import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, add
 import Swal from 'sweetalert2';
 import { PiWarningCircle } from "react-icons/pi";
 import ColeiraPronta from '../components/CardColeiraPronta';
+import ModalDadosEntrega from '../components/ModalDadosEntrega';
 
 export default function Carrinho() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
@@ -15,6 +16,8 @@ export default function Carrinho() {
   const [subtotal, setSubtotal] = useState(0);
   const [carrinhoAtual, setCarrinhoAtual] = useState(null);
   const [finalizandoPedido, setFinalizandoPedido] = useState(false);
+  const [openModalFecharCarrinho, setOpenModalFecharCarrinho] = useState(false)
+
   let id_usuario = userLogado?.id_usuario || null;
   let id_ong = userLogado?.id_ong || null;
 
@@ -232,7 +235,7 @@ export default function Carrinho() {
       }
     }
   };
-  
+
   const itemTeste = async () => {
     let carrinhos = await getCarrinhos(id_usuario || id_ong);
     let carrinho = Array.isArray(carrinhos) ? carrinhos.find(c => c.status === 'ativo') : null;
@@ -406,7 +409,7 @@ export default function Carrinho() {
                 </p>
                 <button
                   className='btn-fechar-pedido'
-                  onClick={fecharPedido}
+                  onClick={() => { setOpenModalFecharCarrinho(true) }}
                   disabled={finalizandoPedido}
                 >
                   {finalizandoPedido ? 'Finalizando...' : 'Fechar pedido'}
@@ -427,6 +430,21 @@ export default function Carrinho() {
             <h2>Você pode gostar</h2>
           </div>
           <ColeiraPronta />
+          <ModalDadosEntrega
+            isOpen={openModalFecharCarrinho}
+            setIsOpen={setOpenModalFecharCarrinho}
+            carrinhoAtual={carrinhoAtual}
+            itens={itens}
+            subtotal={subtotal}
+            userLogado={userLogado}
+            onPedidoFinalizado={() => {
+              setItens([]);
+              setSubtotal(0);
+              setCarrinhoAtual(null);
+              setQtdItensCarrinho(0);
+              setOpenModalFecharCarrinho(false);
+            }}
+          />
         </div>
       </div>
       <Footer />
