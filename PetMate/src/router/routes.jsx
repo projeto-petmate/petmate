@@ -16,7 +16,6 @@ import Denuncias from "../pages/Denuncias";
 import Coleiras from "../pages/Coleiras";
 import Carrinho from "../pages/Carrinho";
 import Pedidos from "../pages/Pedidos";
-import TestDadosEntrega from "../pages/TestDadosEntrega";
 
 const router = createBrowserRouter([
     {path: "/", element: <Landing />},
@@ -37,7 +36,6 @@ const router = createBrowserRouter([
     {path: "/coleiras", element: <Coleiras />},
     {path: "/carrinho", element: <Carrinho />},
     {path: "/pedidos", element: <Pedidos />},
-    {path: "/testDadosEntrega", element: <TestDadosEntrega />},
 
 
 ])

@@ -4,6 +4,7 @@ import { getPedidosItensUsuarioLogado } from '../apiService';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import axios from 'axios'
+import ModalDadosEntrega from './ModalDadosEntrega';
 
 function CardPedido() {
     const { userLogado } = useContext(GlobalContext);
@@ -14,6 +15,8 @@ function CardPedido() {
     const [estatisticas, setEstatisticas] = useState(null);
     const [statusMaquinas, setStatusMaquinas] = useState({});
     const [loadingMaquinas, setLoadingMaquinas] = useState(new Set());
+    const [modalDadosOpen, setModalDadosOpen] = useState(false)
+    const [pedidoSelecionado, setPedidoSelecionado] = useState({})
 
     const getStatusMaquina = async (id_maquina) => {
         try {
@@ -65,13 +68,6 @@ function CardPedido() {
                 return newSet;
             });
         }
-    };
-
-    const formatarStatusMaquina = (status) => {
-        if (typeof status === 'object') {
-            return status.status || status.message || JSON.stringify(status);
-        }
-        return status.toString();
     };
 
     const getStatusClass = (status) => {
@@ -259,15 +255,20 @@ function CardPedido() {
                                     ))}
                                 </div>
                             </div>
-                            {pedido.endereco_entrega && (
+                            {pedido && (
                                 <div className="pedido-entrega">
-                                    <h4>Entrega</h4>
-                                    <p>UF: {pedido.endereco_entrega.uf}</p>
-                                    <p>Bairro: {pedido.endereco_entrega.bairro}</p>
+                                    <button onClick={() => { setModalDadosOpen(true); setPedidoSelecionado(pedido) }}>
+                                        Informações de Entrega
+                                    </button>
                                 </div>
                             )}
                         </div>
                     ))}
+                    <ModalDadosEntrega
+                        isOpen={modalDadosOpen}
+                        setIsOpen={setModalDadosOpen}
+                        pedido={pedidoSelecionado}
+                    />
             </div>
         </div>
     );

@@ -248,195 +248,265 @@ module.exports = (pool) => {
   });
 
   // POST - Finalizar carrinho criando pedido e enviar para a máquina
-  router.post("/finalizar-carrinho/:id_carrinho", async (req, res) => {
-    const { id_carrinho } = req.params;
-    const { endereco_entrega } = req.body;
+router.post("/finalizar-carrinho/:id_carrinho", async (req, res) => {
+  const { id_carrinho } = req.params;
+  const { endereco_entrega, observacoes } = req.body; // ✅ MANTER estrutura do frontend
 
-    try {
-      console.log(`🛒➡️📦 Finalizando carrinho ${id_carrinho} em pedido`);
+  try {
+    console.log(`🛒➡️📦 Finalizando carrinho ${id_carrinho} em pedido`);
+    console.log('📋 Dados de entrega recebidos:', endereco_entrega);
 
-      await pool.query("BEGIN");
+    await pool.query("BEGIN");
 
-      // 1. Verificar se carrinho existe e tem itens
-      const carrinhoResult = await pool.query(
-        `
-            SELECT 
-                c.id_carrinho, c.id_usuario, c.id_ong, c.valor_total,
-                COUNT(ci.id_item) as total_itens
-            FROM carrinhos c
-            LEFT JOIN carrinho_itens ci ON c.id_carrinho = ci.id_carrinho
-            WHERE c.id_carrinho = $1 AND c.status = 'ativo'
-            GROUP BY c.id_carrinho, c.id_usuario, c.id_ong, c.valor_total
-        `,
-        [id_carrinho]
+    // 1. Verificar se carrinho existe e tem itens
+    const carrinhoResult = await pool.query(
+      `
+          SELECT 
+              c.id_carrinho, c.id_usuario, c.id_ong, c.valor_total,
+              COUNT(ci.id_item) as total_itens
+          FROM carrinhos c
+          LEFT JOIN carrinho_itens ci ON c.id_carrinho = ci.id_carrinho
+          WHERE c.id_carrinho = $1 AND c.status = 'ativo'
+          GROUP BY c.id_carrinho, c.id_usuario, c.id_ong, c.valor_total
+      `,
+      [id_carrinho]
+    );
+
+    if (carrinhoResult.rows.length === 0) {
+      await pool.query("ROLLBACK");
+      return res
+        .status(404)
+        .json({ error: "Carrinho não encontrado ou já finalizado" });
+    }
+
+    const carrinho = carrinhoResult.rows[0];
+
+    if (carrinho.total_itens === 0) {
+      await pool.query("ROLLBACK");
+      return res.status(400).json({ error: "Carrinho está vazio" });
+    }
+
+    // ✅ VALIDAR DADOS DE ENTREGA
+    if (!endereco_entrega) {
+      await pool.query("ROLLBACK");
+      return res.status(400).json({ error: "Dados de entrega são obrigatórios" });
+    }
+
+    const {
+      cep,
+      uf,
+      cidade,
+      bairro,
+      logradouro,
+      numero_residencia,
+      complemento,
+      nome_destinatario,
+      telefone_contato
+    } = endereco_entrega;
+
+    // Validar campos obrigatórios
+    if (!cep || !uf || !cidade || !bairro || !logradouro || !numero_residencia || !nome_destinatario || !telefone_contato) {
+      await pool.query("ROLLBACK");
+      return res.status(400).json({ 
+        error: "Todos os campos obrigatórios de entrega devem ser preenchidos",
+        campos_obrigatorios: ["cep", "uf", "cidade", "bairro", "logradouro", "numero_residencia", "nome_destinatario", "telefone_contato"]
+      });
+    }
+
+    // 2. ✅ CRIAR PEDIDO COM CAMPOS INDIVIDUAIS
+    const pedidoResult = await pool.query(
+      `
+          INSERT INTO pedidos (
+            id_usuario, 
+            id_ong, 
+            status, 
+            valor_total, 
+            cep,
+            uf,
+            cidade,
+            bairro,
+            logradouro,
+            numero_residencia,
+            complemento,
+            nome_destinatario,
+            telefone_contato,
+            observacoes
+          )
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+          RETURNING *
+      `,
+      [
+        carrinho.id_usuario,
+        carrinho.id_ong,
+        'pendente',
+        carrinho.valor_total,
+        cep.replace(/\D/g, ''),
+        uf.toUpperCase(),
+        cidade,
+        bairro,
+        logradouro,
+        numero_residencia,
+        complemento || null, 
+        nome_destinatario,
+        telefone_contato.replace(/\D/g, ''),
+        observacoes || null 
+      ]
+    );
+
+    const pedido = pedidoResult.rows[0];
+
+    console.log(`✅ Pedido ${pedido.id_pedido} criado com sucesso`);
+    console.log(`📍 Endereço: ${logradouro}, ${numero_residencia} - ${bairro}, ${cidade}/${uf} - CEP: ${cep}`);
+    console.log(`👤 Destinatário: ${nome_destinatario} - Tel: ${telefone_contato}`);
+
+    // 3. Buscar os itens do carrinho para processar individualmente
+    const itensCarrinho = await pool.query(
+      `
+          SELECT *
+          FROM carrinho_itens
+          WHERE id_carrinho = $1
+          ORDER BY id_item ASC
+      `,
+      [id_carrinho]
+    );
+
+    let itensEnviadosIoT = 0;
+    let errosIoT = [];
+    let itensPedidoCriados = [];
+
+    // 4. Para cada item do carrinho, enviar para a máquina e criar registro em pedidos_itens
+    for (let i = 0; i < itensCarrinho.rows.length; i++) {
+      const item = itensCarrinho.rows[i];
+      console.log(
+        `📋 Processando item ${i + 1}/${itensCarrinho.rows.length}: ${
+          item.modelo
+        } ${item.tamanho}`
       );
 
-      if (carrinhoResult.rows.length === 0) {
-        await pool.query("ROLLBACK");
-        return res
-          .status(404)
-          .json({ error: "Carrinho não encontrado ou já finalizado" });
-      }
-
-      const carrinho = carrinhoResult.rows[0];
-
-      if (carrinho.total_itens === 0) {
-        await pool.query("ROLLBACK");
-        return res.status(400).json({ error: "Carrinho está vazio" });
-      }
-
-      // 2. Criar pedido
-      const pedidoResult = await pool.query(
-        `
-            INSERT INTO pedidos (id_usuario, id_ong, status, valor_total, endereco_entrega)
-            VALUES ($1, $2, 'pendente', $3, $4)
-            RETURNING *
-        `,
-        [
-          carrinho.id_usuario,
-          carrinho.id_ong,
-          carrinho.valor_total,
-          JSON.stringify(endereco_entrega),
-        ]
-      );
-
-      const pedido = pedidoResult.rows[0];
-
-      // 3. Buscar os itens do carrinho para processar individualmente
-      const itensCarrinho = await pool.query(
-        `
-            SELECT *
-            FROM carrinho_itens
-            WHERE id_carrinho = $1
-            ORDER BY id_item ASC
-        `,
-        [id_carrinho]
-      );
-
-      let itensEnviadosIoT = 0;
-      let errosIoT = [];
-      let itensPedidoCriados = [];
-
-      // 4. Para cada item do carrinho, enviar para a máquina e criar registro em pedidos_itens
-      for (let i = 0; i < itensCarrinho.rows.length; i++) {
-        const item = itensCarrinho.rows[i];
+      // Processar cada quantidade do item (criar um registro por unidade)
+      for (let q = 0; q < item.quantidade; q++) {
+        const dadosMaquina = traduzirColeiraParaMaquina(item);
+        
+        // ATUALIZAR orderId COM ID DO PEDIDO REAL
+        dadosMaquina.payload.orderId = `PetMate-${pedido.id_pedido}`;
+        
         console.log(
-          `📋 Processando item ${i + 1}/${itensCarrinho.rows.length}: ${
-            item.modelo
-          } ${item.tamanho}`
+          `🤖 Enviando item ${i + 1} (${q + 1}/${
+            item.quantidade
+          }) para máquina IoT... OrderID: ${dadosMaquina.payload.orderId}`
         );
 
-        // Processar cada quantidade do item (criar um registro por unidade)
-        for (let q = 0; q < item.quantidade; q++) {
-          const dadosMaquina = traduzirColeiraParaMaquina(item);
+        const resultadoIoT = await enviarParaMaquinaIoT(dadosMaquina);
+        console.log("Resultado IoT:", JSON.stringify(resultadoIoT, null, 2));
+
+        let id_maquina = null;
+        
+        if (resultadoIoT.sucesso) {
+          itensEnviadosIoT++;
+          // Extrair id_maquina da resposta da máquina IoT
+          id_maquina = resultadoIoT.resposta?.id || resultadoIoT.resposta?.machineId || null;
           console.log(
-            `🤖 Enviando item ${i + 1} (${q + 1}/${
+            `✅ Item ${i + 1} (${q + 1}/${
               item.quantidade
-            }) para máquina IoT...`
+            }) enviado com sucesso para IoT. ID Máquina: ${id_maquina}`
           );
-
-          console.log(dadosMaquina.order);
-          const resultadoIoT = await enviarParaMaquinaIoT(dadosMaquina);
-          console.log("Resultado IoT:" + JSON.stringify(resultadoIoT));
-
-          let id_maquina = null;
-          
-          if (resultadoIoT.sucesso) {
-            itensEnviadosIoT++;
-            // Extrair id_maquina da resposta da máquina IoT
-            id_maquina = resultadoIoT.resposta?.id || resultadoIoT.resposta?.machineId || null;
-            console.log(
-              `✅ Item ${i + 1} (${q + 1}/${
-                item.quantidade
-              }) enviado com sucesso para IoT. ID Máquina: ${id_maquina}`
-            );
-          } else {
-            errosIoT.push(
-              `Item ${i + 1} (${q + 1}/${item.quantidade}): ${
-                resultadoIoT.erro
-              }`
-            );
-            console.warn(
-              `⚠️ Falha ao enviar item ${i + 1} (${q + 1}/${
-                item.quantidade
-              }) para IoT: ${resultadoIoT.erro}`
-            );
-          }
-
-          // 5. Criar registro em pedidos_itens COM id_maquina
-          const itemPedidoResult = await pool.query(
-            `
-              INSERT INTO pedidos_itens (
-                id_pedido, valor, modelo, tamanho, 
-                cor_tecido, cor_logo, cor_argola, cor_presilha, 
-                imagem, id_maquina, status
-              )
-              VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-              RETURNING *
-            `,
-            [
-              pedido.id_pedido,
-              item.valor,
-              item.modelo,
-              item.tamanho,
-              item.cor_tecido,
-              item.cor_logo,
-              item.cor_argola,
-              item.cor_presilha,
-              item.imagem,
-              id_maquina,
-              id_maquina ? 'em_producao' : 'aguardando_producao'
-            ]
+        } else {
+          errosIoT.push(
+            `Item ${i + 1} (${q + 1}/${item.quantidade}): ${
+              resultadoIoT.erro
+            }`
           );
-
-          itensPedidoCriados.push(itemPedidoResult.rows[0]);
-
-          // Pausa entre envios para evitar sobrecarga da máquina
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          console.warn(
+            `⚠️ Falha ao enviar item ${i + 1} (${q + 1}/${
+              item.quantidade
+            }) para IoT: ${resultadoIoT.erro}`
+          );
         }
+
+        // 5. Criar registro em pedidos_itens COM id_maquina
+        const itemPedidoResult = await pool.query(
+          `
+            INSERT INTO pedidos_itens (
+              id_pedido, valor, modelo, tamanho, 
+              cor_tecido, cor_logo, cor_argola, cor_presilha, 
+              imagem, id_maquina, status
+            )
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            RETURNING *
+          `,
+          [
+            pedido.id_pedido,
+            item.valor,
+            item.modelo,
+            item.tamanho,
+            item.cor_tecido,
+            item.cor_logo,
+            item.cor_argola,
+            item.cor_presilha,
+            item.imagem,
+            id_maquina,
+            id_maquina ? 'em_producao' : 'aguardando_producao'
+          ]
+        );
+
+        itensPedidoCriados.push(itemPedidoResult.rows[0]);
+
+        // Pausa entre envios para evitar sobrecarga da máquina
+        await new Promise((resolve) => setTimeout(resolve, 1000));
       }
-
-      // 6. Limpar carrinho completamente
-      await pool.query("DELETE FROM carrinho_itens WHERE id_carrinho = $1", [
-        id_carrinho,
-      ]);
-      await pool.query("DELETE FROM carrinhos WHERE id_carrinho = $1", [
-        id_carrinho,
-      ]);
-
-      await pool.query("COMMIT");
-
-      console.log(
-        `✅ Carrinho ${id_carrinho} finalizado como pedido ${pedido.id_pedido}`
-      );
-      console.log(
-        `📊 IoT Status: ${itensEnviadosIoT} itens enviados com sucesso de ${itensPedidoCriados.length} itens criados`
-      );
-
-      let message = "Pedido criado com sucesso";
-      if (itensEnviadosIoT > 0) {
-        message += ` e ${itensEnviadosIoT} itens enviados para produção`;
-      }
-      if (errosIoT.length > 0) {
-        message += `, mas ${errosIoT.length} itens falharam no envio para IoT`;
-      }
-
-      res.status(201).json({
-        message: message,
-        pedido: pedido,
-        total_itens_criados: itensPedidoCriados.length,
-        itens_enviados_iot: itensEnviadosIoT,
-        itens_com_id_maquina: itensPedidoCriados.filter(i => i.id_maquina).length,
-        erros_iot: errosIoT.length > 0 ? errosIoT : undefined,
-      });
-    } catch (err) {
-      await pool.query("ROLLBACK");
-      console.error("❌ Erro ao finalizar carrinho:", err.message);
-      res.status(500).json({ error: "Erro ao finalizar carrinho" });
     }
-  });
 
-  // POST - Criar pedido diretamente (sem carrinho)
+    // 6. Limpar carrinho completamente
+    await pool.query("DELETE FROM carrinho_itens WHERE id_carrinho = $1", [
+      id_carrinho,
+    ]);
+    await pool.query("DELETE FROM carrinhos WHERE id_carrinho = $1", [
+      id_carrinho,
+    ]);
+
+    await pool.query("COMMIT");
+
+    console.log(
+      `✅ Carrinho ${id_carrinho} finalizado como pedido ${pedido.id_pedido}`
+    );
+    console.log(
+      `📊 IoT Status: ${itensEnviadosIoT} itens enviados com sucesso de ${itensPedidoCriados.length} itens criados`
+    );
+
+    let message = "Pedido criado com sucesso";
+    if (itensEnviadosIoT > 0) {
+      message += ` e ${itensEnviadosIoT} itens enviados para produção`;
+    }
+    if (errosIoT.length > 0) {
+      message += `, mas ${errosIoT.length} itens falharam no envio para IoT`;
+    }
+
+    // ✅ RESPOSTA COM DADOS COMPLETOS DOS NOVOS CAMPOS
+    res.status(201).json({
+      message: message,
+      pedido: {
+        ...pedido,
+        endereco_completo: `${logradouro}, ${numero_residencia}${complemento ? ` - ${complemento}` : ''} - ${bairro}, ${cidade}/${uf} - CEP: ${cep}`,
+        destinatario: nome_destinatario,
+        telefone: telefone_contato
+      },
+      total_itens_criados: itensPedidoCriados.length,
+      itens_enviados_iot: itensEnviadosIoT,
+      itens_com_id_maquina: itensPedidoCriados.filter(i => i.id_maquina).length,
+      erros_iot: errosIoT.length > 0 ? errosIoT : undefined,
+    });
+
+  } catch (err) {
+    await pool.query("ROLLBACK");
+    console.error("❌ Erro ao finalizar carrinho:", err.message);
+    console.error("Stack:", err.stack);
+    res.status(500).json({ 
+      error: "Erro ao finalizar carrinho",
+      details: err.message
+    });
+  }
+});
+
 
   // PUT - Atualizar status do pedido
   router.put("/:id_pedido/status", async (req, res) => {

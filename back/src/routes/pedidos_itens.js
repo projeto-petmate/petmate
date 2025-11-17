@@ -380,20 +380,30 @@ module.exports = (pool) => {
         console.log(`✅ ID ${id} encontrado como usuário`);
       }
 
-      // Construir query baseada no tipo identificado
+      // ✅ QUERY ATUALIZADA SEM endereco_entrega
       let query = `
-            SELECT 
-                pi.*,
-                p.status as status_pedido,
-                p.data_pedido,
-                p.endereco_entrega,
-                p.valor_total as valor_total_pedido,
-                p.id_usuario,
-                p.id_ong
-            FROM pedidos_itens pi
-            JOIN pedidos p ON pi.id_pedido = p.id_pedido
-            WHERE p.${campoId} = $1
-        `;
+          SELECT 
+              pi.*,
+              p.status as status_pedido,
+              p.data_pedido,
+              p.valor_total as valor_total_pedido,
+              p.id_usuario,
+              p.id_ong,
+              -- ✅ CAMPOS INDIVIDUAIS DE ENDEREÇO
+              p.cep,
+              p.uf,
+              p.cidade,
+              p.bairro,
+              p.logradouro,
+              p.numero_residencia,
+              p.complemento,
+              p.nome_destinatario,
+              p.telefone_contato,
+              p.observacoes
+          FROM pedidos_itens pi
+          JOIN pedidos p ON pi.id_pedido = p.id_pedido
+          WHERE p.${campoId} = $1
+      `;
       const params = [id];
       let paramCount = 1;
 
@@ -405,9 +415,9 @@ module.exports = (pool) => {
       }
 
       query += `
-            ORDER BY p.data_pedido DESC, pi.id_item_pedido ASC
-            LIMIT $${paramCount + 1}
-        `;
+          ORDER BY p.data_pedido DESC, pi.id_item_pedido ASC
+          LIMIT $${paramCount + 1}
+      `;
       params.push(limite);
 
       console.log(`📦 Executando busca para ${tabela} com ID ${id}`);
@@ -417,12 +427,26 @@ module.exports = (pool) => {
       const itensPorPedido = {};
       result.rows.forEach((item) => {
         if (!itensPorPedido[item.id_pedido]) {
+          // ✅ CRIAR OBJETO endereco_entrega A PARTIR DOS CAMPOS INDIVIDUAIS
+          const endereco_entrega = {
+            cep: item.cep,
+            uf: item.uf,
+            cidade: item.cidade,
+            bairro: item.bairro,
+            logradouro: item.logradouro,
+            numero_residencia: item.numero_residencia,
+            complemento: item.complemento,
+            nome_destinatario: item.nome_destinatario,
+            telefone_contato: item.telefone_contato,
+          };
+
           itensPorPedido[item.id_pedido] = {
             id_pedido: item.id_pedido,
             data_pedido: item.data_pedido,
             status_pedido: item.status_pedido,
             valor_total_pedido: item.valor_total_pedido,
-            endereco_entrega: item.endereco_entrega,
+            endereco_entrega: endereco_entrega, // ✅ MANTER COMPATIBILIDADE
+            observacoes: item.observacoes,
             id_usuario: item.id_usuario,
             id_ong: item.id_ong,
             itens: [],
@@ -433,10 +457,20 @@ module.exports = (pool) => {
         const {
           status_pedido,
           data_pedido,
-          endereco_entrega,
           valor_total_pedido,
           id_usuario: itemUserId,
           id_ong: itemOngId,
+          // ✅ REMOVER CAMPOS DE ENDEREÇO DO ITEM
+          cep,
+          uf,
+          cidade,
+          bairro,
+          logradouro,
+          numero_residencia,
+          complemento,
+          nome_destinatario,
+          telefone_contato,
+          observacoes,
           ...itemLimpo
         } = item;
 

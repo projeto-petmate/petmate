@@ -8,7 +8,7 @@ import { getCarrinhos, getCarrinhoItens, finalizarCarrinho, addItemCarrinho, add
 import Swal from 'sweetalert2';
 import { PiWarningCircle } from "react-icons/pi";
 import ColeiraPronta from '../components/CardColeiraPronta';
-import ModalDadosEntrega from '../components/ModalDadosEntrega';
+import ModalFecharCarrinho from '../components/ModalFecharCarrinho';
 
 export default function Carrinho() {
   const { userLogado, qtdItensCarrinho, setQtdItensCarrinho, debug } = useContext(GlobalContext);
@@ -430,7 +430,7 @@ export default function Carrinho() {
             <h2>Você pode gostar</h2>
           </div>
           <ColeiraPronta />
-          <ModalDadosEntrega
+          <ModalFecharCarrinho
             isOpen={openModalFecharCarrinho}
             setIsOpen={setOpenModalFecharCarrinho}
             carrinhoAtual={carrinhoAtual}
