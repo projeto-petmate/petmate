@@ -1,3 +1,4 @@
+/* FUNDO E CONTAINER PRINCIPAL */
 .fundo-modal-dados-entrega {
   position: fixed;
   top: 0;
@@ -12,13 +13,136 @@
 }
 
 .container-modal-dados-entrega {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #fffaf6;
   border-radius: 14px;
   padding: 30px 40px;
-  width: 60vw;
+  width: 40vw;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
-  font-family: 'Poppins', sans-serif;
-  color: #5c3b1e;
+  /* font-family: 'Poppins', sans-serif; */
+  color: #84644D;
   border-left: 14px solid #654833;
+ animation: fadeIn 0.15s ease-out;
+    
 }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 0.1;
+        transform: scale(0.82);
+    }
+
+    20% {
+        opacity: 0.2;
+        transform: scale(0.84);
+    }
+
+    30% {
+        opacity: 0.3;
+        transform: scale(0.86);
+    }
+
+    40% {
+        opacity: 0.4;
+        transform: scale(0.88);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+
+    60% {
+        opacity: 0.6;
+        transform: scale(0.92);
+    }
+
+    70% {
+        opacity: 0.7;
+        transform: scale(0.94);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale(0.96);
+    }
+
+    90% {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* TÍTULO DO MODAL */
+.container-titulo-modal-dados-entrega {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
+  /* border: solid; */
+}
+
+.titulo-modal-dados-entrega {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 96%;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.icon-fechar-modal-dados-entrega {
+  font-size: 2rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+
+/* CONTAINER DAS INFORMAÇÕES */
+.container-dados-entrega {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  width: fit-content;
+  gap: 5rem;
+  /* border: solid; */
+}
+
+.container-info-entrega {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: baseline;
+  /* gap: 5px; */
+  text-align: left;
+  font-size: 1.5rem;
+  color: #484848;
+}
+
+.container-info-entrega p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #84644D;
+}
+
+.coluna-info-entrega-1
+.coluna-info-entrega-2 {
+  display: flex;
+  flex-direction: column;
+} 

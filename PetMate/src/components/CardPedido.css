@@ -311,6 +311,16 @@
     gap: 20px;
 }
 
+.itens-grid.single {
+    display: flex;
+    justify-content: center;
+}
+
+.itens-grid.single .item-card {
+    max-width: 360px;
+    width: 100%;
+}
+
 .item-card {
     background: #f8f9fa;
     border-radius: 12px;
@@ -509,6 +519,23 @@
     color: #9e9e9e;
     font-style: italic;
 }
+
+.botao-info-entrega {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 10px 30px;
+    gap: 10px;
+    background-color: #84644D;
+    color: whitesmoke;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin: auto;
+}
+
 
 @media (max-width: 768px) {
     .container-pedidos {

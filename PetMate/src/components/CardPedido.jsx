@@ -1,10 +1,10 @@
 import './CardPedido.css'
-
 import { getPedidosItensUsuarioLogado } from '../apiService';
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../contexts/GlobalContext';
 import axios from 'axios'
 import ModalDadosEntrega from './ModalDadosEntrega';
+import { FaTruck } from 'react-icons/fa'
 
 function CardPedido() {
     const { userLogado } = useContext(GlobalContext);
@@ -160,7 +160,7 @@ function CardPedido() {
             )}
             {estatisticas && (
                 <div className="estatisticas-pedidos">
-                    <h2>Seus Pedidos ({tipoConta === 'usuario' ? 'Usuário' : 'ONG'})</h2>
+                    <h2>Seus Pedidos</h2>
                     <div className="stats-grid">
                         <div className="stat-card aguardando">
                             <span className="numero">{estatisticas.aguardando_producao}</span>
@@ -204,7 +204,7 @@ function CardPedido() {
 
                             <div className="pedido-itens">
                                 <h4>Itens ({pedido.itens.length})</h4>
-                                <div className="itens-grid">
+                                <div className={`itens-grid ${pedido.itens.length === 1 ? 'single' : ''}`}>
                                     {pedido.itens.map((item) => (
                                         <div key={item.id_item_pedido} className="item-card">
                                             <div className="item-imagem">
@@ -257,8 +257,12 @@ function CardPedido() {
                             </div>
                             {pedido && (
                                 <div className="pedido-entrega">
-                                    <button onClick={() => { setModalDadosOpen(true); setPedidoSelecionado(pedido) }}>
+                                    <button
+                                        className='botao-info-entrega'
+                                        onClick={() => { setModalDadosOpen(true); setPedidoSelecionado(pedido) }}
+                                     >
                                         Informações de Entrega
+                                        <FaTruck />
                                     </button>
                                 </div>
                             )}

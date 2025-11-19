@@ -175,8 +175,8 @@
     padding: 0 3rem;
     border-radius: 12px;
     gap: 0px;
-    animation: fadeIn 0.15s ease-out;
     border-left: solid 14px #84644D;
+    animation: fadeIn 0.15s ease-out;
     
 }
 
